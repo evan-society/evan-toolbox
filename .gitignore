@@ -29,5 +29,6 @@ VPN/Evan/Evan.layout
 
 VPN/Evan/debug/
 VPN/Evan/release/
-VPN/Evan/Evan.exe
+VPN/Evan/*Evan*.exe
+VPN/Evan/license.dat
 
