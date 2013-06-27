@@ -17,6 +17,9 @@ Qt*.dll
 # Windows-specific files
 Thumbs.db
 
+# CodeBlocks files
+VPN/Evan.layout
+
 # Editors temporary files 
 *~
 
