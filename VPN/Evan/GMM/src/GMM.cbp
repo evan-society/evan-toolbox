@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GMM" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="..\bin\GMM" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\bin" />
+				<Option object_output="obj\Debug\" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="..\depends\lapack_win32.dll" />
+					<Add library="..\depends\libew.a" />
+					<Add library="..\depends\libgsl.a" />
+					<Add library="..\depends\libxml2.dll" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="..\bin\libGMM" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj\Release\" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="..\inc" />
+			<Add directory="..\..\EW" />
+			<Add directory="C:\Program Files\GnuWin32\include" />
+			<Add directory="..\..\EW\ew" />
+		</Compiler>
+		<Linker>
+			<Add library="..\depends\lapack_win32.dll" />
+			<Add library="..\depends\libew.a" />
+			<Add library="..\depends\libgsl.a" />
+		</Linker>
+		<Unit filename="..\inc\Matrix.h" />
+		<Unit filename="..\inc\eig.h" />
+		<Unit filename="..\inc\gmm.h" />
+		<Unit filename="..\inc\gpa.h" />
+		<Unit filename="..\inc\import.h" />
+		<Unit filename="..\inc\mmr.h" />
+		<Unit filename="..\inc\pca.h" />
+		<Unit filename="..\inc\pco.h" />
+		<Unit filename="..\inc\pls.h" />
+		<Unit filename="..\inc\svd.h" />
+		<Unit filename="..\inc\tpp.h" />
+		<Unit filename="..\inc\tps.h" />
+		<Unit filename="..\inc\version.h" />
+		<Unit filename="gpa.cpp" />
+		<Unit filename="import.cpp" />
+		<Unit filename="mmr.cpp" />
+		<Unit filename="pca.cpp" />
+		<Unit filename="pco.cpp" />
+		<Unit filename="pls.cpp" />
+		<Unit filename="svd.cpp" />
+		<Unit filename="tpp.cpp" />
+		<Unit filename="tps.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

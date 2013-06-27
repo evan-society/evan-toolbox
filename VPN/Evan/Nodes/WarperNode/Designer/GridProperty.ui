@@ -1,0 +1,176 @@
+<ui version="4.0" >
+ <class>GridProperty</class>
+ <widget class="QDialog" name="GridProperty" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>588</width>
+    <height>233</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" >
+   <item row="3" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Number of rows:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" >
+    <widget class="QLineEdit" name="line1" >
+     <property name="text" >
+      <string>15</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="QLineEdit" name="lineEdit" >
+     <property name="text" >
+      <string>Grid</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QLabel" name="label_15" >
+     <property name="text" >
+      <string>Name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="3" >
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="4" >
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Transformation Matrix</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2" >
+      <item row="0" column="0" >
+       <widget class="QLineEdit" name="mat00" />
+      </item>
+      <item row="0" column="1" >
+       <widget class="QLineEdit" name="mat01" />
+      </item>
+      <item row="0" column="2" >
+       <widget class="QLineEdit" name="mat02" />
+      </item>
+      <item row="0" column="3" >
+       <widget class="QLineEdit" name="mat03" />
+      </item>
+      <item row="3" column="3" >
+       <widget class="QLineEdit" name="mat33" />
+      </item>
+      <item row="3" column="2" >
+       <widget class="QLineEdit" name="mat32" />
+      </item>
+      <item row="3" column="1" >
+       <widget class="QLineEdit" name="mat31" />
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLineEdit" name="mat30" />
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLineEdit" name="mat10" />
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="mat11" />
+      </item>
+      <item row="1" column="2" >
+       <widget class="QLineEdit" name="mat12" />
+      </item>
+      <item row="1" column="3" >
+       <widget class="QLineEdit" name="mat13" />
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLineEdit" name="mat20" />
+      </item>
+      <item row="2" column="1" >
+       <widget class="QLineEdit" name="mat21" />
+      </item>
+      <item row="2" column="2" >
+       <widget class="QLineEdit" name="mat22" />
+      </item>
+      <item row="2" column="3" >
+       <widget class="QLineEdit" name="mat23" />
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="2" >
+    <widget class="QLabel" name="label_13" >
+     <property name="text" >
+      <string>Size in GPA unit:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3" >
+    <widget class="QLineEdit" name="lineEdit_2" >
+     <property name="text" >
+      <string>1.0</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2" >
+    <widget class="QLabel" name="label_3" >
+     <property name="text" >
+      <string>Number of columns:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3" >
+    <widget class="QLineEdit" name="line2" >
+     <property name="text" >
+      <string>15</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>GridProperty</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>GridProperty</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

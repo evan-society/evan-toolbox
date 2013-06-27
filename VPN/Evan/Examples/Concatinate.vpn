@@ -1,0 +1,9 @@
+<VPN>
+ <Node x="-856" y="-180" params="Examples/exampledata.raw.txt$$$$$$$$txt$$15$$31$$3dim$$$$$$$$checked$$1$$$$unchecked" type="ImportNode" annotation="" />
+ <Node x="-857" y="-52" params="Examples/macac.fascicularis.txt$$$$$$$$txt$$1$$31$$3dim$$$$$$$$checked$$1$$$$unchecked" type="ImportNode" annotation="" />
+ <Node x="-683" y="-89" params="" type="ConcatNode" annotation="" />
+ <Node x="-482" y="-37" params="0.2|0.2|0.4|175.978|0.1|10000|0.877233|0.136349|0.0708133|0.454816|101.16|-107.697|-71.8989|0$" type="ViewerNode" annotation="" />
+ <Link ports="0:0:0:0|0:0|0," sNode="0" eNode="2" />
+ <Link ports="0:1:0:0|0:0|0," sNode="1" eNode="2" />
+ <Link ports="0:0:0:0|0:0|0," sNode="2" eNode="3" />
+</VPN>

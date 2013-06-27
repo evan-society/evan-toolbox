@@ -1,0 +1,107 @@
+Modification to Toolbox software by Roger Phillips
+==================================================
+
+Known bugs
+----------
+1) gpa::getsymmetrymatrix - bugs in rotation, translation, see Helgi, POH, FB to find precise
+   meaning oi symmetry matrix.
+2) gpa::gpacalculate overwrites input specimens object - this is wrong
+
+To do
+-----
+1) Need to add dialogue for PCA node (centre, scale).
+2) Need to add dialogue box for choosing PC warp variable and Specimen for warping.
+
+------------------------------------------------------------------------
+
+18/1/9 Commited cpp and h file changes below for 7) to subversion server.
+
+6/1/2009 Athens Demo status
+   View of selected specimen and surface - OK
+   View of selected GPA specimen and surface - OK
+   View of of morph of 2 selected GPA specimen and surface - OK
+
+8) Used node wizard to create a new PC Warper node. Code up and tested PC warper node.
+   Need to add dialogue box for choosing PC warp variable and Specimen for warping.
+
+7) Finished coding PCA node. Need to add dialogue for node (centre, scale).
+
+------------------------------------------------------------------------
+
+6/1/9 Commited cpp and h file changes below for 6) to subversion server.
+
+6/1/2009 Athens Demo status
+   View of selected specimen and surface - OK
+   View of selected GPA specimen and surface - OK
+   View of of morph of 2 selected GPA specimen and surface - OK
+
+
+
+6) 5/1/2009
+
+a) Modified WarpSurface class so that it includes optionally the reference landmarks for the
+reference shape and the target landmarks for the target shape. Normally if warping between
+two known shapes both will be used. If warping from a base shape using a vector then normally
+the target shape will not be used.
+
+b) Modified the WarperNode so that it stores the landmarks in the WarpSurface for the reference
+   and target shape.
+
+c) Modified the WarperViewerNode so that it displays the landmarks of the WarpSurface for
+   the reference and target shape if provided.
+
+d) Modified the WarperViewerNode to provide a menu bar option to enable / disable the display
+   of the reference and target shape. Introduce a View menu bar option for this and moved
+  "Set Stereo" menu item from File to View.
+
+Files modified: WarpSurface.h; WarperNode.cpp; WarperViewerNode.h&cpp;
+ 
+------------------------------------------------------------------------
+
+1/1/9 Commited cpp and h file changes below for 4) & 5) to subversion server.
+
+1/1/2009 Athens Demo status
+   View of selected specimen and surface - OK
+   View of selected GPA specimen and surface - OK
+   View of of morph of 2 selected GPA specimen and surface - nothing appears in view window.
+
+5) 1/1/2009
+Added debugging code. Defined a global debug file dbgfile.txt (evan.cpp). Added debug code to
+NodeSelect.cpp and gpa.cpp. Debug code is controlled by flags local to each compiled file.
+
+4) 1/1/2009
+GetTransformationMatrix - fixed numerous problems
+a) Transformation is required between input specimen coordinates and its GPA coordinates.
+   Code was producing transformation between GPA coordinates and procrustes mean.
+   Needed to take a copy of specimen input coordinates.
+b) Code was creating a transformation matrix for vector coordinates but matrix for column
+   coordinates was required.
+c) Transformation was not scaled or translated correctly,
+Above required fixes to gpa.cpp & h, NodeSelect.cpp and surface.h  
+ 
+------------------------------------------------------------------------
+
+Commited pp and h file changes below for 1) to 3) to subversion server.
+
+28/12/2008 Athens Demo status
+   View of selected specimen and surface - OK
+   View of selected GPA specimen and surface - scaling seems about right; landmark scale and surface scale
+   seem about right. However, they do not coincide. Rotation seems wrong. Need to investigate.
+
+
+3) 28/12/2008
+Landmarks drawn by viewer always had a radius of 1.0. 
+WarperViewerNode.cpp: Changed code so that radius of landmarks is set to 1/200 * max (x_range, y_range, z_range)
+of landmark coordinates. Worked OK.
+
+2) 28/12/2008
+gpa.cpp: getTransformationMatrix returned incorrect matrix. It did not include scaling and the translation coefficients
+were unscaled and unrotated. Changed code to do this. Seems OK but not tested thoroughly.
+
+
+1) 28/12/2008
+PCA and GPA would not compile together. dgesvd.h contained protocols of functions as well as code. Created dgesvd.cpp
+and moved code from header file to it.
+Also moved internal function protocols from header file to cpp file.
+Uncommented code in pca.cpp that would not compile because of problem with dgesvd files.
+Changed all makefiles to include dgesvd.cpp. Not sure if I needed to do this, but everything seems to work.   

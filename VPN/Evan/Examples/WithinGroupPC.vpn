@@ -1,0 +1,30 @@
+<VPN>
+ <Node x="-1102.36" y="15.7857" params="Examples/exampledata.txt$$$$$$$$morphologika$$0$$0$$3dim$$$$$$$$checked$$1$$$$unchecked" type="ImportNode" annotation="" />
+ <Node x="-947.429" y="32" params="1$$1$$1$$0$$0$$1$$0$$1$$1$$0$$0$$1$$1$$0$$0$$0$$100$$1e-12$$" type="GPANode" annotation="" />
+ <Node x="25.0956" y="266.952" params="1$$0$$0$$0$$" type="PCANode" annotation="" />
+ <Node x="27.7143" y="404.857" params="255|255|255|0|1|1|1|0|0|1|1.5$" type="PlotterNode" annotation="" />
+ <Node x="-756.143" y="44.4286" params="4,5,6,7,10,12,13," type="SelectNode" annotation="" />
+ <Node x="-756.286" y="139.714" params="0,1,2,3,8,9,11,14," type="SelectNode" annotation="" />
+ <Node x="-538.714" y="-48.4286" params="1$$1$$1$$0$$0$$1$$0$$1$$1$$0$$0$$1$$1$$0$$0$$0$$100$$1e-12$$" type="GPANode" annotation="" />
+ <Node x="-534.429" y="278.286" params="1$$1$$1$$0$$0$$1$$0$$1$$1$$0$$0$$1$$1$$0$$0$$0$$100$$1e-12$$" type="GPANode" annotation="" />
+ <Node x="-20.4758" y="145" params="" type="ConcatNode" annotation="" />
+ <Node x="-360.762" y="51.8099" params="1.0$$1.0$$0" type="SubtractNode" annotation="" />
+ <Node x="-190.953" y="153.619" params="1.0$$1.0$$0" type="SubtractNode" annotation="" />
+ <Node x="-191.524" y="277.714" params="1.0$$1.0$$0" type="SubtractNode" annotation="" />
+ <Node x="-367.988" y="348.797" params="1.0$$1.0$$0" type="SubtractNode" annotation="" />
+ <Link ports="0:0:0:0|0:0|0," sNode="0" eNode="1" />
+ <Link ports="0:0:0:0|0:0|0," sNode="1" eNode="4" />
+ <Link ports="0:0:0:0|0:0|0," sNode="1" eNode="5" />
+ <Link ports="0:0:0:0|0:0|0," sNode="4" eNode="6" />
+ <Link ports="0:0:0:0|0:0|0," sNode="5" eNode="7" />
+ <Link ports="0:0:0:0|0:0|0," sNode="8" eNode="2" />
+ <Link ports="0:0:0:0|0:0|0,0:1:0:0|0:0|0," sNode="2" eNode="3" />
+ <Link ports="5:0:0:0|0:0|0,0:1:0:0|0:0|0," sNode="6" eNode="9" />
+ <Link ports="5:0:0:-505.714|251.429:-565.714|335.714," sNode="1" eNode="10" />
+ <Link ports="5:0:0:0|0:0|0,0:1:0:0|0:0|0," sNode="7" eNode="12" />
+ <Link ports="5:0:0:-320|260:-317.143|268.571," sNode="1" eNode="11" />
+ <Link ports="1:1:0:0|0:0|0," sNode="9" eNode="10" />
+ <Link ports="1:0:0:0|0:0|0," sNode="10" eNode="8" />
+ <Link ports="1:1:0:0|0:0|0," sNode="11" eNode="8" />
+ <Link ports="1:1:0:0|0:0|0," sNode="12" eNode="11" />
+</VPN>

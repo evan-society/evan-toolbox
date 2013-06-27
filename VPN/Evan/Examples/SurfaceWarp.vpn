@@ -1,0 +1,12 @@
+<VPN>
+ <Node x="-1032" y="-196" params="Examples/exampledata.txt$$$$$$$$morphologika$$0$$0$$3dim$$Examples/Surface_for_Specimen1.obj$$$$$$checked$$1$$$$checked" type="ImportNode" annotation="" />
+ <Node x="-861" y="-189" params="1$$1$$1$$0$$0$$1$$0$$1$$1$$0$$0$$1$$0$$0$$0$$0$$100$$1e-12$$" type="GPANode" annotation="" />
+ <Node x="-459" y="-106" params="" type="WarperNode" annotation="" />
+ <Node x="-670" y="-204" params="1.0$$1.0" type="SubtractNode" annotation="" />
+ <Node x="-291" y="1" params="0.2|0.2|0.4|0.801636|0.1|10000|0.784857|-0.300601|0.352494|0.411566|0.245205|-0.687773|-0.330853|0$Warped Landmarks|192|192|192|255|1|1|1|0|0|0|1|0|0|0|0|0|0/Warped Surface|192|192|192|255|1|1|1|0|0|0|1|0|0|0|0|0|0/" type="ViewerNode" annotation="" />
+ <Link ports="0:0:0:0|0:0|0,1:1:0:0|0:0|0," sNode="0" eNode="1" />
+ <Link ports="5:0:0:0|0:0|0,8:2:0:0|0:0|0," sNode="1" eNode="2" />
+ <Link ports="5:0:0:0|0:0|0,0:1:0:0|0:0|0," sNode="1" eNode="3" />
+ <Link ports="0:1:0:0|0:0|0," sNode="3" eNode="2" />
+ <Link ports="0:0:0:0|0:0|0,1:0:0:0|0:0|0,2:0:0:0|0:0|0," sNode="2" eNode="4" />
+</VPN>
