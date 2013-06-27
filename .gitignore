@@ -9,6 +9,11 @@ ui_*.h
 # .log files (usually created by QtTest - thanks to VestniK)
 *.log
 
+# ignore Qt .dlls - make sure to get
+# qt-win-opensource-4.8.4-mingw.exe
+# from http://qt-project.org/downloads
+Qt*.dll
+
 # Windows-specific files
 Thumbs.db
 
