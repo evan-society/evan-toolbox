@@ -122,6 +122,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), m_activeProject(NU
     {
         updateRecentFileActions();
     }
+
+    crashBugHack(); // only once at startup
 }
 
 void MainWindow::openRecentFile()
@@ -236,11 +238,11 @@ void MainWindow::connectActions()
     connect(actionRunNetwork, SIGNAL(toggled(bool)), this, SLOT(runNetwork(bool)));
     connect(actionForceRunNetwork, SIGNAL(triggered(bool)), this, SLOT(forceRunNetwork(bool)));
 
-    connect(action_New, SIGNAL(activated()), this, SLOT(createNewProject()));
-    connect(action_Save, SIGNAL(activated()), this, SLOT(saveNetwork()));
-    connect(actionWith_Nodes_States, SIGNAL(activated()), this, SLOT(saveNetworkWithStates()));
-    connect(actionWithout_Nodes_States, SIGNAL(activated()), this, SLOT(saveNetworkWithoutStates()));
-    connect(action_Open, SIGNAL(activated()), this, SLOT(loadNetworkFromFilename()));
+    connect(action_New, SIGNAL(triggered()), this, SLOT(createNewProject()));
+    connect(action_Save, SIGNAL(triggered()), this, SLOT(saveNetwork()));
+    connect(actionWith_Nodes_States, SIGNAL(triggered()), this, SLOT(saveNetworkWithStates()));
+    connect(actionWithout_Nodes_States, SIGNAL(triggered()), this, SLOT(saveNetworkWithoutStates()));
+    connect(action_Open, SIGNAL(triggered()), this, SLOT(loadNetworkFromFilename()));
 }
 
 VPNLayout* MainWindow::createNewProject()
@@ -332,6 +334,34 @@ void MainWindow::saveNetworkWithoutStates()
     }
 }
 
+
+void MainWindow::crashBugHack()
+{
+    //### ugly fix for initial crash bug ###//
+    // simply create a minimal new project with a single viewer node in it
+    {
+        //VPNLayout* MainWindow::createNewProject()
+    //{
+        VPNLayout* newProject = new VPNLayout();
+        newProject->setWindowTitle(QString("Untitled Network%1.vpn*").arg(mdiArea->subWindowList().count()+1));
+        mdiArea->setActiveSubWindow(mdiArea->addSubWindow(newProject));
+        newProject->showMaximized();
+        m_activeProject = newProject->getProjectArea();
+        connectVPN();
+        //return newProject;
+    //}
+        QPointF pos(0.0f,0.0f);
+        QString annotation("");
+        m_activeProject = newProject->getProjectArea();
+        m_activeProject->setSelectedNode( QString("ViewerNode::3D Viewer::All viewable objects:Renderables:0,::") );
+        m_activeProject->insertNode(pos, annotation);
+        delete newProject;
+    }
+    //### ugly fix for initial crash bug ###//
+
+}
+
+
 void MainWindow::loadNetworkFromFilename()
 {
     if(IsRegistered == 0)
@@ -339,6 +369,10 @@ void MainWindow::loadNetworkFromFilename()
         Logger::getInstance()->log("Open option is only allowed for registered users.",Logger::WARNING);
         return;
     }
+
+    //crashBugHack(); // every time a new .VPN file is loaded
+
+
     QSettings settings("Evan");//, "Evan Toolbox");
     QStringList files = settings.value("lastDirectory").toStringList();
     QString fileName;
@@ -443,7 +477,7 @@ void MainWindow::connectVPN()
         m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
 //        connect(actionConnectMode, SIGNAL(toggled(bool)), m_activeProject, SLOT(enableConnect(bool)));
 //        connect(actionSelectMode, SIGNAL(toggled(bool)), m_activeProject, SLOT(enableMove(bool)));
-        connect(actionDeleteSelection, SIGNAL(activated()), m_activeProject, SLOT(deleteSelection()));
+        connect(actionDeleteSelection, SIGNAL(triggered()), m_activeProject, SLOT(deleteSelection()));
         connect(m_activeProject, SIGNAL(nodeInserted()), this, SLOT(nodeInsertDone()));
         connect(m_activeProject, SIGNAL(linkCreated()), this, SLOT(linkCreateDone()));
         connect(m_activeProject, SIGNAL(setStatusBar(QString,int)), mainStatusBar, SLOT(showMessage(QString,int)));

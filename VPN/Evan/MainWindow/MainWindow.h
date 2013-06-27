@@ -44,6 +44,8 @@ private:
     Ui::RegisterDialog Form;
     Ui::Dialog registerInstuctDialog;
 
+    void crashBugHack();
+
 protected:
     void closeEvent(QCloseEvent *event);
 
