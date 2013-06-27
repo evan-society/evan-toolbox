@@ -16,7 +16,7 @@ LIBS += -lqwt5 -lqwtplot3d
 #DEFINES += USE_R_
 
 DEFINES += ENCRYPT_EVAN_LICENSE_
-DEFINES += TEMPLAND_TOOLKIT_BUILD
+DEFINES += TEMPLAND_TOOLKIT_BUILD=1
 DEFINES += QT_USE_NATIVE_WINDOWS
 
 #DEFINES += HAVE_CLASS_TEMPLATE
@@ -37,59 +37,58 @@ DEPENDPATH += . \
               release \
               Scheduler \
               Utilities \
-              GMM\inc \
-              GMM\src \
-              inc\EW \
-              inc\EW_ \
-              inc\Qwt \
-              inc\Qwt3D \
-              MainWindow\Designer \
-              Nodes\AnnotationNode \
-              Nodes\ConcatNode \
-              Nodes\ExportNode \
-              Nodes\GenerateSurfaceNode \
-              Nodes\GPANode \
-              Nodes\GroupNode \
-              Nodes\ImportNode \
-              Nodes\MMRNode \
-              Nodes\MultiplyNode \
-              Nodes\PCANode \
-              Nodes\PCONode \
-              Nodes\Plotter3DNode \
-              Nodes\PlotterNode \
-              Nodes\PLSNode \
-              Nodes\PrintNode \
-              Nodes\RealiseNode \
-              Nodes\ReflectedRelabelling \
-              Nodes\RNode \
-              Nodes\SelectNode \
-              Nodes\SubtractNode \
-              Nodes\TemplandNode \
-              Nodes\TransformNode \
-              Nodes\ViewerNode \
-              Nodes\WarperNode \
-              inc\DCMTK\config \
-              inc\DCMTK\dcmdata \
-              inc\DCMTK\dcmimgle \
-              inc\DCMTK\ofstd \
-              Nodes\ExportNode\Designer \
-              Nodes\GPANode\Designer \
-              Nodes\GroupNode\Designer \
-              Nodes\ImportNode\Designer \
-              Nodes\MMRNode\Designer \
-              Nodes\MultiplyNode\Designer \
-              Nodes\PCANode\Designer \
-              Nodes\PlotterNode\Designer \
-              Nodes\PLSNode\Designer \
-              Nodes\PrintNode\Designer \
-              Nodes\RNode\Designer \
-              Nodes\SelectNode\Designer \
-              Nodes\SubtractNode\Designer \
-              Nodes\TemplandNode\Designer \
-              Nodes\TemplandNode\Viewers \
-              Nodes\TemplandNode\ViewTree \
-              Nodes\WarperNode\Designer \
-              inc\DCMTK\dcmdata\libi2d
+              GMM/inc \
+              GMM/src \
+              inc/EW \
+              inc/Qwt \
+              inc/Qwt3D \
+              MainWindow/Designer \
+              Nodes/AnnotationNode \
+              Nodes/ConcatNode \
+              Nodes/ExportNode \
+              Nodes/GenerateSurfaceNode \
+              Nodes/GPANode \
+              Nodes/GroupNode \
+              Nodes/ImportNode \
+              Nodes/MMRNode \
+              Nodes/MultiplyNode \
+              Nodes/PCANode \
+              Nodes/PCONode \
+              Nodes/Plotter3DNode \
+              Nodes/PlotterNode \
+              Nodes/PLSNode \
+              Nodes/PrintNode \
+              Nodes/RealiseNode \
+              Nodes/ReflectedRelabelling \
+              Nodes/RNode \
+              Nodes/SelectNode \
+              Nodes/SubtractNode \
+              Nodes/TemplandNode \
+              Nodes/TransformNode \
+              Nodes/ViewerNode \
+              Nodes/WarperNode \
+              inc/DCMTK/config \
+              inc/DCMTK/dcmdata \
+              inc/DCMTK/dcmimgle \
+              inc/DCMTK/ofstd \
+              Nodes/ExportNode/Designer \
+              Nodes/GPANode/Designer \
+              Nodes/GroupNode/Designer \
+              Nodes/ImportNode/Designer \
+              Nodes/MMRNode/Designer \
+              Nodes/MultiplyNode/Designer \
+              Nodes/PCANode/Designer \
+              Nodes/PlotterNode/Designer \
+              Nodes/PLSNode/Designer \
+              Nodes/PrintNode/Designer \
+              Nodes/RNode/Designer \
+              Nodes/SelectNode/Designer \
+              Nodes/SubtractNode/Designer \
+              Nodes/TemplandNode/Designer \
+              Nodes/TemplandNode/Viewers \
+              Nodes/TemplandNode/ViewTree \
+              Nodes/WarperNode/Designer \
+              inc/DCMTK/dcmdata/libi2d
 INCLUDEPATH += .
 
 # Input
@@ -225,56 +224,6 @@ HEADERS += DataTypes/CentroidSizes.h \
            inc/EW/View3Pick.h \
            inc/EW/View3Surface.h \
            inc/EW/View3Widget.h \
-           inc/EW_/bbox3.h \
-           inc/EW_/curve3.h \
-           inc/EW_/DataflowArray3.h \
-           inc/EW_/DataflowArray3E.h \
-           inc/EW_/DataflowCurve3.h \
-           inc/EW_/DataflowCurve3E.h \
-           inc/EW_/DataflowData3.h \
-           inc/EW_/DataflowForm3.h \
-           inc/EW_/DataflowImage3.h \
-           inc/EW_/DataflowNetwork.h \
-           inc/EW_/DataflowNode.h \
-           inc/EW_/DataflowNotifier.h \
-           inc/EW_/DataflowSpline3.h \
-           inc/EW_/DataflowSurface3.h \
-           inc/EW_/DataflowSurface3E.h \
-           inc/EW_/Debug.h \
-           inc/EW_/DebugHelper.h \
-           inc/EW_/dig3.h \
-           inc/EW_/Dig3SetCurve.h \
-           inc/EW_/Dig3SetSurface.h \
-           inc/EW_/Dig3Space.h \
-           inc/EW_/Dig3Tableau.h \
-           inc/EW_/Dig3TableauSpace.h \
-           inc/EW_/Dig3View.h \
-           inc/EW_/ErrorIO.h \
-           inc/EW_/ErrorLogic.h \
-           inc/EW_/ErrorRuntime.h \
-           inc/EW_/form3.h \
-           inc/EW_/Form3Curve.h \
-           inc/EW_/Form3Embedding.h \
-           inc/EW_/Form3Pointset.h \
-           inc/EW_/Form3Reflection.h \
-           inc/EW_/Form3Surface.h \
-           inc/EW_/Form3Volume.h \
-           inc/EW_/FriendVariable.h \
-           inc/EW_/String.h \
-           inc/EW_/surface3.h \
-           inc/EW_/Time.h \
-           inc/EW_/tps2.h \
-           inc/EW_/tps3.h \
-           inc/EW_/transform2.h \
-           inc/EW_/transform3.h \
-           inc/EW_/version.h \
-           inc/EW_/View3Curve.h \
-           inc/EW_/View3Image.h \
-           inc/EW_/View3Item.h \
-           inc/EW_/View3Landmarks.h \
-           inc/EW_/View3Pick.h \
-           inc/EW_/View3Surface.h \
-           inc/EW_/View3Widget.h \
            inc/Qwt/qwt.h \
            inc/Qwt/qwt_abstract_scale.h \
            inc/Qwt/qwt_abstract_scale_draw.h \
