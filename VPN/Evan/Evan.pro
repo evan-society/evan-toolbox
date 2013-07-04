@@ -3,8 +3,8 @@
 ######################################################################
 
 INCLUDEPATH += . "inc/OpenSceneGraph"  "inc/Qwt" "inc/GMM" "inc/" "inc/Qwt3D" "inc/DCMTK" "GMM/inc"
-#LIBS += -L"../lib_win32/OpenSceneGraph" -L"../lib_win32/Qwt" -L"../lib_win32/ew" -L"../lib_win32/Qwt3D" -L"../lib_win32/DCMTK" -llibosg -llibosgManipulator -llibosgViewer -llibosgDB -llibosgGA -llibosgUtil -llibosgVolume -lew -lopengl32 -llibxml2 -lwsock32 -llapack_win32
-LIBS += -L"../lib_win32/OpenSceneGraph" -L"../lib_win32/Qwt" -L"../lib_win32/ew" -L"../lib_win32/Qwt3D" -L"../lib_win32/DCMTK" -llibosg -llibosgManipulator -llibosgViewer -llibosgDB -llibosgGA -llibosgUtil -llibosgVolume -lew -lopengl32 -llibxml2 -lwsock32 -llapack_win32
+#LIBS += -L"lib/OpenSceneGraph" -L"lib/Qwt" -L"lib/ew" -L"lib/Qwt3D" -L"lib/DCMTK" -llibosg -llibosgManipulator -llibosgViewer -llibosgDB -llibosgGA -llibosgUtil -llibosgVolume -lew -lopengl32 -llibxml2 -lwsock32 -llapack_win32
+LIBS += -L"lib/OpenSceneGraph" -L"lib/Qwt" -L"lib/ew" -L"lib/Qwt3D" -L"lib/DCMTK" -llibosg -llibosgManipulator -llibosgViewer -llibosgDB -llibosgGA -llibosgUtil -llibosgVolume -lew -lopengl32 -llibxml2 -lwsock32 -llapack_win32
 QT += xml opengl svg
 RC_FILE = Evan.rc
 LIBS += -lqwt5 -lqwtplot3d
@@ -120,13 +120,6 @@ HEADERS += DataTypes/CentroidSizes.h \
            DataTypes/Volume.h \
            DataTypes/WarpGrid.h \
            DataTypes/Warpings.h \
-           inc/Callbacks.h \
-           inc/MemBuf.h \
-           inc/RInside.h \
-           inc/RInsideAutoloads.h \
-           inc/RInsideCommon.h \
-           inc/RInsideConfig.h \
-           inc/RInsideEnvVars.h \
            Labels/ILabelValue.h \
            Labels/ScalarLabelValue.h \
            Labels/StringLabelValue.h \
@@ -141,21 +134,14 @@ HEADERS += DataTypes/CentroidSizes.h \
            Nodes/NodeLink.h \
            Nodes/NodePort.h \
            Scheduler/Scheduler.h \
-           Utilities/Callbacks.h \
            Utilities/ExpressionParser.h \
            Utilities/GeodeFinder.h \
            Utilities/LibraryImport.h \
            Utilities/LicenseKeyUtils.h \
            Utilities/Logger.h \
-           Utilities/MemBuf.h \
            Utilities/mexcel.h \
            Utilities/MyRayTracedTechnique.h \
            Utilities/QOSGWidget.h \
-           Utilities/RInside.h \
-           Utilities/RInsideAutoloads.h \
-           Utilities/RInsideCommon.h \
-           Utilities/RInsideConfig.h \
-           Utilities/RInsideEnvVars.h \
            Utilities/rply.h \
            Utilities/sha1.h \
            Utilities/Writer.h \
