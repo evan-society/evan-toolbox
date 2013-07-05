@@ -34,5 +34,6 @@ VPN/Evan/license.dat
 VPN/InnoSetupScript/Output/
 EW/src/*.o
 EW/src/*.a
+EW/lib/*.a
 
 10LM&15sLMcurve

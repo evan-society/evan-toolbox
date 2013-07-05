@@ -271,183 +271,242 @@ ew::View3Widget::pick(double x, double y, double sz, double burrow,
  ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
  ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z)
 {
-  if (dbg.on) {
-    const char *constrain_it_str;
-    if (constrain_it == 0) {
-      constrain_it_str = "NULL";
-    } else {
-      constrain_it_str = constrain_it->dbg.in;
-    }
-    dbg.dprintf("%s::%s(%g,%g,%g,%g,%s,%d,%d) {", dbg.fn, "pick",
-     x, y, sz, burrow, constrain_it_str, constrain_cmpt, constrain_dim);
+
+
+// #if 0 //(ORIGINAL_EW_PICK)
+
+// THE ORIGINAL PICKING CODE - based on OpenGL's select buffers
+//   if (dbg.on) {
+//     const char *constrain_it_str;
+//     if (constrain_it == 0) {
+//       constrain_it_str = "NULL";
+//     } else {
+//       constrain_it_str = constrain_it->dbg.in;
+//     }
+//     dbg.dprintf("%s::%s(%g,%g,%g,%g,%s,%d,%d) {", dbg.fn, "pick",
+//      x, y, sz, burrow, constrain_it_str, constrain_cmpt, constrain_dim);
+//   }
+//   if (dataflow_check_cycle < network->get_cycle()) {
+//     dataflow_check();
+//   }
+//   if (glGetError() != 0) {
+//     throw ew::ErrorLogic(__FILE__, __LINE__);
+//   }
+//   int bufn = 4096;
+//   ew::AutoArray<GLuint> buf(bufn);
+//   int hits;
+// // Extremely unlikely we'll need a larger buffer.  More likely if we change to
+// // feedback mode.
+//   while (1) {
+//     glSelectBuffer(bufn, &buf[0]);
+//     glRenderMode(GL_SELECT);
+//     glViewport(0, 0, winw, winh);
+//     double cr = clip_ratio;
+//     if (cr < 0.001) {
+//       cr = 0.001;
+//     }
+//     if (cr > 1000.0) {
+//       cr = 1000.0;
+//     }
+// // sz is in pixels.
+//     int min = std::min(winw, winh);
+//     double pixsz = 2.0 / min;
+//     double projmatrixpick[16];
+//     for (int i = 0; i < 15; i += 1) {
+//       projmatrixpick[i] = 0.0;
+//     }
+//     projmatrixpick[0] = 2.0 / (sz * pixsz);
+//     projmatrixpick[5] = 2.0 / (sz * pixsz);
+//     projmatrixpick[10] = -1.0 / cr;
+//     projmatrixpick[12] = -projmatrixpick[0] * (x - winw / 2.0) * pixsz;
+//     projmatrixpick[13] = projmatrixpick[5] * (y - winh / 2.0) * pixsz;
+//     projmatrixpick[15] = 1.0;
+//     glMatrixMode(GL_PROJECTION);
+//     glLoadMatrixd(projmatrixpick);
+//     double mm[16];
+//     view_mapping.get_matrix_gl(mm);
+//     glMatrixMode(GL_MODELVIEW);
+//     glLoadMatrixd(mm);
+//     for (int n = 0; n < VectorSize(items); n += 1) {
+//       ew::View3Item *it = items[n];
+//       if (it->get_state() && !it->get_prepared()) {
+//         dbg.on && dbg.dprintf("%s::%s   prepare(%s)", dbg.fn, "pick",
+//          it->dbg.in);
+//         it->prepare();
+//       }
+//     }
+//     glInitNames();
+//     glPushName(0);
+//     for (unsigned int u = 0; u < items.size(); u += 1) {
+//       ew::View3Item *it = items[u];
+//       if (it->get_state()) {
+//         dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick",
+//          it->dbg.in);
+//         glLoadName(u);
+//         glPushName(0);
+//         it->render();
+//         glPopName();
+//       }
+//     }
+//     glPopName();
+//     hits = glRenderMode(GL_RENDER);
+//     if (hits >= 0) {
+//       break;
+//     }
+//     bufn *= 2;
+//     dbg.on && dbg.dprintf("%s::%s   doubling-bufffer", dbg.fn, "pick");
+//     if (bufn < 0) {
+// // nearly impossible
+//       throw ew::ErrorRuntime(
+//        "A program limitation has been exceeded"
+//        " (the size of the OpenGL selection buffer).");
+//     }
+//     buf.resize(bufn);
+//   }
+// // This is the item index, not pointer.
+//   int pi = -1;
+//   int pc;
+//   int pd;
+// // This is in window (pixel) coords.
+//   double pz;
+//   bool hassurz = false;
+//   double surz;
+//   for (int i = 0; i < hits; i += 1) {
+// // hit buffer:
+// //  5i->2, 5i+1->near, 5i+2->far, 5i+3->item name, 5i+4-> cmpt name
+//     int dim = (buf[5 * i + 4] & 3);
+//     int it = buf[5 * i + 3];
+//     double z = -(1.0 - buf[5 * i + 1] * 2.0 / 0xffffffffU) *
+//      window_mapping.scale;
+//     int cmpt = (buf[5 * i + 4] >> 2);
+//     dbg.on && dbg.dprintf(
+//      "%s::%s   pick-hit=%d z=%g dim=%d it=%d cmpt=%d zfar=%g", dbg.fn, "pick",
+//      buf[5 * i], z, dim, it, cmpt,
+//      -(1.0 - buf[5 * i + 2] * 2.0 / 0xffffffffU) * window_mapping.scale);
+//     if (dim == 2) {
+// // surfaces obscure even if not eligible
+//       if (pi >= 0 && (!use_depth || z < pz - burrow)) {
+//         dbg.on && dbg.dprintf("%s::%s   obscures", dbg.fn, "pick");
+//         pi = -1;
+//       }
+//       if (use_depth) {
+//         if (hassurz) {
+//           if (z < surz) {
+//             surz = z;
+//           }
+//         } else {
+//           surz = z;
+//         }
+//         hassurz = true;
+//       }
+//     }
+//     if (constrain_it != 0 && constrain_it->get_index() != it) {
+//       continue;
+//     }
+//     if (constrain_dim >= 0 && constrain_dim != dim) {
+//       continue;
+//     }
+//     if (constrain_cmpt >= 0 && cmpt != constrain_cmpt) {
+//       continue;
+//     }
+//     if (pi >= 0 && dim > pd) {
+//       continue;
+//     }
+//     if (pi >= 0 && dim == pd) {
+//       if (use_depth && z > pz) {
+//         continue;
+//       }
+//     }
+//     if (dim < 2 && hassurz) {
+//       dbg.on && dbg.dprintf("%s::%s   XXX surz=%g z=%g burrow=%g", dbg.fn,
+//        "pick", surz, z, burrow);
+//       if (surz < z - burrow) {
+//         continue;
+//       }
+//     }
+//     dbg.on && dbg.dprintf("%s::%s  picked", dbg.fn, "pick");
+//     pi = it;
+//     pc = cmpt;
+//     pd = dim;
+//     pz = z;
+//   }
+//   if (pick_it && pi >= 0) {
+//     *pick_it = items[pi];
+//   }
+//   if (pick_cmpt && pi >= 0) {
+//     *pick_cmpt = pc;
+//   }
+//   if (pick_dim && pi >= 0) {
+//     *pick_dim = pd;
+//   }
+//   if (pick_z && pi >= 0) {
+//     *pick_z = pz;
+//   }
+//   int err = glGetError();
+//   if (err != 0) {
+//     if (err == GL_OUT_OF_MEMORY) {
+//       throw std::bad_alloc();
+//     } else {
+//       dbg.on && dbg.dprintf("%s::%s glError=0x%x", dbg.fn, "pick", err);
+//       throw ew::ErrorLogic(__FILE__, __LINE__);
+//     }
+//   }
+//   dbg.on && dbg.dprintf("%s::%s } (%s)", dbg.fn, "pick",
+//    ew::Debug::to_str(pi >= 0));
+
+
+// #else //ORIGINAL_EW_PICK
+  
+  // THE MODIFIED PICKING CODE - based on reading the depth buffer
+  glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
+  glClear(GL_DEPTH_BUFFER_BIT);
+
+  double cr = clip_ratio;
+  if (cr < 0.001) {
+    cr = 0.001;
   }
-  if (dataflow_check_cycle < network->get_cycle()) {
-    dataflow_check();
+  if (cr > 1000.0) {
+    cr = 1000.0;
   }
-  if (glGetError() != 0) {
-    throw ew::ErrorLogic(__FILE__, __LINE__);
-  }
-  int bufn = 4096;
-  ew::AutoArray<GLuint> buf(bufn);
-  int hits;
-// Extremely unlikely we'll need a larger buffer.  More likely if we change to
-// feedback mode.
-  while (1) {
-    glSelectBuffer(bufn, &buf[0]);
-    glRenderMode(GL_SELECT);
-    glViewport(0, 0, winw, winh);
-    double cr = clip_ratio;
-    if (cr < 0.001) {
-      cr = 0.001;
-    }
-    if (cr > 1000.0) {
-      cr = 1000.0;
-    }
 // sz is in pixels.
-    int min = std::min(winw, winh);
-    double pixsz = 2.0 / min;
-    double projmatrixpick[16];
-    for (int i = 0; i < 15; i += 1) {
-      projmatrixpick[i] = 0.0;
-    }
-    projmatrixpick[0] = 2.0 / (sz * pixsz);
-    projmatrixpick[5] = 2.0 / (sz * pixsz);
-    projmatrixpick[10] = -1.0 / cr;
-    projmatrixpick[12] = -projmatrixpick[0] * (x - winw / 2.0) * pixsz;
-    projmatrixpick[13] = projmatrixpick[5] * (y - winh / 2.0) * pixsz;
-    projmatrixpick[15] = 1.0;
-    glMatrixMode(GL_PROJECTION);
-    glLoadMatrixd(projmatrixpick);
-    double mm[16];
-    view_mapping.get_matrix_gl(mm);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixd(mm);
-    for (int n = 0; n < VectorSize(items); n += 1) {
-      ew::View3Item *it = items[n];
-      if (it->get_state() && !it->get_prepared()) {
-        dbg.on && dbg.dprintf("%s::%s   prepare(%s)", dbg.fn, "pick",
-         it->dbg.in);
-        it->prepare();
-      }
-    }
-    glInitNames();
-    glPushName(0);
-    for (unsigned int u = 0; u < items.size(); u += 1) {
-      ew::View3Item *it = items[u];
-      if (it->get_state()) {
-        dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick",
-         it->dbg.in);
-        glLoadName(u);
-        glPushName(0);
-        it->render();
-        glPopName();
-      }
-    }
-    glPopName();
-    hits = glRenderMode(GL_RENDER);
-    if (hits >= 0) {
-      break;
-    }
-    bufn *= 2;
-    dbg.on && dbg.dprintf("%s::%s   doubling-bufffer", dbg.fn, "pick");
-    if (bufn < 0) {
-// nearly impossible
-      throw ew::ErrorRuntime(
-       "A program limitation has been exceeded"
-       " (the size of the OpenGL selection buffer).");
-    }
-    buf.resize(bufn);
+  int min = std::min(winw, winh);
+  double pixsz = 2.0 / min;
+  double projmatrixpick[16];
+  for (int i = 0; i < 15; i += 1) {
+    projmatrixpick[i] = 0.0;
   }
-// This is the item index, not pointer.
-  int pi = -1;
-  int pc;
-  int pd;
-// This is in window (pixel) coords.
-  double pz;
-  bool hassurz = false;
-  double surz;
-  for (int i = 0; i < hits; i += 1) {
-// hit buffer:
-//  5i->2, 5i+1->near, 5i+2->far, 5i+3->item name, 5i+4-> cmpt name
-    int dim = (buf[5 * i + 4] & 3);
-    int it = buf[5 * i + 3];
-    double z = -(1.0 - buf[5 * i + 1] * 2.0 / 0xffffffffU) *
-     window_mapping.scale;
-    int cmpt = (buf[5 * i + 4] >> 2);
-    dbg.on && dbg.dprintf(
-     "%s::%s   pick-hit=%d z=%g dim=%d it=%d cmpt=%d zfar=%g", dbg.fn, "pick",
-     buf[5 * i], z, dim, it, cmpt,
-     -(1.0 - buf[5 * i + 2] * 2.0 / 0xffffffffU) * window_mapping.scale);
-    if (dim == 2) {
-// surfaces obscure even if not eligible
-      if (pi >= 0 && (!use_depth || z < pz - burrow)) {
-        dbg.on && dbg.dprintf("%s::%s   obscures", dbg.fn, "pick");
-        pi = -1;
-      }
-      if (use_depth) {
-        if (hassurz) {
-          if (z < surz) {
-            surz = z;
-          }
-        } else {
-          surz = z;
-        }
-        hassurz = true;
-      }
-    }
-    if (constrain_it != 0 && constrain_it->get_index() != it) {
-      continue;
-    }
-    if (constrain_dim >= 0 && constrain_dim != dim) {
-      continue;
-    }
-    if (constrain_cmpt >= 0 && cmpt != constrain_cmpt) {
-      continue;
-    }
-    if (pi >= 0 && dim > pd) {
-      continue;
-    }
-    if (pi >= 0 && dim == pd) {
-      if (use_depth && z > pz) {
-        continue;
-      }
-    }
-    if (dim < 2 && hassurz) {
-      dbg.on && dbg.dprintf("%s::%s   XXX surz=%g z=%g burrow=%g", dbg.fn,
-       "pick", surz, z, burrow);
-      if (surz < z - burrow) {
-        continue;
-      }
-    }
-    dbg.on && dbg.dprintf("%s::%s  picked", dbg.fn, "pick");
-    pi = it;
-    pc = cmpt;
-    pd = dim;
-    pz = z;
-  }
-  if (pick_it && pi >= 0) {
-    *pick_it = items[pi];
-  }
-  if (pick_cmpt && pi >= 0) {
-    *pick_cmpt = pc;
-  }
-  if (pick_dim && pi >= 0) {
-    *pick_dim = pd;
-  }
-  if (pick_z && pi >= 0) {
-    *pick_z = pz;
-  }
-  int err = glGetError();
-  if (err != 0) {
-    if (err == GL_OUT_OF_MEMORY) {
-      throw std::bad_alloc();
-    } else {
-      dbg.on && dbg.dprintf("%s::%s glError=0x%x", dbg.fn, "pick", err);
-      throw ew::ErrorLogic(__FILE__, __LINE__);
+  projmatrixpick[0] = 2.0 / (sz * pixsz);
+  projmatrixpick[5] = 2.0 / (sz * pixsz);
+  projmatrixpick[10] = -1.0 / cr;
+  projmatrixpick[12] = -projmatrixpick[0] * (x - winw / 2.0) * pixsz;
+  projmatrixpick[13] = projmatrixpick[5] * (y - winh / 2.0) * pixsz;
+  projmatrixpick[15] = 1.0;
+  glMatrixMode(GL_PROJECTION);
+  glLoadMatrixd(projmatrixpick);
+  double mm[16];
+  view_mapping.get_matrix_gl(mm);
+  glMatrixMode(GL_MODELVIEW);
+  glLoadMatrixd(mm);
+  for (int n = 0; n < VectorSize(items); n += 1) {
+    ew::View3Item *it = items[n];
+    if (it->get_state() && !it->get_prepared()) {
+      dbg.on && dbg.dprintf("%s::%s   prepare(%s)", dbg.fn, "pick",
+       it->dbg.in);
+      it->prepare();
+      it->render();
     }
   }
-  dbg.on && dbg.dprintf("%s::%s } (%s)", dbg.fn, "pick",
-   ew::Debug::to_str(pi >= 0));
+
+  GLfloat depth;
+  glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+
+  glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
+  *pick_z = depth;
+
+
+// #endif //ORIGINAL_EW_PICK
+
+
 }
 
 /// Find all item fragment picks, in order of most prominent first.

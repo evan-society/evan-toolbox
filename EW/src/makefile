@@ -12,7 +12,7 @@
 
 system := $(subst `uname`,Windows,$(shell echo `uname`))
 
-outputLibName := libew.a
+outputLibName := ../lib/libew.a
 
 # Qt requires 32 bit on Mac OSX Carbon.
 
@@ -25,7 +25,7 @@ AR := ar -r -s
 ifndef NODEBUG
   CXXFLAGS_BASIC += -g -ansi -pedantic-errors
   CXXFLAGS_WARN += -Werror -Wold-style-cast
-  outputLibName := libewd.a
+  outputLibName := ../lib/libewd.a
 endif
 
 ifeq ($(system), Windows)
@@ -110,11 +110,11 @@ Makefile makedepends $(SRCS) $(HDRS): ;
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ -c $<
 
 %.a:
-	$(RM) $@
+	$(RM) "$@"
 	$(AR) $@ $(OBJS)
 
 clean:
-	$(RM) *.o *.a
+	$(RM) *.o *.a "../lib/*.a"
 	
 depends:
 	g++ -I../include -MM *.cpp > makedepends
