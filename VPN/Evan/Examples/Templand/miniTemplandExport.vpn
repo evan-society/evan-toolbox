@@ -1,0 +1,6 @@
+<VPN>
+ <Node x="-804" y="-72" params="D:\Users\phouska\Desktop\ET_bitbucket_clone\VPN\Evan\Examples\Templand\10LM&amp;15sLMcurve\Untitled.ltb" type="TemplandNode" annotation=""/>
+ <Node x="-498" y="-56" params="1$$0$$0$$0$$0$$1$$0$$0$$0$$1$$0$$0$$0$$0$$0$$0" type="ExportNode" annotation=""/>
+ <Link ports="0:0:0:0|0:0|0," sNode="0" eNode="1"/>
+ <Settings zoom="100"/>
+</VPN>

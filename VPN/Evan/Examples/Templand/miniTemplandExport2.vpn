@@ -1,0 +1,12 @@
+<VPN>
+ <Node x="-804" y="-72" params="D:\Users\phouska\Desktop\ET_bitbucket_clone\VPN\Evan\Examples\Templand\10LM&amp;15sLMcurve\Untitled.ltb" type="TemplandNode" annotation=""/>
+ <Node x="-542" y="-20" params="0$$0$$0$$0$$1$$1$$0$$0$$0$$1$$0$$0$$0$$0$$0$$0" type="ExportNode" annotation=""/>
+ <Node x="-278" y="-48" params="1$$1$$1$$0$$0$$1$$0$$1$$1$$0$$0$$1$$1$$0$$0$$0$$100$$1e-12$$" type="GPANode" annotation=""/>
+ <Node x="-5" y="37" params="0.2|0.2|0.4|3.5|0.1|10000|0.219196|0.687687|0.687698|-0.0781792|0.678843|3.4304|-0.146718|0$Specimens after GPA|0|0|0|01|1|1|0|0|0|1|0|0|0|0|0|0/" type="ViewerNode" annotation=""/>
+ <Node x="-417" y="-149" params="0.2|0.2|0.4|25.3046|0.1|10000|0.641101|0.58081|0.0204895|0.501229|23.5435|-23.5683|-6.27092|0$Untitled2|0|0|0|01|1|1|0|0|0|1|0|0|0|0|0|0/" type="ViewerNode" annotation=""/>
+ <Link ports="0:0:0:0|0:0|0," sNode="0" eNode="1"/>
+ <Link ports="0:0:0:0|0:0|0," sNode="0" eNode="2"/>
+ <Link ports="0:0:0:0|0:0|0," sNode="2" eNode="3"/>
+ <Link ports="0:0:0:0|0:0|0," sNode="0" eNode="4"/>
+ <Settings zoom="100"/>
+</VPN>
