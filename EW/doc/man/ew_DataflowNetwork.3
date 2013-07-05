@@ -1,0 +1,84 @@
+.TH "ew::DataflowNetwork" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::DataflowNetwork \- 
+.PP
+Lightweight Dataflow Network.  
+
+EW::DataflowNetwork provides the infrastructure for a lightweight dataflow network.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/DataflowNetwork.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDataflowNetwork\fP ()"
+.br
+.ti -1c
+.RI "\fB~DataflowNetwork\fP ()"
+.br
+.ti -1c
+.RI "unsigned long \fBget_cycle\fP () const "
+.br
+.ti -1c
+.RI "const \fBew::DataflowCurve3E\fP * \fBcached_curve\fP (const char *filename)"
+.br
+.ti -1c
+.RI "const \fBew::DataflowSurface3E\fP * \fBcached_surface\fP (const char *filename)"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+To keep track of what calculations done by nodes in the network are up to date, and which need to be redone, EW::DataflowNetwork keeps a cycle counter. A cycle consists of an initial phase, when changes are made to nodes of the network, followed by a second phase, when updates of various calculations are made. Requesting updated output from a node puts the network into the update phase of the same cycle, if it is not already in an update phase. Changing a node puts the network into the change phase of the next cycle, if it is not already in a change phase. Initially the network is in the change phase of cycle 1.
+.PP
+Operations on a network must not be performed simultaneously in different threads. However, operations on different networks may be.
+.PP
+This class does not support assignment or comparison. It contains private members and undocumented members. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::DataflowNetwork::DataflowNetwork ()"This creates an empty network. 
+.SS "ew::DataflowNetwork::~DataflowNetwork ()"This destroys the network. All nodes and other objects using this network must already have been destroyed. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "unsigned long ew::DataflowNetwork::get_cycle () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The current cycle number. 
+.RE
+.PP
+
+.SS "const \fBew::DataflowCurve3E\fP * ew::DataflowNetwork::cached_curve (const char * filename)"The first time this is called with a given filename, it reads the curve from the file, creates a new explicit curve node using it, and returns a pointer to it. Subsequently it increments the same node's reference count and returns a pointer to it. When the pointer to the node is no longer needed, the reference should be released with EW::DataflowNode::decr_ref_count. The cache retains a reference to the node, so it will not be deleted until all other references are released and the network is destroyed. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP is the canonical name of the file to read. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.br
+\fIEW::ErrorIO\fP 
+.RE
+.PP
+
+.SS "const \fBew::DataflowSurface3E\fP * ew::DataflowNetwork::cached_surface (const char * filename)"The first time this is called with a given filename, it reads the surface from the file, creates a new explicit surface node using it, and returns a pointer to it. Subsequently it increments the same node's reference count and returns a pointer to it. When the pointer to the node is no longer needed, the reference should be released with EW::DataflowNode::decr_ref_count. The cache retains a reference to the node, so it will not be deleted until all other references are released and the network is destroyed. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP The name of the file to read. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.br
+\fIEW::ErrorIO\fP 
+.RE
+.PP
+
+

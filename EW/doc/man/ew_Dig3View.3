@@ -1,0 +1,205 @@
+.TH "ew::Dig3View" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Dig3View \- 
+.PP
+View Element.  
+
+\fBew::Dig3View\fP implements a view element of \fBew::Dig3\fP.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Dig3View.h>\fP
+.PP
+Inherits \fBew::View3Widget\fP.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBitem_t\fP { \fBITEM_SLICE\fP, \fBITEM_LANDMARKS\fP, \fBITEM_CURVE\fP, \fBITEM_SURFACE\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDig3View\fP (\fBew::Dig3\fP *\fBdig3\fP, int space, int slice_mode)"
+.br
+.ti -1c
+.RI "\fB~Dig3View\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_slice_mode\fP (int sm)"
+.br
+.ti -1c
+.RI "int \fBget_slice_mode\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_space\fP (int sp)"
+.br
+.ti -1c
+.RI "int \fBget_space\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_link\fP (\fBew::Dig3View\fP *v, const \fBew::Transform3\fP *tr)"
+.br
+.ti -1c
+.RI "void \fBset_view_mapping\fP (const \fBew::Transform3\fP *tr)"
+.br
+.ti -1c
+.RI "void \fBview_post_compose\fP (const \fBew::Transform3\fP *tr)"
+.br
+.ti -1c
+.RI "\fBew::View3Image\fP *const * \fBget_slice_items\fP () const "
+.br
+.ti -1c
+.RI "\fBew::View3Curve\fP *const * \fBget_curve_items\fP () const "
+.br
+.ti -1c
+.RI "\fBew::View3Surface\fP *const * \fBget_surface_items\fP () const "
+.br
+.ti -1c
+.RI "\fBew::View3Landmarks\fP * \fBget_landmarks_item\fP () const "
+.br
+.ti -1c
+.RI "int \fBget_index\fP () const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBew::Dig3\fP *const \fBdig3\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Dig3View\fP is a class without assignment or comparison. There are private member variables.
+.PP
+The settings and item settings of the base \fBew::View3Widget\fP, may be directly manipulated, except for the view mapping. The toolkit interaction of this widget should be handled by inheriting this class and implementing the pure virtual methods of \fBew::View3Widget\fP. 
+.SH MEMBER ENUMERATIONS
+.PP 
+.SS "enum \fBew::Dig3View::item_t\fP"These are the possible values for \fBew::View3Item::type\fP for items created by this class. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIITEM_SLICE \fP\fP
+Item that represents the primary slice. 
+.TP
+\fB\fIITEM_LANDMARKS \fP\fP
+Item that represents form landmarks and semi-landmarks. 
+.TP
+\fB\fIITEM_CURVE \fP\fP
+Item that represents form (note warped) curves. 
+.TP
+\fB\fIITEM_SURFACE \fP\fP
+Item that represents form (note warped) surfaces. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::Dig3View::Dig3View (\fBew::Dig3\fP * dig3, int space, int slice_mode)"This creates a view element of the \fIdig3\fP. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdig3\fP The \fBew::Dig3\fP this view element will belong to. 
+.br
+\fIspace\fP Which space of the \fIdig3\fP this view element will initially display. Either 0 or 1. 
+.br
+\fIslice_mode\fP Whether this will be a slice view. Either 0 or 1. 
+.RE
+.PP
+
+.SS "ew::Dig3View::~Dig3View ()"This removes the view from \fBdig3\fP, and destroys it. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::Dig3View::set_slice_mode (int sm)"\fBParameters:\fP
+.RS 4
+\fIsm\fP Whether this view should now be a slice view. Either 0 or 1. 
+.RE
+.PP
+
+.SS "int ew::Dig3View::get_slice_mode () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+Whether this is a slice view. Either 0 or 1. 
+.RE
+.PP
+
+.SS "void ew::Dig3View::set_space (int sp)"\fBParameters:\fP
+.RS 4
+\fIsp\fP The index of the space this view should now be associated with. Either 0 or 1. 
+.RE
+.PP
+
+.SS "int ew::Dig3View::get_space () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The index of the space this view is currently associated with. Either 0 or 1. 
+.RE
+.PP
+
+.SS "void ew::Dig3View::set_link (\fBew::Dig3View\fP * v, const \fBew::Transform3\fP * tr)"This sets up a link between the view mapping of this view and of another one. Links must be disjoint cycles. The composition of the transforms should be the identity for sensible results. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIv\fP The view to link to. 
+.br
+\fItr\fP The transform that should be left-composed with this view's view mapping to get the link views view mapping. 
+.RE
+.PP
+
+.SS "void ew::Dig3View::set_view_mapping (const \fBew::Transform3\fP * tr)"This operates on the view mapping of the base \fBew::View3Widget\fP, and synchronizes with other views and with slices as necessary. This method has the same name as a non-virtual method in the base class. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP As for \fBew::View3Widget::set_view_mapping()\fP. 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBew::View3Widget\fP.
+.SS "void ew::Dig3View::view_post_compose (const \fBew::Transform3\fP * tr)"This operates on the view mapping of the base \fBew::View3Widget\fP, and synchronizes with other views and with slices as necessary. This method has the same name as a non-virtual method in the base class. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP As for \fBew::View3Widget::view_post_compose()\fP. 
+.RE
+.PP
+
+.PP
+Reimplemented from \fBew::View3Widget\fP.
+.SS "\fBew::View3Image\fP *const * ew::Dig3View::get_slice_items () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The slice item index. The i'th entry is the item displaying the slice of the i'th view of the \fBdig3\fP, or zero if the i'th view is not in slice mode, or is not associated with the same space. 
+.RE
+.PP
+
+.SS "\fBew::View3Curve\fP *const * ew::Dig3View::get_curve_items () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The curve item index. The i'th entry is the item displaying the i'th curve of the space this view is currently associated with. 
+.RE
+.PP
+
+.SS "\fBew::View3Surface\fP *const * ew::Dig3View::get_surface_items () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The surface item index. The i'th entry is the item displaying the i'th surface of the space this view is currently associated with. 
+.RE
+.PP
+
+.SS "\fBew::View3Landmarks\fP * ew::Dig3View::get_landmarks_item () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The landmarks item. 
+.RE
+.PP
+
+.SS "int ew::Dig3View::get_index () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The current index of this view element in the view index of \fBdig3\fP. 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "\fBew::Dig3\fP *const \fBew::Dig3View::dig3\fP"This points to the \fBew::Dig3\fP that this \fBew::Dig3View\fP was created with. 
+

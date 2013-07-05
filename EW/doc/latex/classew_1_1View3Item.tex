@@ -1,0 +1,131 @@
+\hypertarget{classew_1_1View3Item}{
+\subsection{ew::View3Item Class Reference}
+\label{classew_1_1View3Item}\index{ew::View3Item@{ew::View3Item}}
+}
+
+
+Item Base Class.  
+
+
+
+
+{\ttfamily \#include $<$ew/View3Item.h$>$}
+
+
+
+Inheritance diagram for ew::View3Item:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{classew_1_1View3Item__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classew_1_1View3Item_a73fa1808887496208897b56378d26cd3}{get\_\-state} () const 
+\item 
+void \hyperlink{classew_1_1View3Item_aebe04d5c9a8a8079d651d7ca179a312c}{set\_\-state} (bool st)
+\item 
+virtual const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} $\ast$ \hyperlink{classew_1_1View3Item_a9591a8a9c68d627c93e4009c523767c2}{get\_\-bbox} ()=0
+\item 
+int \hyperlink{classew_1_1View3Item_a25a5d5d4e1fb109b8024966556f35ea2}{get\_\-index} () const 
+\item 
+void \hyperlink{classew_1_1View3Item_ac111273d2bb3433145be1506125a48de}{destroy} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} $\ast$const \hyperlink{classew_1_1View3Item_af6294268d63629c620cebb3ece227c20}{network}
+\item 
+\hyperlink{classew_1_1View3Widget}{ew::View3Widget} $\ast$const \hyperlink{classew_1_1View3Item_a7d765842ec7b9e145cefa37e3dbae658}{view}
+\item 
+const int \hyperlink{classew_1_1View3Item_a7e21fcde8f082ba2409bcb2999a4b7fd}{type}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1View3Item}{ew::View3Item} is the base class for items displayed in ew::View\_\-widget.
+
+\hyperlink{classew_1_1View3Item}{ew::View3Item} is a class without assignment or comparison. There are private member variables.
+
+Items must be created with {\ttfamily new} and then belong to the \hyperlink{classew_1_1View3Widget}{ew::View3Widget}. They must only be deleted indirectly with the \hyperlink{classew_1_1View3Item_ac111273d2bb3433145be1506125a48de}{destroy} method. Remaining items will be automatically deleted when the \hyperlink{classew_1_1View3Widget}{ew::View3Widget} is destroyed. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1View3Item_a73fa1808887496208897b56378d26cd3}{
+\index{ew::View3Item@{ew::View3Item}!get\_\-state@{get\_\-state}}
+\index{get\_\-state@{get\_\-state}!ew::View3Item@{ew::View3Item}}
+\paragraph[{get\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::View3Item::get\_\-state (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Item_a73fa1808887496208897b56378d26cd3}
+An item is displayed iff the state is {\ttfamily true}. \begin{DoxyReturn}{Returns}
+The current state of the item. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Item_aebe04d5c9a8a8079d651d7ca179a312c}{
+\index{ew::View3Item@{ew::View3Item}!set\_\-state@{set\_\-state}}
+\index{set\_\-state@{set\_\-state}!ew::View3Item@{ew::View3Item}}
+\paragraph[{set\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Item::set\_\-state (
+\begin{DoxyParamCaption}
+\item[{bool}]{ i}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Item_aebe04d5c9a8a8079d651d7ca179a312c}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em i}]The new state of the item. \end{DoxyParams}
+\hypertarget{classew_1_1View3Item_a9591a8a9c68d627c93e4009c523767c2}{
+\index{ew::View3Item@{ew::View3Item}!get\_\-bbox@{get\_\-bbox}}
+\index{get\_\-bbox@{get\_\-bbox}!ew::View3Item@{ew::View3Item}}
+\paragraph[{get\_\-bbox}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Bbox3} $\ast$ ew::View3Item::get\_\-bbox (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}\hfill}
+\label{classew_1_1View3Item_a9591a8a9c68d627c93e4009c523767c2}
+\begin{DoxyReturn}{Returns}
+A pointer to a bounding box for the item as currently being displayed. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Item_a25a5d5d4e1fb109b8024966556f35ea2}{
+\index{ew::View3Item@{ew::View3Item}!get\_\-index@{get\_\-index}}
+\index{get\_\-index@{get\_\-index}!ew::View3Item@{ew::View3Item}}
+\paragraph[{get\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int ew::View3Item::get\_\-index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Item_a25a5d5d4e1fb109b8024966556f35ea2}
+\begin{DoxyReturn}{Returns}
+The current index of the item in the widget's item list. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Item_ac111273d2bb3433145be1506125a48de}{
+\index{ew::View3Item@{ew::View3Item}!destroy@{destroy}}
+\index{destroy@{destroy}!ew::View3Item@{ew::View3Item}}
+\paragraph[{destroy}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Item::destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Item_ac111273d2bb3433145be1506125a48de}
+This removes the item from the widget and destroys it. 
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1View3Item_af6294268d63629c620cebb3ece227c20}{
+\index{ew::View3Item@{ew::View3Item}!network@{network}}
+\index{network@{network}!ew::View3Item@{ew::View3Item}}
+\paragraph[{network}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::DataflowNetwork} $\ast$const {\bf ew::View3Item::network}}\hfill}
+\label{classew_1_1View3Item_af6294268d63629c620cebb3ece227c20}
+This points to the \hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} that the \hyperlink{classew_1_1View3Item_a7d765842ec7b9e145cefa37e3dbae658}{view} was created with. \hypertarget{classew_1_1View3Item_a7d765842ec7b9e145cefa37e3dbae658}{
+\index{ew::View3Item@{ew::View3Item}!view@{view}}
+\index{view@{view}!ew::View3Item@{ew::View3Item}}
+\paragraph[{view}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::View3Widget} $\ast$const {\bf ew::View3Item::view}}\hfill}
+\label{classew_1_1View3Item_a7d765842ec7b9e145cefa37e3dbae658}
+This points to the \hyperlink{classew_1_1View3Widget}{ew::View3Widget} the this \hyperlink{classew_1_1View3Item}{ew::View3Item} was created with. \hypertarget{classew_1_1View3Item_a7e21fcde8f082ba2409bcb2999a4b7fd}{
+\index{ew::View3Item@{ew::View3Item}!type@{type}}
+\index{type@{type}!ew::View3Item@{ew::View3Item}}
+\paragraph[{type}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf ew::View3Item::type}}\hfill}
+\label{classew_1_1View3Item_a7e21fcde8f082ba2409bcb2999a4b7fd}
+This is an arbitrary value supplied in the constructor. It is client data, not touched by \hyperlink{classew_1_1View3Item}{ew::View3Item} or \hyperlink{classew_1_1View3Widget}{ew::View3Widget}. 

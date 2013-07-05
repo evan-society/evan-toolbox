@@ -1,0 +1,246 @@
+Bbox3.o: Bbox3.cpp ../include/ew/Bbox3.h ../include/ew/ErrorLogic.h
+Curve3.o: Curve3.cpp ../include/ew/Debug.h ../include/ew/Time.h \
+ ../include/ew/Curve3.h ../include/ew/ErrorIO.h ../include/ew/String.h \
+ AutoArray.h
+DataflowArray3.o: DataflowArray3.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowArray3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h
+DataflowArray3E.o: DataflowArray3E.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/DataflowArray3.h \
+ ../include/ew/Bbox3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/DataflowArray3E.h ../include/ew/Transform3.h \
+ ../include/ew/String.h
+DataflowCurve3.o: DataflowCurve3.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowNetwork.h ../include/ew/DebugHelper.h \
+ ../include/ew/Debug.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowNode.h ../include/ew/DataflowCurve3.h Geom3.h \
+ Index3.h AutoArray.h
+DataflowCurve3E.o: DataflowCurve3E.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/Curve3.h \
+ ../include/ew/DataflowNetwork.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowNode.h ../include/ew/DataflowCurve3.h \
+ ../include/ew/Bbox3.h ../include/ew/DataflowCurve3E.h \
+ ../include/ew/String.h
+DataflowForm3.o: DataflowForm3.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowForm3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/Form3.h ../include/ew/Form3Curve.h \
+ ../include/ew/Form3Embedding.h ../include/ew/Form3Pointset.h \
+ ../include/ew/Form3Reflection.h ../include/ew/Form3Surface.h \
+ ../include/ew/Form3Volume.h ../include/ew/ErrorLogic.h \
+ ../include/ew/String.h
+DataflowImage3.o: DataflowImage3.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/DataflowArray3.h \
+ ../include/ew/Bbox3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/DataflowData3.h ../include/ew/DataflowImage3.h \
+ ../include/ew/String.h
+DataflowNetwork.o: DataflowNetwork.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/Curve3.h \
+ ../include/ew/DataflowNetwork.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowNotifier.h ../include/ew/DataflowNode.h \
+ ../include/ew/DataflowCurve3E.h ../include/ew/DataflowCurve3.h \
+ ../include/ew/Bbox3.h ../include/ew/DataflowSurface3E.h \
+ ../include/ew/DataflowSurface3.h ../include/ew/Surface3.h \
+ ../include/ew/ErrorRuntime.h ../include/ew/String.h
+DataflowNode.o: DataflowNode.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/ErrorLogic.h \
+ ../include/ew/DataflowNetwork.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowNode.h ../include/ew/ErrorRuntime.h \
+ ../include/ew/String.h
+DataflowNotifier.o: DataflowNotifier.cpp ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNotifier.h
+DataflowSpline3.o: DataflowSpline3.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/DataflowForm3.h \
+ ../include/ew/Bbox3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/Form3.h ../include/ew/Form3Curve.h \
+ ../include/ew/Form3Embedding.h ../include/ew/Form3Pointset.h \
+ ../include/ew/Form3Reflection.h ../include/ew/Form3Surface.h \
+ ../include/ew/Form3Volume.h ../include/ew/DataflowSpline3.h \
+ ../include/ew/ErrorRuntime.h ../include/ew/String.h ../include/ew/Tps3.h
+DataflowSurface3.o: DataflowSurface3.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowNetwork.h ../include/ew/DebugHelper.h \
+ ../include/ew/Debug.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowNode.h ../include/ew/DataflowSurface3.h Geom3.h \
+ Index3.h AutoArray.h
+DataflowSurface3E.o: DataflowSurface3E.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/DataflowSurface3.h ../include/ew/Bbox3.h \
+ ../include/ew/DataflowSurface3E.h ../include/ew/Surface3.h \
+ ../include/ew/String.h
+Debug.o: Debug.cpp ../include/ew/Debug.h ../include/ew/ErrorRuntime.h \
+ ../include/ew/String.h ../include/ew/Time.h ../include/ew/Version.h
+DebugHelper.o: DebugHelper.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/String.h
+Dig3.o: Dig3.cpp ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/ErrorLogic.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/DataflowSpline3.h ../include/ew/DataflowForm3.h \
+ ../include/ew/Bbox3.h ../include/ew/Form3.h ../include/ew/Form3Curve.h \
+ ../include/ew/Form3Embedding.h ../include/ew/Form3Pointset.h \
+ ../include/ew/Form3Reflection.h ../include/ew/Form3Surface.h \
+ ../include/ew/Form3Volume.h ../include/ew/Dig3.h \
+ ../include/ew/Dig3Tableau.h ../include/ew/Dig3TableauSpace.h \
+ ../include/ew/Dig3SetCurve.h ../include/ew/Dig3SetSurface.h \
+ ../include/ew/Transform3.h ../include/ew/Dig3Space.h \
+ ../include/ew/DataflowCurve3E.h ../include/ew/DataflowCurve3.h \
+ ../include/ew/Curve3.h ../include/ew/DataflowSurface3E.h \
+ ../include/ew/DataflowSurface3.h ../include/ew/Surface3.h \
+ ../include/ew/Dig3View.h ../include/ew/View3Image.h \
+ ../include/ew/DataflowImage3.h ../include/ew/DataflowArray3.h \
+ ../include/ew/DataflowData3.h ../include/ew/View3Item.h \
+ ../include/ew/View3Widget.h ../include/ew/DataflowNotifier.h \
+ ../include/ew/View3Landmarks.h ../include/ew/DataflowArray3E.h \
+ ../include/ew/View3Curve.h ../include/ew/View3Surface.h \
+ ../include/ew/String.h
+Dig3Space.o: Dig3Space.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowCurve3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/DataflowCurve3E.h ../include/ew/Curve3.h \
+ ../include/ew/DataflowForm3.h ../include/ew/Form3.h \
+ ../include/ew/Form3Curve.h ../include/ew/Form3Embedding.h \
+ ../include/ew/Form3Pointset.h ../include/ew/Form3Reflection.h \
+ ../include/ew/Form3Surface.h ../include/ew/Form3Volume.h \
+ ../include/ew/DataflowSurface3.h ../include/ew/DataflowSurface3E.h \
+ ../include/ew/Surface3.h ../include/ew/Dig3.h \
+ ../include/ew/DataflowSpline3.h ../include/ew/Dig3Tableau.h \
+ ../include/ew/Dig3TableauSpace.h ../include/ew/Dig3SetCurve.h \
+ ../include/ew/Dig3SetSurface.h ../include/ew/Transform3.h \
+ ../include/ew/Dig3Space.h ../include/ew/Dig3View.h \
+ ../include/ew/View3Image.h ../include/ew/DataflowImage3.h \
+ ../include/ew/DataflowArray3.h ../include/ew/DataflowData3.h \
+ ../include/ew/View3Item.h ../include/ew/View3Widget.h \
+ ../include/ew/DataflowNotifier.h ../include/ew/View3Landmarks.h \
+ ../include/ew/DataflowArray3E.h ../include/ew/View3Curve.h \
+ ../include/ew/View3Surface.h ../include/ew/String.h
+Dig3Tableau.o: Dig3Tableau.cpp ../include/ew/ErrorIO.h \
+ ../include/ew/String.h ../include/ew/Dig3Tableau.h \
+ ../include/ew/Dig3TableauSpace.h ../include/ew/Dig3SetCurve.h \
+ ../include/ew/Dig3SetSurface.h ../include/ew/Transform3.h \
+ ../include/ew/View3Landmarks.h ../include/ew/Bbox3.h \
+ ../include/ew/DataflowForm3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/Form3.h ../include/ew/Form3Curve.h \
+ ../include/ew/Form3Embedding.h ../include/ew/Form3Pointset.h \
+ ../include/ew/Form3Reflection.h ../include/ew/Form3Surface.h \
+ ../include/ew/Form3Volume.h ../include/ew/View3Item.h \
+ ../include/ew/View3Widget.h ../include/ew/DataflowNotifier.h XmlReader.h \
+ XmlAutoDocPtr.h XmlWriter.h XmlAutoWriPtr.h
+Dig3View.o: Dig3View.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/ErrorLogic.h \
+ ../include/ew/String.h ../include/ew/DataflowArray3.h \
+ ../include/ew/Bbox3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/DataflowArray3E.h ../include/ew/Transform3.h \
+ ../include/ew/DataflowCurve3.h ../include/ew/DataflowCurve3E.h \
+ ../include/ew/Curve3.h ../include/ew/DataflowForm3.h \
+ ../include/ew/Form3.h ../include/ew/Form3Curve.h \
+ ../include/ew/Form3Embedding.h ../include/ew/Form3Pointset.h \
+ ../include/ew/Form3Reflection.h ../include/ew/Form3Surface.h \
+ ../include/ew/Form3Volume.h ../include/ew/DataflowImage3.h \
+ ../include/ew/DataflowData3.h ../include/ew/DataflowSurface3.h \
+ ../include/ew/DataflowSurface3E.h ../include/ew/Surface3.h \
+ ../include/ew/Dig3.h ../include/ew/DataflowSpline3.h \
+ ../include/ew/Dig3Tableau.h ../include/ew/Dig3TableauSpace.h \
+ ../include/ew/Dig3SetCurve.h ../include/ew/Dig3SetSurface.h \
+ ../include/ew/Dig3Space.h ../include/ew/Dig3View.h \
+ ../include/ew/View3Image.h ../include/ew/View3Item.h \
+ ../include/ew/View3Widget.h ../include/ew/DataflowNotifier.h \
+ ../include/ew/View3Landmarks.h ../include/ew/View3Curve.h \
+ ../include/ew/View3Surface.h
+ErrorIO.o: ErrorIO.cpp ../include/ew/Debug.h ../include/ew/ErrorIO.h
+ErrorLogic.o: ErrorLogic.cpp ../include/ew/Debug.h \
+ ../include/ew/ErrorLogic.h ../include/ew/String.h
+ErrorRuntime.o: ErrorRuntime.cpp ../include/ew/Debug.h \
+ ../include/ew/ErrorRuntime.h
+File.o: File.cpp File.h
+Form3.o: Form3.cpp ../include/ew/ErrorIO.h ../include/ew/Form3.h \
+ ../include/ew/Form3Curve.h ../include/ew/Form3Embedding.h \
+ ../include/ew/Form3Pointset.h ../include/ew/Form3Reflection.h \
+ ../include/ew/Form3Surface.h ../include/ew/Form3Volume.h \
+ ../include/ew/String.h XmlReader.h ../include/ew/Transform3.h \
+ XmlAutoDocPtr.h XmlWriter.h XmlAutoWriPtr.h
+Gdtoa.o: Gdtoa.cpp Gdtoa.h BigNum.h
+Geom3.o: Geom3.cpp ../include/ew/Bbox3.h ../include/ew/ErrorLogic.h \
+ Geom3.h
+Index3.o: Index3.cpp ../include/ew/Bbox3.h ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h Geom3.h Index3.h AutoArray.h Index3ToCheck.h \
+ Index3ToIndex.h
+String.o: String.cpp ../include/ew/String.h Gdtoa.h
+Surface3.o: Surface3.cpp ../include/ew/Debug.h ../include/ew/Time.h \
+ ../include/ew/ErrorIO.h ../include/ew/String.h ../include/ew/Surface3.h \
+ AutoArray.h
+Time.o: Time.cpp ../include/ew/Time.h
+Tps2.o: Tps2.cpp ../include/ew/ErrorLogic.h ../include/ew/ErrorRuntime.h \
+ ../include/ew/Tps2.h AutoArray.h
+Tps3.o: Tps3.cpp ../include/ew/ErrorLogic.h ../include/ew/ErrorRuntime.h \
+ ../include/ew/Tps3.h AutoArray.h
+Transform2.o: Transform2.cpp ../include/ew/Transform2.h \
+ ../include/ew/String.h
+Transform3.o: Transform3.cpp ../include/ew/Transform3.h \
+ ../include/ew/String.h
+View3Curve.o: View3Curve.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowNetwork.h ../include/ew/DebugHelper.h \
+ ../include/ew/Debug.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowCurve3.h ../include/ew/DataflowNode.h \
+ ../include/ew/ErrorLogic.h ../include/ew/ErrorRuntime.h \
+ ../include/ew/View3Item.h ../include/ew/View3Widget.h \
+ ../include/ew/DataflowNotifier.h ../include/ew/Transform3.h \
+ ../include/ew/View3Curve.h
+View3Image.o: View3Image.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowArray3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/DataflowArray3E.h ../include/ew/Transform3.h \
+ ../include/ew/DataflowImage3.h ../include/ew/DataflowData3.h \
+ ../include/ew/ErrorLogic.h ../include/ew/ErrorRuntime.h \
+ ../include/ew/View3Image.h ../include/ew/View3Item.h \
+ ../include/ew/View3Widget.h ../include/ew/DataflowNotifier.h
+View3Item.o: View3Item.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowNetwork.h ../include/ew/DebugHelper.h \
+ ../include/ew/Debug.h ../include/ew/FriendVariable.h \
+ ../include/ew/String.h ../include/ew/View3Item.h \
+ ../include/ew/View3Widget.h ../include/ew/DataflowNotifier.h \
+ ../include/ew/Transform3.h
+View3Landmarks.o: View3Landmarks.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowForm3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ ../include/ew/Form3.h ../include/ew/Form3Curve.h \
+ ../include/ew/Form3Embedding.h ../include/ew/Form3Pointset.h \
+ ../include/ew/Form3Reflection.h ../include/ew/Form3Surface.h \
+ ../include/ew/Form3Volume.h ../include/ew/ErrorLogic.h \
+ ../include/ew/ErrorRuntime.h ../include/ew/View3Item.h \
+ ../include/ew/View3Widget.h ../include/ew/DataflowNotifier.h \
+ ../include/ew/Transform3.h ../include/ew/View3Landmarks.h
+View3Surface.o: View3Surface.cpp ../include/ew/Bbox3.h \
+ ../include/ew/DataflowNetwork.h ../include/ew/DebugHelper.h \
+ ../include/ew/Debug.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowSurface3.h ../include/ew/DataflowNode.h \
+ ../include/ew/ErrorLogic.h ../include/ew/ErrorRuntime.h \
+ ../include/ew/View3Item.h ../include/ew/View3Widget.h \
+ ../include/ew/DataflowNotifier.h ../include/ew/Transform3.h \
+ ../include/ew/View3Surface.h
+View3Widget.o: View3Widget.cpp ../include/ew/Debug.h \
+ ../include/ew/DebugHelper.h ../include/ew/ErrorLogic.h \
+ ../include/ew/String.h ../include/ew/Bbox3.h \
+ ../include/ew/DataflowNetwork.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowNotifier.h ../include/ew/ErrorRuntime.h \
+ ../include/ew/Transform3.h ../include/ew/View3Item.h \
+ ../include/ew/View3Widget.h ../include/ew/View3Pick.h AutoArray.h
+XmlReader.o: XmlReader.cpp ../include/ew/Debug.h \
+ ../include/ew/ErrorLogic.h ../include/ew/String.h \
+ ../include/ew/ErrorIO.h ../include/ew/Transform3.h File.h \
+ XmlAutoDocPtr.h XmlReader.h
+XmlWriter.o: XmlWriter.cpp ../include/ew/Debug.h \
+ ../include/ew/ErrorLogic.h ../include/ew/ErrorIO.h \
+ ../include/ew/String.h ../include/ew/Transform3.h File.h XmlAutoWriPtr.h \
+ XmlWriter.h

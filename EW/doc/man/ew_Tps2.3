@@ -1,0 +1,307 @@
+.TH "ew::Tps2" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Tps2 \- 
+.PP
+Thin-Plate Spline in 2D.  
+
+\fBew::Tps2\fP is a class of static methods. It implements the thin-plate spline in \fBR\fP^2. It supports semi-landmarks that are allowed to slide along affine subspaces.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Tps2.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBinteraction\fP (double *L, const double *lmks, int n_lmks)"
+.br
+.ti -1c
+.RI "static void \fBalgebraic_size\fP (int *f_size, bool *is_mixed, bool *is_reduced, const int *relax_dims_opt, int n_lmks)"
+.br
+.ti -1c
+.RI "static void \fBfactorize\fP (double *F, int *pivots, double *nonsingularity, const double *L, const int *relax_dims_opt, const double *relax_params_opt, int f_size, bool is_mixed, bool is_reduced, int n_lmks)"
+.br
+.ti -1c
+.RI "static void \fBsolve\fP (double *spline, double *energy_opt, double *relax_lmk_images_opt, const double *F, const int *pivots, const double *lmk_images, const int *relax_dims_opt, const double *relax_params_opt, const double *L, int n_lmks, int f_size, bool is_mixed, bool is_reduced)"
+.br
+.ti -1c
+.RI "static void \fBmap\fP (double *point_images, const double *points, int n_points, const double *spline, const double *lmks, int n_lmks)"
+.br
+.ti -1c
+.RI "static void \fBcache\fP (float *cache, const float *points, int n_points, const double *lmk)"
+.br
+.ti -1c
+.RI "static void \fBcache_map\fP (float *point_images, const float *points, float *const (*caches), int n_points, const double *spline, int n_lmks)"
+.br
+.ti -1c
+.RI "static void \fBbending_energy\fP (double *B, const double *F, const int *pivots, const int *relax_dims_opt, const double *relax_params_opt, int n_lmks, int f_size, bool is_mixed, bool is_reduced)"
+.br
+.ti -1c
+.RI "static void \fBprincipal_warps\fP (double *P, double *evals, const double *B, int n_lmks, bool is_mixed)"
+.br
+.ti -1c
+.RI "static void \fBprincipal_axes\fP (double *centroid, double *sum_squares, double *axes, const double *lmks, int n_lmks)"
+.br
+.ti -1c
+.RI "static void \fBuniform_basis\fP (double *basis, double *transforms_opt, const double *centroid, const double *sum_squares, const double *axes, const double *lmks, int n_lmks)"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+The method interfaces are purely procedural. It is up to the caller to provide the space for the arguments and for the results. The only memory management performed is for internal temporary scratch space.
+.PP
+The numerical linear algebra is performed by the LAPACK library. The thin-plate spline system of equations has a symmetric, semi-definite matrix of coefficients. It is factorizated using the LAPACK function \fCDSYTRF\fP and solve using the LAPACK function \fCDSYTRS\fP. \fCDSYTRF\fP uses the Bunch-Kaufman diagonal pivoting algorithm. In the calculation of bending energy, the matrix inversion is performed by \fCDSYTRI\fP. In the calculation of principal warps and principal axes, the eigenanalysis is preformed by \fCDSYEV\fP. Lapack includes an error handler, \fCxerbla\fP, which will get linked into the program. However, provided this class is used correctly, \fCxerbla\fP will never be called.
+.PP
+On Mac OS X (as of 2010-02), the bundled lapack implementation can crash if the array arguments are not 16 byte aligned. Consequently, the array arguments of \fBew::Tps2\fP methods should be 16 byte aligned.
+.PP
+In this documentation, the first index of a matrix element is considered to be the row number, the second the column number. Matrix elements of all these methods are stored consecutively in memory by rows.
+.PP
+See \fBThin-Plate Spline with Semi-landmarks on Affine Subspaces\fP and \fBCanonical Uniform Warp Basis\fP for details of the algorithms used by these methods. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::Tps2::interaction (double * L, const double * lmks, int n_lmks)\fC [static]\fP"This calculates the thin-plate spline interaction matrix of a configuration of landmarks. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIL\fP This is a matrix of size (\fIn_lmks\fP + 3) x (\fIn_lmks\fP + 3). The result is a symmetric and only the upper diagonal part is stored. 
+.br
+\fIlmks\fP This is a matrix of size \fIn_lmks\fP x 2 containing the landmark coordinates. 
+.br
+\fIn_lmks\fP This is the number of landmarks. 
+.RE
+.PP
+
+.SS "void ew::Tps2::algebraic_size (int * f_size, bool * is_mixed, bool * is_reduced, const int * relax_dims_opt, int n_lmks)\fC [static]\fP"This calculates the algebraic dimension and other characteristics of a thin-plate spline configuration with semi-landmarks. It is not necessary to call this function if there are no semi-landmarks. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIf_size\fP This is the location to store the algebraic dimension of the thin-plate spline equation. \fIf_size\fP is needed to allocate space for arguments to other functions. If \fIis_mixed\fP is \fCfalse\fP, it is at most \fIn_lmks\fP + 3. Otherwise it is less than 2 * (\fIn_lmks\fP + 3). If there are no semi-landmarks, it is exactly \fIn_lmks\fP + 3. In general, the difference between these upper limits and \fIf_size\fP is the sum of the elements of \fIrelax_dims\fP. 
+.br
+\fIis_mixed\fP This is the location to store a \fCboolean\fP value indicating whether the 2 dimensions are mixed in the thin-plate spline equation. If not, the thin-plate spline equation can be solved in each dimension separately. If there are no semi-landmarks, this will be \fCfalse\fP. It is \fCtrue\fP if there are semi-landmarks sliding in spaces of non-zero dimension and non-zero co-dimension. 
+.br
+\fIis_reduced\fP This is the location to store a \fCboolean\fP value indicating whether there are any non-trivial semi-landmarks, and consequently, whether the thin-plate spline equation has been reduced. If there are no semi-landmarks, this will be \fCfalse\fP. It is \fCtrue\fP if there are semi-landmarks sliding in spaces of non-zero dimension. 
+.br
+\fIrelax_dims_opt\fP This is an array of size \fIn_lmks\fP containing the dimensions of the sliding spaces for each landmark. Each can be 0, 1, or 2. For landmarks that are not semi-landmarks, the entries should be 0. If there are no semi-landmarks, this can be \fCNULL\fP. 
+.br
+\fIn_lmks\fP See \fBinteraction\fP. 
+.RE
+.PP
+
+.SS "void ew::Tps2::factorize (double * F, int * pivots, double * nonsingularity, const double * L, const int * relax_dims_opt, const double * relax_params_opt, int f_size, bool is_mixed, bool is_reduced, int n_lmks)\fC [static]\fP"This calculates the algebraic equation corresponding to the semi-landmark constraints, and factorizes the coefficient matrix. If \fIis_mixed\fP is \fCtrue\fP, this equation is mixed. Otherwise it separates into equations in each coordinate direction. It uses outputs from \fBinteraction\fP and \fBalgebraic_size\fP. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIF\fP This is a matrix of size \fIf_size\fP x \fIf_size\fP. The factorization of the coefficient matrix is stored here. It is not output if the thin-plate spline is singular. 
+.br
+\fIpivots\fP This is an array of size \fIf_size\fP. The pivots used in the factorization are stored here. It is not output if the thin-plate spline is singular. 
+.br
+\fInonsingularity\fP This is the inverse of the condition number of the block diagonal matrix resulting from the matrix factorization. If this is exactly 0.0, the other outputs will not have been set and they must not used in \fBsolve\fP. If this is close to 0.0, the other outputs are unreliable and should also not be used. A spline is exactly singular when there are 2 landmarks with the same coordinates, or when the landmarks are colinear. In this case, the \fInonsingularity\fP might not be exactly 0.0 due to numerical error. Conversely, the spline equation might be numerically unsolvable without it being exactly singular, for example, if there are an excessive number of landmarks, if some landmarks are very close together, or if the landmarks are nearly colinear. The lower limit for the \fInonsingularity\fP should be high enough to catch these cases, but not so high as to reject too many usable splines. A limit of \fC1.0e-8\fP is a sensible starting point. 
+.br
+\fIL\fP See \fBinteraction\fP. 
+.br
+\fIrelax_dims_opt\fP See \fBalgebraic_size\fP. 
+.br
+\fIrelax_params_opt\fP This is a matrix of size \fIn_lmks\fP x 2. For every semi-landmark sliding along a line, the corresponding row of this matrix should be a unit vector normal to the line. The other rows need not be set. If there are no semi-landmarks of dimension 1, this can be \fCNULL\fP. 
+.br
+\fIf_size\fP See \fBalgebraic_size\fP. 
+.br
+\fIis_mixed\fP See \fBalgebraic_size\fP. 
+.br
+\fIis_reduced\fP See \fBalgebraic_size\fP. 
+.br
+\fIn_lmks\fP See \fBinteraction\fP. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.RE
+.PP
+
+.SS "void ew::Tps2::solve (double * spline, double * energy_opt, double * relax_lmk_images_opt, const double * F, const int * pivots, const double * lmk_images, const int * relax_dims_opt, const double * relax_params_opt, const double * L, int n_lmks, int f_size, bool is_mixed, bool is_reduced)\fC [static]\fP"This calculates a thin-plate spline from a configuration of landmark images. It uses outputs from \fBinteraction\fP, \fBalgebraic_size\fP and \fBfactorize\fP. It should not be called if the thin-plate spline is singular. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIspline\fP This is a matrix of size (\fIn_lmks\fP + 3) x 2. The coefficients of the solution thin-plate spline are stored here. 
+.br
+\fIenergy_opt\fP This is the location to store the bending energy of the thin-plate spline. It can be \fCNULL\fP, in which case the energy is not calculated. 
+.br
+\fIrelax_lmk_images_opt\fP This is a matrix of size \fIn_lmks\fP x 2. It is the location to store the optimized landmark images. These are the landmark images that would minimize bending energy consistent with the semi-landmark constraints. It can be \fCNULL\fP, in which case they are not calculated. 
+.br
+\fIF\fP See \fBfactorize\fP. 
+.br
+\fIpivots\fP See \fBfactorize\fP. 
+.br
+\fIlmk_images\fP This is a matrix of size \fIn_lmks\fP x 2 containing the landmark image coordinates. 
+.br
+\fIrelax_dims_opt\fP See \fBalgebraic_size\fP. 
+.br
+\fIrelax_params_opt\fP See \fBfactorize\fP. 
+.br
+\fIL\fP See \fBinteraction\fP. 
+.br
+\fIn_lmks\fP See \fBinteraction\fP. 
+.br
+\fIf_size\fP See \fBalgebraic_size\fP. 
+.br
+\fIis_mixed\fP See \fBalgebraic_size\fP. 
+.br
+\fIis_reduced\fP See \fBalgebraic_size\fP. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.RE
+.PP
+
+.SS "void ew::Tps2::map (double * point_images, const double * points, int n_points, const double * spline, const double * lmks, int n_lmks)\fC [static]\fP"This calculates the images of a list of points under a thin-plate spline. It uses outputs of \fBsolve\fP. It should not be called if the thin-plate spline is singular. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpoint_images\fP This is a matrix of size \fIn_points\fP x 2. It is the location to store the coordinates of the images of the points. 
+.br
+\fIpoints\fP This is a matrix of size \fIn_points\fP x 2, containing the coordinates of the points 
+.br
+\fIn_points\fP This is the number of points. 
+.br
+\fIspline\fP See \fBsolve\fP. 
+.br
+\fIlmks\fP See \fBinteraction\fP. 
+.br
+\fIn_lmks\fP See \fBinteraction\fP. 
+.RE
+.PP
+
+.SS "void ew::Tps2::cache (float * cache, const float * points, int n_points, const double * lmk)\fC [static]\fP"This evaluates a single thin-plate spline kernel function at a list of points. It is intended for speed critical situations where incremental changes are made to a thin-plate spline that is being applied to a fixed set of points. It requires a \fIcache\fP for each landmark, which could be a require a significant amount of memory. The \fIpoints\fP and \fIcache\fP are of type \fCfloat\fP rather than \fCdouble\fP to save space. As a consequence, the accuracy of the mapped points is reduced. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcache\fP This is an array of size n_points. The cached evaluations are stored here. 
+.br
+\fIpoints\fP See \fBmap\fP, except that this is a \fCfloat\fP array rather than \fCdouble\fP. 
+.br
+\fIn_points\fP See \fBmap\fP. 
+.br
+\fIlmk\fP This points to an array of size 2 containing the coordinates of the landmark. 
+.RE
+.PP
+
+.SS "void ew::Tps2::cache_map (float * point_images, const float * points, float *const * caches, int n_points, const double * spline, int n_lmks)\fC [static]\fP"This uses previously calculated cached kernel evaluations to calculate the images of a list of points under a thin-plate spline. It uses outputs from \fBsolve\fP and \fBcache\fP. It should not be called if the thin-plate spline is singular. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpoint_images\fP See \fBmap\fP. 
+.br
+\fIpoints\fP See \fBmap\fP. 
+.br
+\fIcaches\fP This is an array of size \fIn_lmks\fP. It is an array of pointers, each pointing to the corresponding cache. 
+.br
+\fIn_points\fP See \fBmap\fP. 
+.br
+\fIspline\fP See \fBsolve\fP. 
+.br
+\fIn_lmks\fP See \fBinteraction\fP. 
+.RE
+.PP
+
+.SS "void ew::Tps2::bending_energy (double * B, const double * F, const int * pivots, const int * relax_dims_opt, const double * relax_params_opt, int n_lmks, int f_size, bool is_mixed, bool is_reduced)\fC [static]\fP"This calculates the bending energy matrix. If \fIis_mixed\fP, it is a quadratic form on the mixed coordinates. Otherwise, it is a quadratic form that is applied separately to the x coordinates and to the y coordinates. If there are any non-trivial semi-landmarks, this is the form for the minimized bending energy. It uses outputs from \fBinteraction\fP, \fBalgebraic_size\fP and \fBfactorize\fP. It should not be called if the thin-plate spline is singular. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIB\fP This is the bending energy matrix. It is a symmetric matrix, with both upper and lower diagonal entries stored. If \fIis_mixed\fP, it has size (2 * \fIn_lmks\fP) x (2 * \fIn_lmks\fP). Otherwise, it has size \fIn_lmks\fP x \fIn_lmks\fP. 
+.br
+\fIF\fP See \fBfactorize\fP. 
+.br
+\fIpivots\fP See \fBfactorize\fP. 
+.br
+\fIrelax_dims_opt\fP See \fBalgebraic_size\fP. 
+.br
+\fIrelax_params_opt\fP See \fBfactorize\fP. 
+.br
+\fIn_lmks\fP See \fBinteraction\fP. 
+.br
+\fIf_size\fP See \fBalgebraic_size\fP. 
+.br
+\fIis_mixed\fP See \fBalgebraic_size\fP. 
+.br
+\fIis_reduced\fP See \fBalgebraic_size\fP. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.RE
+.PP
+
+.SS "void ew::Tps2::principal_warps (double * P, double * evals, const double * B, int n_lmks, bool is_mixed)\fC [static]\fP"This calculates the principal warps. If \fIis_mixed\fP, they are a basis of the full space of landmark displacements. Otherwise, they are a basis of the space of landmarks in a single coordinate directions, either x or y. It uses outputs from \fBbending_energy\fP. It should not be called if the thin-plate spline is singular. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIP\fP If \fIis_mixed\fP is \fCfalse\fP, this is a matrix of size \fIn_lmks\fP x \fIn_lmks\fP. Otherwise it is a matrix of size (2 * \fIn_lmks\fP) x (2 * \fIn_lmks\fP). The eigenvectors are stored here. The form an orthogonal matrix. 
+.br
+\fIevals\fP If \fIis_mixed\fP is \fCfalse\fP, this is an array of size \fIn_lmks\fP. Otherwise it is an array of size 2 * \fIn_lmks\fP. The eigenvalues are stored here. The eigenvectors are ordered so that the eigenvalues are in non-decreasing order. 
+.br
+\fIB\fP See \fBbending_energy\fP. 
+.br
+\fIn_lmks\fP See \fBinteraction\fP. 
+.br
+\fIis_mixed\fP See \fBalgebraic_size\fP. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::runtime_error\fP The eigenanalysis failed to converge. 
+.br
+\fIstd::bad_alloc\fP 
+.RE
+.PP
+
+.SS "void ew::Tps2::principal_axes (double * centroid, double * sum_squares, double * axes, const double * lmks, int n_lmks)\fC [static]\fP"This calculates a set of principal axes for the landmark configuration. The axes are not canonical, which is why their calculation and their use in \fBuniform_basis\fP are separated into different functions. They are canonical up to sign if the sum_squares are different. It should not be called with an empty configuration of landmarks. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcentroid\fP This points to an array of size 2 to store the centroid of the configuration. 
+.br
+\fIsum_squares\fP This points to an array of size 2 to store the sum of squared coordinates in the principal axes. 
+.br
+\fIaxes\fP This is a matrix of size \fIn_lmks\fP x \fIn_lmks\fP. It is the location to store the principal axes. They form an orthogonal matrix. 
+.br
+\fIlmks\fP See \fBinteraction\fP. 
+.br
+\fIn_lmks\fP See \fBinteraction\fP. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::runtime_error\fP The eigenanalysis failed to converge. 
+.br
+\fIstd::bad_alloc\fP 
+.RE
+.PP
+
+.SS "void ew::Tps2::uniform_basis (double * basis, double * transforms_opt, const double * centroid, const double * sum_squares, const double * axes, const double * lmks, int n_lmks)\fC [static]\fP"This calculates a canonical basis of the uniform subspace of the space of shape variations, given a set of principal axes for the configuration. The result is relative to the original axes, not the principal axes. If the configuration is degenerate (contained within a line), this should not be called. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbasis\fP This is a matrix of size 2 x \fIn_lmks\fP x 2. The shape variables of the 2 basis elements are stored here. The first index is the number of the basis element. 
+.br
+\fItransforms_opt\fP This points to an array of size 2 * 2 * 2. Uniform shape variations are linear maps, so can be represented as 2 x 2 matrices. The matrices of the 2 basis elements are stored here. The first index is the number of the basis element. This can be \fCNULL\fP, in which case the transformations are not calculated. 
+.br
+\fIcentroid\fP See \fBprincipal_axes\fP. 
+.br
+\fIsum_squares\fP See \fBprincipal_axes\fP. 
+.br
+\fIaxes\fP See \fBprincipal_axes\fP. 
+.br
+\fIlmks\fP See \fBinteraction\fP. 
+.br
+\fIn_lmks\fP See \fBinteraction\fP. 
+.RE
+.PP
+
+

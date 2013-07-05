@@ -1,0 +1,152 @@
+\hypertarget{classew_1_1DataflowSurface3}{
+\subsection{ew::DataflowSurface3 Class Reference}
+\label{classew_1_1DataflowSurface3}\index{ew::DataflowSurface3@{ew::DataflowSurface3}}
+}
+
+
+Surface Node Base Class.  
+
+
+
+
+{\ttfamily \#include $<$ew/DataflowSurface3.h$>$}
+
+
+
+Inheritance diagram for ew::DataflowSurface3:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{classew_1_1DataflowSurface3__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classew_1_1DataflowSurface3_aab3c901dd150f4710c74c1cb1d140148}{get\_\-num\_\-points} () const 
+\item 
+int \hyperlink{classew_1_1DataflowSurface3_a2c3f79bba2d55ccfbe69d835af41d29e}{get\_\-num\_\-faces} () const 
+\item 
+const float $\ast$ \hyperlink{classew_1_1DataflowSurface3_aa585fbba3006c5a3a2c632cadd3f3cb7}{get\_\-points} () const 
+\item 
+const int $\ast$ \hyperlink{classew_1_1DataflowSurface3_abd809f7c907735fd027f6eb1f1f02be8}{get\_\-faces} () const 
+\item 
+const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} $\ast$ \hyperlink{classew_1_1DataflowSurface3_aa68f8500425fc37c39bdf32e4b8c7ed1}{get\_\-bbox} () const 
+\item 
+void \hyperlink{classew_1_1DataflowSurface3_a42bc13a486803818b1db79cebac458d6}{make\_\-index} () const 
+\item 
+bool \hyperlink{classew_1_1DataflowSurface3_a81598b76d3bec4581fed07ac1858ca91}{index\_\-is\_\-made} () const 
+\item 
+double \hyperlink{classew_1_1DataflowSurface3_afd02a18df829a9608dac90940f603d83}{project} (int $\ast$face, double $\ast$coeffs, double $\ast$normal, double $\ast$proj, const double $\ast$inp) const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1DataflowSurface3}{ew::DataflowSurface3} is the base class for nodes containing triangulated surfaces in $\mathbb{R}^3$.
+
+\hyperlink{classew_1_1DataflowSurface3}{ew::DataflowSurface3} is a class without assignment or comparison. There are private member variables.
+
+For efficient rendering of the same surface in multiple windows, an OpenGL display list is constructed containing the basic surface geometry commands. All windows displaying a given surface must share display lists. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1DataflowSurface3_aab3c901dd150f4710c74c1cb1d140148}{
+\index{ew::DataflowSurface3@{ew::DataflowSurface3}!get\_\-num\_\-points@{get\_\-num\_\-points}}
+\index{get\_\-num\_\-points@{get\_\-num\_\-points}!ew::DataflowSurface3@{ew::DataflowSurface3}}
+\paragraph[{get\_\-num\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowSurface3::get\_\-num\_\-points (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSurface3_aab3c901dd150f4710c74c1cb1d140148}
+This will force the network into an updating phase. \begin{DoxyReturn}{Returns}
+The number of points used in the surface. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSurface3_a2c3f79bba2d55ccfbe69d835af41d29e}{
+\index{ew::DataflowSurface3@{ew::DataflowSurface3}!get\_\-num\_\-faces@{get\_\-num\_\-faces}}
+\index{get\_\-num\_\-faces@{get\_\-num\_\-faces}!ew::DataflowSurface3@{ew::DataflowSurface3}}
+\paragraph[{get\_\-num\_\-faces}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowSurface3::get\_\-num\_\-faces (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSurface3_a2c3f79bba2d55ccfbe69d835af41d29e}
+This will force the network into an updating phase. \begin{DoxyReturn}{Returns}
+The number of triangular faces in the surface. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSurface3_aa585fbba3006c5a3a2c632cadd3f3cb7}{
+\index{ew::DataflowSurface3@{ew::DataflowSurface3}!get\_\-points@{get\_\-points}}
+\index{get\_\-points@{get\_\-points}!ew::DataflowSurface3@{ew::DataflowSurface3}}
+\paragraph[{get\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}const float $\ast$ ew::DataflowSurface3::get\_\-points (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSurface3_aa585fbba3006c5a3a2c632cadd3f3cb7}
+This will force the network into an updating phase. The pointer is valid until the node or a dependency of the node is changed. \begin{DoxyReturn}{Returns}
+A pointer to the coordinates of the points used in the surface. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSurface3_abd809f7c907735fd027f6eb1f1f02be8}{
+\index{ew::DataflowSurface3@{ew::DataflowSurface3}!get\_\-faces@{get\_\-faces}}
+\index{get\_\-faces@{get\_\-faces}!ew::DataflowSurface3@{ew::DataflowSurface3}}
+\paragraph[{get\_\-faces}]{\setlength{\rightskip}{0pt plus 5cm}const int $\ast$ ew::DataflowSurface3::get\_\-faces (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSurface3_abd809f7c907735fd027f6eb1f1f02be8}
+This will force the network into an updating phase. The pointer is valid until the node or a dependency of the node is changed. \begin{DoxyReturn}{Returns}
+A pointer to the indices of the points used in the surface. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSurface3_aa68f8500425fc37c39bdf32e4b8c7ed1}{
+\index{ew::DataflowSurface3@{ew::DataflowSurface3}!get\_\-bbox@{get\_\-bbox}}
+\index{get\_\-bbox@{get\_\-bbox}!ew::DataflowSurface3@{ew::DataflowSurface3}}
+\paragraph[{get\_\-bbox}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Bbox3} $\ast$ ew::DataflowSurface3::get\_\-bbox (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSurface3_aa68f8500425fc37c39bdf32e4b8c7ed1}
+The pointer is valid until the node or a dependency of the node is changed. \begin{DoxyReturn}{Returns}
+A pointer to the bounding box of the surface. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSurface3_a42bc13a486803818b1db79cebac458d6}{
+\index{ew::DataflowSurface3@{ew::DataflowSurface3}!make\_\-index@{make\_\-index}}
+\index{make\_\-index@{make\_\-index}!ew::DataflowSurface3@{ew::DataflowSurface3}}
+\paragraph[{make\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowSurface3::make\_\-index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSurface3_a42bc13a486803818b1db79cebac458d6}
+This makes the surface spatial index if it has not already been made since the surface was last changed. The spatial index is used by \hyperlink{classew_1_1DataflowSurface3_afd02a18df829a9608dac90940f603d83}{project}. \hypertarget{classew_1_1DataflowSurface3_a81598b76d3bec4581fed07ac1858ca91}{
+\index{ew::DataflowSurface3@{ew::DataflowSurface3}!index\_\-is\_\-made@{index\_\-is\_\-made}}
+\index{index\_\-is\_\-made@{index\_\-is\_\-made}!ew::DataflowSurface3@{ew::DataflowSurface3}}
+\paragraph[{index\_\-is\_\-made}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::DataflowSurface3::index\_\-is\_\-made (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSurface3_a81598b76d3bec4581fed07ac1858ca91}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the surface spatial index is up to date. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSurface3_afd02a18df829a9608dac90940f603d83}{
+\index{ew::DataflowSurface3@{ew::DataflowSurface3}!project@{project}}
+\index{project@{project}!ew::DataflowSurface3@{ew::DataflowSurface3}}
+\paragraph[{project}]{\setlength{\rightskip}{0pt plus 5cm}double ew::DataflowSurface3::project (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ face, }
+\item[{double $\ast$}]{ coeffs, }
+\item[{double $\ast$}]{ normal, }
+\item[{double $\ast$}]{ proj, }
+\item[{const double $\ast$}]{ inp}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1DataflowSurface3_afd02a18df829a9608dac90940f603d83}
+This finds the nearest point on the surface to a given point. The surface spatial index will be made if it has not already been made. This might be time consuming. The timing of this delay can be controlled by calling \hyperlink{classew_1_1DataflowSurface3_a42bc13a486803818b1db79cebac458d6}{make\_\-index} beforehand. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em face}]The index of the face of the surface containing the nearest point. \item[\mbox{\tt[out]} {\em coeffs}]The coefficients of the nearest point when expressed as a linear combination of the vertices of the face. \item[\mbox{\tt[out]} {\em normal}]The interpolated normal at the nearest point. If a sensible normal cannot be calculated, an arbitrary unit vector is returned. \item[\mbox{\tt[out]} {\em proj}]The coordinates of the nearest point on the surface. \item[\mbox{\tt[in]} {\em inp}]The coordinates of the original point. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The distance from the original point to the projected point. 
+\end{DoxyReturn}

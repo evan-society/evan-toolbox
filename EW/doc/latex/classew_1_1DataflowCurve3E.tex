@@ -1,0 +1,86 @@
+\hypertarget{classew_1_1DataflowCurve3E}{
+\subsection{ew::DataflowCurve3E Class Reference}
+\label{classew_1_1DataflowCurve3E}\index{ew::DataflowCurve3E@{ew::DataflowCurve3E}}
+}
+
+
+Explicit Curve Node.  
+
+
+
+
+{\ttfamily \#include $<$ew/DataflowCurve3E.h$>$}
+
+
+
+Inheritance diagram for ew::DataflowCurve3E:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{classew_1_1DataflowCurve3E__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1DataflowCurve3E_acf5061729d97743dfd2eca60bec86956}{DataflowCurve3E} (\hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} $\ast$i\_\-network)
+\item 
+void \hyperlink{classew_1_1DataflowCurve3E_a3e28251e9ceba31390f52e7eb259e463}{set\_\-data} (\hyperlink{classew_1_1Curve3}{ew::Curve3} $\ast$data)
+\item 
+const \hyperlink{classew_1_1Curve3}{ew::Curve3} $\ast$ \hyperlink{classew_1_1DataflowCurve3E_a6e3cd74e6761953a11fb5a19375abc13}{get\_\-data} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1DataflowCurve3E}{ew::DataflowCurve3E} is a node containing an explicitly specified curve.
+
+\hyperlink{classew_1_1DataflowCurve3E}{ew::DataflowCurve3E} objects may not be copied or compared. There are private member variables.
+
+Nodes of this class do not depend on other nodes, but other nodes can depend on them. They are valid if they have some faces.
+
+Initially and when reset, the node is empty. 
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1DataflowCurve3E_acf5061729d97743dfd2eca60bec86956}{
+\index{ew::DataflowCurve3E@{ew::DataflowCurve3E}!DataflowCurve3E@{DataflowCurve3E}}
+\index{DataflowCurve3E@{DataflowCurve3E}!ew::DataflowCurve3E@{ew::DataflowCurve3E}}
+\paragraph[{DataflowCurve3E}]{\setlength{\rightskip}{0pt plus 5cm}ew::DataflowCurve3E::DataflowCurve3E (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::DataflowNetwork} $\ast$}]{ i\_\-network}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}\hfill}
+\label{classew_1_1DataflowCurve3E_acf5061729d97743dfd2eca60bec86956}
+This creates an explicit curve node. 
+\begin{DoxyParams}{Parameters}
+\item[{\em i\_\-network}]The network this node should belong to. \end{DoxyParams}
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1DataflowCurve3E_a3e28251e9ceba31390f52e7eb259e463}{
+\index{ew::DataflowCurve3E@{ew::DataflowCurve3E}!set\_\-data@{set\_\-data}}
+\index{set\_\-data@{set\_\-data}!ew::DataflowCurve3E@{ew::DataflowCurve3E}}
+\paragraph[{set\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowCurve3E::set\_\-data (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Curve3} $\ast$}]{ data}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowCurve3E_a3e28251e9ceba31390f52e7eb259e463}
+This transfers the curve data from the \hyperlink{classew_1_1Curve3}{ew::Curve3} object to the node. Afterwards, the \hyperlink{classew_1_1Curve3}{ew::Curve3} object is reset. \begin{DoxyPrecond}{Precondition}
+This node must not be a cached node. 
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em data}]The object containing the curve data. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowCurve3E_a6e3cd74e6761953a11fb5a19375abc13}{
+\index{ew::DataflowCurve3E@{ew::DataflowCurve3E}!get\_\-data@{get\_\-data}}
+\index{get\_\-data@{get\_\-data}!ew::DataflowCurve3E@{ew::DataflowCurve3E}}
+\paragraph[{get\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Curve3} $\ast$ ew::DataflowCurve3E::get\_\-data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowCurve3E_a6e3cd74e6761953a11fb5a19375abc13}
+\begin{DoxyReturn}{Returns}
+A pointer to the internal curve data. 
+\end{DoxyReturn}

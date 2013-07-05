@@ -1,0 +1,99 @@
+.TH "ew::Dig3TableauSpace" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Dig3TableauSpace \- 
+.PP
+Space Element.  
+
+\fBew::Dig3TableauSpace\fP contains data for a space element of \fBew::Dig3Tableau\fP.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Dig3TableauSpace.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDig3TableauSpace\fP ()"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Dig3TableauSpace\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Dig3TableauSpace\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBform_filename\fP"
+.br
+.ti -1c
+.RI "\fBew::Transform3\fP \fBmain_view\fP"
+.br
+.ti -1c
+.RI "\fBew::Transform3\fP \fBslice_view\fP"
+.br
+.ti -1c
+.RI "bool \fBshow_slice_in_main\fP"
+.br
+.ti -1c
+.RI "bool \fBshow_lmks_in_main\fP"
+.br
+.ti -1c
+.RI "bool \fBshow_lmks_in_slice\fP"
+.br
+.ti -1c
+.RI "int \fBlmks_symbol\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBlmks_col\fP [3]"
+.br
+.ti -1c
+.RI "std::vector< \fBew::Dig3SetCurve\fP > \fBcurve_settings\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBew::Dig3SetSurface\fP > \fBsurface_settings\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Dig3TableauSpace\fP is a data structure that supports default construction, copy construction, assignment and equality comparison. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::Dig3TableauSpace::Dig3TableauSpace ()\fC [inline]\fP"This sets intrinsic and POD member variables to their default values. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::Dig3TableauSpace::operator== (const \fBew::Dig3TableauSpace\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SS "bool ew::Dig3TableauSpace::operator!= (const \fBew::Dig3TableauSpace\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::string \fBew::Dig3TableauSpace::form_filename\fP"This file containing the form data for the space. 
+.SS "\fBew::Transform3\fP \fBew::Dig3TableauSpace::main_view\fP"The view mapping of the main view of this space. The default is the identity transformation. 
+.SS "\fBew::Transform3\fP \fBew::Dig3TableauSpace::slice_view\fP"The view mapping of the slice view of this space. The default is the identity transformation. 
+.SS "bool \fBew::Dig3TableauSpace::show_slice_in_main\fP"\fCtrue\fP if the slice should be displayed in the main view. The default is \fCtrue\fP. 
+.SS "bool \fBew::Dig3TableauSpace::show_lmks_in_main\fP"\fCtrue\fP if the landmarks should be displayed in the main view. The default is \fCtrue\fP. 
+.SS "bool \fBew::Dig3TableauSpace::show_lmks_in_slice\fP"\fCtrue\fP if the landmarks should be displayed in the slice view. The default is \fCtrue\fP. 
+.SS "int \fBew::Dig3TableauSpace::lmks_symbol\fP"The symbol to use for landmarks. The default is 0. 
+.SS "unsigned char \fBew::Dig3TableauSpace::lmks_col\fP[3]"The colour of the landmarks. The default is [0, 255, 0]. 
+.SS "std::vector< \fBew::Dig3SetCurve\fP > \fBew::Dig3TableauSpace::curve_settings\fP"The settings for curves in the space. 
+.SS "std::vector< \fBew::Dig3SetSurface\fP > \fBew::Dig3TableauSpace::surface_settings\fP"The settings for surfaces in the space. 
+

@@ -1,0 +1,61 @@
+.TH "ew::Form3Surface" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Form3Surface \- 
+.PP
+Surface Element.  
+
+\fBew::Form3Surface\fP contains data for a surface element of \fBew::Form3\fP.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Form3Surface.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Form3Surface\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Form3Surface\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBid\fP"
+.br
+.ti -1c
+.RI "std::string \fBfile\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Form3Surface\fP is a data structure that supports default construction, copy construction, assignment and equality comparison. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::Form3Surface::operator== (const \fBew::Form3Surface\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SS "bool ew::Form3Surface::operator!= (const \fBew::Form3Surface\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::string \fBew::Form3Surface::id\fP"The id of this element used as a key to refer to this element and as a label. 
+.SS "std::string \fBew::Form3Surface::file\fP"The canonical name of the file containing the data for this element. An empty string indicates that there is no associated file. 
+

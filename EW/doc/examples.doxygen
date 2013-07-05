@@ -1,0 +1,34 @@
+/**
+@page examples Examples
+Example surface file:
+- @ref tetrahedron.obj
+
+An example ew::Form3 file, a simple unstructured set of unnamed landmarks:
+- @ref simple_landmarks.form
+
+An example ew::Form3 file, a structured landmark template configuration form
+with surfaces, curves, named landmarks and named semi-landmark sets.
+- @ref mandible_template.form
+
+An example ew::Form3 file, a structured landmark specimen configuration form
+with surfaces, curves, named landmarks and named semi-landmark sets:
+- @ref mandible_case.form
+
+An example ew::Dig3Tableau file.
+- @ref example.sav
+
+@page tetrahedron.obj tetrahedron.obj
+@verbinclude tetrahedron.obj
+
+@page simple_landmarks.form simple_landmarks.form
+@verbinclude simple_landmarks.form
+
+@page mandible_template.form mandible_landmarks.form
+@verbinclude mandible_template.form
+
+@page mandible_case.form mandible_case.form
+@verbinclude mandible_case.form
+
+@page example.sav example.sav
+@verbinclude example.sav
+*/

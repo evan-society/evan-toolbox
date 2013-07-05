@@ -1,0 +1,78 @@
+.TH "ew::View3Curve" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::View3Curve \- 
+.PP
+Curve Item.  
+
+\fBew::View3Curve\fP is an \fBew::View3Widget\fP item to display a \fBew::DataflowCurve3\fP, a piecewise-linear curve.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/View3Curve.h>\fP
+.PP
+Inherits \fBew::View3Item\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBView3Curve\fP (\fBew::View3Widget\fP *\fBview\fP, int i_type=0)"
+.br
+.ti -1c
+.RI "void \fBset_curve\fP (const \fBew::DataflowCurve3\fP *cur)"
+.br
+.ti -1c
+.RI "const \fBew::DataflowCurve3\fP * \fBget_curve\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_color\fP (const unsigned char *rgb)"
+.br
+.ti -1c
+.RI "const unsigned char * \fBget_color\fP () const "
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::View3Curve\fP is a class without assignment or comparison. There are private member variables. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::View3Curve::View3Curve (\fBew::View3Widget\fP * view, int i_type = \fC0\fP)\fC [explicit]\fP"This creates an item. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIview\fP The view widget the item should belong to. 
+.br
+\fIi_type\fP The initializer for \fBew::View3Item::type\fP. 
+.RE
+.PP
+
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::View3Curve::set_curve (const \fBew::DataflowCurve3\fP * cur)"\fBParameters:\fP
+.RS 4
+\fIcur\fP A pointer to the new curve node to display, or 0. 
+.RE
+.PP
+
+.SS "const \fBew::DataflowCurve3\fP * ew::View3Curve::get_curve () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the current curve node being displayed, or 0. 
+.RE
+.PP
+
+.SS "void ew::View3Curve::set_color (const unsigned char * rgb)"\fBParameters:\fP
+.RS 4
+\fIrgb\fP This points to an array of size 3 containing the new colour for the curve. 
+.RE
+.PP
+
+.SS "const unsigned char * ew::View3Curve::get_color () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the current colour for the curve. 
+.RE
+.PP
+
+

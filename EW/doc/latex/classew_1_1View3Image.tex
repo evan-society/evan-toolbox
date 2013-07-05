@@ -1,0 +1,112 @@
+\hypertarget{classew_1_1View3Image}{
+\subsection{ew::View3Image Class Reference}
+\label{classew_1_1View3Image}\index{ew::View3Image@{ew::View3Image}}
+}
+
+
+Image Item.  
+
+
+
+
+{\ttfamily \#include $<$ew/View3Image.h$>$}
+
+
+
+Inheritance diagram for ew::View3Image:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{classew_1_1View3Image__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1View3Image_ad4dcf5c417e3d26c03e24bd0944f3916}{View3Image} (\hyperlink{classew_1_1View3Widget}{ew::View3Widget} $\ast$\hyperlink{classew_1_1View3Item_a7d765842ec7b9e145cefa37e3dbae658}{view}, int i\_\-type=0)
+\item 
+void \hyperlink{classew_1_1View3Image_ac419897feabe98bc80ed6f55e5ff574f}{set\_\-image} (const ew::DataflowImage3 $\ast$im)
+\item 
+const ew::DataflowImage3 $\ast$ \hyperlink{classew_1_1View3Image_a47ffcb6ac24e472adadf4167ab44fc21}{get\_\-image} () const 
+\item 
+void \hyperlink{classew_1_1View3Image_aae9880444a3b30d5101bc3a864687cef}{set\_\-color} (const unsigned char $\ast$rgb)
+\item 
+const unsigned char $\ast$ \hyperlink{classew_1_1View3Image_acc36bc0737367a2197e806ed4ac09ece}{get\_\-color} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1View3Image}{ew::View3Image} is an \hyperlink{classew_1_1View3Widget}{ew::View3Widget} item to display a ew::DataflowImage3, a raster image projected onto an array of points.
+
+\hyperlink{classew_1_1View3Image}{ew::View3Image} is a class without assignment or comparison. There are private member variables.
+
+This is barely implemented, and currently just displays a solid rectangle, on a 2x2x1 rectangular array of points.
+
+The default colour is \mbox{[}128, 128, 128\mbox{]}. 
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1View3Image_ad4dcf5c417e3d26c03e24bd0944f3916}{
+\index{ew::View3Image@{ew::View3Image}!View3Image@{View3Image}}
+\index{View3Image@{View3Image}!ew::View3Image@{ew::View3Image}}
+\paragraph[{View3Image}]{\setlength{\rightskip}{0pt plus 5cm}ew::View3Image::View3Image (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::View3Widget} $\ast$}]{ view, }
+\item[{int}]{ i\_\-type = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}\hfill}
+\label{classew_1_1View3Image_ad4dcf5c417e3d26c03e24bd0944f3916}
+This creates an item. 
+\begin{DoxyParams}{Parameters}
+\item[{\em view}]The view widget the item should belong to. \item[{\em i\_\-type}]The initializer for \hyperlink{classew_1_1View3Item_a7e21fcde8f082ba2409bcb2999a4b7fd}{ew::View3Item::type}. \end{DoxyParams}
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1View3Image_ac419897feabe98bc80ed6f55e5ff574f}{
+\index{ew::View3Image@{ew::View3Image}!set\_\-image@{set\_\-image}}
+\index{set\_\-image@{set\_\-image}!ew::View3Image@{ew::View3Image}}
+\paragraph[{set\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Image::set\_\-image (
+\begin{DoxyParamCaption}
+\item[{const ew::DataflowImage3 $\ast$}]{ im}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Image_ac419897feabe98bc80ed6f55e5ff574f}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em im}]A pointer to the new image node to display, or 0. \end{DoxyParams}
+\hypertarget{classew_1_1View3Image_a47ffcb6ac24e472adadf4167ab44fc21}{
+\index{ew::View3Image@{ew::View3Image}!get\_\-image@{get\_\-image}}
+\index{get\_\-image@{get\_\-image}!ew::View3Image@{ew::View3Image}}
+\paragraph[{get\_\-image}]{\setlength{\rightskip}{0pt plus 5cm}const ew::DataflowImage3 $\ast$ ew::View3Image::get\_\-image (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Image_a47ffcb6ac24e472adadf4167ab44fc21}
+\begin{DoxyReturn}{Returns}
+A pointer to the current image node being displayed, or 0. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Image_aae9880444a3b30d5101bc3a864687cef}{
+\index{ew::View3Image@{ew::View3Image}!set\_\-color@{set\_\-color}}
+\index{set\_\-color@{set\_\-color}!ew::View3Image@{ew::View3Image}}
+\paragraph[{set\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Image::set\_\-color (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$}]{ rgb}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Image_aae9880444a3b30d5101bc3a864687cef}
+
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em rgb}]This points to an array of size 3 containing the new colour for the image. \end{DoxyParams}
+\hypertarget{classew_1_1View3Image_acc36bc0737367a2197e806ed4ac09ece}{
+\index{ew::View3Image@{ew::View3Image}!get\_\-color@{get\_\-color}}
+\index{get\_\-color@{get\_\-color}!ew::View3Image@{ew::View3Image}}
+\paragraph[{get\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}const unsigned char $\ast$ ew::View3Image::get\_\-color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Image_acc36bc0737367a2197e806ed4ac09ece}
+\begin{DoxyReturn}{Returns}
+A pointer to the current colour for the image. 
+\end{DoxyReturn}

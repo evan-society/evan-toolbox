@@ -1,0 +1,9 @@
+\form#0:$\mathbb{R}^D$
+\form#1:$\mathbb{R}^D\to\mathbb{R}$
+\form#2:$\mathbb{R}^D\to\mathbb{R}^D$
+\form#3:\[\pmatrix{1&1\cr 0&1\cr}\qquad\pmatrix{2&0\cr 0&1\cr}\]
+\form#4:\[\pmatrix{1&1&0\cr 0&1&0\cr 0&0&1\cr}\qquad \pmatrix{1&0&0\cr 0&1&1\cr 0&0&1\cr}\qquad \pmatrix{1&0&1\cr 0&1&0\cr 0&0&1\cr}\qquad \pmatrix{2&0&0\cr 0&1&0\cr 0&0&1\cr}\qquad \pmatrix{1&0&0\cr 0&2&0\cr 0&0&1\cr}\qquad \pmatrix{1&0&0\cr 0&1&0\cr 0&0&2\cr}\]
+\form#5:$\mathbb{R}^{2n}$
+\form#6:$\mathbb{R}^{3n}$
+\form#7:$\mathbb{R}^3$
+\form#8:$\mathbb{R}^2$

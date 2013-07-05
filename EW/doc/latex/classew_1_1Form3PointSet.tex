@@ -1,0 +1,138 @@
+\hypertarget{classew_1_1Form3PointSet}{
+\subsection{ew::Form3PointSet Class Reference}
+\label{classew_1_1Form3PointSet}\index{ew::Form3PointSet@{ew::Form3PointSet}}
+}
+
+
+Point Set Element.  
+
+
+
+
+{\ttfamily \#include $<$ew/Form3Pointset.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1Form3PointSet_af82da49edac230db378b50614e729da1}{Form3PointSet} ()
+\item 
+bool \hyperlink{classew_1_1Form3PointSet_a20ee108731a63191b3f50bc400365cdf}{operator==} (const \hyperlink{classew_1_1Form3PointSet}{ew::Form3PointSet} \&a) const 
+\item 
+bool \hyperlink{classew_1_1Form3PointSet_af6864af23bc5ac7ce23f4870f5716df5}{operator!=} (const \hyperlink{classew_1_1Form3PointSet}{ew::Form3PointSet} \&a) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::string \hyperlink{classew_1_1Form3PointSet_ac0dbd3aacae1fb9347d71880ea37f55c}{id}
+\item 
+int \hyperlink{classew_1_1Form3PointSet_ada976df73c605ebb9a845a915531a566}{type}
+\item 
+int \hyperlink{classew_1_1Form3PointSet_a1e020b47b7a87202ef42362843794f7f}{state}
+\item 
+int \hyperlink{classew_1_1Form3PointSet_a5bebf378e3fa2c68be2c002e216e9302}{n}
+\item 
+std::vector$<$ double $>$ \hyperlink{classew_1_1Form3PointSet_a809a22134ac1c040f41aaeee77478d34}{locations}
+\item 
+std::vector$<$ int $>$ \hyperlink{classew_1_1Form3PointSet_adc4dcbefde6d9c035548e5fe2ebe1ec7}{relax\_\-dims}
+\item 
+std::vector$<$ double $>$ \hyperlink{classew_1_1Form3PointSet_afd8ff3e67234c11b1ad3c66f1cccfb67}{relax\_\-params}
+\item 
+std::vector$<$ double $>$ \hyperlink{classew_1_1Form3PointSet_a48ab1e4e6d0b2a057bd6e2987c6cc488}{orientations}
+\item 
+std::vector$<$ double $>$ \hyperlink{classew_1_1Form3PointSet_abd3dfbeb887d147a08354761d5986920}{sizes}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Form3PointSet}{ew::Form3PointSet} contains data for a point set element of \hyperlink{classew_1_1Form3}{ew::Form3}. This could be, for example, a single named landmark, a set of semi-\/landmarks or a set of landmarks which are not individually named. Also supported are features not intended to be interpreted as landmarks, such as non-\/landmark points or planes and frames which are represented as a point with a size and orientation.
+
+\hyperlink{classew_1_1Form3PointSet}{ew::Form3PointSet} is a data structure that supports default construction, copy construction, assignment and equality comparison.
+
+It is intended that landmarks be represented one to a point set. The use of the term \char`\"{}point set\char`\"{} in this context might be confusing. The \char`\"{}set\char`\"{} part of this is only really useful for semi-\/landmarks. Note that all elements of the point set share the same id, type and state. 
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1Form3PointSet_af82da49edac230db378b50614e729da1}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!Form3PointSet@{Form3PointSet}}
+\index{Form3PointSet@{Form3PointSet}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{Form3PointSet}]{\setlength{\rightskip}{0pt plus 5cm}ew::Form3PointSet::Form3PointSet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Form3PointSet_af82da49edac230db378b50614e729da1}
+This sets intrinsic member variables to their default values. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Form3PointSet_a20ee108731a63191b3f50bc400365cdf}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!operator==@{operator==}}
+\index{operator==@{operator==}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3PointSet::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Form3PointSet} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Form3PointSet_a20ee108731a63191b3f50bc400365cdf}
+Compares this element with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other element \end{DoxyParams}
+\hypertarget{classew_1_1Form3PointSet_af6864af23bc5ac7ce23f4870f5716df5}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3PointSet::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Form3PointSet} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Form3PointSet_af6864af23bc5ac7ce23f4870f5716df5}
+Compares this element with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other element \end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Form3PointSet_ac0dbd3aacae1fb9347d71880ea37f55c}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!id@{id}}
+\index{id@{id}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{id}]{\setlength{\rightskip}{0pt plus 5cm}std::string {\bf ew::Form3PointSet::id}}\hfill}
+\label{classew_1_1Form3PointSet_ac0dbd3aacae1fb9347d71880ea37f55c}
+The id of this element used as a key to refer to this element and as a label. \hypertarget{classew_1_1Form3PointSet_ada976df73c605ebb9a845a915531a566}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!type@{type}}
+\index{type@{type}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{type}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf ew::Form3PointSet::type}}\hfill}
+\label{classew_1_1Form3PointSet_ada976df73c605ebb9a845a915531a566}
+A code indicating the type of point set. Its value is a \hyperlink{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733}{ew::Form3::point\_\-t}. The default is 0. \hypertarget{classew_1_1Form3PointSet_a1e020b47b7a87202ef42362843794f7f}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!state@{state}}
+\index{state@{state}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{state}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf ew::Form3PointSet::state}}\hfill}
+\label{classew_1_1Form3PointSet_a1e020b47b7a87202ef42362843794f7f}
+A code indicating the digitizing state of the point set. Its value is a \hyperlink{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725}{ew::Form3::state\_\-t}. The default is 0. \hypertarget{classew_1_1Form3PointSet_a5bebf378e3fa2c68be2c002e216e9302}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!n@{n}}
+\index{n@{n}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{n}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf ew::Form3PointSet::n}}\hfill}
+\label{classew_1_1Form3PointSet_a5bebf378e3fa2c68be2c002e216e9302}
+The number of points in the set. It must be non-\/negative. \hypertarget{classew_1_1Form3PointSet_a809a22134ac1c040f41aaeee77478d34}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!locations@{locations}}
+\index{locations@{locations}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{locations}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ double $>$ {\bf ew::Form3PointSet::locations}}\hfill}
+\label{classew_1_1Form3PointSet_a809a22134ac1c040f41aaeee77478d34}
+The coordinates of the points. If all the coordinates are 0.0, this vector can have size 0. Otherwise it must have size \hyperlink{classew_1_1Form3PointSet_a5bebf378e3fa2c68be2c002e216e9302}{n} $\ast$ 3. \hypertarget{classew_1_1Form3PointSet_adc4dcbefde6d9c035548e5fe2ebe1ec7}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!relax\_\-dims@{relax\_\-dims}}
+\index{relax\_\-dims@{relax\_\-dims}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{relax\_\-dims}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ int $>$ {\bf ew::Form3PointSet::relax\_\-dims}}\hfill}
+\label{classew_1_1Form3PointSet_adc4dcbefde6d9c035548e5fe2ebe1ec7}
+The relax dimensions of the points in the sense of \hyperlink{classew_1_1Tps3}{ew::Tps3}. These are only relevant for points of type \char`\"{}landmark\char`\"{} or \char`\"{}semi-\/landmark\char`\"{}. They indicate the dimension of the linear space that the landmark or semi-\/landmark can slide along. A value of 0 indicates that landmark or semi-\/landmark should not slide. A value of 3 indicates that landmark or semi-\/landmark slide in the whole of $\mathbb{R}^3$. In this case, the landmark or semi-\/landmark does contribute to the spline and its optimized image is just the image of the landmark or semi-\/landmark under the spline. Values of 1 and 2 are only applicable to semi-\/landmarks. A value of 1 indicates that the semi-\/landmark slides along a line. This is appropraite for a curve semi-\/landmark. A value of 2 indicates that the semi-\/landmark slides along a plane. This is appropraite for a surface emi-\/landmark. If all the relax dimensions are 0, this vector can have size 0. Otherwise it must have size \hyperlink{classew_1_1Form3PointSet_a5bebf378e3fa2c68be2c002e216e9302}{n}. \hypertarget{classew_1_1Form3PointSet_afd8ff3e67234c11b1ad3c66f1cccfb67}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!relax\_\-params@{relax\_\-params}}
+\index{relax\_\-params@{relax\_\-params}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{relax\_\-params}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ double $>$ {\bf ew::Form3PointSet::relax\_\-params}}\hfill}
+\label{classew_1_1Form3PointSet_afd8ff3e67234c11b1ad3c66f1cccfb67}
+The relax parameters of the points in the sense of \hyperlink{classew_1_1Tps3}{ew::Tps3}. These are only relevant for points of type \char`\"{}semi-\/landmark\char`\"{}. They encode the direction or directions in which the semi-\/landmark is currently being slid. If all the relax dimensions are 0 or 3, this vector can have size 0. Otherwise it must have size \hyperlink{classew_1_1Form3PointSet_a5bebf378e3fa2c68be2c002e216e9302}{n} $\ast$ 3. \hypertarget{classew_1_1Form3PointSet_a48ab1e4e6d0b2a057bd6e2987c6cc488}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!orientations@{orientations}}
+\index{orientations@{orientations}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{orientations}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ double $>$ {\bf ew::Form3PointSet::orientations}}\hfill}
+\label{classew_1_1Form3PointSet_a48ab1e4e6d0b2a057bd6e2987c6cc488}
+The orientations of the points, orthogonal matrices like \hyperlink{classew_1_1Transform3_abbb79dd74876557bc765a54e115c4f66}{ew::Transform3::orthog}. These are only relevant for points of type \char`\"{}line\char`\"{}, \char`\"{}plane\char`\"{} or \char`\"{}frame\char`\"{}. If all the matrices are identities, this vector can have size 0. Otherwise it must have size \hyperlink{classew_1_1Form3PointSet_a5bebf378e3fa2c68be2c002e216e9302}{n} $\ast$ 9. \hypertarget{classew_1_1Form3PointSet_abd3dfbeb887d147a08354761d5986920}{
+\index{ew::Form3PointSet@{ew::Form3PointSet}!sizes@{sizes}}
+\index{sizes@{sizes}!ew::Form3PointSet@{ew::Form3PointSet}}
+\paragraph[{sizes}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ double $>$ {\bf ew::Form3PointSet::sizes}}\hfill}
+\label{classew_1_1Form3PointSet_abd3dfbeb887d147a08354761d5986920}
+The sizes of the points, like \hyperlink{classew_1_1Transform3_a27f775e77a4563a8f26f3131be6ed1fd}{ew::Transform3::scale}. These are only relevant for points of type \char`\"{}line\char`\"{}, \char`\"{}plane\char`\"{} or \char`\"{}frame\char`\"{}. If all the scales are 1.0, this vector must can size 0. Otherwise it must have size \hyperlink{classew_1_1Form3PointSet_a5bebf378e3fa2c68be2c002e216e9302}{n}. 

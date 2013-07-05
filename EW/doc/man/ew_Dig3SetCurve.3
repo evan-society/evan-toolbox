@@ -1,0 +1,75 @@
+.TH "ew::Dig3SetCurve" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Dig3SetCurve \- 
+.PP
+Curve Element.  
+
+\fBew::Dig3SetCurve\fP contains data for a curve element of ew::Tableau.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Dig3SetCurve.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDig3SetCurve\fP ()"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Dig3SetCurve\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Dig3SetCurve\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBid\fP"
+.br
+.ti -1c
+.RI "bool \fBshow_in_main\fP"
+.br
+.ti -1c
+.RI "bool \fBshow_in_slice\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBcol\fP [3]"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Dig3SetCurve\fP is a data structure that supports default construction, copy construction, assignment and equality comparison. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::Dig3SetCurve::Dig3SetCurve ()\fC [inline]\fP"This sets intrinsic member variables to their default values. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::Dig3SetCurve::operator== (const \fBew::Dig3SetCurve\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SS "bool ew::Dig3SetCurve::operator!= (const \fBew::Dig3SetCurve\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::string \fBew::Dig3SetCurve::id\fP"The \fBew::Form3Curve::id\fP of the curve this field should apply to. 
+.SS "bool \fBew::Dig3SetCurve::show_in_main\fP"\fCtrue\fP if the curve should be displayed in the main view. The default is \fCtrue\fP. 
+.SS "bool \fBew::Dig3SetCurve::show_in_slice\fP"\fCtrue\fP if the curve should be displayed in the slice view. The default is \fCtrue\fP. 
+.SS "unsigned char \fBew::Dig3SetCurve::col\fP[3]"The colour of the curve. The default is [128, 128, 128]. 
+

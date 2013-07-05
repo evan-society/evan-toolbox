@@ -1,0 +1,225 @@
+.TH "ew::Bbox3" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Bbox3 \- 
+.PP
+3D Bounding Box  
+
+\fBew::Bbox3\fP represents bounding boxes in \fBR\fP^3.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Bbox3.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBget_empty\fP () const "
+.br
+.ti -1c
+.RI "double \fBget_radius_center\fP (double *c) const "
+.br
+.ti -1c
+.RI "void \fBset_to_empty\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_to_point\fP (const float *pt)"
+.br
+.ti -1c
+.RI "void \fBset_to_point\fP (const double *pt)"
+.br
+.ti -1c
+.RI "void \fBset_to_points\fP (const float *pt, int n)"
+.br
+.ti -1c
+.RI "void \fBset_to_points\fP (const double *pt, int n)"
+.br
+.ti -1c
+.RI "void \fBadd\fP (const float *pt)"
+.br
+.ti -1c
+.RI "void \fBadd\fP (const double *pt)"
+.br
+.ti -1c
+.RI "void \fBadd\fP (const float *pt, int n)"
+.br
+.ti -1c
+.RI "void \fBadd\fP (const double *pt, int n)"
+.br
+.ti -1c
+.RI "void \fBset_to_union\fP (const \fBew::Bbox3\fP *b1, const \fBew::Bbox3\fP *b2)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Bbox3\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Bbox3\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "double \fBmin\fP [3]"
+.br
+.ti -1c
+.RI "double \fBmax\fP [3]"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static const \fBew::Bbox3\fP \fBempty_box\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Bbox3\fP is a POD type class. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::Bbox3::get_empty () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the minima are infinity and the maxima are negative infinity 
+.RE
+.PP
+
+.SS "double ew::Bbox3::get_radius_center (double * c) const"Calculates the center and circumradius of a box. 
+.PP
+\fBPrecondition:\fP
+.RS 4
+The box is not empty. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIc\fP the address of an array of size 3 where the center coordinates should be stored. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+the radius 
+.RE
+.PP
+
+.SS "void ew::Bbox3::set_to_empty ()\fC [inline]\fP"Set this box to be the empty box. 
+.SS "void ew::Bbox3::set_to_point (const float * pt)\fC [inline]\fP"Set this box to be the bounding box of a point. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpt\fP the address of the array of size 3 containing the point coordinates 
+.RE
+.PP
+
+.SS "void ew::Bbox3::set_to_point (const double * pt)\fC [inline]\fP"Set this box to be the bounding box of a point. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpt\fP the address of the array of size 3 containing the point coordinates 
+.RE
+.PP
+
+.SS "void ew::Bbox3::set_to_points (const float * pt, int n)\fC [inline]\fP"Set this box to be the bounding box of an array of points. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpt\fP the address of an array of size 3 * \fIn\fP containing the point coordinates, ordered by point 
+.br
+\fIn\fP the number of points 
+.RE
+.PP
+
+.SS "void ew::Bbox3::set_to_points (const double * pt, int n)\fC [inline]\fP"Set this box to be the bounding box of an array of points. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpt\fP the address of an array of size 3 * \fIn\fP containing the point coordinates, ordered by point 
+.br
+\fIn\fP the number of points 
+.RE
+.PP
+
+.SS "void ew::Bbox3::add (const float * pt)\fC [inline]\fP"Extend this box, if necessary, to include a point. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpt\fP the address of the array of size 3 containing the point coordinates 
+.RE
+.PP
+
+.SS "void ew::Bbox3::add (const double * pt)\fC [inline]\fP"Extend this box, if necessary, to include a point. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpt\fP the address of the array of size 3 containing the point coordinates 
+.RE
+.PP
+
+.SS "void ew::Bbox3::add (const float * pt, int n)\fC [inline]\fP"Extend this box, if necessary, to include an array of points. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpt\fP the address of an array of size 3 * \fIn\fP containing the point coordinates, ordered by point 
+.br
+\fIn\fP the number of points 
+.RE
+.PP
+
+.SS "void ew::Bbox3::add (const double * pt, int n)\fC [inline]\fP"Extend this box, if necessary, to include an array of points. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpt\fP the address of an array of size 3 * \fIn\fP containing the point coordinates, ordered by point 
+.br
+\fIn\fP the number of points 
+.RE
+.PP
+
+.SS "void ew::Bbox3::set_to_union (const \fBew::Bbox3\fP * b1, const \fBew::Bbox3\fP * b2)"Set the bounding box to the union of the specified bounding boxes. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIb1,b2\fP the boxes to combine 
+.RE
+.PP
+
+.SS "bool ew::Bbox3::operator== (const \fBew::Bbox3\fP & a) const"Compares this box with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other box 
+.RE
+.PP
+
+.SS "bool ew::Bbox3::operator!= (const \fBew::Bbox3\fP & a) const\fC [inline]\fP"Compares this box with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other box 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "double \fBew::Bbox3::min\fP[3]"These are the minima in the 3 coordinate directions. Except for the empty box, these should all be finite and no greater than the corresponding maxima. 
+.SS "double \fBew::Bbox3::max\fP[3]"These are the maxima in the 3 coordinate directions. Except for the empty box, these should all be finite and no less than the corresponding minima. 
+.SS "const \fBew::Bbox3\fP \fBew::Bbox3::empty_box\fP\fC [static]\fP"\fBInitial value:\fP
+.PP
+.nf
+ {
+  {
+    std::numeric_limits<double>::infinity(),
+    std::numeric_limits<double>::infinity(),
+    std::numeric_limits<double>::infinity()
+  }, {
+    -std::numeric_limits<double>::infinity(),
+    -std::numeric_limits<double>::infinity(),
+    -std::numeric_limits<double>::infinity()
+  }
+}
+.fi
+This is an empty box. 
+

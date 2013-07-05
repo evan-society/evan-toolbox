@@ -1,0 +1,41 @@
+BUILD REQUIREMENTS
+
+1. Mac OS X
+The makefiles are configured to build on an x86 or x86-64 system in
+32 bit mode.
+This is to be compatible with the qt libraries and to be distributable to
+no x86 systems.
+
+2. Xcode
+This is available on the OS install disk, or can be downloaded from
+    http://developer.apple.com/technology/xcode.html
+
+3. Qt
+Qt is available from:
+    http://qt.nokia.com/downloads
+The very latest version might not work, but older versions are available from:
+    ftp://ftp.qt.nokia.com/qt/source/
+    http://ftp3.ie.freebsd.org/pub/trolltech/pub/qt/source/
+The packages qt-mac-opensource-*.dmg use the carbon API.
+The packages qt-mac-cocoa-opensource-*.dmg use the cocoa API.
+The packages qt-sdk-mac-opensource-*.dmg provide the full Qt development
+environment, but this is not necessary for building EW.
+
+Note: lapack and libxml2 are bundled with Mac OS X, so they impose no
+additional build or runtime requirements.
+
+
+RUNTIME REQUIREMENTS
+
+1. Mac OS X
+As above.
+
+2. Qt
+As above.
+
+
+TESTED CONFIGURATIONS
+
+Mac OS X 10.6 x86-64
+Xcode 3.2.1
+qt-mac-opensource-4.6.1

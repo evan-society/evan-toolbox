@@ -1,0 +1,124 @@
+\hypertarget{classew_1_1Surface3}{
+\subsection{ew::Surface3 Class Reference}
+\label{classew_1_1Surface3}\index{ew::Surface3@{ew::Surface3}}
+}
+
+
+Triangulated Surface.  
+
+
+
+
+{\ttfamily \#include $<$ew/Surface3.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classew_1_1Surface3_ac4aeb8ec329e8f102dfdf884672f746b}{reset} ()
+\item 
+void \hyperlink{classew_1_1Surface3_ab3824a1268ef53827b73f30c9ff3ca47}{read\_\-file} (const char $\ast$file)
+\item 
+void \hyperlink{classew_1_1Surface3_a774d550017ec89d133e67e123bc00e52}{swap} (\hyperlink{classew_1_1Surface3}{ew::Surface3} \&s)
+\item 
+bool \hyperlink{classew_1_1Surface3_aa8396ef2bacc166a713fbce2d205f1b4}{operator==} (const \hyperlink{classew_1_1Surface3}{ew::Surface3} \&a) const 
+\item 
+bool \hyperlink{classew_1_1Surface3_ac4b7f1d423b851423afbabb08ced40f4}{operator!=} (const \hyperlink{classew_1_1Surface3}{ew::Surface3} \&a) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::vector$<$ float $>$ \hyperlink{classew_1_1Surface3_ae11685212f32705b1ef71ef60960a38f}{points}
+\item 
+std::vector$<$ int $>$ \hyperlink{classew_1_1Surface3_a97197763846e0f10ca529f0812de29d5}{faces}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Surface3}{ew::Surface3} encapsulates data for triangulated surfaces in $\mathbb{R}^3$.
+
+\hyperlink{classew_1_1Surface3}{ew::Surface3} is a data structure that supports default construction, copy construction, assignment and equality comparison.
+
+The data consists of a list of points and a list of faces. If a point is shared by several faces, the surface normal will be avaraged while rendering as a smooth surface. It this is not the intent, the point should be duplicated as several entries in the list of points, all with the same coordinates. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Surface3_ac4aeb8ec329e8f102dfdf884672f746b}{
+\index{ew::Surface3@{ew::Surface3}!reset@{reset}}
+\index{reset@{reset}!ew::Surface3@{ew::Surface3}}
+\paragraph[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Surface3::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Surface3_ac4aeb8ec329e8f102dfdf884672f746b}
+This frees any current data and sets the object to the initial state. \hypertarget{classew_1_1Surface3_ab3824a1268ef53827b73f30c9ff3ca47}{
+\index{ew::Surface3@{ew::Surface3}!read\_\-file@{read\_\-file}}
+\index{read\_\-file@{read\_\-file}!ew::Surface3@{ew::Surface3}}
+\paragraph[{read\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Surface3::read\_\-file (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ filename}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Surface3_ab3824a1268ef53827b73f30c9ff3ca47}
+This reads the surface contained in the {\itshape file\/}. The following surface formats are supported:
+\begin{DoxyItemize}
+\item obj format, for example \hyperlink{tetrahedron_8obj}{tetrahedron.obj}. Only these types of record are currently supported:
+\begin{DoxyItemize}
+\item v
+\item f with non-\/negative arguments
+\end{DoxyItemize}Normals and texture mapping are currently ignored.
+\end{DoxyItemize}
+\begin{DoxyParams}{Parameters}
+\item[{\em filename}]The name of the file to read. \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em std::bad\_\-alloc}]\item[{\em \hyperlink{classew_1_1ErrorIO}{ew::ErrorIO}}]\end{DoxyExceptions}
+\hypertarget{classew_1_1Surface3_a774d550017ec89d133e67e123bc00e52}{
+\index{ew::Surface3@{ew::Surface3}!swap@{swap}}
+\index{swap@{swap}!ew::Surface3@{ew::Surface3}}
+\paragraph[{swap}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Surface3::swap (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Surface3} \&}]{ that}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Surface3_a774d550017ec89d133e67e123bc00e52}
+Swap data between 2 surfaces without copying. 
+\begin{DoxyParams}{Parameters}
+\item[{\em that}]The surface to swap with {\ttfamily this}. \end{DoxyParams}
+\hypertarget{classew_1_1Surface3_aa8396ef2bacc166a713fbce2d205f1b4}{
+\index{ew::Surface3@{ew::Surface3}!operator==@{operator==}}
+\index{operator==@{operator==}!ew::Surface3@{ew::Surface3}}
+\paragraph[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Surface3::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Surface3} \&}]{ a}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Surface3_aa8396ef2bacc166a713fbce2d205f1b4}
+Compares this surface with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other surface \end{DoxyParams}
+\hypertarget{classew_1_1Surface3_ac4b7f1d423b851423afbabb08ced40f4}{
+\index{ew::Surface3@{ew::Surface3}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!ew::Surface3@{ew::Surface3}}
+\paragraph[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Surface3::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Surface3} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Surface3_ac4b7f1d423b851423afbabb08ced40f4}
+Compares this surface with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other surface \end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Surface3_ae11685212f32705b1ef71ef60960a38f}{
+\index{ew::Surface3@{ew::Surface3}!points@{points}}
+\index{points@{points}!ew::Surface3@{ew::Surface3}}
+\paragraph[{points}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ float $>$ {\bf ew::Surface3::points}}\hfill}
+\label{classew_1_1Surface3_ae11685212f32705b1ef71ef60960a38f}
+This vector has size 3 times the number of points. Each consecutive triple defines a point. \hypertarget{classew_1_1Surface3_a97197763846e0f10ca529f0812de29d5}{
+\index{ew::Surface3@{ew::Surface3}!faces@{faces}}
+\index{faces@{faces}!ew::Surface3@{ew::Surface3}}
+\paragraph[{faces}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ int $>$ {\bf ew::Surface3::faces}}\hfill}
+\label{classew_1_1Surface3_a97197763846e0f10ca529f0812de29d5}
+This vector has size 3 times the number of faces The elements are indices of the points list, and are in the range \mbox{[}0, number of points). Each consequtive triple defines a face. 
