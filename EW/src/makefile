@@ -12,18 +12,22 @@
 
 system := $(subst `uname`,Windows,$(shell echo `uname`))
 
+outputLibName := libew.a
+
 # Qt requires 32 bit on Mac OSX Carbon.
 
 MAKEFLAGS += -R
 CXX := g++
-CPPFLAGS :=
+
 CXXFLAGS_BASIC := -O3
 CXXFLAGS_WARN := -Wall -Wno-uninitialized -Wno-return-type -Wno-parentheses
 AR := ar -r -s
 ifndef NODEBUG
   CXXFLAGS_BASIC += -g -ansi -pedantic-errors
   CXXFLAGS_WARN += -Werror -Wold-style-cast
+  outputLibName := libewd.a
 endif
+
 ifeq ($(system), Windows)
   CPPFLAGS += -DUNICODE
   CXXFLAGS_BASIC += -mthreads
@@ -61,18 +65,26 @@ ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(MAKECMDGOALS),veryclean)
 ifneq ($(MAKECMDGOALS),depends)
   BASE := $(abspath ../..)
+ifeq ($(system), Windows)
+#-I"../external/include" -I"C:/mingw/include"
+	GL_I := "C:/mingw/include"
+	ICONV_I := "../external/include"
+	XML_I := "../external/include"
+	MINGW_I := "C:/mingw/include"
+	CPPFLAGS += -DLIBICONV_STATIC -DLIBXML_STATIC -U__STRICT_ANSI__
+else  
   GL_I := $(patsubst %/GL/gl.h,%,$(firstword $(wildcard \
    /usr/include/GL/gl.h /usr/X11/include/GL/gl.h $(BASE)/*/include/GL/gl.h)))
+	
   ICONV_I := $(patsubst %/iconv.h,%,$(firstword $(wildcard \
    /usr/include/iconv.h $(BASE)/*/include/iconv.h)))
+   
  # XML_I := $(patsubst %/libxml/tree.h,%,$(firstword $(wildcard \
  #  /usr/include/libxml2/libxml/tree.h $(BASE)/*/include/libxml/tree.h)))
  XML_I := C:\svn\libxml2-2.6.30.win32\include
   MINGW_I := $(patsubst %/stdio.h,%,$(firstword $(wildcard \
    $(BASE)/*/include/stdio.h)))
-  ifeq ($(system), Windows)
-    CPPFLAGS += -DLIBICONV_STATIC -DLIBXML_STATIC
-  endif
+endif  
   REQUIRE := $(GL_I)/GL/gl.h $(ICONV_I)/iconv.h $(XML_I)/libxml/tree.h
   IDIRS := ../include $(sort $(filter-out /usr/include $(MINGW_I), \
    $(GL_I) $(ICONV_I) $(XML_I)))
@@ -85,8 +97,9 @@ SRCS := $(wildcard *.cpp)
 HDRS := $(wildcard *.h) $(wildcard ../include/ew/*.h)
 OBJS := $(SRCS:.cpp=.o)
 
-all: $(REQUIRE) libew.a
-libew.a: $(OBJS)
+#all: $(REQUIRE) $(outputLibName)
+all: $(outputLibName)
+$(outputLibName): $(OBJS)
 Makefile makedepends $(SRCS) $(HDRS): ;
 .SUFFIXES:
 .SECONDARY:
@@ -102,6 +115,6 @@ Makefile makedepends $(SRCS) $(HDRS): ;
 
 clean:
 	$(RM) *.o *.a
-
+	
 depends:
 	g++ -I../include -MM *.cpp > makedepends
