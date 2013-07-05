@@ -1,0 +1,2 @@
+this file is only here, so that git tracks the folder, since
+if the folder is non-existent, the makefile fails
