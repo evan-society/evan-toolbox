@@ -1,0 +1,379 @@
+\hypertarget{classew_1_1DataflowForm3}{
+\subsection{ew::DataflowForm3 Class Reference}
+\label{classew_1_1DataflowForm3}\index{ew::DataflowForm3@{ew::DataflowForm3}}
+}
+
+
+3D Form Node  
+
+
+
+
+{\ttfamily \#include $<$ew/DataflowForm3.h$>$}
+
+
+
+Inheritance diagram for ew::DataflowForm3:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{classew_1_1DataflowForm3__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1DataflowForm3_aecb15fc6bd28560fa8dafcf6a2cb0ec0}{DataflowForm3} (\hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} $\ast$i\_\-network)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_a4efca0bcc9455856e1e5158262804a5e}{set\_\-data} (const \hyperlink{classew_1_1Form3}{ew::Form3} $\ast$data)
+\item 
+const \hyperlink{classew_1_1Form3}{ew::Form3} $\ast$ \hyperlink{classew_1_1DataflowForm3_a22276b5dc185fec2755c738462d583ce}{get\_\-data} () const 
+\item 
+int \hyperlink{classew_1_1DataflowForm3_a2b96dfb011fcb937f8663305c99a6559}{set\_\-volume} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3Volume}{ew::Form3Volume} $\ast$vl)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_a47a6c489b99dac0008982202c49905f1}{remove\_\-volume} (int n)
+\item 
+int \hyperlink{classew_1_1DataflowForm3_a594e80da7f80db8fc1a7be5ae818002b}{set\_\-surface} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3Surface}{ew::Form3Surface} $\ast$sr)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_a7ac39098b59bf186401646e5242b6dde}{remove\_\-surface} (int n)
+\item 
+int \hyperlink{classew_1_1DataflowForm3_ad767440f3efb381c6f19311ae8deb6bd}{set\_\-curve} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3Curve}{ew::Form3Curve} $\ast$cr)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_a12c6b8481bf7f30a3b83345fc3102247}{remove\_\-curve} (int n)
+\item 
+int \hyperlink{classew_1_1DataflowForm3_aab8125aabb9eb23fa6292b61b5f39a03}{set\_\-pointset} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3PointSet}{ew::Form3PointSet} $\ast$ps)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_a5690394f7004a0d8b6799a736c6e485f}{set\_\-pointset\_\-location} (int n, int i, const double $\ast$loc)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_aec5d6d3b7e412960fcce347ff9dff063}{set\_\-pointset\_\-relax} (int n, int i, int rdim, const double $\ast$rparam)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_a68f768e333b3bff1bf4d31d57974b160}{remove\_\-pointset} (int n)
+\item 
+int \hyperlink{classew_1_1DataflowForm3_a20f9365d1235407e6a9ddea3eff6bec3}{set\_\-embedding} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3Embedding}{ew::Form3Embedding} $\ast$em)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_a59ee4917704ef9d3d912bc48988c6239}{set\_\-superset} (const char $\ast$subset\_\-id, const char $\ast$superset\_\-id)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_a88961709ad75d7dc70c0e4b9d23eac0c}{remove\_\-embedding} (int n)
+\item 
+int \hyperlink{classew_1_1DataflowForm3_a0f41241a4d9e418d124c791d77e578e8}{set\_\-reflection} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3Reflection}{ew::Form3Reflection} $\ast$rf)
+\item 
+void \hyperlink{classew_1_1DataflowForm3_abbb32aecef2237f1901a787d2ec64283}{remove\_\-reflection} (int n)
+\item 
+unsigned long \hyperlink{classew_1_1DataflowForm3_abcf490e0af0eb5255bde9a0c9aab2805}{get\_\-change\_\-cycle\_\-association} () const 
+\item 
+unsigned long \hyperlink{classew_1_1DataflowForm3_a681592d654a425f8affadc82bb492e45}{get\_\-change\_\-cycle\_\-coords} () const 
+\item 
+unsigned long \hyperlink{classew_1_1DataflowForm3_aa05810f772580916a90f388c294811d2}{get\_\-change\_\-cycle\_\-relax} () const 
+\item 
+const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} $\ast$ \hyperlink{classew_1_1DataflowForm3_aabe57915af91eba8b4c2d254acd4776d}{get\_\-bbox} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} is a node that manages an \hyperlink{classew_1_1Form3}{ew::Form3}.
+
+\hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} is a class without assignment or comparison. There are private member variables.
+
+Nodes of this class do not depend on other nodes, but other nodes can depend on them. They are always considered valid.
+
+Initially and when reset, the node is empty. 
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1DataflowForm3_aecb15fc6bd28560fa8dafcf6a2cb0ec0}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!DataflowForm3@{DataflowForm3}}
+\index{DataflowForm3@{DataflowForm3}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{DataflowForm3}]{\setlength{\rightskip}{0pt plus 5cm}ew::DataflowForm3::DataflowForm3 (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::DataflowNetwork} $\ast$}]{ i\_\-network}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}\hfill}
+\label{classew_1_1DataflowForm3_aecb15fc6bd28560fa8dafcf6a2cb0ec0}
+This creates a form3 node. 
+\begin{DoxyParams}{Parameters}
+\item[{\em i\_\-network}]The network this node should belong to. \end{DoxyParams}
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1DataflowForm3_a4efca0bcc9455856e1e5158262804a5e}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-data@{set\_\-data}}
+\index{set\_\-data@{set\_\-data}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::set\_\-data (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Form3} $\ast$}]{ data}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a4efca0bcc9455856e1e5158262804a5e}
+This sets the contents of the node. 
+\begin{DoxyParams}{Parameters}
+\item[{\em data}]A pointer to the \hyperlink{classew_1_1Form3}{ew::Form3} data to copy. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_a22276b5dc185fec2755c738462d583ce}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!get\_\-data@{get\_\-data}}
+\index{get\_\-data@{get\_\-data}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{get\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Form3} $\ast$ ew::DataflowForm3::get\_\-data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowForm3_a22276b5dc185fec2755c738462d583ce}
+\begin{DoxyReturn}{Returns}
+A pointer to the current \hyperlink{classew_1_1Form3}{ew::Form3} data contained in the node. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_a2b96dfb011fcb937f8663305c99a6559}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-volume@{set\_\-volume}}
+\index{set\_\-volume@{set\_\-volume}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-volume}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowForm3::set\_\-volume (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3Volume} $\ast$}]{ vl}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a2b96dfb011fcb937f8663305c99a6559}
+This adds or replaces a volume in the \hyperlink{classew_1_1Form3}{ew::Form3} data managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the volume replaced an existing volume. \item[{\em vl}]A pointer to the volume data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the new volume in \hyperlink{classew_1_1Form3_aab5dcd7658c84512d05e095e58341fa7}{ew::Form3::volumes}. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_a47a6c489b99dac0008982202c49905f1}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!remove\_\-volume@{remove\_\-volume}}
+\index{remove\_\-volume@{remove\_\-volume}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{remove\_\-volume}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::remove\_\-volume (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a47a6c489b99dac0008982202c49905f1}
+This deletes a volume in the \hyperlink{classew_1_1Form3}{ew::Form3} managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the volume to delete. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_a594e80da7f80db8fc1a7be5ae818002b}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-surface@{set\_\-surface}}
+\index{set\_\-surface@{set\_\-surface}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-surface}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowForm3::set\_\-surface (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3Surface} $\ast$}]{ sr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a594e80da7f80db8fc1a7be5ae818002b}
+This adds or replaces a surface in the \hyperlink{classew_1_1Form3}{ew::Form3} data managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the surface replaced an existing surface. \item[{\em sr}]A pointer to the surface data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the new surface in \hyperlink{classew_1_1Form3_abd4405612b484b5d9d87b643d316b020}{ew::Form3::surfaces}. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_a7ac39098b59bf186401646e5242b6dde}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!remove\_\-surface@{remove\_\-surface}}
+\index{remove\_\-surface@{remove\_\-surface}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{remove\_\-surface}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::remove\_\-surface (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a7ac39098b59bf186401646e5242b6dde}
+This deletes a surface in the \hyperlink{classew_1_1Form3}{ew::Form3} managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the surface to delete. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_ad767440f3efb381c6f19311ae8deb6bd}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-curve@{set\_\-curve}}
+\index{set\_\-curve@{set\_\-curve}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-curve}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowForm3::set\_\-curve (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3Curve} $\ast$}]{ cr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_ad767440f3efb381c6f19311ae8deb6bd}
+This adds or replaces a curve in the \hyperlink{classew_1_1Form3}{ew::Form3} data managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the curve replaced an existing curve. \item[{\em cr}]A pointer to the curve data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the new curve in \hyperlink{classew_1_1Form3_ab60def495fb8fea585dff2fb8c94d845}{ew::Form3::curves}. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_a12c6b8481bf7f30a3b83345fc3102247}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!remove\_\-curve@{remove\_\-curve}}
+\index{remove\_\-curve@{remove\_\-curve}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{remove\_\-curve}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::remove\_\-curve (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a12c6b8481bf7f30a3b83345fc3102247}
+This deletes a curve in the \hyperlink{classew_1_1Form3}{ew::Form3} managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the curve to delete. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_aab8125aabb9eb23fa6292b61b5f39a03}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-pointset@{set\_\-pointset}}
+\index{set\_\-pointset@{set\_\-pointset}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-pointset}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowForm3::set\_\-pointset (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3PointSet} $\ast$}]{ ps}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_aab8125aabb9eb23fa6292b61b5f39a03}
+This adds or replaces a point set in the \hyperlink{classew_1_1Form3}{ew::Form3} data managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the point set replaced an existing point set. \item[{\em ps}]A pointer to the point set data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the new or replaced pointset. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_a5690394f7004a0d8b6799a736c6e485f}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-pointset\_\-location@{set\_\-pointset\_\-location}}
+\index{set\_\-pointset\_\-location@{set\_\-pointset\_\-location}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-pointset\_\-location}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::set\_\-pointset\_\-location (
+\begin{DoxyParamCaption}
+\item[{int}]{ n, }
+\item[{int}]{ i, }
+\item[{const double $\ast$}]{ loc}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a5690394f7004a0d8b6799a736c6e485f}
+This changes the coordinates of an element of the point set. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the point set. \item[{\em i}]The index of the element in the point set. \item[\mbox{\tt[in]} {\em loc}]A pointer to the new coordinates of this entry. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_aec5d6d3b7e412960fcce347ff9dff063}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-pointset\_\-relax@{set\_\-pointset\_\-relax}}
+\index{set\_\-pointset\_\-relax@{set\_\-pointset\_\-relax}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-pointset\_\-relax}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::set\_\-pointset\_\-relax (
+\begin{DoxyParamCaption}
+\item[{int}]{ n, }
+\item[{int}]{ i, }
+\item[{int}]{ rdim, }
+\item[{const double $\ast$}]{ rparam}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_aec5d6d3b7e412960fcce347ff9dff063}
+This changes the relaxation parameters of an element of the point set. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the point set. \item[{\em i}]The index of the element in the point set. \item[\mbox{\tt[in]} {\em rdim}]The new relax\_\-dims of this entry. \item[\mbox{\tt[in]} {\em rparam}]A pointer to the new relax\_\-params of this entry. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_a68f768e333b3bff1bf4d31d57974b160}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!remove\_\-pointset@{remove\_\-pointset}}
+\index{remove\_\-pointset@{remove\_\-pointset}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{remove\_\-pointset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::remove\_\-pointset (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a68f768e333b3bff1bf4d31d57974b160}
+This deletes a point set in the \hyperlink{classew_1_1Form3}{ew::Form3} managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the point set to delete. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_a20f9365d1235407e6a9ddea3eff6bec3}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-embedding@{set\_\-embedding}}
+\index{set\_\-embedding@{set\_\-embedding}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-embedding}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowForm3::set\_\-embedding (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3Embedding} $\ast$}]{ em}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a20f9365d1235407e6a9ddea3eff6bec3}
+This adds or replaces a embedding in the \hyperlink{classew_1_1Form3}{ew::Form3} data managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the embedding replaced an existing embedding. \item[{\em em}]A pointer to the embedding data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the new embedding in \hyperlink{classew_1_1Form3_a05ace76e2206ea825495538e93d9ba4c}{ew::Form3::embeddings}. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_a59ee4917704ef9d3d912bc48988c6239}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-superset@{set\_\-superset}}
+\index{set\_\-superset@{set\_\-superset}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-superset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::set\_\-superset (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ subset\_\-id, }
+\item[{const char $\ast$}]{ superset\_\-id}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a59ee4917704ef9d3d912bc48988c6239}
+This makes one element of the form the unique superset of another element. 
+\begin{DoxyParams}{Parameters}
+\item[{\em subset\_\-id}]The id of the element that should have a unique superset. \item[{\em superset\_\-id}]The id of the element that be the unique superset. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_a88961709ad75d7dc70c0e4b9d23eac0c}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!remove\_\-embedding@{remove\_\-embedding}}
+\index{remove\_\-embedding@{remove\_\-embedding}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{remove\_\-embedding}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::remove\_\-embedding (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a88961709ad75d7dc70c0e4b9d23eac0c}
+This deletes a embedding in the \hyperlink{classew_1_1Form3}{ew::Form3} managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the embedding to delete. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_a0f41241a4d9e418d124c791d77e578e8}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!set\_\-reflection@{set\_\-reflection}}
+\index{set\_\-reflection@{set\_\-reflection}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{set\_\-reflection}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowForm3::set\_\-reflection (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3Reflection} $\ast$}]{ rf}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_a0f41241a4d9e418d124c791d77e578e8}
+This adds or replaces a reflection in the \hyperlink{classew_1_1Form3}{ew::Form3} data managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the reflection replaced an existing reflection. \item[{\em rf}]A pointer to the reflection data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the new reflection in \hyperlink{classew_1_1Form3_a4df1d049f2c5ca83f194d4ac9cf9f074}{ew::Form3::reflections}. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_abbb32aecef2237f1901a787d2ec64283}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!remove\_\-reflection@{remove\_\-reflection}}
+\index{remove\_\-reflection@{remove\_\-reflection}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{remove\_\-reflection}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowForm3::remove\_\-reflection (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowForm3_abbb32aecef2237f1901a787d2ec64283}
+This deletes a reflection in the \hyperlink{classew_1_1Form3}{ew::Form3} managed by the node. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the reflection to delete. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowForm3_abcf490e0af0eb5255bde9a0c9aab2805}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!get\_\-change\_\-cycle\_\-association@{get\_\-change\_\-cycle\_\-association}}
+\index{get\_\-change\_\-cycle\_\-association@{get\_\-change\_\-cycle\_\-association}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{get\_\-change\_\-cycle\_\-association}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowForm3::get\_\-change\_\-cycle\_\-association (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowForm3_abcf490e0af0eb5255bde9a0c9aab2805}
+\begin{DoxyReturn}{Returns}
+The last cycle the form was changed in a way that effects landmark matching. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_a681592d654a425f8affadc82bb492e45}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!get\_\-change\_\-cycle\_\-coords@{get\_\-change\_\-cycle\_\-coords}}
+\index{get\_\-change\_\-cycle\_\-coords@{get\_\-change\_\-cycle\_\-coords}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{get\_\-change\_\-cycle\_\-coords}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowForm3::get\_\-change\_\-cycle\_\-coords (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowForm3_a681592d654a425f8affadc82bb492e45}
+\begin{DoxyReturn}{Returns}
+The last cycle that any location of a landmark was changed. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_aa05810f772580916a90f388c294811d2}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!get\_\-change\_\-cycle\_\-relax@{get\_\-change\_\-cycle\_\-relax}}
+\index{get\_\-change\_\-cycle\_\-relax@{get\_\-change\_\-cycle\_\-relax}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{get\_\-change\_\-cycle\_\-relax}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowForm3::get\_\-change\_\-cycle\_\-relax (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowForm3_aa05810f772580916a90f388c294811d2}
+\begin{DoxyReturn}{Returns}
+The last cycle that any relaxation of a landmark was changed. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowForm3_aabe57915af91eba8b4c2d254acd4776d}{
+\index{ew::DataflowForm3@{ew::DataflowForm3}!get\_\-bbox@{get\_\-bbox}}
+\index{get\_\-bbox@{get\_\-bbox}!ew::DataflowForm3@{ew::DataflowForm3}}
+\paragraph[{get\_\-bbox}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Bbox3} $\ast$ ew::DataflowForm3::get\_\-bbox (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowForm3_aabe57915af91eba8b4c2d254acd4776d}
+The pointer until the node or a dependency of the node is changed. \begin{DoxyReturn}{Returns}
+A pointer to the bounding box of the points in the form. 
+\end{DoxyReturn}

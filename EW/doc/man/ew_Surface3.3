@@ -1,0 +1,104 @@
+.TH "ew::Surface3" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Surface3 \- 
+.PP
+Triangulated Surface.  
+
+\fBew::Surface3\fP encapsulates data for triangulated surfaces in \fBR\fP^3.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Surface3.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.ti -1c
+.RI "void \fBread_file\fP (const char *file)"
+.br
+.ti -1c
+.RI "void \fBswap\fP (\fBew::Surface3\fP &s)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Surface3\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Surface3\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< float > \fBpoints\fP"
+.br
+.ti -1c
+.RI "std::vector< int > \fBfaces\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Surface3\fP is a data structure that supports default construction, copy construction, assignment and equality comparison.
+.PP
+The data consists of a list of points and a list of faces. If a point is shared by several faces, the surface normal will be avaraged while rendering as a smooth surface. It this is not the intent, the point should be duplicated as several entries in the list of points, all with the same coordinates. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::Surface3::reset ()"This frees any current data and sets the object to the initial state. 
+.SS "void ew::Surface3::read_file (const char * filename)"This reads the surface contained in the \fIfile\fP. The following surface formats are supported:
+.IP "\(bu" 2
+obj format, for example \fBtetrahedron.obj\fP. Only these types of record are currently supported:
+.IP "  \(bu" 4
+v
+.IP "  \(bu" 4
+f with non-negative arguments
+.PP
+Normals and texture mapping are currently ignored.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP The name of the file to read. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.br
+\fI\fBew::ErrorIO\fP\fP 
+.RE
+.PP
+
+.SS "void ew::Surface3::swap (\fBew::Surface3\fP & that)\fC [inline]\fP"Swap data between 2 surfaces without copying. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIthat\fP The surface to swap with \fCthis\fP. 
+.RE
+.PP
+
+.SS "bool ew::Surface3::operator== (const \fBew::Surface3\fP & a) const"Compares this surface with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other surface 
+.RE
+.PP
+
+.SS "bool ew::Surface3::operator!= (const \fBew::Surface3\fP & a) const\fC [inline]\fP"Compares this surface with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other surface 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::vector< float > \fBew::Surface3::points\fP"This vector has size 3 times the number of points. Each consecutive triple defines a point. 
+.SS "std::vector< int > \fBew::Surface3::faces\fP"This vector has size 3 times the number of faces The elements are indices of the points list, and are in the range [0, number of points). Each consequtive triple defines a face. 
+

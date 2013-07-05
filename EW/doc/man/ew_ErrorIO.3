@@ -1,0 +1,38 @@
+.TH "ew::ErrorIO" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::ErrorIO \- 
+.PP
+I/O Exception.  
+
+\fBew::ErrorIO\fP is an exception thrown by EW library classes to report input or output errors or bad file formats.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/ErrorIO.h>\fP
+.PP
+Inherits std::runtime_error.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBErrorIO\fP (const std::string &desc)"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::ErrorIO\fP is a trivial extension of std::runtime_error. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::ErrorIO::ErrorIO (const std::string & desc)\fC [explicit]\fP"Construct an \fBew::ErrorIO\fP object. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdesc\fP the error description 
+.RE
+.PP
+
+

@@ -1,0 +1,448 @@
+.TH "ew::View3Widget" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::View3Widget \- 
+.PP
+3D viewing widget  
+
+This class implements a widget that manages a 3D scene consisting of a list of items.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/View3Widget.h>\fP
+.PP
+Inherits ew::DataflowNotifier.
+.PP
+Inherited by \fBew::Dig3View\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBView3Widget\fP (\fBew::DataflowNetwork\fP *i_network)"
+.br
+.ti -1c
+.RI "virtual \fB~View3Widget\fP ()"
+.br
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_clip_ratio\fP (double cr)"
+.br
+.ti -1c
+.RI "double \fBget_clip_ratio\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_view_mapping\fP (const \fBew::Transform3\fP *tr)"
+.br
+.ti -1c
+.RI "void \fBview_post_compose\fP (const \fBew::Transform3\fP *tr)"
+.br
+.ti -1c
+.RI "const \fBew::Transform3\fP * \fBget_view_mapping\fP () const "
+.br
+.ti -1c
+.RI "void \fBget_bbox\fP (\fBew::Bbox3\fP *b) const "
+.br
+.ti -1c
+.RI "void \fBget_pointer_location\fP (double *loc, double x, double y, double z=0.0) const "
+.br
+.ti -1c
+.RI "void \fBget_center_location\fP (double *loc) const "
+.br
+.ti -1c
+.RI "void \fBget_pointer_translate_tr\fP (\fBew::Transform3\fP *tr, double x, double y, double z) const "
+.br
+.ti -1c
+.RI "void \fBget_pointer_roll_tr\fP (\fBew::Transform3\fP *tr, double x, double y) const "
+.br
+.ti -1c
+.RI "void \fBget_pointer_twist_tr\fP (\fBew::Transform3\fP *tr, double x0, double y0, double x1, double y1, double acc) const "
+.br
+.ti -1c
+.RI "void \fBget_pointer_scale_tr\fP (\fBew::Transform3\fP *tr, double x0, double y0, double x1, double y1, double acc) const "
+.br
+.ti -1c
+.RI "void \fBget_jump_tr\fP (\fBew::Transform3\fP *tr, const double *loc, bool do_z) const "
+.br
+.ti -1c
+.RI "bool \fBget_bbox_tr\fP (\fBew::Transform3\fP *tr, const \fBew::Bbox3\fP *bbox, bool do_z, bool do_scale) const "
+.br
+.ti -1c
+.RI "void \fBset_background_color\fP (const unsigned char *rgb)"
+.br
+.ti -1c
+.RI "const unsigned char * \fBget_background_color\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_highlight_color\fP (const unsigned char *rgb)"
+.br
+.ti -1c
+.RI "const unsigned char * \fBget_highlight_color\fP () const "
+.br
+.ti -1c
+.RI "\fBew::View3Item\fP * \fBget_highlight_item\fP () const "
+.br
+.ti -1c
+.RI "void \fBclear_highlight\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_use_depth\fP (bool d)"
+.br
+.ti -1c
+.RI "bool \fBget_use_depth\fP () const "
+.br
+.ti -1c
+.RI "void \fBmove_item\fP (\fBew::View3Item\fP *it, int i)"
+.br
+.ti -1c
+.RI "\fBew::View3Item\fP *const * \fBget_items\fP () const "
+.br
+.ti -1c
+.RI "int \fBget_n_items\fP () const "
+.br
+.ti -1c
+.RI "bool \fBpick\fP (double x, double y, double sz, double burrow, \fBew::View3Item\fP *constrain_it, int constrain_cmpt, int constrain_dim, \fBew::View3Item\fP **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z)"
+.br
+.ti -1c
+.RI "void \fBpickv\fP (std::vector< ew::View3Pick > &outp, double x, double y, double sz)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBew::DataflowNetwork\fP *const \fBnetwork\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBinit_gl_context\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_window_size\fP (int w, int h)"
+.br
+.ti -1c
+.RI "void \fBrender\fP ()"
+.br
+.ti -1c
+.RI "void \fBidle_handler\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_currently_unrendered\fP ()"
+.br
+.ti -1c
+.RI "void \fBdestruction_in_progress\fP ()"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBschedule_idle_handler_cb\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBredraw_cb\fP ()=0"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+Items, derived from \fBew::View3Item\fP, may be created in the widget.
+.PP
+This class is independent of any particular toolkit and it is intended that the class will be inherited by a wrapper that implements the necessary interface with the toolkit.
+.PP
+All view widgets associated with a particular \fBew::DataflowNetwork\fP must share OpenGL contexts. The context must have a depth buffer. Many class methods require this context to be active when they are called.
+.PP
+Items in a widget are kept in a list in rendering order. If the depth buffer is not being used, later items will be rendered on top of earlier items. It the depth buffer is being used, the rendering order only effects items with exactly the same depth. Items are put at the end of the order initially on creation. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::View3Widget::View3Widget (\fBew::DataflowNetwork\fP * i_network)\fC [explicit]\fP"Create an empty view widget. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_network\fP a pointer to a network to associate this view with 
+.RE
+.PP
+
+.SS "ew::View3Widget::~View3Widget ()\fC [virtual]\fP"Destroy the widget and all its items. The OpenGL context should be active when this is called. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::View3Widget::reset ()"Delete all items in the widget and reset it to its initial state. 
+.SS "void ew::View3Widget::set_clip_ratio (double cr)"Set the clip ratio. The viewing volume width and height are determined by the window dimensions as specified in \fBset_window_size\fP. The clipping ratio is the ratio of the viewing volume depth to the smaller of its width and height. The viewing volume coordinate system is centered in the viewing volume, with axes, in order, pointing right, up and out of the screen, and with homogeneous scale such that the range of coordinates in the direction of the smaller of the width and height is [-1.0, 1.0]. The clip ratio is initially 1.0. It must be positive, but also not unreasonably small or large values. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcr\fP the new clipping ratio 
+.RE
+.PP
+
+.SS "double ew::View3Widget::get_clip_ratio () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+the current clipping ratio 
+.RE
+.PP
+
+.SS "void ew::View3Widget::set_view_mapping (const \fBew::Transform3\fP * tr)"Set the view mapping. The view mapping is the transformation from model coordinates to viewing volume coordinates. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP the address of a transform containing the new view mapping 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBew::Dig3View\fP.
+.SS "void ew::View3Widget::view_post_compose (const \fBew::Transform3\fP * tr)"Composes the view mapping with a transform on the left. This is for incremental changes to the view mapping relative to the viewing volume coordinate system. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP the address of a transform containing the view mapping increment 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBew::Dig3View\fP.
+.SS "const \fBew::Transform3\fP * ew::View3Widget::get_view_mapping () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+the address of a transform containing the current view mapping 
+.RE
+.PP
+
+.SS "void ew::View3Widget::get_bbox (\fBew::Bbox3\fP * b) const"Calculate the bounding box of all items displayed in the widget. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIb\fP where to store the result 
+.RE
+.PP
+
+.SS "void ew::View3Widget::get_pointer_location (double * loc, double x, double y, double z = \fC0.0\fP) const"Calculate the location of the point with given pixel window coordinates. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIloc\fP The address of an array of size 3 to store the location in 
+.br
+\fIx,y,z\fP the pixel window coordinates (right from left side, down from top and into window from the midplane of the viewing volume) 
+.RE
+.PP
+
+.SS "void ew::View3Widget::get_center_location (double * loc) const"Calculate the location of center of the space currently in view. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIloc\fP the address of an array of size 3 to store the location in 
+.RE
+.PP
+
+.SS "void ew::View3Widget::get_pointer_translate_tr (\fBew::Transform3\fP * tr, double x, double y, double z) const"Construct a translation suitable for \fBview_post_compose\fP from window pixel coordinate changes. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP where to store the view mapping increment 
+.br
+\fIx,y,z\fP the coordinate changes 
+.RE
+.PP
+
+.SS "void ew::View3Widget::get_pointer_roll_tr (\fBew::Transform3\fP * tr, double x, double y) const"Constructs a roll-ball type rotation suitable for \fBview_post_compose\fP from window pixel coordinate changes. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP where to store the view mapping increment 
+.br
+\fIx,y\fP the coordinate changes 
+.RE
+.PP
+
+.SS "void ew::View3Widget::get_pointer_twist_tr (\fBew::Transform3\fP * tr, double x0, double y0, double x1, double y1, double acc) const"Constructs a twist rotation, about the center of the window, suitable for \fBview_post_compose\fP from window pixel coordinate changes. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP where to store the view mapping increment 
+.br
+\fIx0,y0\fP the coordinate initial values 
+.br
+\fIx1,y1\fP the coordinate final values 
+.br
+\fIacc\fP an acceleration factor that scales the rotation relative to the rotation indicated by the coordinate changes 
+.RE
+.PP
+
+.SS "void ew::View3Widget::get_pointer_scale_tr (\fBew::Transform3\fP * tr, double x0, double y0, double x1, double y1, double acc) const"Constructs a scaling about the center of the window suitable for \fBview_post_compose\fP from window pixel coordinate changes. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP where to store the view mapping increment 
+.br
+\fIx0,y0\fP the coordinate initial values 
+.br
+\fIx1,y1\fP the coordinate final values 
+.br
+\fIacc\fP an acceleration factor that scales the scale relative to the scale indicated by the coordinate changes 
+.RE
+.PP
+
+.SS "void ew::View3Widget::get_jump_tr (\fBew::Transform3\fP * tr, const double * loc, bool do_z) const"Construct a translation suitable for \fBview_post_compose\fP that would put the specified point (in model space, not viewing space) at the center of the view. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP where to store the view mapping increment 
+.br
+\fIloc\fP the address of an array of size 3 containing the point coordinates 
+.br
+\fIdo_z\fP whether to translate in the z direction so that the point is at the center of the view in all 3 directions 
+.RE
+.PP
+
+.SS "bool ew::View3Widget::get_bbox_tr (\fBew::Transform3\fP * tr, const \fBew::Bbox3\fP * bbox, bool do_z, bool do_scale) const"Constructs a translation suitable for \fBview_post_compose\fP that would put the specified bounding box (in model space, not viewing space) at the center of the view. The orientation of the view is not effected. This will return \fCfalse\fP and not otherwise do anything if the bounding box is empty, or if is a single point and \fIdo_scale\fP is \fCtrue\fP. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fItr\fP where to store the view mapping increment, if successful 
+.br
+\fIbbox\fP the address of the bounding box 
+.br
+\fIdo_z\fP whether to translate in the z direction 
+.br
+\fIdo_scale\fP whether to scale so that the box fits comfortably in the view 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if successful 
+.RE
+.PP
+
+.SS "void ew::View3Widget::set_background_color (const unsigned char * rgb)"Set the background color. The background is by default [0, 0, 0]. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrgb\fP the address of an array of size 3 containing the new background colour components 
+.RE
+.PP
+
+.SS "const unsigned char * ew::View3Widget::get_background_color () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+the address of an array containing the current background colour components 
+.RE
+.PP
+
+.SS "void ew::View3Widget::set_highlight_color (const unsigned char * rgb)"Set the highlight color. The highlight colour is by default [255, 0, 0]. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrgb\fP the address of an array of size 3 containing the new highlight colour components 
+.RE
+.PP
+
+.SS "const unsigned char * ew::View3Widget::get_highlight_color () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+the address of an array containing the current highlight colour components 
+.RE
+.PP
+
+.SS "\fBew::View3Item\fP * ew::View3Widget::get_highlight_item () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+the address of the current highlighted item, or 0 
+.RE
+.PP
+
+.SS "void ew::View3Widget::clear_highlight ()"Clear the current highlighted item, if any. 
+.SS "void ew::View3Widget::set_use_depth (bool d)"Turn on or off the use of the depth buffer. It is initially \fCtrue\fP. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fId\fP whether to use the depth buffer 
+.RE
+.PP
+
+.SS "bool ew::View3Widget::get_use_depth () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+the current setting 
+.RE
+.PP
+
+.SS "void ew::View3Widget::move_item (\fBew::View3Item\fP * it, int n)"Move an item in the rendering order. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIit\fP a pointer to the item to move 
+.br
+\fIn\fP the position in the order to move the item to 
+.RE
+.PP
+
+.SS "\fBew::View3Item\fP *const * ew::View3Widget::get_items () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+a pointer to the list of items 
+.RE
+.PP
+
+.SS "int ew::View3Widget::get_n_items () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+the size of the list of items 
+.RE
+.PP
+
+.SS "bool ew::View3Widget::pick (double x, double y, double sz, double burrow, \fBew::View3Item\fP * constrain_it, int constrain_cmpt, int constrain_dim, \fBew::View3Item\fP ** pick_it, int * pick_cmpt, int * pick_dim, double * pick_z)"Pick an item fragment rendered in a sub-window of the current view. Fragments of the lowest dimension visible are picked. With a depth buffer, the nearest eligible item fragment of this dimensions is picked, provided it is not behind, with a tolerance, any surface fragment. This is to allow picking of, for example, points in an inclined surface where otherwise, some part of the surface would always be closer than the point. Without a depth buffer, the latest eligible item fragment of this dimension in the rendering order is picked, provided it is not before any surface fragment. The meaning of an item component depends on the item. The \fIpick_z\fP result is in pixels, with 0 at the center of the viewing volume, and positive further away. It is suitable for use in \fBget_pointer_location\fP. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIx,y\fP the pixel window pointer coordinates 
+.br
+\fIsz\fP the side of the square, in pixels, centered on \fIx\fP and \fIy\fP within which rendered items are eligible for picking. 
+.br
+\fIburrow\fP the tolerance in the depth buffer, for an eligible item to be picked behind a surface. 
+.br
+\fIconstrain_it\fP if non-zero, only fragments rendered by this item will be eligible to be picked 
+.br
+\fIconstrain_cmpt\fP if non-negative, only fragments rendered as part of this component in the item will be eligible for picking 
+.br
+\fIconstrain_dim\fP if non-negative, only fragments of this dimension (0, 1 or 2) will be eligible for picking 
+.br
+\fIpick_it\fP the location where a pointer to the picked item should be stored, if non-zero and if the pick was successful 
+.br
+\fIpick_cmpt\fP the location where the component of the picked item should be stored, if non-zero and if the pick was successful 
+.br
+\fIpick_dim\fP the location where the dimension of the picked item should be stored, if non-zero and if the pick was successful 
+.br
+\fIpick_z\fP the location where the z coordinate of the nearest part of the picked item should be stored, if non-zero and if the pick was successful 
+.RE
+.PP
+
+.SS "void ew::View3Widget::pickv (std::vector< ew::View3Pick > & outp, double x, double y, double sz)"Find all item fragment picks, in order of most prominent first. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIoutp\fP a reference to the vector to store the output list in 
+.br
+\fIx,y\fP the pixel window coordinates 
+.br
+\fIsz\fP the side of the square, in pixels, centered on \fIx\fP and \fIy\fP within which rendered items are eligible for picking 
+.RE
+.PP
+
+.SS "void ew::View3Widget::init_gl_context ()\fC [protected]\fP"Perform initialization related to the OpenGL context. This should be called after construction, once the context is active. 
+.SS "void ew::View3Widget::set_window_size (int w, int h)\fC [protected]\fP"Performs initialization related to the window size. This should be called after construction and whenever the window is resized. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIw,h\fP the new window width and height 
+.RE
+.PP
+
+.SS "void ew::View3Widget::render ()\fC [protected]\fP"Render the scene in the current OpenGL context and associated window. If the context has a double buffer, this will render to the back buffer. The buffers must then be swapped. 
+.SS "void ew::View3Widget::idle_handler ()\fC [protected]\fP"\fBschedule_idle_handler_cb\fP should arrange for this function to be called at an appropriate time. 
+.SS "void ew::View3Widget::set_currently_unrendered ()\fC [protected]\fP"This should be called when the window associated with this widget is unmapped, to avoid unnecessary activity. A call to \fBrender\fP undoes the effect of this. 
+.SS "void ew::View3Widget::destruction_in_progress ()\fC [protected]\fP"This should be called when a derived object is being destroyed, to prevent any callbacks being invoked. 
+.SS "void ew::View3Widget::schedule_idle_handler_cb ()\fC [private, pure virtual]\fP"This is a callback that must be implemented by the inheriting class. It must arrange for \fBidle_handler\fP to be called later when the GUI is idle. Outstanding handlers must be cancelled by the inheriting class on destruction. 
+.SS "void ew::View3Widget::redraw_cb ()\fC [private, pure virtual]\fP"This is a callback than must be implemented in the inheriting class. It must arrange for the widget to be rendered immediately. 
+.SH MEMBER DATA
+.PP 
+.SS "\fBew::DataflowNetwork\fP *const \fBew::View3Widget::network\fP"This points to the \fBew::DataflowNetwork\fP that this \fBew::View3Widget\fP was created with. 
+

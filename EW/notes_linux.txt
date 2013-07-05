@@ -1,0 +1,52 @@
+BUILD REQUIREMENTS
+
+static build:
+ http://doc.trolltech.com/4.6/requirements-x11.html
+
+Standard packages:
+  build-essential
+  lapack3-dev
+  libxml2-dev
+  libqt4-dev
+  (if the distribution has it) libqt4-core
+  (if the distribution has it) libqt4-opengl-dev
+
+
+RUNTIME REQUIREMENTS
+
+Standard packages:
+  lapack3
+  libxml2
+  libgl1
+not libatlas-base-dev, libatlas-headers, libatlas3gf-base:
+will result in these errors on ubuntu hardy (at least):
+  symbol lookup error: /usr/lib/atlas/liblapack.so.3gf: undefined symbol:
+   _gfortran_pow_r8_i4
+
+
+TESTED CONFIGURATIONS
+
+ubuntu             8.0.4
+
+g++                4:4.2.3-1ubuntu6
+libc6-dev          2.7-10ubuntu4
+libstdc++6-4.2-dev 4.2.4-1ubuntu3
+
+libgl1-mesa-dev    7.0.3~rc2-1ubuntu3
+nvidia-glx-new     173.14.02+2.6.24.500-500.23~dell3
+
+lapack3-dev        3.0.20000531a-6.1ubuntu1
+libxml2-dev        2.6.31.dfsg-2ubuntu1.3
+
+libqt4-core        4.3.4-0ubuntu3
+libqt4-dev         4.3.4-0ubuntu3
+or
+libqt4-core        4.4.0-1ubuntu5~hardy1
+libqt4-opengl-dev  4.4.0-1ubuntu5~hardy1
+libqt4-dev         4.4.0-1ubuntu5~hardy1
+
+The Qt 4.4.0 was from apt archive hardy-backports, but the distribution
+standard QT 4.3.0 also worked.
+The libgl1-mesa-dev provides libgl-dev, a dependency of libqt4-opengl-dev.
+The nvidia-glx-new is a generated package that diverts files of
+libgl1-mesa-glx, which provides libgl1.

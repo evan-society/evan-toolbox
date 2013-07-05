@@ -1,0 +1,339 @@
+.TH "ew::Form3" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Form3 \- 
+.PP
+Morphometric Form.  
+
+\fBew::Form3\fP represents morphometric forms in \fBR\fP^3. These are landmark configurations, possibly including semi-landmarks, generalized to include curve, surface and volume data.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Form3.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBstate_t\fP { \fBSTATE_SET\fP, \fBSTATE_UNSET\fP, \fBSTATE_PROVISIONAL\fP, \fBSTATE_WARPED\fP, \fBSTATE_PROJECTED\fP, \fBSTATE_OPTIMIZED\fP }"
+.br
+.ti -1c
+.RI "enum \fBpoint_t\fP { \fBTYPE_LANDMARK\fP, \fBTYPE_SEMI_LANDMARK\fP, \fBTYPE_POINT\fP, \fBTYPE_LINE\fP, \fBTYPE_PLANE\fP, \fBTYPE_FRAME\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.ti -1c
+.RI "void \fBread_file\fP (const char *file)"
+.br
+.ti -1c
+.RI "void \fBwrite_file\fP (const char *file, bool compress) const "
+.br
+.ti -1c
+.RI "bool \fBsearch_volume\fP (int *position, const char *id) const "
+.br
+.ti -1c
+.RI "bool \fBsearch_surface\fP (int *position, const char *id) const "
+.br
+.ti -1c
+.RI "bool \fBsearch_curve\fP (int *position, const char *id) const "
+.br
+.ti -1c
+.RI "bool \fBsearch_pointset\fP (int *position, const char *id) const "
+.br
+.ti -1c
+.RI "bool \fBsearch_embedding\fP (int *position, const char *id1, const char *id2) const "
+.br
+.ti -1c
+.RI "bool \fBsearch_reflection\fP (int *position, const char *id1, const char *id2) const "
+.br
+.ti -1c
+.RI "const char * \fBsearch_superset\fP (const char *id) const "
+.br
+.ti -1c
+.RI "void \fBset_superset\fP (const char *subset_id, const char *superset_id)"
+.br
+.ti -1c
+.RI "void \fBswap\fP (\fBew::Form3\fP &f)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Form3\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Form3\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< \fBew::Form3Volume\fP > \fBvolumes\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBew::Form3Surface\fP > \fBsurfaces\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBew::Form3Curve\fP > \fBcurves\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBew::Form3PointSet\fP > \fBpointsets\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBew::Form3Embedding\fP > \fBembeddings\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBew::Form3Reflection\fP > \fBreflections\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Form3\fP is a data structure that supports default construction, copy construction, assignment and equality comparison.
+.PP
+\fBew::Form3\fP data is represented in form files read by \fBread_file\fP and written by \fBwrite_file\fP. These are example files:
+.IP "\(bu" 2
+\fBsimple_landmarks.form\fP
+.IP "\(bu" 2
+\fBmandible_landmarks.form\fP
+.IP "\(bu" 2
+\fBmandible_case.form\fP
+.PP
+The representation is exact except that filenames in the form files are abbreviated to relative filenames in common situations were possible, but in \fBew::Form3\fP they are always in canonical form.
+.PP
+All elements in the form have an id. These id's must be unique in the from. 
+.SH MEMBER ENUMERATIONS
+.PP 
+.SS "enum \fBew::Form3::state_t\fP"Some elements can have a state associated with them. These are the possible values. Not all states are appropriate for all element types. The default is \fBSTATE_SET\fP. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fISTATE_SET \fP\fP
+The element has been explicitly digitized (default). 
+.TP
+\fB\fISTATE_UNSET \fP\fP
+The element has not been digitized. 
+.TP
+\fB\fISTATE_PROVISIONAL \fP\fP
+The element has been provisionally digitized. 
+.TP
+\fB\fISTATE_WARPED \fP\fP
+The element is the image under a warp. 
+.TP
+\fB\fISTATE_PROJECTED \fP\fP
+The element has been projected. 
+.TP
+\fB\fISTATE_OPTIMIZED \fP\fP
+The element has been optimized. 
+.SS "enum \fBew::Form3::point_t\fP"Point sets can have different types. These are the possible values. The default is \fBTYPE_LANDMARK\fP. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fITYPE_LANDMARK \fP\fP
+The points are landmarks (default). 
+.TP
+\fB\fITYPE_SEMI_LANDMARK \fP\fP
+The points are semi-landmarks. 
+.TP
+\fB\fITYPE_POINT \fP\fP
+The point is a non-landmark point. 
+.TP
+\fB\fITYPE_LINE \fP\fP
+The point represents a line, such as a best-fit axis of symmetry. 
+.TP
+\fB\fITYPE_PLANE \fP\fP
+The point represents a plane, such as a best-fit multi-tangent or best-fit symmetry plane. 
+.TP
+\fB\fITYPE_FRAME \fP\fP
+The point represents a frame, such as a standard view. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::Form3::reset ()"This resets the form to its initial state. 
+.SS "void ew::Form3::read_file (const char * file)"This reads a form from a file. The file must be a real filename, URL's are not supported. The file can be compressed with gzip compression. Relative filenames with initial path component '.' inside the file are converted to canonical filenames using the directory part of \fIfile\fP. If an exception is thrown, the form is unchanged. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfile\fP The canonical name of the file to read. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.br
+\fI\fBew::ErrorIO\fP\fP 
+.RE
+.PP
+
+.SS "void ew::Form3::write_file (const char * file, bool compress) const"This writes a form to a file. Filenames written into the output are converted to relative filenames with initial path component '.' if their path contains the directory part of \fIfile\fP as an initial segment. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfile\fP The canonical name of the file to write. 
+.br
+\fIcompress\fP If \fCtrue\fP, write the file compressed with gzip compression. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.br
+\fI\fBew::ErrorIO\fP\fP 
+.RE
+.PP
+
+.SS "bool ew::Form3::search_volume (int * position, const char * id) const"This searches the volumes in the form for an id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIposition\fP The index in the vector that a volume with this id would be if inserted into the vector of volumes. 
+.br
+\fIid\fP The id to search for. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the id is an existing volume id. 
+.RE
+.PP
+
+.SS "bool ew::Form3::search_surface (int * position, const char * id) const"This searches the surfaces in the form for an id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIposition\fP The index in the vector that a surface with this id would be if inserted into the vector of surfaces. 
+.br
+\fIid\fP The id to search for. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the id is an existing surface id. 
+.RE
+.PP
+
+.SS "bool ew::Form3::search_curve (int * position, const char * id) const"This searches the curves in the form for an id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIposition\fP The index in the vector that a curve with this id would be if inserted into the vector of curves. 
+.br
+\fIid\fP The id to search for. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the id is an existing curve id. 
+.RE
+.PP
+
+.SS "bool ew::Form3::search_pointset (int * position, const char * id) const"This searches the point sets in the form for an id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIposition\fP The index in the vector that a point set with this id would be if inserted into the vector of point sets. 
+.br
+\fIid\fP The id to search for. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the id is an existing point set id. 
+.RE
+.PP
+
+.SS "bool ew::Form3::search_embedding (int * position, const char * id1, const char * id2) const"This searches the embeddings in the form for the id's. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIposition\fP The index in the vector that a embedding with these id's would be if inserted into the vector of embeddings. 
+.br
+\fIid1\fP The subset_id to search for. 
+.br
+\fIid2\fP The superset_id to search for. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the id's belong to an existing embedding. 
+.RE
+.PP
+
+.SS "bool ew::Form3::search_reflection (int * position, const char * id1, const char * id2) const"This searches the reflections in the form for the id's. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIposition\fP The index in the vector that a reflection with these id's would be if inserted into the vector of reflections. 
+.br
+\fIid1\fP The left_id to search for. 
+.br
+\fIid2\fP The right_id to search for. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the id's belong to an existing reflection. 
+.RE
+.PP
+
+.SS "const char * ew::Form3::search_superset (const char * id) const"This searches the embedding relations to see what, if any, element is a unique superset of a given element. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIid\fP The id of the original element. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The id of the unique superset of the original element, or 0. This pointer is valid until the form is changed. 
+.RE
+.PP
+
+.SS "void ew::Form3::set_superset (const char * subset_id, const char * superset_id)"This makes one element the unique superset of another element. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsubset_id\fP The id of the element that should have a unique superset. 
+.br
+\fIsuperset_id\fP The id of the element that be the unique superset. 
+.RE
+.PP
+
+.SS "void ew::Form3::swap (\fBew::Form3\fP & that)\fC [inline]\fP"This swaps the data of 2 forms without any copying. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIthat\fP The form to swap with \fCthis\fP. 
+.RE
+.PP
+
+.SS "bool ew::Form3::operator== (const \fBew::Form3\fP & a) const"Compares this form with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other form 
+.RE
+.PP
+
+.SS "bool ew::Form3::operator!= (const \fBew::Form3\fP & a) const\fC [inline]\fP"Compares this form with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other form 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::vector< \fBew::Form3Volume\fP > \fBew::Form3::volumes\fP"An arbitrary number of volume elements. The volume data is stored in separate files. The files named are not expected to change during their use. These must be in alphabetical order by \fBew::Form3Volume::id\fP in the POSIX sorting order. 
+.SS "std::vector< \fBew::Form3Surface\fP > \fBew::Form3::surfaces\fP"An arbitrary number of surface elements. The surface data is stored in separate files. The files named are not expected to change during their use. These must be in alphabetical order by \fBew::Form3Surface::id\fP in the POSIX sorting order. 
+.SS "std::vector< \fBew::Form3Curve\fP > \fBew::Form3::curves\fP"An arbitrary number of curve elements. The curve data is stored in separate files. The files named can be created during the digitization, so can change during their use. These must be in alphabetical order by \fBew::Form3Curve::id\fP in the POSIX sorting order. 
+.SS "std::vector< \fBew::Form3PointSet\fP > \fBew::Form3::pointsets\fP"An arbitrary number of point set elements. These must be in alphabetical order by id in the POSIX sorting order. 
+.SS "std::vector< \fBew::Form3Embedding\fP > \fBew::Form3::embeddings\fP"An arbitrary number of individual embedding relationships. These must be in alphabetical order by \fBew::Form3Embedding::subset_id\fP, then \fBew::Form3Embedding::superset_id\fP in the POSIX sorting order. They must refer to elements of the form of appropriate dimension. This is how the curve or surface a semi-landmark belongs to is indicated. The semi-landmarks must be embedded in a unique curve or surface of the appropriate dimension. Regular landmarks can be embedded in one or more curves or surfaces. 
+.SS "std::vector< \fBew::Form3Reflection\fP > \fBew::Form3::reflections\fP"An arbitrary number of individual reflection relationships. These must be in alphabetical order by \fBew::Form3Reflection::left_id\fP, then \fBew::Form3Reflection::right_id\fP in the POSIX sorting order. They must refer to elements of the form of appropriate dimension. 
+

@@ -1,0 +1,171 @@
+.TH "ew::View3Landmarks" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::View3Landmarks \- 
+.PP
+Landmarks Item.  
+
+\fBew::View3Landmarks\fP is an \fBew::View3Widget\fP item to display the landmarks in a \fBew::DataflowForm3\fP.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/View3Landmarks.h>\fP
+.PP
+Inherits \fBew::View3Item\fP.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBsymbol_t\fP { \fBSYMBOL_CROSS\fP, \fBSYMBOL_CIRCLE\fP, \fBSYMBOL_DOT\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBView3Landmarks\fP (\fBew::View3Widget\fP *\fBview\fP, int i_type=0)"
+.br
+.ti -1c
+.RI "void \fBset_form\fP (const \fBew::DataflowForm3\fP *frm)"
+.br
+.ti -1c
+.RI "const \fBew::DataflowForm3\fP * \fBget_form\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_color\fP (const unsigned char *rgb)"
+.br
+.ti -1c
+.RI "const unsigned char * \fBget_color\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_highlight\fP (int ps, int i)"
+.br
+.ti -1c
+.RI "int \fBget_highlight_ps\fP () const "
+.br
+.ti -1c
+.RI "int \fBget_highlight_i\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_symbol\fP (int sym)"
+.br
+.ti -1c
+.RI "int \fBget_symbol\fP () const "
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static const int \fBN_SYMBOLS\fP = 3"
+.br
+.ti -1c
+.RI "static const char *const \fBsymbol_names\fP []"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::View3Landmarks\fP is a class without assignment or comparison. There are private member variables. 
+.SH MEMBER ENUMERATIONS
+.PP 
+.SS "enum \fBew::View3Landmarks::symbol_t\fP"These are the possible values for \fBset_symbol\fP and \fBget_symbol\fP. The first, with value zero, is \fBSYMBOL_CROSS\fP. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fISYMBOL_CROSS \fP\fP
+A cross symbol. 
+.TP
+\fB\fISYMBOL_CIRCLE \fP\fP
+A circle symbol. 
+.TP
+\fB\fISYMBOL_DOT \fP\fP
+A dot symbol. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::View3Landmarks::View3Landmarks (\fBew::View3Widget\fP * i_view, int i_type = \fC0\fP)\fC [explicit]\fP"This creates an item. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIview_i\fP The view widget the item should belong to. 
+.br
+\fItype_i\fP The initializer for \fBew::View3Item::type\fP. 
+.RE
+.PP
+
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::View3Landmarks::set_form (const \fBew::DataflowForm3\fP * frm)"\fBParameters:\fP
+.RS 4
+\fIfrm\fP A pointer to the new form node to display, or 0. 
+.RE
+.PP
+
+.SS "const \fBew::DataflowForm3\fP * ew::View3Landmarks::get_form () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the current form node being displayed, or 0. 
+.RE
+.PP
+
+.SS "void ew::View3Landmarks::set_color (const unsigned char * rgb)"\fBParameters:\fP
+.RS 4
+\fIrgb\fP This points to an array of size 3 containing the new colour for the landmark symbols. 
+.RE
+.PP
+
+.SS "const unsigned char * ew::View3Landmarks::get_color () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the current colour for the landmark symbols. 
+.RE
+.PP
+
+.SS "void ew::View3Landmarks::set_highlight (int ps, int i)"\fBParameters:\fP
+.RS 4
+\fIps\fP The pointset of the landmark to highlight. 
+.br
+\fIi\fP The index of the landmark within the pointset of the landmark to highlight. 
+.RE
+.PP
+
+.SS "int ew::View3Landmarks::get_highlight_ps () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The currently highlighted pointset index, or -1. 
+.RE
+.PP
+
+.SS "int ew::View3Landmarks::get_highlight_i () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The currently highlighted landmark index within the pointset, or -1. 
+.RE
+.PP
+
+.SS "void ew::View3Landmarks::set_symbol (int sym)"\fBParameters:\fP
+.RS 4
+\fIsym\fP The new landmark symbol. 
+.RE
+.PP
+
+.SS "int ew::View3Landmarks::get_symbol () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The current landmark symbol. 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "const int \fBew::View3Landmarks::N_SYMBOLS\fP = 3\fC [static]\fP"They number of possible \fBsymbol_t\fP values. 
+.SS "const char *const \fBew::View3Landmarks::symbol_names\fP\fC [static]\fP"\fBInitial value:\fP
+.PP
+.nf
+ {
+  'cross',
+  'circle',
+  'dot',
+  0
+}
+.fi
+The names of the \fBsymbol_t\fP choices. 
+

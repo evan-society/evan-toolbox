@@ -1,0 +1,143 @@
+\hypertarget{classew_1_1Dig3TableauSpace}{
+\subsection{ew::Dig3TableauSpace Class Reference}
+\label{classew_1_1Dig3TableauSpace}\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+}
+
+
+Space Element.  
+
+
+
+
+{\ttfamily \#include $<$ew/Dig3TableauSpace.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1Dig3TableauSpace_a82bcfb4842d1cde423f09731a2d6779b}{Dig3TableauSpace} ()
+\item 
+bool \hyperlink{classew_1_1Dig3TableauSpace_ade4aa56a4d3987c668b2cf17241ca15a}{operator==} (const \hyperlink{classew_1_1Dig3TableauSpace}{ew::Dig3TableauSpace} \&a) const 
+\item 
+bool \hyperlink{classew_1_1Dig3TableauSpace_ae968e6859c383ca24abfebce7c5ae567}{operator!=} (const \hyperlink{classew_1_1Dig3TableauSpace}{ew::Dig3TableauSpace} \&a) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::string \hyperlink{classew_1_1Dig3TableauSpace_adcdd8967b3b7217b151e30bf1c2540b1}{form\_\-filename}
+\item 
+\hyperlink{classew_1_1Transform3}{ew::Transform3} \hyperlink{classew_1_1Dig3TableauSpace_aeed5fbdecb68a567bdcb204cf954be6e}{main\_\-view}
+\item 
+\hyperlink{classew_1_1Transform3}{ew::Transform3} \hyperlink{classew_1_1Dig3TableauSpace_aaf9b84f70f9ab0db2d775e60d2d70a74}{slice\_\-view}
+\item 
+bool \hyperlink{classew_1_1Dig3TableauSpace_a8c8a902e9e636bffc8638c8105b3b5b4}{show\_\-slice\_\-in\_\-main}
+\item 
+bool \hyperlink{classew_1_1Dig3TableauSpace_a302c76a3185e05d1bc5b2954489004ec}{show\_\-lmks\_\-in\_\-main}
+\item 
+bool \hyperlink{classew_1_1Dig3TableauSpace_a20ff63b1ab1b18a7184db0e6850d6570}{show\_\-lmks\_\-in\_\-slice}
+\item 
+int \hyperlink{classew_1_1Dig3TableauSpace_ac5de6ceab785dc79b0b681757d33dc88}{lmks\_\-symbol}
+\item 
+unsigned char \hyperlink{classew_1_1Dig3TableauSpace_aaa01d6e4fc38104bd38fa7dbd01d4acc}{lmks\_\-col} \mbox{[}3\mbox{]}
+\item 
+std::vector$<$ \hyperlink{classew_1_1Dig3SetCurve}{ew::Dig3SetCurve} $>$ \hyperlink{classew_1_1Dig3TableauSpace_a7b0af5084b9e677080e6c82f63e0cfe8}{curve\_\-settings}
+\item 
+std::vector$<$ \hyperlink{classew_1_1Dig3SetSurface}{ew::Dig3SetSurface} $>$ \hyperlink{classew_1_1Dig3TableauSpace_a43e89ab62ea3974fd89e6054d227ecab}{surface\_\-settings}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Dig3TableauSpace}{ew::Dig3TableauSpace} contains data for a space element of \hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau}.
+
+\hyperlink{classew_1_1Dig3TableauSpace}{ew::Dig3TableauSpace} is a data structure that supports default construction, copy construction, assignment and equality comparison. 
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1Dig3TableauSpace_a82bcfb4842d1cde423f09731a2d6779b}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!Dig3TableauSpace@{Dig3TableauSpace}}
+\index{Dig3TableauSpace@{Dig3TableauSpace}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{Dig3TableauSpace}]{\setlength{\rightskip}{0pt plus 5cm}ew::Dig3TableauSpace::Dig3TableauSpace (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3TableauSpace_a82bcfb4842d1cde423f09731a2d6779b}
+This sets intrinsic and POD member variables to their default values. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Dig3TableauSpace_ade4aa56a4d3987c668b2cf17241ca15a}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!operator==@{operator==}}
+\index{operator==@{operator==}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Dig3TableauSpace::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Dig3TableauSpace} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3TableauSpace_ade4aa56a4d3987c668b2cf17241ca15a}
+Compares this element with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other element \end{DoxyParams}
+\hypertarget{classew_1_1Dig3TableauSpace_ae968e6859c383ca24abfebce7c5ae567}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Dig3TableauSpace::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Dig3TableauSpace} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3TableauSpace_ae968e6859c383ca24abfebce7c5ae567}
+Compares this element with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other element \end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Dig3TableauSpace_adcdd8967b3b7217b151e30bf1c2540b1}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!form\_\-filename@{form\_\-filename}}
+\index{form\_\-filename@{form\_\-filename}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{form\_\-filename}]{\setlength{\rightskip}{0pt plus 5cm}std::string {\bf ew::Dig3TableauSpace::form\_\-filename}}\hfill}
+\label{classew_1_1Dig3TableauSpace_adcdd8967b3b7217b151e30bf1c2540b1}
+This file containing the form data for the space. \hypertarget{classew_1_1Dig3TableauSpace_aeed5fbdecb68a567bdcb204cf954be6e}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!main\_\-view@{main\_\-view}}
+\index{main\_\-view@{main\_\-view}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{main\_\-view}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::Transform3} {\bf ew::Dig3TableauSpace::main\_\-view}}\hfill}
+\label{classew_1_1Dig3TableauSpace_aeed5fbdecb68a567bdcb204cf954be6e}
+The view mapping of the main view of this space. The default is the identity transformation. \hypertarget{classew_1_1Dig3TableauSpace_aaf9b84f70f9ab0db2d775e60d2d70a74}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!slice\_\-view@{slice\_\-view}}
+\index{slice\_\-view@{slice\_\-view}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{slice\_\-view}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::Transform3} {\bf ew::Dig3TableauSpace::slice\_\-view}}\hfill}
+\label{classew_1_1Dig3TableauSpace_aaf9b84f70f9ab0db2d775e60d2d70a74}
+The view mapping of the slice view of this space. The default is the identity transformation. \hypertarget{classew_1_1Dig3TableauSpace_a8c8a902e9e636bffc8638c8105b3b5b4}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!show\_\-slice\_\-in\_\-main@{show\_\-slice\_\-in\_\-main}}
+\index{show\_\-slice\_\-in\_\-main@{show\_\-slice\_\-in\_\-main}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{show\_\-slice\_\-in\_\-main}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ew::Dig3TableauSpace::show\_\-slice\_\-in\_\-main}}\hfill}
+\label{classew_1_1Dig3TableauSpace_a8c8a902e9e636bffc8638c8105b3b5b4}
+{\ttfamily true} if the slice should be displayed in the main view. The default is {\ttfamily true}. \hypertarget{classew_1_1Dig3TableauSpace_a302c76a3185e05d1bc5b2954489004ec}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!show\_\-lmks\_\-in\_\-main@{show\_\-lmks\_\-in\_\-main}}
+\index{show\_\-lmks\_\-in\_\-main@{show\_\-lmks\_\-in\_\-main}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{show\_\-lmks\_\-in\_\-main}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ew::Dig3TableauSpace::show\_\-lmks\_\-in\_\-main}}\hfill}
+\label{classew_1_1Dig3TableauSpace_a302c76a3185e05d1bc5b2954489004ec}
+{\ttfamily true} if the landmarks should be displayed in the main view. The default is {\ttfamily true}. \hypertarget{classew_1_1Dig3TableauSpace_a20ff63b1ab1b18a7184db0e6850d6570}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!show\_\-lmks\_\-in\_\-slice@{show\_\-lmks\_\-in\_\-slice}}
+\index{show\_\-lmks\_\-in\_\-slice@{show\_\-lmks\_\-in\_\-slice}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{show\_\-lmks\_\-in\_\-slice}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf ew::Dig3TableauSpace::show\_\-lmks\_\-in\_\-slice}}\hfill}
+\label{classew_1_1Dig3TableauSpace_a20ff63b1ab1b18a7184db0e6850d6570}
+{\ttfamily true} if the landmarks should be displayed in the slice view. The default is {\ttfamily true}. \hypertarget{classew_1_1Dig3TableauSpace_ac5de6ceab785dc79b0b681757d33dc88}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!lmks\_\-symbol@{lmks\_\-symbol}}
+\index{lmks\_\-symbol@{lmks\_\-symbol}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{lmks\_\-symbol}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf ew::Dig3TableauSpace::lmks\_\-symbol}}\hfill}
+\label{classew_1_1Dig3TableauSpace_ac5de6ceab785dc79b0b681757d33dc88}
+The symbol to use for landmarks. The default is 0. \hypertarget{classew_1_1Dig3TableauSpace_aaa01d6e4fc38104bd38fa7dbd01d4acc}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!lmks\_\-col@{lmks\_\-col}}
+\index{lmks\_\-col@{lmks\_\-col}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{lmks\_\-col}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf ew::Dig3TableauSpace::lmks\_\-col}\mbox{[}3\mbox{]}}\hfill}
+\label{classew_1_1Dig3TableauSpace_aaa01d6e4fc38104bd38fa7dbd01d4acc}
+The colour of the landmarks. The default is \mbox{[}0, 255, 0\mbox{]}. \hypertarget{classew_1_1Dig3TableauSpace_a7b0af5084b9e677080e6c82f63e0cfe8}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!curve\_\-settings@{curve\_\-settings}}
+\index{curve\_\-settings@{curve\_\-settings}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{curve\_\-settings}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ {\bf ew::Dig3SetCurve} $>$ {\bf ew::Dig3TableauSpace::curve\_\-settings}}\hfill}
+\label{classew_1_1Dig3TableauSpace_a7b0af5084b9e677080e6c82f63e0cfe8}
+The settings for curves in the space. \hypertarget{classew_1_1Dig3TableauSpace_a43e89ab62ea3974fd89e6054d227ecab}{
+\index{ew::Dig3TableauSpace@{ew::Dig3TableauSpace}!surface\_\-settings@{surface\_\-settings}}
+\index{surface\_\-settings@{surface\_\-settings}!ew::Dig3TableauSpace@{ew::Dig3TableauSpace}}
+\paragraph[{surface\_\-settings}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ {\bf ew::Dig3SetSurface} $>$ {\bf ew::Dig3TableauSpace::surface\_\-settings}}\hfill}
+\label{classew_1_1Dig3TableauSpace_a43e89ab62ea3974fd89e6054d227ecab}
+The settings for surfaces in the space. 

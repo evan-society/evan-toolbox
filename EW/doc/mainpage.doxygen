@@ -1,0 +1,27 @@
+/**
+@mainpage
+
+The EW library contains C++ classes that implement various visualization
+and analysis facilities for geometric morphometrics.
+It replaces the @b edgewarp program, written in C and Tcl/Tk.
+
+It was written by Bill Green for the EVAN Geometric Morphometric
+Toolkit Consortium.
+Copyright and license information are in the page @ref copyright .
+The changelog is in the page @ref changelog .
+
+All functions and variables documented here are defined in @c libew.a.
+The following libraries are dependencies of modules of @c libew.a:
+  - the standard math library
+  - lapack
+  - libxml2
+  - opengl
+
+Various example files are in the page @ref examples.
+
+@page copyright Copyright
+@verbinclude copyright.txt
+
+@page changelog Changelog
+@verbinclude changelog.txt
+*/

@@ -1,0 +1,170 @@
+/**
+@page semilandmarks Thin-Plate Spline with Semi-landmarks on Affine Subspaces
+
+Suppose we have @a n_lmks landmarks in @f$\mathbb{R}^D@f$, where D is 2 or 3.
+Let @a lmks be the @a n_lmks x D matrix with rows the landmark coordinates.
+
+A thin-plate spline is a linear combination of these functions
+@f$\mathbb{R}^D\to\mathbb{R}@f$:
+  - the constant function 1
+  - the linear function x
+  - the linear function y
+  - (if D = 3) the linear function z
+  - the radial basis function at landmark 1
+  - ...
+  - the radial basis function at landmark @a n_lmks
+
+A D-valued thin-plate spline is a function @f$\mathbb{R}^D\to\mathbb{R}^D@f$,
+consisting of D single-valued thin-plate splines, one in each of the x, y and
+(if D = 3) z directions.
+It can be represented as @a spline, the (1 + D + @a n_lmks) x D matrix of the
+coefficients of the corresponding linear combinations.
+
+Let @a lmk_images be the @a n_lmks x D matrix with rows the images of the
+landmarks under the spline.
+Let @a aff_lmk_images denote the (1 + D + @a n_lmks) x D matrix with first
+1 + D rows zero (corresponding to the affine spline components) and remaining
+rows the rows of @a lmk_images.
+Then
+<center>
+    @a L * @a spline = @a aff_lmk_images
+</center>
+where @a L is a (1 + D + @a n_lmks) x (1 + D + @a n_lmks) matrix that is
+calculated from @a lmks.
+@a L can be viewed as the matrix of landmark interactions.
+
+A semi-landmark is a landmark for which, instead of an image, an affine
+subspace of @f$\mathbb{R}^D@f$ is specified.
+A normal landmark can be considered a semi-landmark with an affine space of
+dimension 0.
+A D-valued thin-plate spline with semi-landmarks is a
+thin-plate spline that minimizes bending energy while mapping every
+semi-landmark into its corresponding affine subspace.
+The spline is allowed to 'relax' (minimize energy) by sliding the
+semi-landmark images along their 'relaxation' subspaces.
+
+These affine subspaces will be specified here as linear spaces about the points
+that are the rows of @a lmk_images.
+Let @a relax_dims be the integer vector of length @a n_lmks, consisting of the
+dimensions of these affine spaces.
+It's elements can be
+  - 0 The semi-landmark is a regular landmark.
+  - 1 The semi-landmark is a semi-landmark relaxed along a line.
+  - 2 The semi-landmark is a semi-landmark relaxed along a plane (in 3D) or is
+          ignored (in 2D).
+  - 3 (3D only) The semi-landmark is ignored.
+
+The relaxation subspaces can be defined by a @a n_lmks x D matrix,
+@a relax_params.
+For regular landmarks and ignored semi-landmarks, the corresponding row of
+@a relax_params is unused.
+For codimension 1 affine spaces, the corresponding row of @a relax_params
+should be a unit vector normal to the space.
+For semi-landmarks along a line in 3D, the corresponding row of @a relax_params
+should be a unit vector normal in the direction of the line.
+
+Our problem, then, is to find the spline @a spline that minimizes energy, given
+@a lmks, @a lmk_images, @a relax_dims and @a relax_params.
+Let @a relax_lmk_images be the @a n_lmks x D matrix of the coordinates of the
+images of the semi-landmarks under the relaxed spline.
+
+Rewrite
+<center>
+    @a L * @a spline = @a aff_relax_lmk_images
+</center>
+as a simple equation in (1 + D + @a n_lmks) * D variables
+<center>
+    @a L3 * @a spline_flat = @a aff_relax_lmk_images_flat
+</center>
+where @a spline_flat is the vector formed by concatenating the rows of
+@a spline, @a aff_relax_lmk_images_flat is the vector formed by concatenating
+the rows of @a aff_relax_lmk_images, and @a L3 is the matrix formed by
+replacing each element of @a L by the D x D identity matrix multiplied by that
+element.
+
+The constraint on the relaxed spline is that
+<center>
+    @a aff_relax_lmk_images_flat - @a aff_lmk_images_flat
+</center>
+must be in the direct sum of the linear parts of the relaxation spaces.
+The energy of the spline is the dot product of @a spline_flat and
+@a aff_relax_lmk_images_flat.
+Hence, the energy will be minimized when @a spline_flat is orthogonal to this
+direct sum.
+
+Construct a matrix @a R as follows.
+@a R is a block matrix, with (1 + D + @a n_lmks) x (1 + D + @a n_lmks) blocks
+and all off diagonal blocks zero.
+The first 1 + D on-diagonal blocks are D x D identity matrices
+The remaining on-diagonal blocks depend on the dimension of the relax space of
+the corresponding semi-landmark.
+If D = 2:
+  - 0: a D x D identity matrix
+  - 1: a D x 1 column vector equal to the corresponding part of @a relax_params
+  - 2: a D x 0 empty matrix
+
+If D = 3:
+  - 0: a D x D identity matrix
+  - 1: a D x 2 matrix with 2 independent column vectors perpendicular to the
+  corresponding part of @a relax_params
+  - 2: a D x 1 column vector equal to the corresponding part of @a relax_params
+  - 3: a D x 0 empty matrix
+
+Then the columns of @a R form a basis of the orthogonal complement to the
+direct of the linear parts of the relaxation spaces.
+Hence @a spline_flat is a linear combination of these columns, and we can write
+<center>
+    @a spline_flat = @a R * @a spline_flat_reduced
+</center>
+for some vector @a spline_flat_reduced.
+Also
+<center>
+    @a R' * @a aff_relax_lmk_images_flat =
+    @a R' * @a aff_lmk_images_flat
+</center>
+where @a R' is the transpose of @a R.
+The spline equation then becomes
+<center>
+    (@a R' * @a L3 * @a R) * @a spline_flat_reduced =
+     @a aff_lmk_images_flat_reduced
+</center>
+where
+<center>
+     @a aff_lmk_images_flat_reduced =
+     @a R' * @a aff_lmk_images_flat
+</center>
+In the general case, this is the equation factored by ew::Tps2::factorize or
+ew::Tps3::factorize, and solved by ew::Tps2::solve or ew::Tps3::solve.
+
+If there are only trivial semi-landmarks (the relax space has dimension 0 or
+D), the matrix @a R' * @a L3 * @a R is, like @a L3, block diagonal.
+This is the case @a is_mixed = @c false.
+In this case, we don't need to invert (@a R' * @a L3 * @a R), rather just
+one of the diagonal blocks, which is just @a L with the rows and columns
+of the ignored landmarks deleted.
+This is the matrix factored by ew::Tps2::factorize or ew::Tps3::factorize.
+ew::Tps2::solve or ew::Tps3::solve then solve the 3 sets of equations.
+With no semi-landmarks, this reverts to the original equation.
+
+Non-trivial semi-landmarks introduce an interaction between the components of
+the D-valued spline, and we cannot factor the equation as we've presented it.
+
+Let @a r be the sum of the dimensions of the relax spaces.
+Then @a f_size, the size of the matrix the algorithm factors is as follows:
+  - if @a is_reduced is @c false, @a f_size is 1 + D + @a n_lmks,
+  - if @a is_mixed is @c false, @a f_size is 1 + D + @a n_lmks - @a r / D,
+  - otherwise, @a f_size is D * (1 + D + @a n_lmks) - @a r.
+
+An alternative algorithm would be to invert @a L, calculate the bending energy
+relative to a basis of the relaxation space as a quadratic function, and then
+minimize this quadratic function.
+This would involve inverting a matrix of size 1 + D + @a n_lmks
+and then diagonalizing a quadratic form of size @a r.
+Clearly, for small non-zero @a r, this would be faster (none of this applies
+if @a r is zero, or more generally if @a is_mixed is @c false).
+On the other hand, this would be slower for a spline in 3D with mostly
+plane semi-landmarks, where @a r approached (D - 1) * @a n_lmks.
+This is exactly the case where we are likely to encounter a very large number
+of landmarks, and it is the case for which this code has been optimized.
+
+*/

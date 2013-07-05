@@ -1,0 +1,305 @@
+\hypertarget{classew_1_1Transform3}{
+\subsection{ew::Transform3 Class Reference}
+\label{classew_1_1Transform3}\index{ew::Transform3@{ew::Transform3}}
+}
+
+
+3D Similarity Transformation  
+
+
+
+
+{\ttfamily \#include $<$ew/Transform3.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classew_1_1Transform3_adf9b56b545a70d21c02d2912c368be20}{set\_\-to\_\-identity} ()
+\item 
+void \hyperlink{classew_1_1Transform3_ae5d2a34f86c25e013407bd1e3242118f}{set\_\-to\_\-inverse} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$a)
+\item 
+void \hyperlink{classew_1_1Transform3_a325fab07876e5adc555c934a5f69eaa7}{set\_\-to\_\-composition} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$a, const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$b)
+\item 
+bool \hyperlink{classew_1_1Transform3_a29fe78ccd6a5843daf4a1d20c57cf55b}{set\_\-to\_\-interpolation} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$a, const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$b, double e)
+\item 
+void \hyperlink{classew_1_1Transform3_abedae9930fc0fe058b50f80ec9c5b798}{get\_\-matrix\_\-gl} (double $\ast$buffer) const 
+\item 
+void \hyperlink{classew_1_1Transform3_a5f9ddcb7fbd7bb3969bfebf2fc30d87a}{apply} (float $\ast$dst, const float $\ast$src) const 
+\item 
+void \hyperlink{classew_1_1Transform3_abcba2d1c671b7701c80a38c79e0e0b3b}{apply} (double $\ast$dst, const double $\ast$src) const 
+\item 
+double \hyperlink{classew_1_1Transform3_abef663365b76a75a6c9436f6ff6de229}{get\_\-denormalization} () const 
+\item 
+void \hyperlink{classew_1_1Transform3_a04a2d12beb56abc7f4432957d7d2af3f}{set\_\-to\_\-normalization} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$a)
+\item 
+bool \hyperlink{classew_1_1Transform3_af2135defdbe3922a8efee881e3fdeee4}{get\_\-valid} () const 
+\item 
+bool \hyperlink{classew_1_1Transform3_afde5bca8b951d4fa6d00239e2ca6ad1d}{scan} (const char $\ast$$\ast$se, const char $\ast$s)
+\item 
+bool \hyperlink{classew_1_1Transform3_a42b80dfe1e723349229da7ff40497fdd}{format} (char $\ast$buf, int bufl, int $\ast$outl) const 
+\item 
+bool \hyperlink{classew_1_1Transform3_a9cfe6e3d52ea1d67e6127ae9dc11da36}{operator==} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} \&a) const 
+\item 
+bool \hyperlink{classew_1_1Transform3_a2ec82c58507f198f85b82434e84a6767}{operator!=} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} \&a) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{classew_1_1Transform3_abbb79dd74876557bc765a54e115c4f66}{orthog} \mbox{[}3\mbox{]}\mbox{[}3\mbox{]}
+\item 
+double \hyperlink{classew_1_1Transform3_a27f775e77a4563a8f26f3131be6ed1fd}{scale}
+\item 
+double \hyperlink{classew_1_1Transform3_afb7de921c22991010272eb3cea8ddc70}{translate} \mbox{[}3\mbox{]}
+\item 
+unsigned int \hyperlink{classew_1_1Transform3_ad2ca5cecae4fe2dfbc8b862b42891991}{comps\_\-cnt}
+\end{DoxyCompactItemize}
+\subsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const int \hyperlink{classew_1_1Transform3_a2b175dad0b7114445c12ef9928bc34b2}{FORMAT\_\-LEN} = 480
+\item 
+static const \hyperlink{classew_1_1Transform3}{ew::Transform3} \hyperlink{classew_1_1Transform3_a26e0b30e3ee6032091d94ea73effa0ad}{identity\_\-transform}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Transform3}{ew::Transform3} represents similarity transformations of $\mathbb{R}^3$, each as the composition of an orthogonal linear map, a scaling and a translation. The translation is applied after the orthogonal linear map and the scaling.
+
+\hyperlink{classew_1_1Transform3}{ew::Transform3} is a POD type class. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Transform3_adf9b56b545a70d21c02d2912c368be20}{
+\index{ew::Transform3@{ew::Transform3}!set\_\-to\_\-identity@{set\_\-to\_\-identity}}
+\index{set\_\-to\_\-identity@{set\_\-to\_\-identity}!ew::Transform3@{ew::Transform3}}
+\paragraph[{set\_\-to\_\-identity}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Transform3::set\_\-to\_\-identity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Transform3_adf9b56b545a70d21c02d2912c368be20}
+This sets this transformation to the identity transformation. \hypertarget{classew_1_1Transform3_ae5d2a34f86c25e013407bd1e3242118f}{
+\index{ew::Transform3@{ew::Transform3}!set\_\-to\_\-inverse@{set\_\-to\_\-inverse}}
+\index{set\_\-to\_\-inverse@{set\_\-to\_\-inverse}!ew::Transform3@{ew::Transform3}}
+\paragraph[{set\_\-to\_\-inverse}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Transform3::set\_\-to\_\-inverse (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} $\ast$}]{ a}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Transform3_ae5d2a34f86c25e013407bd1e3242118f}
+This sets this transformation to the inverse of another transformation. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]This points to the transformation to invert. {\itshape a\/} can equal {\ttfamily this}. \end{DoxyParams}
+\hypertarget{classew_1_1Transform3_a325fab07876e5adc555c934a5f69eaa7}{
+\index{ew::Transform3@{ew::Transform3}!set\_\-to\_\-composition@{set\_\-to\_\-composition}}
+\index{set\_\-to\_\-composition@{set\_\-to\_\-composition}!ew::Transform3@{ew::Transform3}}
+\paragraph[{set\_\-to\_\-composition}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Transform3::set\_\-to\_\-composition (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} $\ast$}]{ a, }
+\item[{const {\bf ew::Transform3} $\ast$}]{ b}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Transform3_a325fab07876e5adc555c934a5f69eaa7}
+This sets this transformation to the composition of two transformations. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]This points to the transformation that is applied last in the composition. {\itshape a\/} can equal {\ttfamily this}. \item[{\em b}]This points to the transformation that is applied first in the composition. {\itshape b\/} can equal {\ttfamily this}. \end{DoxyParams}
+\hypertarget{classew_1_1Transform3_a29fe78ccd6a5843daf4a1d20c57cf55b}{
+\index{ew::Transform3@{ew::Transform3}!set\_\-to\_\-interpolation@{set\_\-to\_\-interpolation}}
+\index{set\_\-to\_\-interpolation@{set\_\-to\_\-interpolation}!ew::Transform3@{ew::Transform3}}
+\paragraph[{set\_\-to\_\-interpolation}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Transform3::set\_\-to\_\-interpolation (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} $\ast$}]{ a, }
+\item[{const {\bf ew::Transform3} $\ast$}]{ b, }
+\item[{double}]{ e}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Transform3_a29fe78ccd6a5843daf4a1d20c57cf55b}
+This sets this transformation to an interpolation between two transformations. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]This points to the first transformation. {\itshape a\/} can equal {\ttfamily this}. \item[{\em b}]This points to the second transformation. {\itshape b\/} can equal {\ttfamily this}. \item[{\em e}]This is the interpolation paramater. When 0.0, the transformation is set to {\ttfamily $\ast$a}, when 1.0 to {\ttfamily $\ast$b}. {\itshape e\/} is not restricted to the range \mbox{[}0.0, 1.0\mbox{]}. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if a smooth canonical interpolation was possible. If {\ttfamily false}, the transformation is set to either the first or second transformation, depending on whether {\itshape e\/} is closer to 0.0 or 1.0. This can occur if one transformation is a reflection and the other transformation is a rotation, or if the orthogonal parts differ by a half turn. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Transform3_abedae9930fc0fe058b50f80ec9c5b798}{
+\index{ew::Transform3@{ew::Transform3}!get\_\-matrix\_\-gl@{get\_\-matrix\_\-gl}}
+\index{get\_\-matrix\_\-gl@{get\_\-matrix\_\-gl}!ew::Transform3@{ew::Transform3}}
+\paragraph[{get\_\-matrix\_\-gl}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Transform3::get\_\-matrix\_\-gl (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ buffer}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Transform3_abedae9930fc0fe058b50f80ec9c5b798}
+This outputs this transformation as a 4 x 4 matrix in the format used by {\bfseries OpenGL}. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em buffer}]The result is stored in this array of size 16. \end{DoxyParams}
+\hypertarget{classew_1_1Transform3_a5f9ddcb7fbd7bb3969bfebf2fc30d87a}{
+\index{ew::Transform3@{ew::Transform3}!apply@{apply}}
+\index{apply@{apply}!ew::Transform3@{ew::Transform3}}
+\paragraph[{apply}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Transform3::apply (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{ dst, }
+\item[{const float $\ast$}]{ src}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Transform3_a5f9ddcb7fbd7bb3969bfebf2fc30d87a}
+This applies the transformation to a point. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em dst}]The result is stored in this array of size 3. \item[\mbox{\tt[in]} {\em src}]The original point is contained in this array of size 3. \end{DoxyParams}
+\hypertarget{classew_1_1Transform3_abcba2d1c671b7701c80a38c79e0e0b3b}{
+\index{ew::Transform3@{ew::Transform3}!apply@{apply}}
+\index{apply@{apply}!ew::Transform3@{ew::Transform3}}
+\paragraph[{apply}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Transform3::apply (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ dst, }
+\item[{const double $\ast$}]{ src}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Transform3_abcba2d1c671b7701c80a38c79e0e0b3b}
+This applies the transformation to a point. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em dst}]The result is stored in this array of size 3. \item[\mbox{\tt[in]} {\em src}]The original point is contained in this array of size 3. \end{DoxyParams}
+\hypertarget{classew_1_1Transform3_abef663365b76a75a6c9436f6ff6de229}{
+\index{ew::Transform3@{ew::Transform3}!get\_\-denormalization@{get\_\-denormalization}}
+\index{get\_\-denormalization@{get\_\-denormalization}!ew::Transform3@{ew::Transform3}}
+\paragraph[{get\_\-denormalization}]{\setlength{\rightskip}{0pt plus 5cm}double ew::Transform3::get\_\-denormalization (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Transform3_abef663365b76a75a6c9436f6ff6de229}
+This calculates how far \hyperlink{classew_1_1Transform3_abbb79dd74876557bc765a54e115c4f66}{orthog} is from being orthogonal. \begin{DoxyReturn}{Returns}
+The return value is a non-\/negative number representing this distance. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Transform3_a04a2d12beb56abc7f4432957d7d2af3f}{
+\index{ew::Transform3@{ew::Transform3}!set\_\-to\_\-normalization@{set\_\-to\_\-normalization}}
+\index{set\_\-to\_\-normalization@{set\_\-to\_\-normalization}!ew::Transform3@{ew::Transform3}}
+\paragraph[{set\_\-to\_\-normalization}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Transform3::set\_\-to\_\-normalization (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} $\ast$}]{ a}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Transform3_a04a2d12beb56abc7f4432957d7d2af3f}
+This sets this transformation to another transformation and then coerces \hyperlink{classew_1_1Transform3_abbb79dd74876557bc765a54e115c4f66}{orthog} to be orthogonal. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]This points to the transformation to normalize. {\itshape a\/} can equal {\ttfamily this}. \end{DoxyParams}
+\hypertarget{classew_1_1Transform3_af2135defdbe3922a8efee881e3fdeee4}{
+\index{ew::Transform3@{ew::Transform3}!get\_\-valid@{get\_\-valid}}
+\index{get\_\-valid@{get\_\-valid}!ew::Transform3@{ew::Transform3}}
+\paragraph[{get\_\-valid}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Transform3::get\_\-valid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Transform3_af2135defdbe3922a8efee881e3fdeee4}
+This checks that all components of \hyperlink{classew_1_1Transform3_abbb79dd74876557bc765a54e115c4f66}{orthog}, \hyperlink{classew_1_1Transform3_a27f775e77a4563a8f26f3131be6ed1fd}{scale} and \hyperlink{classew_1_1Transform3_afb7de921c22991010272eb3cea8ddc70}{translate} are finite floating point numbers and that \hyperlink{classew_1_1Transform3_a27f775e77a4563a8f26f3131be6ed1fd}{scale} is positive and not sub-\/normal. \begin{DoxyReturn}{Returns}
+{\ttfamily true} if all these conditions are satisfied. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Transform3_afde5bca8b951d4fa6d00239e2ca6ad1d}{
+\index{ew::Transform3@{ew::Transform3}!scan@{scan}}
+\index{scan@{scan}!ew::Transform3@{ew::Transform3}}
+\paragraph[{scan}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Transform3::scan (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$$\ast$}]{ se, }
+\item[{const char $\ast$}]{ s}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Transform3_afde5bca8b951d4fa6d00239e2ca6ad1d}
+This scans a text string for a representation of a transform. Initial whitespace is not skipped, so would result in failure. The string must be null terminated. If successfully scanned, \hyperlink{classew_1_1Transform3_ad2ca5cecae4fe2dfbc8b862b42891991}{comps\_\-cnt} is set to zero. The transform is not automatically normalized, but can be manually. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em se}]If non-\/zero, this is set to the address of the first unprocessed character. \item[\mbox{\tt[in]} {\em s}]This is a pointer to the text to scan. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the initial segment of the text is a correctly formatted transform. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Transform3_a42b80dfe1e723349229da7ff40497fdd}{
+\index{ew::Transform3@{ew::Transform3}!format@{format}}
+\index{format@{format}!ew::Transform3@{ew::Transform3}}
+\paragraph[{format}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Transform3::format (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{ buf, }
+\item[{int}]{ bufl, }
+\item[{int $\ast$}]{ outl}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Transform3_a42b80dfe1e723349229da7ff40497fdd}
+This formats this transform as a text string.
+
+The format used to represent transforms is as follows: \begin{center} \mbox{[}tr1 tr2 tr3\mbox{]} \mbox{[}or11 or12 or13 or21 or22 or23 or31 or32 or33\mbox{]} sc \end{center} 
+
+For example, this represents a transformation consisting of an enlargement by a factor 1.5, followed by a rotation about the z axis, and then a translation along the y axis: \begin{center} \mbox{[}0 4.5 0\mbox{]} \mbox{[}0.6 0.8 0 -\/0.8 0.6 0 0 0 1\mbox{]} 1.5 \end{center} 
+
+The floating point numbers are represented exactly, but efficiently. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em buf}]The output is written here. \item[{\em bufl}]The length of {\itshape buf\/}. \item[\mbox{\tt[out]} {\em outl}]If non-\/null, the length of the output (even if it was not written), not including the terminating null. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the buffer is long enough for a successful format. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Transform3_a9cfe6e3d52ea1d67e6127ae9dc11da36}{
+\index{ew::Transform3@{ew::Transform3}!operator==@{operator==}}
+\index{operator==@{operator==}!ew::Transform3@{ew::Transform3}}
+\paragraph[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Transform3::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} \&}]{ a}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Transform3_a9cfe6e3d52ea1d67e6127ae9dc11da36}
+Compares this transform with another, member by member, except for \hyperlink{classew_1_1Transform3_ad2ca5cecae4fe2dfbc8b862b42891991}{comps\_\-cnt}, which is ignored. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other transform \end{DoxyParams}
+\hypertarget{classew_1_1Transform3_a2ec82c58507f198f85b82434e84a6767}{
+\index{ew::Transform3@{ew::Transform3}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!ew::Transform3@{ew::Transform3}}
+\paragraph[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Transform3::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Transform3_a2ec82c58507f198f85b82434e84a6767}
+Compares this transform with another, member by member, except for \hyperlink{classew_1_1Transform3_ad2ca5cecae4fe2dfbc8b862b42891991}{comps\_\-cnt}, which is ignored. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other transform \end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Transform3_abbb79dd74876557bc765a54e115c4f66}{
+\index{ew::Transform3@{ew::Transform3}!orthog@{orthog}}
+\index{orthog@{orthog}!ew::Transform3@{ew::Transform3}}
+\paragraph[{orthog}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ew::Transform3::orthog}\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}}\hfill}
+\label{classew_1_1Transform3_abbb79dd74876557bc765a54e115c4f66}
+This is the matrix representing the orthogonal part of the transformation. The matrix elements are ordered by row, and the matrix is applied on the left. The coordinates should be finite. \hypertarget{classew_1_1Transform3_a27f775e77a4563a8f26f3131be6ed1fd}{
+\index{ew::Transform3@{ew::Transform3}!scale@{scale}}
+\index{scale@{scale}!ew::Transform3@{ew::Transform3}}
+\paragraph[{scale}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ew::Transform3::scale}}\hfill}
+\label{classew_1_1Transform3_a27f775e77a4563a8f26f3131be6ed1fd}
+This is the scale part of the transformation. This should be positive. \hypertarget{classew_1_1Transform3_afb7de921c22991010272eb3cea8ddc70}{
+\index{ew::Transform3@{ew::Transform3}!translate@{translate}}
+\index{translate@{translate}!ew::Transform3@{ew::Transform3}}
+\paragraph[{translate}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ew::Transform3::translate}\mbox{[}3\mbox{]}}\hfill}
+\label{classew_1_1Transform3_afb7de921c22991010272eb3cea8ddc70}
+This is the translation part of the transformation. The coordinates should be finite. \hypertarget{classew_1_1Transform3_ad2ca5cecae4fe2dfbc8b862b42891991}{
+\index{ew::Transform3@{ew::Transform3}!comps\_\-cnt@{comps\_\-cnt}}
+\index{comps\_\-cnt@{comps\_\-cnt}!ew::Transform3@{ew::Transform3}}
+\paragraph[{comps\_\-cnt}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf ew::Transform3::comps\_\-cnt}}\hfill}
+\label{classew_1_1Transform3_ad2ca5cecae4fe2dfbc8b862b42891991}
+This is a count of the accumulated number of compositions performed in the calculation of the current transformation. It is reset by \hyperlink{classew_1_1Transform3_adf9b56b545a70d21c02d2912c368be20}{set\_\-to\_\-identity} and \hyperlink{classew_1_1Transform3_a04a2d12beb56abc7f4432957d7d2af3f}{set\_\-to\_\-normalization} and set by \hyperlink{classew_1_1Transform3_ae5d2a34f86c25e013407bd1e3242118f}{set\_\-to\_\-inverse}, \hyperlink{classew_1_1Transform3_a325fab07876e5adc555c934a5f69eaa7}{set\_\-to\_\-composition}, \hyperlink{classew_1_1Transform3_a29fe78ccd6a5843daf4a1d20c57cf55b}{set\_\-to\_\-interpolation} and \hyperlink{classew_1_1Transform3_afde5bca8b951d4fa6d00239e2ca6ad1d}{scan}. If \hyperlink{classew_1_1Transform3_abbb79dd74876557bc765a54e115c4f66}{orthog} is set directly, \hyperlink{classew_1_1Transform3_ad2ca5cecae4fe2dfbc8b862b42891991}{comps\_\-cnt} should be set appropriately.
+
+\hyperlink{classew_1_1Transform3_a325fab07876e5adc555c934a5f69eaa7}{set\_\-to\_\-composition} will automatically normalize its result when \hyperlink{classew_1_1Transform3_ad2ca5cecae4fe2dfbc8b862b42891991}{comps\_\-cnt} exceeds an internal threshold.
+
+This is to prevent exponential deviation of the orthogonal part from orthogonality under iterated compositions. \hypertarget{classew_1_1Transform3_a2b175dad0b7114445c12ef9928bc34b2}{
+\index{ew::Transform3@{ew::Transform3}!FORMAT\_\-LEN@{FORMAT\_\-LEN}}
+\index{FORMAT\_\-LEN@{FORMAT\_\-LEN}!ew::Transform3@{ew::Transform3}}
+\paragraph[{FORMAT\_\-LEN}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf ew::Transform3::FORMAT\_\-LEN} = 480\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}\hfill}
+\label{classew_1_1Transform3_a2b175dad0b7114445c12ef9928bc34b2}
+This is the length of buffer that is guaranteed to be long enough for the output of \hyperlink{classew_1_1Transform3_a42b80dfe1e723349229da7ff40497fdd}{format}. \hypertarget{classew_1_1Transform3_a26e0b30e3ee6032091d94ea73effa0ad}{
+\index{ew::Transform3@{ew::Transform3}!identity\_\-transform@{identity\_\-transform}}
+\index{identity\_\-transform@{identity\_\-transform}!ew::Transform3@{ew::Transform3}}
+\paragraph[{identity\_\-transform}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Transform3} {\bf ew::Transform3::identity\_\-transform}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}\hfill}
+\label{classew_1_1Transform3_a26e0b30e3ee6032091d94ea73effa0ad}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+  {{1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 0.0, 1.0}},
+  1.0,
+  {0.0, 0.0, 0.0},
+  0
+}
+\end{DoxyCode}
+This is the identity transform. 

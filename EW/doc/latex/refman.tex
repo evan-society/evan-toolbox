@@ -1,0 +1,130 @@
+\documentclass[letterpaper]{article}
+\usepackage{makeidx}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{alltt}
+\usepackage{times}
+\usepackage{ifpdf}
+\ifpdf
+\usepackage[pdftex,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\else
+\usepackage[ps2pdf,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\usepackage{pspicture}
+\fi
+\usepackage[utf8]{inputenc}
+\usepackage{doxygen}
+\usepackage{amssymb}
+\rfoot[\fancyplain{}{\bfseries\scriptsize EW Library }]{}
+\lfoot[]{\fancyplain{}{\bfseries\scriptsize EW Library }}
+\makeindex
+\setcounter{tocdepth}{1}
+\renewcommand{\footrulewidth}{0.4pt}
+\begin{document}
+\begin{titlepage}
+\vspace*{7cm}
+\begin{center}
+{\Large EW Library \\[1ex]\large 4.20100927 }\\
+\end{center}
+\end{titlepage}
+\pagenumbering{roman}
+\tableofcontents
+\pagenumbering{arabic}
+\section{Main Page}
+\label{index}\hypertarget{index}{}\input{index}
+\section{Examples}
+\label{examples}
+\hypertarget{examples}{}
+\input{examples}
+\section{tetrahedron.obj}
+\label{tetrahedron.obj}
+\hypertarget{tetrahedron.obj}{}
+\input{tetrahedron_8obj}
+\section{simple\_\-landmarks.form}
+\label{simple_landmarks.form}
+\hypertarget{simple_landmarks.form}{}
+\input{simple_landmarks_8form}
+\section{mandible\_\-landmarks.form}
+\label{mandible_template.form}
+\hypertarget{mandible_template.form}{}
+\input{mandible_template_8form}
+\section{mandible\_\-case.form}
+\label{mandible_case.form}
+\hypertarget{mandible_case.form}{}
+\input{mandible_case_8form}
+\section{example.sav}
+\label{example.sav}
+\hypertarget{example.sav}{}
+\input{example_8sav}
+\section{Copyright}
+\label{copyright}
+\hypertarget{copyright}{}
+\input{copyright}
+\section{Changelog}
+\label{changelog}
+\hypertarget{changelog}{}
+\input{changelog}
+\section{Thin-\/Plate Spline with Semi-\/landmarks on Affine Subspaces}
+\label{semilandmarks}
+\hypertarget{semilandmarks}{}
+\input{semilandmarks}
+\section{Canonical Uniform Warp Basis}
+\label{uniform_warps}
+\hypertarget{uniform_warps}{}
+\input{uniform_warps}
+\section{Class Index}
+\input{hierarchy}
+\section{Class Index}
+\input{annotated}
+\section{Class Documentation}
+\input{classew_1_1Bbox3}
+\input{classew_1_1Curve3}
+\input{classew_1_1DataflowCurve3}
+\input{classew_1_1DataflowCurve3E}
+\input{classew_1_1DataflowForm3}
+\input{classew_1_1DataflowNetwork}
+\input{classew_1_1DataflowNode}
+\input{classew_1_1DataflowSpline3}
+\input{classew_1_1DataflowSurface3}
+\input{classew_1_1DataflowSurface3E}
+\input{classew_1_1Dig3}
+\input{classew_1_1Dig3SetCurve}
+\input{classew_1_1Dig3SetSurface}
+\input{classew_1_1Dig3Space}
+\input{classew_1_1Dig3Tableau}
+\input{classew_1_1Dig3TableauSpace}
+\input{classew_1_1Dig3View}
+\input{classew_1_1ErrorIO}
+\input{classew_1_1ErrorRuntime}
+\input{classew_1_1Form3}
+\input{classew_1_1Form3Curve}
+\input{classew_1_1Form3Embedding}
+\input{classew_1_1Form3PointSet}
+\input{classew_1_1Form3Reflection}
+\input{classew_1_1Form3Surface}
+\input{classew_1_1Form3Volume}
+\input{classew_1_1Surface3}
+\input{classew_1_1Tps2}
+\input{classew_1_1Tps3}
+\input{classew_1_1Transform2}
+\input{classew_1_1Transform3}
+\input{classew_1_1View3Curve}
+\input{classew_1_1View3Image}
+\input{classew_1_1View3Item}
+\input{classew_1_1View3Landmarks}
+\input{classew_1_1View3Surface}
+\input{classew_1_1View3Widget}
+\printindex
+\end{document}

@@ -1,0 +1,136 @@
+\hypertarget{classew_1_1View3Surface}{
+\subsection{ew::View3Surface Class Reference}
+\label{classew_1_1View3Surface}\index{ew::View3Surface@{ew::View3Surface}}
+}
+
+
+Surface Item.  
+
+
+
+
+{\ttfamily \#include $<$ew/View3Surface.h$>$}
+
+
+
+Inheritance diagram for ew::View3Surface:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classew_1_1View3Surface__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1View3Surface_a93b345f7747e3d073eaff2078c4cb920}{View3Surface} (\hyperlink{classew_1_1View3Widget}{ew::View3Widget} $\ast$\hyperlink{classew_1_1View3Item_a7d765842ec7b9e145cefa37e3dbae658}{view}, int i\_\-type=0)
+\item 
+void \hyperlink{classew_1_1View3Surface_a58f47bb37d9757ab55c40d83b67f8a68}{set\_\-surface} (const \hyperlink{classew_1_1DataflowSurface3}{ew::DataflowSurface3} $\ast$sur)
+\item 
+const \hyperlink{classew_1_1DataflowSurface3}{ew::DataflowSurface3} $\ast$ \hyperlink{classew_1_1View3Surface_a8821eb2ee5bd46dbd36cb18a084fa77b}{get\_\-surface} () const 
+\item 
+void \hyperlink{classew_1_1View3Surface_adae42c158ed8296b2953017f785f70df}{set\_\-front\_\-color} (const unsigned char $\ast$rgb)
+\item 
+const unsigned char $\ast$ \hyperlink{classew_1_1View3Surface_ab3c6316ff0e5489d663800aefd27e28d}{get\_\-front\_\-color} () const 
+\item 
+void \hyperlink{classew_1_1View3Surface_a604dbde29cdbac1eddbb474813d8ce49}{set\_\-back\_\-color} (const unsigned char $\ast$rgb)
+\item 
+const unsigned char $\ast$ \hyperlink{classew_1_1View3Surface_aa35528b961596719233e5c0f41cd9efb}{get\_\-back\_\-color} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1View3Surface}{ew::View3Surface} is an \hyperlink{classew_1_1View3Widget}{ew::View3Widget} item to display a \hyperlink{classew_1_1DataflowSurface3}{ew::DataflowSurface3}, a triangulated surface.
+
+\hyperlink{classew_1_1View3Surface}{ew::View3Surface} is a class without assignment or comparison. There are private member variables. 
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1View3Surface_a93b345f7747e3d073eaff2078c4cb920}{
+\index{ew::View3Surface@{ew::View3Surface}!View3Surface@{View3Surface}}
+\index{View3Surface@{View3Surface}!ew::View3Surface@{ew::View3Surface}}
+\paragraph[{View3Surface}]{\setlength{\rightskip}{0pt plus 5cm}ew::View3Surface::View3Surface (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::View3Widget} $\ast$}]{ v, }
+\item[{int}]{ i\_\-type = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}\hfill}
+\label{classew_1_1View3Surface_a93b345f7747e3d073eaff2078c4cb920}
+This creates an item. 
+\begin{DoxyParams}{Parameters}
+\item[{\em v}]The view widget the item should belong to. \item[{\em type\_\-i}]The initializer for \hyperlink{classew_1_1View3Item_a7e21fcde8f082ba2409bcb2999a4b7fd}{ew::View3Item::type}. \end{DoxyParams}
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1View3Surface_a58f47bb37d9757ab55c40d83b67f8a68}{
+\index{ew::View3Surface@{ew::View3Surface}!set\_\-surface@{set\_\-surface}}
+\index{set\_\-surface@{set\_\-surface}!ew::View3Surface@{ew::View3Surface}}
+\paragraph[{set\_\-surface}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Surface::set\_\-surface (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::DataflowSurface3} $\ast$}]{ s}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Surface_a58f47bb37d9757ab55c40d83b67f8a68}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em s}]A pointer to the new surface node to display, or 0. \end{DoxyParams}
+\hypertarget{classew_1_1View3Surface_a8821eb2ee5bd46dbd36cb18a084fa77b}{
+\index{ew::View3Surface@{ew::View3Surface}!get\_\-surface@{get\_\-surface}}
+\index{get\_\-surface@{get\_\-surface}!ew::View3Surface@{ew::View3Surface}}
+\paragraph[{get\_\-surface}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowSurface3} $\ast$ ew::View3Surface::get\_\-surface (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Surface_a8821eb2ee5bd46dbd36cb18a084fa77b}
+\begin{DoxyReturn}{Returns}
+A pointer to the current surface node being displayed, or 0. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Surface_adae42c158ed8296b2953017f785f70df}{
+\index{ew::View3Surface@{ew::View3Surface}!set\_\-front\_\-color@{set\_\-front\_\-color}}
+\index{set\_\-front\_\-color@{set\_\-front\_\-color}!ew::View3Surface@{ew::View3Surface}}
+\paragraph[{set\_\-front\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Surface::set\_\-front\_\-color (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$}]{ rgb}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Surface_adae42c158ed8296b2953017f785f70df}
+
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em rgb}]This points to an array of size 3 containing the new colour for the front of the surface. \end{DoxyParams}
+\hypertarget{classew_1_1View3Surface_ab3c6316ff0e5489d663800aefd27e28d}{
+\index{ew::View3Surface@{ew::View3Surface}!get\_\-front\_\-color@{get\_\-front\_\-color}}
+\index{get\_\-front\_\-color@{get\_\-front\_\-color}!ew::View3Surface@{ew::View3Surface}}
+\paragraph[{get\_\-front\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}const unsigned char $\ast$ ew::View3Surface::get\_\-front\_\-color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Surface_ab3c6316ff0e5489d663800aefd27e28d}
+\begin{DoxyReturn}{Returns}
+A pointer to the current colour for the front of the surface. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Surface_a604dbde29cdbac1eddbb474813d8ce49}{
+\index{ew::View3Surface@{ew::View3Surface}!set\_\-back\_\-color@{set\_\-back\_\-color}}
+\index{set\_\-back\_\-color@{set\_\-back\_\-color}!ew::View3Surface@{ew::View3Surface}}
+\paragraph[{set\_\-back\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Surface::set\_\-back\_\-color (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$}]{ rgb}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Surface_a604dbde29cdbac1eddbb474813d8ce49}
+
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em rgb}]This points to an array of size 3 containing the new colour for the back of the surface. \end{DoxyParams}
+\hypertarget{classew_1_1View3Surface_aa35528b961596719233e5c0f41cd9efb}{
+\index{ew::View3Surface@{ew::View3Surface}!get\_\-back\_\-color@{get\_\-back\_\-color}}
+\index{get\_\-back\_\-color@{get\_\-back\_\-color}!ew::View3Surface@{ew::View3Surface}}
+\paragraph[{get\_\-back\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}const unsigned char $\ast$ ew::View3Surface::get\_\-back\_\-color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Surface_aa35528b961596719233e5c0f41cd9efb}
+\begin{DoxyReturn}{Returns}
+A pointer to the current colour for the back of the surface. 
+\end{DoxyReturn}

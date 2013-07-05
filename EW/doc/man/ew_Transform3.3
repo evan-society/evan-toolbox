@@ -1,0 +1,257 @@
+.TH "ew::Transform3" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Transform3 \- 
+.PP
+3D Similarity Transformation  
+
+\fBew::Transform3\fP represents similarity transformations of \fBR\fP^3, each as the composition of an orthogonal linear map, a scaling and a translation. The translation is applied after the orthogonal linear map and the scaling.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Transform3.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBset_to_identity\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_to_inverse\fP (const \fBew::Transform3\fP *a)"
+.br
+.ti -1c
+.RI "void \fBset_to_composition\fP (const \fBew::Transform3\fP *a, const \fBew::Transform3\fP *b)"
+.br
+.ti -1c
+.RI "bool \fBset_to_interpolation\fP (const \fBew::Transform3\fP *a, const \fBew::Transform3\fP *b, double e)"
+.br
+.ti -1c
+.RI "void \fBget_matrix_gl\fP (double *buffer) const "
+.br
+.ti -1c
+.RI "void \fBapply\fP (float *dst, const float *src) const "
+.br
+.ti -1c
+.RI "void \fBapply\fP (double *dst, const double *src) const "
+.br
+.ti -1c
+.RI "double \fBget_denormalization\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_to_normalization\fP (const \fBew::Transform3\fP *a)"
+.br
+.ti -1c
+.RI "bool \fBget_valid\fP () const "
+.br
+.ti -1c
+.RI "bool \fBscan\fP (const char **se, const char *s)"
+.br
+.ti -1c
+.RI "bool \fBformat\fP (char *buf, int bufl, int *outl) const "
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Transform3\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Transform3\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "double \fBorthog\fP [3][3]"
+.br
+.ti -1c
+.RI "double \fBscale\fP"
+.br
+.ti -1c
+.RI "double \fBtranslate\fP [3]"
+.br
+.ti -1c
+.RI "unsigned int \fBcomps_cnt\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static const int \fBFORMAT_LEN\fP = 480"
+.br
+.ti -1c
+.RI "static const \fBew::Transform3\fP \fBidentity_transform\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Transform3\fP is a POD type class. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::Transform3::set_to_identity ()"This sets this transformation to the identity transformation. 
+.SS "void ew::Transform3::set_to_inverse (const \fBew::Transform3\fP * a)"This sets this transformation to the inverse of another transformation. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP This points to the transformation to invert. \fIa\fP can equal \fCthis\fP. 
+.RE
+.PP
+
+.SS "void ew::Transform3::set_to_composition (const \fBew::Transform3\fP * a, const \fBew::Transform3\fP * b)"This sets this transformation to the composition of two transformations. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP This points to the transformation that is applied last in the composition. \fIa\fP can equal \fCthis\fP. 
+.br
+\fIb\fP This points to the transformation that is applied first in the composition. \fIb\fP can equal \fCthis\fP. 
+.RE
+.PP
+
+.SS "bool ew::Transform3::set_to_interpolation (const \fBew::Transform3\fP * a, const \fBew::Transform3\fP * b, double e)"This sets this transformation to an interpolation between two transformations. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP This points to the first transformation. \fIa\fP can equal \fCthis\fP. 
+.br
+\fIb\fP This points to the second transformation. \fIb\fP can equal \fCthis\fP. 
+.br
+\fIe\fP This is the interpolation paramater. When 0.0, the transformation is set to \fC*a\fP, when 1.0 to \fC*b\fP. \fIe\fP is not restricted to the range [0.0, 1.0]. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if a smooth canonical interpolation was possible. If \fCfalse\fP, the transformation is set to either the first or second transformation, depending on whether \fIe\fP is closer to 0.0 or 1.0. This can occur if one transformation is a reflection and the other transformation is a rotation, or if the orthogonal parts differ by a half turn. 
+.RE
+.PP
+
+.SS "void ew::Transform3::get_matrix_gl (double * buffer) const"This outputs this transformation as a 4 x 4 matrix in the format used by \fBOpenGL\fP. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbuffer\fP The result is stored in this array of size 16. 
+.RE
+.PP
+
+.SS "void ew::Transform3::apply (float * dst, const float * src) const\fC [inline]\fP"This applies the transformation to a point. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdst\fP The result is stored in this array of size 3. 
+.br
+\fIsrc\fP The original point is contained in this array of size 3. 
+.RE
+.PP
+
+.SS "void ew::Transform3::apply (double * dst, const double * src) const\fC [inline]\fP"This applies the transformation to a point. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdst\fP The result is stored in this array of size 3. 
+.br
+\fIsrc\fP The original point is contained in this array of size 3. 
+.RE
+.PP
+
+.SS "double ew::Transform3::get_denormalization () const"This calculates how far \fBorthog\fP is from being orthogonal. 
+.PP
+\fBReturns:\fP
+.RS 4
+The return value is a non-negative number representing this distance. 
+.RE
+.PP
+
+.SS "void ew::Transform3::set_to_normalization (const \fBew::Transform3\fP * a)"This sets this transformation to another transformation and then coerces \fBorthog\fP to be orthogonal. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP This points to the transformation to normalize. \fIa\fP can equal \fCthis\fP. 
+.RE
+.PP
+
+.SS "bool ew::Transform3::get_valid () const"This checks that all components of \fBorthog\fP, \fBscale\fP and \fBtranslate\fP are finite floating point numbers and that \fBscale\fP is positive and not sub-normal. 
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if all these conditions are satisfied. 
+.RE
+.PP
+
+.SS "bool ew::Transform3::scan (const char ** se, const char * s)"This scans a text string for a representation of a transform. Initial whitespace is not skipped, so would result in failure. The string must be null terminated. If successfully scanned, \fBcomps_cnt\fP is set to zero. The transform is not automatically normalized, but can be manually. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIse\fP If non-zero, this is set to the address of the first unprocessed character. 
+.br
+\fIs\fP This is a pointer to the text to scan. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the initial segment of the text is a correctly formatted transform. 
+.RE
+.PP
+
+.SS "bool ew::Transform3::format (char * buf, int bufl, int * outl) const"This formats this transform as a text string.
+.PP
+The format used to represent transforms is as follows:  [tr1 tr2 tr3] [or11 or12 or13 or21 or22 or23 or31 or32 or33] sc 
+.PP
+For example, this represents a transformation consisting of an enlargement by a factor 1.5, followed by a rotation about the z axis, and then a translation along the y axis:  [0 4.5 0] [0.6 0.8 0 -0.8 0.6 0 0 0 1] 1.5 
+.PP
+The floating point numbers are represented exactly, but efficiently. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbuf\fP The output is written here. 
+.br
+\fIbufl\fP The length of \fIbuf\fP. 
+.br
+\fIoutl\fP If non-null, the length of the output (even if it was not written), not including the terminating null. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the buffer is long enough for a successful format. 
+.RE
+.PP
+
+.SS "bool ew::Transform3::operator== (const \fBew::Transform3\fP & a) const"Compares this transform with another, member by member, except for \fBcomps_cnt\fP, which is ignored. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other transform 
+.RE
+.PP
+
+.SS "bool ew::Transform3::operator!= (const \fBew::Transform3\fP & a) const\fC [inline]\fP"Compares this transform with another, member by member, except for \fBcomps_cnt\fP, which is ignored. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other transform 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "double \fBew::Transform3::orthog\fP[3][3]"This is the matrix representing the orthogonal part of the transformation. The matrix elements are ordered by row, and the matrix is applied on the left. The coordinates should be finite. 
+.SS "double \fBew::Transform3::scale\fP"This is the scale part of the transformation. This should be positive. 
+.SS "double \fBew::Transform3::translate\fP[3]"This is the translation part of the transformation. The coordinates should be finite. 
+.SS "unsigned int \fBew::Transform3::comps_cnt\fP"This is a count of the accumulated number of compositions performed in the calculation of the current transformation. It is reset by \fBset_to_identity\fP and \fBset_to_normalization\fP and set by \fBset_to_inverse\fP, \fBset_to_composition\fP, \fBset_to_interpolation\fP and \fBscan\fP. If \fBorthog\fP is set directly, \fBcomps_cnt\fP should be set appropriately.
+.PP
+\fBset_to_composition\fP will automatically normalize its result when \fBcomps_cnt\fP exceeds an internal threshold.
+.PP
+This is to prevent exponential deviation of the orthogonal part from orthogonality under iterated compositions. 
+.SS "const int \fBew::Transform3::FORMAT_LEN\fP = 480\fC [static]\fP"This is the length of buffer that is guaranteed to be long enough for the output of \fBformat\fP. 
+.SS "const \fBew::Transform3\fP \fBew::Transform3::identity_transform\fP\fC [static]\fP"\fBInitial value:\fP
+.PP
+.nf
+ {
+  {{1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 0.0, 1.0}},
+  1.0,
+  {0.0, 0.0, 0.0},
+  0
+}
+.fi
+This is the identity transform. 
+

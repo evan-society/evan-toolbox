@@ -1,0 +1,101 @@
+\hypertarget{classew_1_1DataflowNetwork}{
+\subsection{ew::DataflowNetwork Class Reference}
+\label{classew_1_1DataflowNetwork}\index{ew::DataflowNetwork@{ew::DataflowNetwork}}
+}
+
+
+Lightweight Dataflow Network.  
+
+
+
+
+{\ttfamily \#include $<$ew/DataflowNetwork.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1DataflowNetwork_ab242538a954258848964351243fb8dd2}{DataflowNetwork} ()
+\item 
+\hyperlink{classew_1_1DataflowNetwork_afd33505274dcba0faee9a66d07af8f7c}{$\sim$DataflowNetwork} ()
+\item 
+unsigned long \hyperlink{classew_1_1DataflowNetwork_a07f32aa66b2ba19b133478d6f4ef29df}{get\_\-cycle} () const 
+\item 
+const \hyperlink{classew_1_1DataflowCurve3E}{ew::DataflowCurve3E} $\ast$ \hyperlink{classew_1_1DataflowNetwork_a584fb4f8718ba69bd97e7f50682a1096}{cached\_\-curve} (const char $\ast$filename)
+\item 
+const \hyperlink{classew_1_1DataflowSurface3E}{ew::DataflowSurface3E} $\ast$ \hyperlink{classew_1_1DataflowNetwork_a596c51c6fc7684ee5bc5147ba5eaf3f5}{cached\_\-surface} (const char $\ast$filename)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+EW::DataflowNetwork provides the infrastructure for a lightweight dataflow network.
+
+To keep track of what calculations done by nodes in the network are up to date, and which need to be redone, EW::DataflowNetwork keeps a cycle counter. A cycle consists of an initial phase, when changes are made to nodes of the network, followed by a second phase, when updates of various calculations are made. Requesting updated output from a node puts the network into the update phase of the same cycle, if it is not already in an update phase. Changing a node puts the network into the change phase of the next cycle, if it is not already in a change phase. Initially the network is in the change phase of cycle 1.
+
+Operations on a network must not be performed simultaneously in different threads. However, operations on different networks may be.
+
+This class does not support assignment or comparison. It contains private members and undocumented members. 
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1DataflowNetwork_ab242538a954258848964351243fb8dd2}{
+\index{ew::DataflowNetwork@{ew::DataflowNetwork}!DataflowNetwork@{DataflowNetwork}}
+\index{DataflowNetwork@{DataflowNetwork}!ew::DataflowNetwork@{ew::DataflowNetwork}}
+\paragraph[{DataflowNetwork}]{\setlength{\rightskip}{0pt plus 5cm}ew::DataflowNetwork::DataflowNetwork (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowNetwork_ab242538a954258848964351243fb8dd2}
+This creates an empty network. \hypertarget{classew_1_1DataflowNetwork_afd33505274dcba0faee9a66d07af8f7c}{
+\index{ew::DataflowNetwork@{ew::DataflowNetwork}!$\sim$DataflowNetwork@{$\sim$DataflowNetwork}}
+\index{$\sim$DataflowNetwork@{$\sim$DataflowNetwork}!ew::DataflowNetwork@{ew::DataflowNetwork}}
+\paragraph[{$\sim$DataflowNetwork}]{\setlength{\rightskip}{0pt plus 5cm}ew::DataflowNetwork::$\sim$DataflowNetwork (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowNetwork_afd33505274dcba0faee9a66d07af8f7c}
+This destroys the network. All nodes and other objects using this network must already have been destroyed. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1DataflowNetwork_a07f32aa66b2ba19b133478d6f4ef29df}{
+\index{ew::DataflowNetwork@{ew::DataflowNetwork}!get\_\-cycle@{get\_\-cycle}}
+\index{get\_\-cycle@{get\_\-cycle}!ew::DataflowNetwork@{ew::DataflowNetwork}}
+\paragraph[{get\_\-cycle}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowNetwork::get\_\-cycle (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowNetwork_a07f32aa66b2ba19b133478d6f4ef29df}
+\begin{DoxyReturn}{Returns}
+The current cycle number. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowNetwork_a584fb4f8718ba69bd97e7f50682a1096}{
+\index{ew::DataflowNetwork@{ew::DataflowNetwork}!cached\_\-curve@{cached\_\-curve}}
+\index{cached\_\-curve@{cached\_\-curve}!ew::DataflowNetwork@{ew::DataflowNetwork}}
+\paragraph[{cached\_\-curve}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowCurve3E} $\ast$ ew::DataflowNetwork::cached\_\-curve (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ filename}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowNetwork_a584fb4f8718ba69bd97e7f50682a1096}
+The first time this is called with a given filename, it reads the curve from the file, creates a new explicit curve node using it, and returns a pointer to it. Subsequently it increments the same node's reference count and returns a pointer to it. When the pointer to the node is no longer needed, the reference should be released with EW::DataflowNode::decr\_\-ref\_\-count. The cache retains a reference to the node, so it will not be deleted until all other references are released and the network is destroyed. 
+\begin{DoxyParams}{Parameters}
+\item[{\em filename}]is the canonical name of the file to read. \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em std::bad\_\-alloc}]\item[{\em EW::ErrorIO}]\end{DoxyExceptions}
+\hypertarget{classew_1_1DataflowNetwork_a596c51c6fc7684ee5bc5147ba5eaf3f5}{
+\index{ew::DataflowNetwork@{ew::DataflowNetwork}!cached\_\-surface@{cached\_\-surface}}
+\index{cached\_\-surface@{cached\_\-surface}!ew::DataflowNetwork@{ew::DataflowNetwork}}
+\paragraph[{cached\_\-surface}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowSurface3E} $\ast$ ew::DataflowNetwork::cached\_\-surface (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ filename}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowNetwork_a596c51c6fc7684ee5bc5147ba5eaf3f5}
+The first time this is called with a given filename, it reads the surface from the file, creates a new explicit surface node using it, and returns a pointer to it. Subsequently it increments the same node's reference count and returns a pointer to it. When the pointer to the node is no longer needed, the reference should be released with EW::DataflowNode::decr\_\-ref\_\-count. The cache retains a reference to the node, so it will not be deleted until all other references are released and the network is destroyed. 
+\begin{DoxyParams}{Parameters}
+\item[{\em filename}]The name of the file to read. \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em std::bad\_\-alloc}]\item[{\em EW::ErrorIO}]\end{DoxyExceptions}

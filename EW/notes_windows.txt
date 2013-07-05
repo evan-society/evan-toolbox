@@ -1,0 +1,76 @@
+BUILD REQUIREMENTS
+
+gnuwin32
+Download these setup exe's from http://gnuwin32.sourceforge.net/ and install:
+  libiconv
+  zlib
+  tar
+  gzip
+
+mingw
+Download these components from www.mingw.org, and unpack into a single
+directory:
+XXX check tar -xzf ...
+  gcc core
+  gcc g++
+  mingw runtime
+  winapi
+  mingw-make
+  binutils
+The mingw-rt must be at least 3.15.2.  Earlier versions result in
+catastrophically slow std::strtod.
+Don't use the gcc testing release 4.3.0, it is badly broken as of 2009/06.
+
+qt
+Download the setup exe qt-win-opensource-*-mingw.exe from
+  http://www.qtsoftware.com/downloads
+or, for older versions,
+  http://ftp3.ie.freebsd.org/pub/trolltech/pub/qt/source/
+and install.
+
+XXX fix header
+
+XXX check/repeat
+libxml2
+The windows binary you get to from http://xmlsoft.org is not built with
+mingw, and leads to link errors if you try to statically link against it.
+Instead download the source
+  libxml2-*.tar.gz
+from http://xmlsoft.org.
+Unpack. XXX
+Change to directory libxml2-*/win32.
+Invoke:
+  cscript configure.js zlib=yes compiler=mingw static=yes
+Edit Makefile.mingw:
+  Append to CCFLAGS and CPPFLAGS
+    -I<path>/include -DLIBICONV_STATIC
+  where <path> is replaced with the location that gnuwin32 has been installed.
+Invoke
+  make -f Makefile.mingw libxmla
+which creates libxml2.a.
+
+XXX lapack
+
+RUNTIME REQUIREMENTS
+
+
+TESTED CONFIGURATIONS
+
+Windows XP professional
+gnuwin32 libiconv 1.9.2
+gnuwin32 zlib 1.2.3
+gnuwin32 tar 1.13
+gnuwin32 gzip 1.3.12
+ all installed in D:\gnuwin32
+mingw gcc core 3.4.5-20060117-3
+mingw gcc g++ 3.4.5-20060117-3
+mingw mingw runtime 3.15.2
+mingw winapi 3.13
+mingw mingw-make 3.81-20080326
+mingw binutils 2.19.1
+ all unpacked in D:\mingw
+qt 4.4.3
+ installed in D:\qt
+libxml2 2.7.3
+ unpacked and built in D:\libxml2-2.7.3 XXX check name
+lapack

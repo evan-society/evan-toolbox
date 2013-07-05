@@ -1,0 +1,296 @@
+\hypertarget{classew_1_1Dig3View}{
+\subsection{ew::Dig3View Class Reference}
+\label{classew_1_1Dig3View}\index{ew::Dig3View@{ew::Dig3View}}
+}
+
+
+View Element.  
+
+
+
+
+{\ttfamily \#include $<$ew/Dig3View.h$>$}
+
+
+
+Inheritance diagram for ew::Dig3View:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{classew_1_1Dig3View__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13a}{item\_\-t} \{ \hyperlink{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aa12554f487cbf4981a9cf8cf72a668bc7}{ITEM\_\-SLICE}, 
+\hyperlink{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aa19b28108a6c147a4f67a7ca301a4b9f4}{ITEM\_\-LANDMARKS}, 
+\hyperlink{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aa1921cd87bd7301098b2b318936a61beb}{ITEM\_\-CURVE}, 
+\hyperlink{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aaae05252997168fd1f936c7d04cfc57e5}{ITEM\_\-SURFACE}
+ \}
+\end{DoxyCompactItemize}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1Dig3View_a50bf8f0ce6c29fa0f2a0e7f6bc7ba7bd}{Dig3View} (\hyperlink{classew_1_1Dig3}{ew::Dig3} $\ast$\hyperlink{classew_1_1Dig3View_af168346e6f66801de1d09ac262d55778}{dig3}, int space, int slice\_\-mode)
+\item 
+\hyperlink{classew_1_1Dig3View_a42119dd232d7912a3b2c5ac6bb1c2e59}{$\sim$Dig3View} ()
+\item 
+void \hyperlink{classew_1_1Dig3View_a5e4afce808324fc93b9c8dfb76c5e374}{set\_\-slice\_\-mode} (int sm)
+\item 
+int \hyperlink{classew_1_1Dig3View_a9f52b3a596a26a19e14ff3c14fecd8bb}{get\_\-slice\_\-mode} () const 
+\item 
+void \hyperlink{classew_1_1Dig3View_a2dd21d8d92c1e4fd3b6db3605a917208}{set\_\-space} (int sp)
+\item 
+int \hyperlink{classew_1_1Dig3View_ad22d8d32c11fa5e1300af7f193b08bbf}{get\_\-space} () const 
+\item 
+void \hyperlink{classew_1_1Dig3View_aa4ca632104fa5d74443e5444ffe6a353}{set\_\-link} (\hyperlink{classew_1_1Dig3View}{ew::Dig3View} $\ast$v, const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr)
+\item 
+void \hyperlink{classew_1_1Dig3View_a2a65eaef54bdbb099f038443779c932c}{set\_\-view\_\-mapping} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr)
+\item 
+void \hyperlink{classew_1_1Dig3View_aa90d11b918a9c0e27399acd495ecd669}{view\_\-post\_\-compose} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr)
+\item 
+\hyperlink{classew_1_1View3Image}{ew::View3Image} $\ast$const $\ast$ \hyperlink{classew_1_1Dig3View_af18fd260d6c6298c9472a7d52574560d}{get\_\-slice\_\-items} () const 
+\item 
+\hyperlink{classew_1_1View3Curve}{ew::View3Curve} $\ast$const $\ast$ \hyperlink{classew_1_1Dig3View_ad814bd3f449aec44fc66a6667c7766e9}{get\_\-curve\_\-items} () const 
+\item 
+\hyperlink{classew_1_1View3Surface}{ew::View3Surface} $\ast$const $\ast$ \hyperlink{classew_1_1Dig3View_aaa1719f8cfbf61e71c56b9a4af37e048}{get\_\-surface\_\-items} () const 
+\item 
+\hyperlink{classew_1_1View3Landmarks}{ew::View3Landmarks} $\ast$ \hyperlink{classew_1_1Dig3View_a669e570e748ac09e014ede10d82deaea}{get\_\-landmarks\_\-item} () const 
+\item 
+int \hyperlink{classew_1_1Dig3View_afda34fa72824b91563abe90e9736bfa5}{get\_\-index} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1Dig3}{ew::Dig3} $\ast$const \hyperlink{classew_1_1Dig3View_af168346e6f66801de1d09ac262d55778}{dig3}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Dig3View}{ew::Dig3View} implements a view element of \hyperlink{classew_1_1Dig3}{ew::Dig3}.
+
+\hyperlink{classew_1_1Dig3View}{ew::Dig3View} is a class without assignment or comparison. There are private member variables.
+
+The settings and item settings of the base \hyperlink{classew_1_1View3Widget}{ew::View3Widget}, may be directly manipulated, except for the view mapping. The toolkit interaction of this widget should be handled by inheriting this class and implementing the pure virtual methods of \hyperlink{classew_1_1View3Widget}{ew::View3Widget}. 
+
+\subsubsection{Member Enumeration Documentation}
+\hypertarget{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13a}{
+\index{ew::Dig3View@{ew::Dig3View}!item\_\-t@{item\_\-t}}
+\index{item\_\-t@{item\_\-t}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{item\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ew::Dig3View::item\_\-t}}\hfill}
+\label{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13a}
+These are the possible values for \hyperlink{classew_1_1View3Item_a7e21fcde8f082ba2409bcb2999a4b7fd}{ew::View3Item::type} for items created by this class. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{ITEM\_\-SLICE@{ITEM\_\-SLICE}!ew::Dig3View@{ew::Dig3View}}\index{ew::Dig3View@{ew::Dig3View}!ITEM\_\-SLICE@{ITEM\_\-SLICE}}\item[{\em 
+\hypertarget{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aa12554f487cbf4981a9cf8cf72a668bc7}{
+ITEM\_\-SLICE}
+\label{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aa12554f487cbf4981a9cf8cf72a668bc7}
+}]Item that represents the primary slice. \index{ITEM\_\-LANDMARKS@{ITEM\_\-LANDMARKS}!ew::Dig3View@{ew::Dig3View}}\index{ew::Dig3View@{ew::Dig3View}!ITEM\_\-LANDMARKS@{ITEM\_\-LANDMARKS}}\item[{\em 
+\hypertarget{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aa19b28108a6c147a4f67a7ca301a4b9f4}{
+ITEM\_\-LANDMARKS}
+\label{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aa19b28108a6c147a4f67a7ca301a4b9f4}
+}]Item that represents form landmarks and semi-\/landmarks. \index{ITEM\_\-CURVE@{ITEM\_\-CURVE}!ew::Dig3View@{ew::Dig3View}}\index{ew::Dig3View@{ew::Dig3View}!ITEM\_\-CURVE@{ITEM\_\-CURVE}}\item[{\em 
+\hypertarget{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aa1921cd87bd7301098b2b318936a61beb}{
+ITEM\_\-CURVE}
+\label{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aa1921cd87bd7301098b2b318936a61beb}
+}]Item that represents form (note warped) curves. \index{ITEM\_\-SURFACE@{ITEM\_\-SURFACE}!ew::Dig3View@{ew::Dig3View}}\index{ew::Dig3View@{ew::Dig3View}!ITEM\_\-SURFACE@{ITEM\_\-SURFACE}}\item[{\em 
+\hypertarget{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aaae05252997168fd1f936c7d04cfc57e5}{
+ITEM\_\-SURFACE}
+\label{classew_1_1Dig3View_ac4e4e4036d49a73a3470f7c46057e13aaae05252997168fd1f936c7d04cfc57e5}
+}]Item that represents form (note warped) surfaces. \end{description}
+\end{Desc}
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1Dig3View_a50bf8f0ce6c29fa0f2a0e7f6bc7ba7bd}{
+\index{ew::Dig3View@{ew::Dig3View}!Dig3View@{Dig3View}}
+\index{Dig3View@{Dig3View}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{Dig3View}]{\setlength{\rightskip}{0pt plus 5cm}ew::Dig3View::Dig3View (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Dig3} $\ast$}]{ dig3, }
+\item[{int}]{ space, }
+\item[{int}]{ slice\_\-mode}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3View_a50bf8f0ce6c29fa0f2a0e7f6bc7ba7bd}
+This creates a view element of the {\itshape dig3\/}. 
+\begin{DoxyParams}{Parameters}
+\item[{\em dig3}]The \hyperlink{classew_1_1Dig3}{ew::Dig3} this view element will belong to. \item[{\em space}]Which space of the {\itshape dig3\/} this view element will initially display. Either 0 or 1. \item[{\em slice\_\-mode}]Whether this will be a slice view. Either 0 or 1. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3View_a42119dd232d7912a3b2c5ac6bb1c2e59}{
+\index{ew::Dig3View@{ew::Dig3View}!$\sim$Dig3View@{$\sim$Dig3View}}
+\index{$\sim$Dig3View@{$\sim$Dig3View}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{$\sim$Dig3View}]{\setlength{\rightskip}{0pt plus 5cm}ew::Dig3View::$\sim$Dig3View (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3View_a42119dd232d7912a3b2c5ac6bb1c2e59}
+This removes the view from \hyperlink{classew_1_1Dig3View_af168346e6f66801de1d09ac262d55778}{dig3}, and destroys it. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Dig3View_a5e4afce808324fc93b9c8dfb76c5e374}{
+\index{ew::Dig3View@{ew::Dig3View}!set\_\-slice\_\-mode@{set\_\-slice\_\-mode}}
+\index{set\_\-slice\_\-mode@{set\_\-slice\_\-mode}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{set\_\-slice\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3View::set\_\-slice\_\-mode (
+\begin{DoxyParamCaption}
+\item[{int}]{ sm}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3View_a5e4afce808324fc93b9c8dfb76c5e374}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em sm}]Whether this view should now be a slice view. Either 0 or 1. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3View_a9f52b3a596a26a19e14ff3c14fecd8bb}{
+\index{ew::Dig3View@{ew::Dig3View}!get\_\-slice\_\-mode@{get\_\-slice\_\-mode}}
+\index{get\_\-slice\_\-mode@{get\_\-slice\_\-mode}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{get\_\-slice\_\-mode}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3View::get\_\-slice\_\-mode (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3View_a9f52b3a596a26a19e14ff3c14fecd8bb}
+\begin{DoxyReturn}{Returns}
+Whether this is a slice view. Either 0 or 1. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3View_a2dd21d8d92c1e4fd3b6db3605a917208}{
+\index{ew::Dig3View@{ew::Dig3View}!set\_\-space@{set\_\-space}}
+\index{set\_\-space@{set\_\-space}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{set\_\-space}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3View::set\_\-space (
+\begin{DoxyParamCaption}
+\item[{int}]{ sp}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3View_a2dd21d8d92c1e4fd3b6db3605a917208}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em sp}]The index of the space this view should now be associated with. Either 0 or 1. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3View_ad22d8d32c11fa5e1300af7f193b08bbf}{
+\index{ew::Dig3View@{ew::Dig3View}!get\_\-space@{get\_\-space}}
+\index{get\_\-space@{get\_\-space}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{get\_\-space}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3View::get\_\-space (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3View_ad22d8d32c11fa5e1300af7f193b08bbf}
+\begin{DoxyReturn}{Returns}
+The index of the space this view is currently associated with. Either 0 or 1. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3View_aa4ca632104fa5d74443e5444ffe6a353}{
+\index{ew::Dig3View@{ew::Dig3View}!set\_\-link@{set\_\-link}}
+\index{set\_\-link@{set\_\-link}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{set\_\-link}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3View::set\_\-link (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Dig3View} $\ast$}]{ v, }
+\item[{const {\bf ew::Transform3} $\ast$}]{ tr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3View_aa4ca632104fa5d74443e5444ffe6a353}
+This sets up a link between the view mapping of this view and of another one. Links must be disjoint cycles. The composition of the transforms should be the identity for sensible results. 
+\begin{DoxyParams}{Parameters}
+\item[{\em v}]The view to link to. \item[{\em tr}]The transform that should be left-\/composed with this view's view mapping to get the link views view mapping. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3View_a2a65eaef54bdbb099f038443779c932c}{
+\index{ew::Dig3View@{ew::Dig3View}!set\_\-view\_\-mapping@{set\_\-view\_\-mapping}}
+\index{set\_\-view\_\-mapping@{set\_\-view\_\-mapping}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{set\_\-view\_\-mapping}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3View::set\_\-view\_\-mapping (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} $\ast$}]{ tr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3View_a2a65eaef54bdbb099f038443779c932c}
+This operates on the view mapping of the base \hyperlink{classew_1_1View3Widget}{ew::View3Widget}, and synchronizes with other views and with slices as necessary. This method has the same name as a non-\/virtual method in the base class. 
+\begin{DoxyParams}{Parameters}
+\item[{\em tr}]As for \hyperlink{classew_1_1View3Widget_aca4dfffefdc6bf300e6f26ef76bb1913}{ew::View3Widget::set\_\-view\_\-mapping()}. \end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classew_1_1View3Widget_aca4dfffefdc6bf300e6f26ef76bb1913}{ew::View3Widget}.
+
+\hypertarget{classew_1_1Dig3View_aa90d11b918a9c0e27399acd495ecd669}{
+\index{ew::Dig3View@{ew::Dig3View}!view\_\-post\_\-compose@{view\_\-post\_\-compose}}
+\index{view\_\-post\_\-compose@{view\_\-post\_\-compose}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{view\_\-post\_\-compose}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3View::view\_\-post\_\-compose (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} $\ast$}]{ tr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3View_aa90d11b918a9c0e27399acd495ecd669}
+This operates on the view mapping of the base \hyperlink{classew_1_1View3Widget}{ew::View3Widget}, and synchronizes with other views and with slices as necessary. This method has the same name as a non-\/virtual method in the base class. 
+\begin{DoxyParams}{Parameters}
+\item[{\em tr}]As for \hyperlink{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{ew::View3Widget::view\_\-post\_\-compose()}. \end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{ew::View3Widget}.
+
+\hypertarget{classew_1_1Dig3View_af18fd260d6c6298c9472a7d52574560d}{
+\index{ew::Dig3View@{ew::Dig3View}!get\_\-slice\_\-items@{get\_\-slice\_\-items}}
+\index{get\_\-slice\_\-items@{get\_\-slice\_\-items}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{get\_\-slice\_\-items}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::View3Image} $\ast$const $\ast$ ew::Dig3View::get\_\-slice\_\-items (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3View_af18fd260d6c6298c9472a7d52574560d}
+\begin{DoxyReturn}{Returns}
+The slice item index. The i'th entry is the item displaying the slice of the i'th view of the \hyperlink{classew_1_1Dig3View_af168346e6f66801de1d09ac262d55778}{dig3}, or zero if the i'th view is not in slice mode, or is not associated with the same space. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3View_ad814bd3f449aec44fc66a6667c7766e9}{
+\index{ew::Dig3View@{ew::Dig3View}!get\_\-curve\_\-items@{get\_\-curve\_\-items}}
+\index{get\_\-curve\_\-items@{get\_\-curve\_\-items}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{get\_\-curve\_\-items}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::View3Curve} $\ast$const $\ast$ ew::Dig3View::get\_\-curve\_\-items (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3View_ad814bd3f449aec44fc66a6667c7766e9}
+\begin{DoxyReturn}{Returns}
+The curve item index. The i'th entry is the item displaying the i'th curve of the space this view is currently associated with. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3View_aaa1719f8cfbf61e71c56b9a4af37e048}{
+\index{ew::Dig3View@{ew::Dig3View}!get\_\-surface\_\-items@{get\_\-surface\_\-items}}
+\index{get\_\-surface\_\-items@{get\_\-surface\_\-items}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{get\_\-surface\_\-items}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::View3Surface} $\ast$const $\ast$ ew::Dig3View::get\_\-surface\_\-items (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3View_aaa1719f8cfbf61e71c56b9a4af37e048}
+\begin{DoxyReturn}{Returns}
+The surface item index. The i'th entry is the item displaying the i'th surface of the space this view is currently associated with. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3View_a669e570e748ac09e014ede10d82deaea}{
+\index{ew::Dig3View@{ew::Dig3View}!get\_\-landmarks\_\-item@{get\_\-landmarks\_\-item}}
+\index{get\_\-landmarks\_\-item@{get\_\-landmarks\_\-item}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{get\_\-landmarks\_\-item}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::View3Landmarks} $\ast$ ew::Dig3View::get\_\-landmarks\_\-item (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3View_a669e570e748ac09e014ede10d82deaea}
+\begin{DoxyReturn}{Returns}
+The landmarks item. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3View_afda34fa72824b91563abe90e9736bfa5}{
+\index{ew::Dig3View@{ew::Dig3View}!get\_\-index@{get\_\-index}}
+\index{get\_\-index@{get\_\-index}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{get\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3View::get\_\-index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3View_afda34fa72824b91563abe90e9736bfa5}
+\begin{DoxyReturn}{Returns}
+The current index of this view element in the view index of \hyperlink{classew_1_1Dig3View_af168346e6f66801de1d09ac262d55778}{dig3}. 
+\end{DoxyReturn}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Dig3View_af168346e6f66801de1d09ac262d55778}{
+\index{ew::Dig3View@{ew::Dig3View}!dig3@{dig3}}
+\index{dig3@{dig3}!ew::Dig3View@{ew::Dig3View}}
+\paragraph[{dig3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::Dig3} $\ast$const {\bf ew::Dig3View::dig3}}\hfill}
+\label{classew_1_1Dig3View_af168346e6f66801de1d09ac262d55778}
+This points to the \hyperlink{classew_1_1Dig3}{ew::Dig3} that this \hyperlink{classew_1_1Dig3View}{ew::Dig3View} was created with. 

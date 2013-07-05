@@ -1,0 +1,614 @@
+\hypertarget{classew_1_1View3Widget}{
+\subsection{ew::View3Widget Class Reference}
+\label{classew_1_1View3Widget}\index{ew::View3Widget@{ew::View3Widget}}
+}
+
+
+3D viewing widget  
+
+
+
+
+{\ttfamily \#include $<$ew/View3Widget.h$>$}
+
+
+
+Inheritance diagram for ew::View3Widget:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{classew_1_1View3Widget__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1View3Widget_a02c6cc328ca2134102edb1f88fea3ad2}{View3Widget} (\hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} $\ast$i\_\-network)
+\item 
+virtual \hyperlink{classew_1_1View3Widget_a83833294148eeb392dc5cbadde2e51f0}{$\sim$View3Widget} ()
+\item 
+void \hyperlink{classew_1_1View3Widget_afc90fcfe34fb1cdbad10f437e75673a7}{reset} ()
+\item 
+void \hyperlink{classew_1_1View3Widget_a79673466aa3cb43d392448544853b5e1}{set\_\-clip\_\-ratio} (double cr)
+\item 
+double \hyperlink{classew_1_1View3Widget_a1b2c3e56f12c09a56e55a1e4f6a5820c}{get\_\-clip\_\-ratio} () const 
+\item 
+void \hyperlink{classew_1_1View3Widget_aca4dfffefdc6bf300e6f26ef76bb1913}{set\_\-view\_\-mapping} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr)
+\item 
+void \hyperlink{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{view\_\-post\_\-compose} (const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr)
+\item 
+const \hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$ \hyperlink{classew_1_1View3Widget_ac7d97d4e5fe84c860dc9aef539e034f5}{get\_\-view\_\-mapping} () const 
+\item 
+void \hyperlink{classew_1_1View3Widget_aa7a23dd2ef40661ec6ba2216807983fb}{get\_\-bbox} (\hyperlink{classew_1_1Bbox3}{ew::Bbox3} $\ast$b) const 
+\item 
+void \hyperlink{classew_1_1View3Widget_aca913dd88a37bd4d614c9f21eef5f3f6}{get\_\-pointer\_\-location} (double $\ast$loc, double x, double y, double z=0.0) const 
+\item 
+void \hyperlink{classew_1_1View3Widget_aec2e2c037ab83b6ff89f940b0e5a053a}{get\_\-center\_\-location} (double $\ast$loc) const 
+\item 
+void \hyperlink{classew_1_1View3Widget_a2ee54b43d51423eb3d7eb15aed4d69f4}{get\_\-pointer\_\-translate\_\-tr} (\hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr, double x, double y, double z) const 
+\item 
+void \hyperlink{classew_1_1View3Widget_ac29f5fc8232cf56db50a06493d31d1ff}{get\_\-pointer\_\-roll\_\-tr} (\hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr, double x, double y) const 
+\item 
+void \hyperlink{classew_1_1View3Widget_aed81f4b06017dcd6f7095ffbe336cc36}{get\_\-pointer\_\-twist\_\-tr} (\hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr, double x0, double y0, double x1, double y1, double acc) const 
+\item 
+void \hyperlink{classew_1_1View3Widget_aad8067affea3157ffdf0a1244d5b45a0}{get\_\-pointer\_\-scale\_\-tr} (\hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr, double x0, double y0, double x1, double y1, double acc) const 
+\item 
+void \hyperlink{classew_1_1View3Widget_addd0136b3a10935e7debc2ed8ce63f6a}{get\_\-jump\_\-tr} (\hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr, const double $\ast$loc, bool do\_\-z) const 
+\item 
+bool \hyperlink{classew_1_1View3Widget_a47413c17524f0468f3a00e267613a40e}{get\_\-bbox\_\-tr} (\hyperlink{classew_1_1Transform3}{ew::Transform3} $\ast$tr, const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} $\ast$bbox, bool do\_\-z, bool do\_\-scale) const 
+\item 
+void \hyperlink{classew_1_1View3Widget_a3fe14ba566b730c481fc9acd60d8efe2}{set\_\-background\_\-color} (const unsigned char $\ast$rgb)
+\item 
+const unsigned char $\ast$ \hyperlink{classew_1_1View3Widget_ae859867b7de4143a46544c4db5c1b7ea}{get\_\-background\_\-color} () const 
+\item 
+void \hyperlink{classew_1_1View3Widget_a4b4c5d30d57462b08bbab7fb6647c2b5}{set\_\-highlight\_\-color} (const unsigned char $\ast$rgb)
+\item 
+const unsigned char $\ast$ \hyperlink{classew_1_1View3Widget_a17351ef9948598e285a62808a8005fdf}{get\_\-highlight\_\-color} () const 
+\item 
+\hyperlink{classew_1_1View3Item}{ew::View3Item} $\ast$ \hyperlink{classew_1_1View3Widget_a34306d9080701483074f92d9492f01ef}{get\_\-highlight\_\-item} () const 
+\item 
+void \hyperlink{classew_1_1View3Widget_aea2f17d964e9c9fef29416a3b216f7ef}{clear\_\-highlight} ()
+\item 
+void \hyperlink{classew_1_1View3Widget_a17b0de1a0412b27b47b611ca33deb1ac}{set\_\-use\_\-depth} (bool d)
+\item 
+bool \hyperlink{classew_1_1View3Widget_aab44e8f083e9db8fa4753b5e889b8cc6}{get\_\-use\_\-depth} () const 
+\item 
+void \hyperlink{classew_1_1View3Widget_a787a7f05c4da472d3c8cfb3b4899f052}{move\_\-item} (\hyperlink{classew_1_1View3Item}{ew::View3Item} $\ast$it, int i)
+\item 
+\hyperlink{classew_1_1View3Item}{ew::View3Item} $\ast$const $\ast$ \hyperlink{classew_1_1View3Widget_a6c500ae68bc82dbe0e0ce7666378c91e}{get\_\-items} () const 
+\item 
+int \hyperlink{classew_1_1View3Widget_a9642dd4658ff57a033b30b61d8490ba5}{get\_\-n\_\-items} () const 
+\item 
+bool \hyperlink{classew_1_1View3Widget_aed2a64f83da416351fbcd37d66a56250}{pick} (double x, double y, double sz, double burrow, \hyperlink{classew_1_1View3Item}{ew::View3Item} $\ast$constrain\_\-it, int constrain\_\-cmpt, int constrain\_\-dim, \hyperlink{classew_1_1View3Item}{ew::View3Item} $\ast$$\ast$pick\_\-it, int $\ast$pick\_\-cmpt, int $\ast$pick\_\-dim, double $\ast$pick\_\-z)
+\item 
+void \hyperlink{classew_1_1View3Widget_a3d086998acf5fcfbb221c2cc1a774747}{pickv} (std::vector$<$ ew::View3Pick $>$ \&outp, double x, double y, double sz)
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} $\ast$const \hyperlink{classew_1_1View3Widget_ac8286c0fe23b39e10e53b161c03edb2a}{network}
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classew_1_1View3Widget_afcb1865c30ff2cef21fd67a889ef9674}{init\_\-gl\_\-context} ()
+\item 
+void \hyperlink{classew_1_1View3Widget_aee016ae0336d99acddda96df0c1c44ee}{set\_\-window\_\-size} (int w, int h)
+\item 
+void \hyperlink{classew_1_1View3Widget_a000e78ae04b0555b267f018522ecb6ef}{render} ()
+\item 
+void \hyperlink{classew_1_1View3Widget_aad31a4cc883fb08a6268865eca5ec7b0}{idle\_\-handler} ()
+\item 
+void \hyperlink{classew_1_1View3Widget_a17d0490efc5493c3754bae568de8c744}{set\_\-currently\_\-unrendered} ()
+\item 
+void \hyperlink{classew_1_1View3Widget_a2900ee4082e49bb62e7b6fba85d25ce4}{destruction\_\-in\_\-progress} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classew_1_1View3Widget_a7b2407e3f2dbda8cc8bb7aed646c07fb}{schedule\_\-idle\_\-handler\_\-cb} ()=0
+\item 
+virtual void \hyperlink{classew_1_1View3Widget_a07646a3ab6c2cb89907df00e21825fa3}{redraw\_\-cb} ()=0
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+This class implements a widget that manages a 3D scene consisting of a list of items.
+
+Items, derived from \hyperlink{classew_1_1View3Item}{ew::View3Item}, may be created in the widget.
+
+This class is independent of any particular toolkit and it is intended that the class will be inherited by a wrapper that implements the necessary interface with the toolkit.
+
+All view widgets associated with a particular \hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} must share OpenGL contexts. The context must have a depth buffer. Many class methods require this context to be active when they are called.
+
+Items in a widget are kept in a list in rendering order. If the depth buffer is not being used, later items will be rendered on top of earlier items. It the depth buffer is being used, the rendering order only effects items with exactly the same depth. Items are put at the end of the order initially on creation. 
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1View3Widget_a02c6cc328ca2134102edb1f88fea3ad2}{
+\index{ew::View3Widget@{ew::View3Widget}!View3Widget@{View3Widget}}
+\index{View3Widget@{View3Widget}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{View3Widget}]{\setlength{\rightskip}{0pt plus 5cm}ew::View3Widget::View3Widget (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::DataflowNetwork} $\ast$}]{ i\_\-network}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a02c6cc328ca2134102edb1f88fea3ad2}
+Create an empty view widget. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em i\_\-network}]a pointer to a network to associate this view with \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_a83833294148eeb392dc5cbadde2e51f0}{
+\index{ew::View3Widget@{ew::View3Widget}!$\sim$View3Widget@{$\sim$View3Widget}}
+\index{$\sim$View3Widget@{$\sim$View3Widget}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{$\sim$View3Widget}]{\setlength{\rightskip}{0pt plus 5cm}ew::View3Widget::$\sim$View3Widget (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a83833294148eeb392dc5cbadde2e51f0}
+Destroy the widget and all its items. The OpenGL context should be active when this is called. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1View3Widget_afc90fcfe34fb1cdbad10f437e75673a7}{
+\index{ew::View3Widget@{ew::View3Widget}!reset@{reset}}
+\index{reset@{reset}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_afc90fcfe34fb1cdbad10f437e75673a7}
+Delete all items in the widget and reset it to its initial state. \hypertarget{classew_1_1View3Widget_a79673466aa3cb43d392448544853b5e1}{
+\index{ew::View3Widget@{ew::View3Widget}!set\_\-clip\_\-ratio@{set\_\-clip\_\-ratio}}
+\index{set\_\-clip\_\-ratio@{set\_\-clip\_\-ratio}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{set\_\-clip\_\-ratio}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::set\_\-clip\_\-ratio (
+\begin{DoxyParamCaption}
+\item[{double}]{ cr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_a79673466aa3cb43d392448544853b5e1}
+Set the clip ratio. The viewing volume width and height are determined by the window dimensions as specified in \hyperlink{classew_1_1View3Widget_aee016ae0336d99acddda96df0c1c44ee}{set\_\-window\_\-size}. The clipping ratio is the ratio of the viewing volume depth to the smaller of its width and height. The viewing volume coordinate system is centered in the viewing volume, with axes, in order, pointing right, up and out of the screen, and with homogeneous scale such that the range of coordinates in the direction of the smaller of the width and height is \mbox{[}-\/1.0, 1.0\mbox{]}. The clip ratio is initially 1.0. It must be positive, but also not unreasonably small or large values. 
+\begin{DoxyParams}{Parameters}
+\item[{\em cr}]the new clipping ratio \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_a1b2c3e56f12c09a56e55a1e4f6a5820c}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-clip\_\-ratio@{get\_\-clip\_\-ratio}}
+\index{get\_\-clip\_\-ratio@{get\_\-clip\_\-ratio}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-clip\_\-ratio}]{\setlength{\rightskip}{0pt plus 5cm}double ew::View3Widget::get\_\-clip\_\-ratio (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a1b2c3e56f12c09a56e55a1e4f6a5820c}
+\begin{DoxyReturn}{Returns}
+the current clipping ratio 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Widget_aca4dfffefdc6bf300e6f26ef76bb1913}{
+\index{ew::View3Widget@{ew::View3Widget}!set\_\-view\_\-mapping@{set\_\-view\_\-mapping}}
+\index{set\_\-view\_\-mapping@{set\_\-view\_\-mapping}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{set\_\-view\_\-mapping}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::set\_\-view\_\-mapping (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} $\ast$}]{ tr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_aca4dfffefdc6bf300e6f26ef76bb1913}
+Set the view mapping. The view mapping is the transformation from model coordinates to viewing volume coordinates. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em tr}]the address of a transform containing the new view mapping \end{DoxyParams}
+
+
+Reimplemented in \hyperlink{classew_1_1Dig3View_a2a65eaef54bdbb099f038443779c932c}{ew::Dig3View}.
+
+\hypertarget{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{
+\index{ew::View3Widget@{ew::View3Widget}!view\_\-post\_\-compose@{view\_\-post\_\-compose}}
+\index{view\_\-post\_\-compose@{view\_\-post\_\-compose}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{view\_\-post\_\-compose}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::view\_\-post\_\-compose (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Transform3} $\ast$}]{ tr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}
+Composes the view mapping with a transform on the left. This is for incremental changes to the view mapping relative to the viewing volume coordinate system. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em tr}]the address of a transform containing the view mapping increment \end{DoxyParams}
+
+
+Reimplemented in \hyperlink{classew_1_1Dig3View_aa90d11b918a9c0e27399acd495ecd669}{ew::Dig3View}.
+
+\hypertarget{classew_1_1View3Widget_ac7d97d4e5fe84c860dc9aef539e034f5}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-view\_\-mapping@{get\_\-view\_\-mapping}}
+\index{get\_\-view\_\-mapping@{get\_\-view\_\-mapping}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-view\_\-mapping}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Transform3} $\ast$ ew::View3Widget::get\_\-view\_\-mapping (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_ac7d97d4e5fe84c860dc9aef539e034f5}
+\begin{DoxyReturn}{Returns}
+the address of a transform containing the current view mapping 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Widget_aa7a23dd2ef40661ec6ba2216807983fb}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-bbox@{get\_\-bbox}}
+\index{get\_\-bbox@{get\_\-bbox}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-bbox}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::get\_\-bbox (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Bbox3} $\ast$}]{ b}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1View3Widget_aa7a23dd2ef40661ec6ba2216807983fb}
+Calculate the bounding box of all items displayed in the widget. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em b}]where to store the result \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_aca913dd88a37bd4d614c9f21eef5f3f6}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-pointer\_\-location@{get\_\-pointer\_\-location}}
+\index{get\_\-pointer\_\-location@{get\_\-pointer\_\-location}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-pointer\_\-location}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::get\_\-pointer\_\-location (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ loc, }
+\item[{double}]{ x, }
+\item[{double}]{ y, }
+\item[{double}]{ z = {\ttfamily 0.0}}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1View3Widget_aca913dd88a37bd4d614c9f21eef5f3f6}
+Calculate the location of the point with given pixel window coordinates. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em loc}]The address of an array of size 3 to store the location in \item[{\em x,y,z}]the pixel window coordinates (right from left side, down from top and into window from the midplane of the viewing volume) \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_aec2e2c037ab83b6ff89f940b0e5a053a}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-center\_\-location@{get\_\-center\_\-location}}
+\index{get\_\-center\_\-location@{get\_\-center\_\-location}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-center\_\-location}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::get\_\-center\_\-location (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ loc}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1View3Widget_aec2e2c037ab83b6ff89f940b0e5a053a}
+Calculate the location of center of the space currently in view. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em loc}]the address of an array of size 3 to store the location in \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_a2ee54b43d51423eb3d7eb15aed4d69f4}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-pointer\_\-translate\_\-tr@{get\_\-pointer\_\-translate\_\-tr}}
+\index{get\_\-pointer\_\-translate\_\-tr@{get\_\-pointer\_\-translate\_\-tr}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-pointer\_\-translate\_\-tr}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::get\_\-pointer\_\-translate\_\-tr (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Transform3} $\ast$}]{ tr, }
+\item[{double}]{ x, }
+\item[{double}]{ y, }
+\item[{double}]{ z}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1View3Widget_a2ee54b43d51423eb3d7eb15aed4d69f4}
+Construct a translation suitable for \hyperlink{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{view\_\-post\_\-compose} from window pixel coordinate changes. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em tr}]where to store the view mapping increment \item[{\em x,y,z}]the coordinate changes \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_ac29f5fc8232cf56db50a06493d31d1ff}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-pointer\_\-roll\_\-tr@{get\_\-pointer\_\-roll\_\-tr}}
+\index{get\_\-pointer\_\-roll\_\-tr@{get\_\-pointer\_\-roll\_\-tr}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-pointer\_\-roll\_\-tr}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::get\_\-pointer\_\-roll\_\-tr (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Transform3} $\ast$}]{ tr, }
+\item[{double}]{ x, }
+\item[{double}]{ y}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1View3Widget_ac29f5fc8232cf56db50a06493d31d1ff}
+Constructs a roll-\/ball type rotation suitable for \hyperlink{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{view\_\-post\_\-compose} from window pixel coordinate changes. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em tr}]where to store the view mapping increment \item[{\em x,y}]the coordinate changes \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_aed81f4b06017dcd6f7095ffbe336cc36}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-pointer\_\-twist\_\-tr@{get\_\-pointer\_\-twist\_\-tr}}
+\index{get\_\-pointer\_\-twist\_\-tr@{get\_\-pointer\_\-twist\_\-tr}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-pointer\_\-twist\_\-tr}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::get\_\-pointer\_\-twist\_\-tr (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Transform3} $\ast$}]{ tr, }
+\item[{double}]{ x0, }
+\item[{double}]{ y0, }
+\item[{double}]{ x1, }
+\item[{double}]{ y1, }
+\item[{double}]{ acc}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1View3Widget_aed81f4b06017dcd6f7095ffbe336cc36}
+Constructs a twist rotation, about the center of the window, suitable for \hyperlink{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{view\_\-post\_\-compose} from window pixel coordinate changes. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em tr}]where to store the view mapping increment \item[{\em x0,y0}]the coordinate initial values \item[{\em x1,y1}]the coordinate final values \item[{\em acc}]an acceleration factor that scales the rotation relative to the rotation indicated by the coordinate changes \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_aad8067affea3157ffdf0a1244d5b45a0}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-pointer\_\-scale\_\-tr@{get\_\-pointer\_\-scale\_\-tr}}
+\index{get\_\-pointer\_\-scale\_\-tr@{get\_\-pointer\_\-scale\_\-tr}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-pointer\_\-scale\_\-tr}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::get\_\-pointer\_\-scale\_\-tr (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Transform3} $\ast$}]{ tr, }
+\item[{double}]{ x0, }
+\item[{double}]{ y0, }
+\item[{double}]{ x1, }
+\item[{double}]{ y1, }
+\item[{double}]{ acc}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1View3Widget_aad8067affea3157ffdf0a1244d5b45a0}
+Constructs a scaling about the center of the window suitable for \hyperlink{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{view\_\-post\_\-compose} from window pixel coordinate changes. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em tr}]where to store the view mapping increment \item[{\em x0,y0}]the coordinate initial values \item[{\em x1,y1}]the coordinate final values \item[{\em acc}]an acceleration factor that scales the scale relative to the scale indicated by the coordinate changes \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_addd0136b3a10935e7debc2ed8ce63f6a}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-jump\_\-tr@{get\_\-jump\_\-tr}}
+\index{get\_\-jump\_\-tr@{get\_\-jump\_\-tr}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-jump\_\-tr}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::get\_\-jump\_\-tr (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Transform3} $\ast$}]{ tr, }
+\item[{const double $\ast$}]{ loc, }
+\item[{bool}]{ do\_\-z}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1View3Widget_addd0136b3a10935e7debc2ed8ce63f6a}
+Construct a translation suitable for \hyperlink{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{view\_\-post\_\-compose} that would put the specified point (in model space, not viewing space) at the center of the view. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em tr}]where to store the view mapping increment \item[\mbox{\tt[in]} {\em loc}]the address of an array of size 3 containing the point coordinates \item[{\em do\_\-z}]whether to translate in the z direction so that the point is at the center of the view in all 3 directions \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_a47413c17524f0468f3a00e267613a40e}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-bbox\_\-tr@{get\_\-bbox\_\-tr}}
+\index{get\_\-bbox\_\-tr@{get\_\-bbox\_\-tr}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-bbox\_\-tr}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::View3Widget::get\_\-bbox\_\-tr (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Transform3} $\ast$}]{ tr, }
+\item[{const {\bf ew::Bbox3} $\ast$}]{ bbox, }
+\item[{bool}]{ do\_\-z, }
+\item[{bool}]{ do\_\-scale}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1View3Widget_a47413c17524f0468f3a00e267613a40e}
+Constructs a translation suitable for \hyperlink{classew_1_1View3Widget_a90e7e1db3ccb509999f68e3aa23d27f5}{view\_\-post\_\-compose} that would put the specified bounding box (in model space, not viewing space) at the center of the view. The orientation of the view is not effected. This will return {\ttfamily false} and not otherwise do anything if the bounding box is empty, or if is a single point and {\itshape do\_\-scale\/} is {\ttfamily true}. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em tr}]where to store the view mapping increment, if successful \item[\mbox{\tt[in]} {\em bbox}]the address of the bounding box \item[{\em do\_\-z}]whether to translate in the z direction \item[{\em do\_\-scale}]whether to scale so that the box fits comfortably in the view \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if successful 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Widget_a3fe14ba566b730c481fc9acd60d8efe2}{
+\index{ew::View3Widget@{ew::View3Widget}!set\_\-background\_\-color@{set\_\-background\_\-color}}
+\index{set\_\-background\_\-color@{set\_\-background\_\-color}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{set\_\-background\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::set\_\-background\_\-color (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$}]{ rgb}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_a3fe14ba566b730c481fc9acd60d8efe2}
+Set the background color. The background is by default \mbox{[}0, 0, 0\mbox{]}. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em rgb}]the address of an array of size 3 containing the new background colour components \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_ae859867b7de4143a46544c4db5c1b7ea}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-background\_\-color@{get\_\-background\_\-color}}
+\index{get\_\-background\_\-color@{get\_\-background\_\-color}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-background\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}const unsigned char $\ast$ ew::View3Widget::get\_\-background\_\-color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_ae859867b7de4143a46544c4db5c1b7ea}
+\begin{DoxyReturn}{Returns}
+the address of an array containing the current background colour components 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Widget_a4b4c5d30d57462b08bbab7fb6647c2b5}{
+\index{ew::View3Widget@{ew::View3Widget}!set\_\-highlight\_\-color@{set\_\-highlight\_\-color}}
+\index{set\_\-highlight\_\-color@{set\_\-highlight\_\-color}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{set\_\-highlight\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::set\_\-highlight\_\-color (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$}]{ rgb}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_a4b4c5d30d57462b08bbab7fb6647c2b5}
+Set the highlight color. The highlight colour is by default \mbox{[}255, 0, 0\mbox{]}. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em rgb}]the address of an array of size 3 containing the new highlight colour components \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_a17351ef9948598e285a62808a8005fdf}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-highlight\_\-color@{get\_\-highlight\_\-color}}
+\index{get\_\-highlight\_\-color@{get\_\-highlight\_\-color}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-highlight\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}const unsigned char $\ast$ ew::View3Widget::get\_\-highlight\_\-color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a17351ef9948598e285a62808a8005fdf}
+\begin{DoxyReturn}{Returns}
+the address of an array containing the current highlight colour components 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Widget_a34306d9080701483074f92d9492f01ef}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-highlight\_\-item@{get\_\-highlight\_\-item}}
+\index{get\_\-highlight\_\-item@{get\_\-highlight\_\-item}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-highlight\_\-item}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::View3Item} $\ast$ ew::View3Widget::get\_\-highlight\_\-item (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a34306d9080701483074f92d9492f01ef}
+\begin{DoxyReturn}{Returns}
+the address of the current highlighted item, or 0 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Widget_aea2f17d964e9c9fef29416a3b216f7ef}{
+\index{ew::View3Widget@{ew::View3Widget}!clear\_\-highlight@{clear\_\-highlight}}
+\index{clear\_\-highlight@{clear\_\-highlight}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{clear\_\-highlight}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::clear\_\-highlight (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_aea2f17d964e9c9fef29416a3b216f7ef}
+Clear the current highlighted item, if any. \hypertarget{classew_1_1View3Widget_a17b0de1a0412b27b47b611ca33deb1ac}{
+\index{ew::View3Widget@{ew::View3Widget}!set\_\-use\_\-depth@{set\_\-use\_\-depth}}
+\index{set\_\-use\_\-depth@{set\_\-use\_\-depth}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{set\_\-use\_\-depth}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::set\_\-use\_\-depth (
+\begin{DoxyParamCaption}
+\item[{bool}]{ d}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_a17b0de1a0412b27b47b611ca33deb1ac}
+Turn on or off the use of the depth buffer. It is initially {\ttfamily true}. 
+\begin{DoxyParams}{Parameters}
+\item[{\em d}]whether to use the depth buffer \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_aab44e8f083e9db8fa4753b5e889b8cc6}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-use\_\-depth@{get\_\-use\_\-depth}}
+\index{get\_\-use\_\-depth@{get\_\-use\_\-depth}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-use\_\-depth}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::View3Widget::get\_\-use\_\-depth (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_aab44e8f083e9db8fa4753b5e889b8cc6}
+\begin{DoxyReturn}{Returns}
+the current setting 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Widget_a787a7f05c4da472d3c8cfb3b4899f052}{
+\index{ew::View3Widget@{ew::View3Widget}!move\_\-item@{move\_\-item}}
+\index{move\_\-item@{move\_\-item}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{move\_\-item}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::move\_\-item (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::View3Item} $\ast$}]{ it, }
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_a787a7f05c4da472d3c8cfb3b4899f052}
+Move an item in the rendering order. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em it}]a pointer to the item to move \item[{\em n}]the position in the order to move the item to \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_a6c500ae68bc82dbe0e0ce7666378c91e}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-items@{get\_\-items}}
+\index{get\_\-items@{get\_\-items}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-items}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::View3Item} $\ast$const $\ast$ ew::View3Widget::get\_\-items (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a6c500ae68bc82dbe0e0ce7666378c91e}
+\begin{DoxyReturn}{Returns}
+a pointer to the list of items 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Widget_a9642dd4658ff57a033b30b61d8490ba5}{
+\index{ew::View3Widget@{ew::View3Widget}!get\_\-n\_\-items@{get\_\-n\_\-items}}
+\index{get\_\-n\_\-items@{get\_\-n\_\-items}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{get\_\-n\_\-items}]{\setlength{\rightskip}{0pt plus 5cm}int ew::View3Widget::get\_\-n\_\-items (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a9642dd4658ff57a033b30b61d8490ba5}
+\begin{DoxyReturn}{Returns}
+the size of the list of items 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Widget_aed2a64f83da416351fbcd37d66a56250}{
+\index{ew::View3Widget@{ew::View3Widget}!pick@{pick}}
+\index{pick@{pick}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{pick}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::View3Widget::pick (
+\begin{DoxyParamCaption}
+\item[{double}]{ x, }
+\item[{double}]{ y, }
+\item[{double}]{ sz, }
+\item[{double}]{ burrow, }
+\item[{{\bf ew::View3Item} $\ast$}]{ constrain\_\-it, }
+\item[{int}]{ constrain\_\-cmpt, }
+\item[{int}]{ constrain\_\-dim, }
+\item[{{\bf ew::View3Item} $\ast$$\ast$}]{ pick\_\-it, }
+\item[{int $\ast$}]{ pick\_\-cmpt, }
+\item[{int $\ast$}]{ pick\_\-dim, }
+\item[{double $\ast$}]{ pick\_\-z}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_aed2a64f83da416351fbcd37d66a56250}
+Pick an item fragment rendered in a sub-\/window of the current view. Fragments of the lowest dimension visible are picked. With a depth buffer, the nearest eligible item fragment of this dimensions is picked, provided it is not behind, with a tolerance, any surface fragment. This is to allow picking of, for example, points in an inclined surface where otherwise, some part of the surface would always be closer than the point. Without a depth buffer, the latest eligible item fragment of this dimension in the rendering order is picked, provided it is not before any surface fragment. The meaning of an item component depends on the item. The {\itshape pick\_\-z\/} result is in pixels, with 0 at the center of the viewing volume, and positive further away. It is suitable for use in \hyperlink{classew_1_1View3Widget_aca913dd88a37bd4d614c9f21eef5f3f6}{get\_\-pointer\_\-location}. 
+\begin{DoxyParams}{Parameters}
+\item[{\em x,y}]the pixel window pointer coordinates \item[{\em sz}]the side of the square, in pixels, centered on {\itshape x\/} and {\itshape y\/} within which rendered items are eligible for picking. \item[{\em burrow}]the tolerance in the depth buffer, for an eligible item to be picked behind a surface. \item[\mbox{\tt[in]} {\em constrain\_\-it}]if non-\/zero, only fragments rendered by this item will be eligible to be picked \item[{\em constrain\_\-cmpt}]if non-\/negative, only fragments rendered as part of this component in the item will be eligible for picking \item[\mbox{\tt[in]} {\em constrain\_\-dim}]if non-\/negative, only fragments of this dimension (0, 1 or 2) will be eligible for picking \item[\mbox{\tt[out]} {\em pick\_\-it}]the location where a pointer to the picked item should be stored, if non-\/zero and if the pick was successful \item[\mbox{\tt[out]} {\em pick\_\-cmpt}]the location where the component of the picked item should be stored, if non-\/zero and if the pick was successful \item[\mbox{\tt[out]} {\em pick\_\-dim}]the location where the dimension of the picked item should be stored, if non-\/zero and if the pick was successful \item[\mbox{\tt[out]} {\em pick\_\-z}]the location where the z coordinate of the nearest part of the picked item should be stored, if non-\/zero and if the pick was successful \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_a3d086998acf5fcfbb221c2cc1a774747}{
+\index{ew::View3Widget@{ew::View3Widget}!pickv@{pickv}}
+\index{pickv@{pickv}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{pickv}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::pickv (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ ew::View3Pick $>$ \&}]{ outp, }
+\item[{double}]{ x, }
+\item[{double}]{ y, }
+\item[{double}]{ sz}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Widget_a3d086998acf5fcfbb221c2cc1a774747}
+Find all item fragment picks, in order of most prominent first. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em outp}]a reference to the vector to store the output list in \item[{\em x,y}]the pixel window coordinates \item[{\em sz}]the side of the square, in pixels, centered on {\itshape x\/} and {\itshape y\/} within which rendered items are eligible for picking \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_afcb1865c30ff2cef21fd67a889ef9674}{
+\index{ew::View3Widget@{ew::View3Widget}!init\_\-gl\_\-context@{init\_\-gl\_\-context}}
+\index{init\_\-gl\_\-context@{init\_\-gl\_\-context}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{init\_\-gl\_\-context}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::init\_\-gl\_\-context (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_afcb1865c30ff2cef21fd67a889ef9674}
+Perform initialization related to the OpenGL context. This should be called after construction, once the context is active. \hypertarget{classew_1_1View3Widget_aee016ae0336d99acddda96df0c1c44ee}{
+\index{ew::View3Widget@{ew::View3Widget}!set\_\-window\_\-size@{set\_\-window\_\-size}}
+\index{set\_\-window\_\-size@{set\_\-window\_\-size}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{set\_\-window\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::set\_\-window\_\-size (
+\begin{DoxyParamCaption}
+\item[{int}]{ w, }
+\item[{int}]{ h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_aee016ae0336d99acddda96df0c1c44ee}
+Performs initialization related to the window size. This should be called after construction and whenever the window is resized. 
+\begin{DoxyParams}{Parameters}
+\item[{\em w,h}]the new window width and height \end{DoxyParams}
+\hypertarget{classew_1_1View3Widget_a000e78ae04b0555b267f018522ecb6ef}{
+\index{ew::View3Widget@{ew::View3Widget}!render@{render}}
+\index{render@{render}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{render}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::render (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a000e78ae04b0555b267f018522ecb6ef}
+Render the scene in the current OpenGL context and associated window. If the context has a double buffer, this will render to the back buffer. The buffers must then be swapped. \hypertarget{classew_1_1View3Widget_aad31a4cc883fb08a6268865eca5ec7b0}{
+\index{ew::View3Widget@{ew::View3Widget}!idle\_\-handler@{idle\_\-handler}}
+\index{idle\_\-handler@{idle\_\-handler}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{idle\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::idle\_\-handler (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_aad31a4cc883fb08a6268865eca5ec7b0}
+\hyperlink{classew_1_1View3Widget_a7b2407e3f2dbda8cc8bb7aed646c07fb}{schedule\_\-idle\_\-handler\_\-cb} should arrange for this function to be called at an appropriate time. \hypertarget{classew_1_1View3Widget_a17d0490efc5493c3754bae568de8c744}{
+\index{ew::View3Widget@{ew::View3Widget}!set\_\-currently\_\-unrendered@{set\_\-currently\_\-unrendered}}
+\index{set\_\-currently\_\-unrendered@{set\_\-currently\_\-unrendered}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{set\_\-currently\_\-unrendered}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::set\_\-currently\_\-unrendered (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a17d0490efc5493c3754bae568de8c744}
+This should be called when the window associated with this widget is unmapped, to avoid unnecessary activity. A call to \hyperlink{classew_1_1View3Widget_a000e78ae04b0555b267f018522ecb6ef}{render} undoes the effect of this. \hypertarget{classew_1_1View3Widget_a2900ee4082e49bb62e7b6fba85d25ce4}{
+\index{ew::View3Widget@{ew::View3Widget}!destruction\_\-in\_\-progress@{destruction\_\-in\_\-progress}}
+\index{destruction\_\-in\_\-progress@{destruction\_\-in\_\-progress}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{destruction\_\-in\_\-progress}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::destruction\_\-in\_\-progress (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a2900ee4082e49bb62e7b6fba85d25ce4}
+This should be called when a derived object is being destroyed, to prevent any callbacks being invoked. \hypertarget{classew_1_1View3Widget_a7b2407e3f2dbda8cc8bb7aed646c07fb}{
+\index{ew::View3Widget@{ew::View3Widget}!schedule\_\-idle\_\-handler\_\-cb@{schedule\_\-idle\_\-handler\_\-cb}}
+\index{schedule\_\-idle\_\-handler\_\-cb@{schedule\_\-idle\_\-handler\_\-cb}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{schedule\_\-idle\_\-handler\_\-cb}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::schedule\_\-idle\_\-handler\_\-cb (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private, pure virtual\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a7b2407e3f2dbda8cc8bb7aed646c07fb}
+This is a callback that must be implemented by the inheriting class. It must arrange for \hyperlink{classew_1_1View3Widget_aad31a4cc883fb08a6268865eca5ec7b0}{idle\_\-handler} to be called later when the GUI is idle. Outstanding handlers must be cancelled by the inheriting class on destruction. \hypertarget{classew_1_1View3Widget_a07646a3ab6c2cb89907df00e21825fa3}{
+\index{ew::View3Widget@{ew::View3Widget}!redraw\_\-cb@{redraw\_\-cb}}
+\index{redraw\_\-cb@{redraw\_\-cb}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{redraw\_\-cb}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Widget::redraw\_\-cb (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private, pure virtual\mbox{]}}}\hfill}
+\label{classew_1_1View3Widget_a07646a3ab6c2cb89907df00e21825fa3}
+This is a callback than must be implemented in the inheriting class. It must arrange for the widget to be rendered immediately. 
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1View3Widget_ac8286c0fe23b39e10e53b161c03edb2a}{
+\index{ew::View3Widget@{ew::View3Widget}!network@{network}}
+\index{network@{network}!ew::View3Widget@{ew::View3Widget}}
+\paragraph[{network}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::DataflowNetwork} $\ast$const {\bf ew::View3Widget::network}}\hfill}
+\label{classew_1_1View3Widget_ac8286c0fe23b39e10e53b161c03edb2a}
+This points to the \hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} that this \hyperlink{classew_1_1View3Widget}{ew::View3Widget} was created with. 

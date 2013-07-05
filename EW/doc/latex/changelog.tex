@@ -1,0 +1,466 @@
+
+\begin{DoxyVerbInclude}
+2010-10-12  Bill Green  <wdkg@wdkg.org>
+
+    * Renamed all classes, e.g:
+        EW_Dataflow_Node -> ew::DataflowNode
+    * Renamed all files, e.g:
+        dataflow_node.h -> DataflowNode.h
+    * Renamed
+        ew::DataflowArray3Explicit -> ew::DataflowArray3E
+        ew::DataflowCurve3Explicit -> ew::DataflowCurve3E
+        ew::DataflowSurface3Explicit -> ew::DataflowSurface3E
+        ew::Dig3TableauCurve -> ew::Dig3SetCurve
+        ew::Dig3TableauSurface -> ew::Dig3SetSurface
+    * Added
+        ew::Curve3::write_file
+        ew::Curve3::read_points
+        ew::Dig3Space::project
+        ew::Form3::search_superset
+        ew::Form3::set_superset
+        ew::DataflowForm3::set_superset
+        ew::Dig3Space::set_superset
+
+
+2010-07-04  Bill Green  <wdkg@wdkg.org>
+
+    * Replaced EW_Dig3_Space::get_index() with constant EW_Dig3_Space::index.
+    * Replaced EW_Form3_IOError, EW_Dig3_Tableau_IOError, EW_Curve3_IOError and
+    EW_Surface3_IOError with EW_Error_IO.
+    Added EW_Error_Runtime.
+    * Added EW_Dig3::SPACE_TEMPLATE and EW_DIG3::SPACE_SPECIMEN.
+    * EW_Dig3_View now inherits EW_View3_Widget instead of having to be
+    associated with a separately created EW_View3_Widget.
+    * Added EW_View3_Pick and EW_View3_Widget::pickv.
+    EW_View3_Widget::pick is deprecated and will be removed later.
+    * Added a member EW_View3_Item::type and an optional argument in
+    the constructors of classes derived from EW_View3_Item to initialize it.
+    Also added a corresponding enum EW_Dig3_View::item_t.
+    * Removed EW_Dataflow_Curve3_Explicit::get_filename and
+    EW_Dataflow_Surface3_Explicit::get_filename.
+    * Replaced EW_Dataflow_Netork::cycle_t with unsigned long, which is
+    what it was a typedef for.
+
+
+2010-03-24  Bill Green  <wdkg@wdkg.org>
+
+   * Renamed
+       EW_Dig3::TableauFlags -> EW_Dig3::tableau_flags_t
+       EW_Form3::StateType -> EW_Form3::state_t
+       EW_Form3::PointType -> EW_Form3::point_t
+       EW_View3_Landmarks::SymbolType -> EW_View3_Landmarks::symbol_t
+
+
+2010-02-24  Bill Green  <wdkg@wdkg.org>
+
+   * Added, to support curves:
+       EW_Curve3
+       EW_Curve3_IOError
+       EW_Dataflow_Curve3
+       EW_Dataflow_Curve3_Explicit
+       EW_Dataflow_Network::cached_curve
+       EW_View3_Curve
+       EW_Dig3_Tableau_Curve
+       EW_Dig3_Tableau_Space::curve_settings
+       EW_Dig3_Space::get_curve_nodes
+       EW_Dig3_Space::get_curve_of_pointset
+       EW_Dig3_Space::set_form_curve
+       EW_Dig3_Space::remove_form_curve
+       EW_Dig3_View::get_curve_items
+    Modified, to support curves:
+       EW_Dig3
+       EW_Dig3_Tableau
+       EW_Dig3_Space
+       EW_Dig3_View
+
+
+2010-02-03  Bill Green  <wdkg@wdkg.org>
+
+   * Debugged a subtle problem on Mac OS X: the bundled lapack routines
+   occasionally crash if their array arguments are not aligned to 16 bytes.
+   This can be ensured by new'ing them or by making them std::vector's.
+
+
+2010-01-27  Bill Green  <wdkg@wdkg.org>
+
+   * Added EW_Dig3_Space::get_surface_of_pointset.
+
+
+2010-01-25  Bill Green  <wdkg@wdkg.org>
+
+   * Added:
+       EW_Dataflow_Spline3::get_nonsingular
+       EW_Dataflow_Surface3::make_index
+       EW_Dataflow_Surface3::index_is_made
+   Changed and completed:
+       EW_Dataflow_Surface3::project
+   Renamed:
+       EW_Dataflow_Surface3::optimized_lmk_images ->
+        EW_Dataflow_Surface3::get_optimized_lmk_images
+
+
+2010-01-20  Bill Green  <wdkg@wdkg.org>
+
+    * Renamed
+        EW_Dataflow_Surface3::get_triangles -> EW_Dataflow_Surface3::get_faces
+        EW_Dataflow_Surface3::get_num_triangles ->
+         EW_Dataflow_Surface3::get_num_faces
+
+
+2010-01-19  Bill Green  <wdkg@wdkg.org>
+
+    * Made EW_Dataflow_Network::surface_cached surfaces persist until the
+    network is destroyed.
+
+    * Support const EW_Dataflow_Nodes: added a lot of const's to method
+    signatures.
+    The nodes created by EW_Dig3 are now accessible as pointers to const, so
+    they may only be changed using EW_Dig3_Space wrappers.
+    This is to clarify what may be done to these nodes.
+    Added:
+        EW_Dig3_Space::set_form_pointset
+        EW_Dig3_Space::set_form_pointset_location
+        EW_Dig3_Space::set_form_pointset_relax
+        EW_Dig3_Space::remove_form_pointset
+        EW_Dig3_Space::set_form_embedding
+        EW_Dig3_Space::remove_form_embedding
+    and changed:
+        EW_Dig3_Space::set_surface -> EW_Dig3_Space::set_form_surface
+        EW_Dig3_Space::remove_surface -> EW_Dig3_Space::remove_form_surface
+    These functions have the same signatures as the EW_Dataflow_Form3
+    equivalents.
+    These replace methods removed on 2010-01-07.
+
+    * Changed EW_Dataflow_Form3::set_surface and EW_Dig3_Space::set_surface to
+    use a EW_Form3_Surface pointer argument for consistency.
+
+    * Added:
+      EW_Dataflow_Form3::set_volume
+      EW_Dataflow_Form3::remove_volume
+      EW_Dataflow_Form3::set_curve
+      EW_Dataflow_Form3::remove_curve
+      EW_Dataflow_Form3::set_embedding
+      EW_Dataflow_Form3::remove_embedding
+      EW_Dataflow_Form3::set_reflection
+      EW_Dataflow_Form3::remove_reflection
+
+
+2010-01-14  Bill Green  <wdkg@wdkg.org>
+
+    * Various bug fixes.
+
+    * Made EW_View3_Item destructors protected and documented that items
+    belong to their widget after creation.
+    Added EW_View3_Item::destroy() to use instead of the destructor.
+
+    * Replaced
+        EW_Dataflow_Surface3_Explicit::cached ->
+         EW_Dataflow_Network::surface_cached
+
+
+2010-01-12  Bill Green  <wdkg@wdkg.org>
+
+    * Renamed, for consistency:
+        EW_Bbox3::set_empty -> EW_Bbox3::set_to_empty
+
+
+2010-01-07  Bill Green  <wdkg@wdkg.org>
+
+    * Added EW_Dig3_Space::get_form_node.
+    Removed the following, which this makes redundent:
+        EW_Dig3_Space::set_pointset
+        EW_Dig3_Space::set_pointset_location
+        EW_Dig3_Space::remove_pointset
+        EW_Dig3_Space::set_embedding
+        EW_Dig3_Space::remove_embedding
+    Added EW_Dataflow_Form3::set_pointset_relax.
+    Changed:
+        EW_Dataflow_Spline3::warp_point -> EW_Dataflow_Spline3::warp_points
+    Changed EW_Dataflow_Spline3::optimized_lmk_images to return a pointer to
+    the array of coordinates of all optimized landmarks.
+
+
+2010-01-05  Bill Green  <wdkg@wdkg.org>
+
+    * All classes now have their own header and source files.
+    Client code may need additional include statements.
+
+
+2009-12-15  Bill Green  <wdkg@wdkg.org>
+
+    * Improved playback interpolation algorithm.
+
+
+2009-12-14  Bill Green  <wdkg@wdkg.org>
+
+    * Changed signature of EW_Transform3::format and EW_Transform3::scan,
+    to be less awkward.
+
+
+2009-12-11  Bill Green  <wdkg@wdkg.org>
+
+    * Started to add support for more landmark operations.
+    These operations can already be performed using existing methods:
+        create a EW_Form3_Pointset in the template or specimen
+        delete a EW_Form3_Pointset from the template or specimen
+        delete all EW_Form3_Pointset's in the template or in the specimen
+        add a point to a EW_Form3_Pointset
+        delete a point from a EW_Form3_Pointset
+        select a point in the template or specimen
+        set or change the following attributes of a EW_Form3_Pointset
+          id
+          type (currently landmark or semi-landmark)
+          state
+          n
+        set or change the following attributes of a point in a EW_Form3_Pointset
+          location
+          relax_params
+          relax_dims (including whether the point should be ignored)
+        set all semi-landmarks to be ignored
+        set a landmark or semi-landmark to be ignored
+        set a landmark or semi-landmark to be not ignored
+        copy a EW_Form3_Pointset from the template to the specimen or vice versa
+        copy all EW_Form3_Pointset's from the template to the specimen or vice
+         versa
+        move a point in the specimen to the location it occupies in the
+         template or vice versa
+        move all points in a EW_From3_Pointset in the specimen to the locations
+         they occupy in the template or vice versa
+        move all points in the specimen to the locations they occupy in the
+         template or vice versa
+    These methods have been partially implemented:
+        EW_Dig3::get_spline_node
+        EW_Dig3_Space::get_surface_nodes
+        EW_Dig3_Space::set_embedding
+        EW_Dig3_Space::remove_embedding
+        EW_Dataflow_Spline::get_energy
+        EW_Dataflow_Spline::get_n_lmks
+        EW_Dataflow_Spline::get_f_size
+        EW_Dataflow_Spline::warp_point
+        EW_Dataflow_Spline::lmk_index
+        EW_Dataflow_Spline::lmk_pointset
+        EW_Dataflow_Spline::lmk_pointset_i
+        EW_Dataflow_Spline::optimized_lmk_image
+        EW_Dataflow_Surface3_Explicit::project
+    They will allow the following additional operations to be performed:
+        display information about the spline (number of (semi-)landmarks,
+         algebraic dimension, singularity, energy)
+        move an ignored landmark or semi-landmark in the specimen to the
+         where it is warped from the template
+        move all ignored landmarks or semi-landmarks in the specimen to the
+         where they are warped from the template
+        change a EW_Form3_Pointset in the specimen from "unset" to "warped",
+         setting all points to where they are warped from the template
+        set or change the surface an EW_Form3_Pointset is embedded in
+         move an embedded landmark to its surface
+        move a semi-landmark to its surface, display the distance moved, and/or
+         set the relax_params and relax_dims of a semi-landmark to the surface
+         tangent space
+        move all semi-landmarks of a EW_Form3_Pointset to their surface,
+         display the average and maximum distance moved, and/or set the
+         relax_params and relax_dims of the semi-landmarks to the surface
+         tangent spaces
+        move all semi-landmarks to their surfaces, display the average and
+         maximum distance moved, and/or set the relax_params and relax_dims of
+         the semi-landmarks to the surface tangent spaces.
+        slide a semi-landmark to the position in its relaxation space that
+         minimizes the spline's energy, and display the distance moved
+        slide all semi-landmarks to the positions in their relaxation spaces
+         that minimize the spline's energy, and display the average and
+         maximum distance moved
+
+
+2009-12-10  Bill Green  <wdkg@wdkg.org>
+
+    * Restructured exception handling to improve exception safety and allow the
+    elimination of the warn_stream optional argument of the
+    EW_Dataflow_network constructor and of EW_Dataflow_network::get_warned.
+
+
+2009-11-29  Bill Green  <wdkg@wdkg.org>
+
+    * Fixed misbehviour in the filename handling code.
+
+    * Converted surface faces and points from an array to a vector.
+    The efficiency gained from using arrays (around 10%) did not justify the
+    amount of code.
+
+
+2009-11-05  Bill Green  <wdkg@wdkg.org>
+
+    * All filename fields and arguments are now expected to be canonical
+    utf-8 filenames.
+    EW_Form3::read_file and EW_Form3::write_file will convert filenames in
+    the input/output from/to simple filenames, when appropriate.
+
+
+2009-11-04  Bill Green  <wdkg@wdkg.org>
+
+    * Removed the form element label field.
+    The id will now be used as the label.
+    Id's can now contain whitespace.
+    This results in a change to the form file format.
+
+    * Included a version number in the form3 and dig3 file formats.
+
+
+2009-09-17  Bill Green  <wdkg@wdkg.org>
+
+    * Changed "target" to "specimen" in code and tableau file formats.
+
+
+2009-09-10  Bill Green  <wdkg@wdkg.org>
+
+    * Added:
+      EW_View3_Widget::set_highlight_color
+      EW_View3_Widget::get_highlight_color
+      EW_View3_Widget::get_highlight_item
+      EW_View3_Widget::clear_highlight
+      EW_View3_Landmarks::set_highlight
+      EW_View3_Landmarks::get_highlight_ps
+      EW_View3_Landmarks::get_highlight_i
+
+    * Added EW_View3_Widget::pick.
+
+    * Changed signature of EW_Dig3_Space::set_pointset.
+
+
+2009-09-02  Bill Green  <wdkg@wdkg.org>
+
+    * Changed EW_View3_Item linked list into a vector of pointers in
+    EW_View3_Widget.
+    Removed:
+        EW_View3_Widget::get_first_item
+        EW_View3_Widget::get_last_item
+        EW_View3_Widget::move_item_before
+        EW_View3_Widget::move_item_after
+        EW_View3_Item::get_next_item
+        EW_View3_Item::get_prev_item
+    Added:
+        EW_View3_Widget::get_items
+        EW_View3_Widget::get_n_items
+        EW_View3_Widget::move_item
+        EW_View3_Item::get_index
+
+
+2009-08-27  Bill Green  <wdkg@wdkg.org>
+
+    * Added EW_Dig3::interpolate_tableau.
+
+
+2009-08-26  Bill Green  <wdkg@wdkg.org>
+
+    * Added
+        EW_BBox3
+        EW_Dataflow_Surface3::get_bbox
+        EW_Dataflow_Landmarks3::get_bbox
+        EW_View3_Item::get_bbox
+        EW_View3_Widget::get_bbox
+        EW_View3_Widget::get_bbox_tr
+        EW_Dig3_Space::get_bbox
+
+
+2009-08-25  Bill Green  <wdkg@wdkg.org>
+
+    * Added:
+        EW_View3_Widget::get_center_location
+        EW_View3_Widget::get_jump_tr
+
+    * Fixed omission in EW_Dig3::load_tableau.
+
+
+2009-08-24  Bill Green  <wdkg@wdkg.org>
+
+    * Fixed crashing caused by EW_View3_Widget::move_item_before.
+
+    * Fixed failure to load obj files with multiple index f form.
+
+    * Reverted to rendering slice view without depth buffer, as the only
+    reliable way to get landmarks to always show up.
+
+
+2009-08-24  Bill Green  <wdkg@wdkg.org>
+
+    * Added, to support landmarks:
+        EW_Form3::search_pointset
+        EW_Dataflow_Form3::set_pointset
+        EW_Dataflow_Form3::set_pointset_location
+        EW_Dataflow_Form3::remove_pointset
+        EW_View3_Landmarks
+        EW_Dig3_Tableau_Space::bool show_lmks_in_main
+        EW_Dig3_Tableau_Space::bool show_lmks_in_slice
+        EW_Dig3_Tableau_Space::int lmks_symbol
+        EW_Dig3_Tableau_Space::unsigned char lmks_col
+        EW_Dig3_View::get_landmarks_item
+        EW_View3_Widget::get_pointer_location
+    and updated:
+        EW_Dig3::save_tableau
+        EW_Dig3::load_tableau
+
+    * Renamed, to be a little less confusing:
+        EW_Dataflow_Form3::unset_surface -> EW_Dataflow_Form3::remove_surface
+
+
+2009-08-20  Bill Green  <wdkg@wdkg.org>
+
+    * Simplified the form3 file format by merging the very similar point
+    and pointset fields.
+
+
+2009-08-18  Bill Green  <wdkg@wdkg.org>
+
+    * Added EW_Dig3_View::get_slice_index()
+
+
+2009-08-06  Bill Green  <wdkg@wdkg.org>
+
+    * Added class EW_Dig3_Tableau for save files, and related methods in
+    EW_Dig3.
+
+    * Added:
+        EW_Transform3::scan
+        EW_Transform3::format
+
+    * Renamed, to work better with debug message selection:
+        EW_Dataflow -> EW_Dataflow_Network
+        EW_View3 -> EW_View3_Widget
+
+    * Replaced EW_Dig3_Geom and EW_Dig3_Flat with EW_Dig3, EW_Dig3_Space and
+    EW_Dig3_View, to reduce the number of classes an application needs to
+    implement and to avoid requiring virtual inheritance.
+
+    * Renamed, to better reflect their purpose:
+        EW_Transform2::set_identity -> EW_Transform2::set_to_identity
+        EW_Transform2::set_inverse -> EW_Transform2::set_to_inverse
+        EW_Transform2::set_composition -> EW_Transform2::set_to_composition
+        EW_Transform2::set_interpolation -> EW_Transform2::set_to_interpolation
+        EW_Transform2::set_normalization -> EW_Transform2::set_to_normalization
+        EW_Transform3::set_identity -> EW_Transform3::set_to_identity
+        EW_Transform3::set_inverse -> EW_Transform3::set_to_inverse
+        EW_Transform3::set_composition -> EW_Transform3::set_to_composition
+        EW_Transform3::set_interpolation -> EW_Transform3::set_to_interpolation
+        EW_Transform3::set_normalization -> EW_Transform3::set_to_normalization
+
+    * Renamed in EW_View3_Widget
+        EW_View3_Widget::schedule_idle_handler ->
+         EW_View3_Widget::schedule_idle_handler_cb
+        EW_View3_Widget::redraw -> EW_View3_Widget::redraw_cb
+
+    * Replaced the exception in EW_Transform2/3::set_to_interpolation with a
+    return code.
+
+    * Replaced GLuint with unsigned int to avoid exposing OpenGL in interface.
+
+    * Made a depth buffer a requirement in view3_widget.cpp.
+
+    * Replaced use of isspace, printf, sscanf, strtol and strtod for data files
+    to avoid locale and library implementation complications.
+    Used gdtoa for floating point conversions.
+
+    * Made use of XML_PARSE_COMPACT in dataflow_form3.cpp dependent on
+    LIBXML_VERSION for Mac OS X, where the default libxml2 is too old to
+    support this.
+
+
+\end{DoxyVerbInclude}
+ 

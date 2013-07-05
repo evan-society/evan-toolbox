@@ -1,0 +1,408 @@
+\hypertarget{classew_1_1Form3}{
+\subsection{ew::Form3 Class Reference}
+\label{classew_1_1Form3}\index{ew::Form3@{ew::Form3}}
+}
+
+
+Morphometric Form.  
+
+
+
+
+{\ttfamily \#include $<$ew/Form3.h$>$}
+
+\subsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725}{state\_\-t} \{ \par
+\hyperlink{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725acce88d69a207a761cb9d267bf36a4882}{STATE\_\-SET}, 
+\hyperlink{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725afc4f92640e5a0ba7ba025265300df60d}{STATE\_\-UNSET}, 
+\hyperlink{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725a7c68944bfd7af307bf1097e3f6a98647}{STATE\_\-PROVISIONAL}, 
+\hyperlink{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725a929401893c671bbb4be2e50cba63949e}{STATE\_\-WARPED}, 
+\par
+\hyperlink{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725accd0d7c17a3c1219c2c13d0d25af018c}{STATE\_\-PROJECTED}, 
+\hyperlink{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725a845f0d997e74de0ec5a055f923ef6975}{STATE\_\-OPTIMIZED}
+ \}
+\item 
+enum \hyperlink{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733}{point\_\-t} \{ \par
+\hyperlink{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733aafd3312606d8242fd8a650020fb682c5}{TYPE\_\-LANDMARK}, 
+\hyperlink{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a2ebb795c7e887f4d69bae678ad490df6}{TYPE\_\-SEMI\_\-LANDMARK}, 
+\hyperlink{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a63adf7483ccd80afe7d295aecf1508c0}{TYPE\_\-POINT}, 
+\hyperlink{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733af4a3d6f8994ebe1d4ee511fdf4ba6da0}{TYPE\_\-LINE}, 
+\par
+\hyperlink{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a7d720e976a12e6140d954e3dfbcfeb2f}{TYPE\_\-PLANE}, 
+\hyperlink{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a03680acbf4911849a3fbdfa9c310f787}{TYPE\_\-FRAME}
+ \}
+\end{DoxyCompactItemize}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classew_1_1Form3_a142e4923377ce451364f9c902713372c}{reset} ()
+\item 
+void \hyperlink{classew_1_1Form3_a9de2d04fa5fd964de69951339ed9c1cf}{read\_\-file} (const char $\ast$file)
+\item 
+void \hyperlink{classew_1_1Form3_ab5abad2f912616bc7d0a1e3dd37943bb}{write\_\-file} (const char $\ast$file, bool compress) const 
+\item 
+bool \hyperlink{classew_1_1Form3_ad3f7f4ab0210f7753dc42df94fec817d}{search\_\-volume} (int $\ast$position, const char $\ast$id) const 
+\item 
+bool \hyperlink{classew_1_1Form3_a863b953b1d79be8c29406cde111b4d6e}{search\_\-surface} (int $\ast$position, const char $\ast$id) const 
+\item 
+bool \hyperlink{classew_1_1Form3_acef9a7cb9f65ccc4a7ed70c9968441ca}{search\_\-curve} (int $\ast$position, const char $\ast$id) const 
+\item 
+bool \hyperlink{classew_1_1Form3_a1da8c7154ae6a6bbe904034c9fdbb8df}{search\_\-pointset} (int $\ast$position, const char $\ast$id) const 
+\item 
+bool \hyperlink{classew_1_1Form3_ac2ce9094d917d97a7424edae355c8328}{search\_\-embedding} (int $\ast$position, const char $\ast$id1, const char $\ast$id2) const 
+\item 
+bool \hyperlink{classew_1_1Form3_a593bc0c4f71b5f24afee1d55ac07302e}{search\_\-reflection} (int $\ast$position, const char $\ast$id1, const char $\ast$id2) const 
+\item 
+const char $\ast$ \hyperlink{classew_1_1Form3_a7fa5b81fa3813eb833155e3d5cb7e2f3}{search\_\-superset} (const char $\ast$id) const 
+\item 
+void \hyperlink{classew_1_1Form3_a0918a426ed95d3244d8212dc985d0897}{set\_\-superset} (const char $\ast$subset\_\-id, const char $\ast$superset\_\-id)
+\item 
+void \hyperlink{classew_1_1Form3_ae15e78e95043b8e7f196a32e7d4527a6}{swap} (\hyperlink{classew_1_1Form3}{ew::Form3} \&f)
+\item 
+bool \hyperlink{classew_1_1Form3_a7704ee4daef7adf30a0199756b2fcc22}{operator==} (const \hyperlink{classew_1_1Form3}{ew::Form3} \&a) const 
+\item 
+bool \hyperlink{classew_1_1Form3_a002e398fca7517dfacc077a1450190d0}{operator!=} (const \hyperlink{classew_1_1Form3}{ew::Form3} \&a) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::vector$<$ \hyperlink{classew_1_1Form3Volume}{ew::Form3Volume} $>$ \hyperlink{classew_1_1Form3_aab5dcd7658c84512d05e095e58341fa7}{volumes}
+\item 
+std::vector$<$ \hyperlink{classew_1_1Form3Surface}{ew::Form3Surface} $>$ \hyperlink{classew_1_1Form3_abd4405612b484b5d9d87b643d316b020}{surfaces}
+\item 
+std::vector$<$ \hyperlink{classew_1_1Form3Curve}{ew::Form3Curve} $>$ \hyperlink{classew_1_1Form3_ab60def495fb8fea585dff2fb8c94d845}{curves}
+\item 
+std::vector$<$ \hyperlink{classew_1_1Form3PointSet}{ew::Form3PointSet} $>$ \hyperlink{classew_1_1Form3_aed0e94682a4de9b871c8fb15906bcc09}{pointsets}
+\item 
+std::vector$<$ \hyperlink{classew_1_1Form3Embedding}{ew::Form3Embedding} $>$ \hyperlink{classew_1_1Form3_a05ace76e2206ea825495538e93d9ba4c}{embeddings}
+\item 
+std::vector$<$ \hyperlink{classew_1_1Form3Reflection}{ew::Form3Reflection} $>$ \hyperlink{classew_1_1Form3_a4df1d049f2c5ca83f194d4ac9cf9f074}{reflections}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Form3}{ew::Form3} represents morphometric forms in $\mathbb{R}^3$. These are landmark configurations, possibly including semi-\/landmarks, generalized to include curve, surface and volume data.
+
+\hyperlink{classew_1_1Form3}{ew::Form3} is a data structure that supports default construction, copy construction, assignment and equality comparison.
+
+\hyperlink{classew_1_1Form3}{ew::Form3} data is represented in form files read by \hyperlink{classew_1_1Form3_a9de2d04fa5fd964de69951339ed9c1cf}{read\_\-file} and written by \hyperlink{classew_1_1Form3_ab5abad2f912616bc7d0a1e3dd37943bb}{write\_\-file}. These are example files:
+\begin{DoxyItemize}
+\item \hyperlink{simple_landmarks_8form}{simple\_\-landmarks.form}
+\item \hyperlink{mandible_template_8form}{mandible\_\-landmarks.form}
+\item \hyperlink{mandible_case_8form}{mandible\_\-case.form}
+\end{DoxyItemize}The representation is exact except that filenames in the form files are abbreviated to relative filenames in common situations were possible, but in \hyperlink{classew_1_1Form3}{ew::Form3} they are always in canonical form.
+
+All elements in the form have an id. These id's must be unique in the from. 
+
+\subsubsection{Member Enumeration Documentation}
+\hypertarget{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725}{
+\index{ew::Form3@{ew::Form3}!state\_\-t@{state\_\-t}}
+\index{state\_\-t@{state\_\-t}!ew::Form3@{ew::Form3}}
+\paragraph[{state\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ew::Form3::state\_\-t}}\hfill}
+\label{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725}
+Some elements can have a state associated with them. These are the possible values. Not all states are appropriate for all element types. The default is \hyperlink{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725acce88d69a207a761cb9d267bf36a4882}{STATE\_\-SET}. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{STATE\_\-SET@{STATE\_\-SET}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!STATE\_\-SET@{STATE\_\-SET}}\item[{\em 
+\hypertarget{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725acce88d69a207a761cb9d267bf36a4882}{
+STATE\_\-SET}
+\label{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725acce88d69a207a761cb9d267bf36a4882}
+}]The element has been explicitly digitized (default). \index{STATE\_\-UNSET@{STATE\_\-UNSET}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!STATE\_\-UNSET@{STATE\_\-UNSET}}\item[{\em 
+\hypertarget{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725afc4f92640e5a0ba7ba025265300df60d}{
+STATE\_\-UNSET}
+\label{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725afc4f92640e5a0ba7ba025265300df60d}
+}]The element has not been digitized. \index{STATE\_\-PROVISIONAL@{STATE\_\-PROVISIONAL}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!STATE\_\-PROVISIONAL@{STATE\_\-PROVISIONAL}}\item[{\em 
+\hypertarget{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725a7c68944bfd7af307bf1097e3f6a98647}{
+STATE\_\-PROVISIONAL}
+\label{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725a7c68944bfd7af307bf1097e3f6a98647}
+}]The element has been provisionally digitized. \index{STATE\_\-WARPED@{STATE\_\-WARPED}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!STATE\_\-WARPED@{STATE\_\-WARPED}}\item[{\em 
+\hypertarget{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725a929401893c671bbb4be2e50cba63949e}{
+STATE\_\-WARPED}
+\label{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725a929401893c671bbb4be2e50cba63949e}
+}]The element is the image under a warp. \index{STATE\_\-PROJECTED@{STATE\_\-PROJECTED}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!STATE\_\-PROJECTED@{STATE\_\-PROJECTED}}\item[{\em 
+\hypertarget{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725accd0d7c17a3c1219c2c13d0d25af018c}{
+STATE\_\-PROJECTED}
+\label{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725accd0d7c17a3c1219c2c13d0d25af018c}
+}]The element has been projected. \index{STATE\_\-OPTIMIZED@{STATE\_\-OPTIMIZED}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!STATE\_\-OPTIMIZED@{STATE\_\-OPTIMIZED}}\item[{\em 
+\hypertarget{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725a845f0d997e74de0ec5a055f923ef6975}{
+STATE\_\-OPTIMIZED}
+\label{classew_1_1Form3_a0fb1f90f8936fc647de8bf351aa0f725a845f0d997e74de0ec5a055f923ef6975}
+}]The element has been optimized. \end{description}
+\end{Desc}
+
+\hypertarget{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733}{
+\index{ew::Form3@{ew::Form3}!point\_\-t@{point\_\-t}}
+\index{point\_\-t@{point\_\-t}!ew::Form3@{ew::Form3}}
+\paragraph[{point\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ew::Form3::point\_\-t}}\hfill}
+\label{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733}
+Point sets can have different types. These are the possible values. The default is \hyperlink{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733aafd3312606d8242fd8a650020fb682c5}{TYPE\_\-LANDMARK}. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{TYPE\_\-LANDMARK@{TYPE\_\-LANDMARK}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!TYPE\_\-LANDMARK@{TYPE\_\-LANDMARK}}\item[{\em 
+\hypertarget{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733aafd3312606d8242fd8a650020fb682c5}{
+TYPE\_\-LANDMARK}
+\label{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733aafd3312606d8242fd8a650020fb682c5}
+}]The points are landmarks (default). \index{TYPE\_\-SEMI\_\-LANDMARK@{TYPE\_\-SEMI\_\-LANDMARK}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!TYPE\_\-SEMI\_\-LANDMARK@{TYPE\_\-SEMI\_\-LANDMARK}}\item[{\em 
+\hypertarget{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a2ebb795c7e887f4d69bae678ad490df6}{
+TYPE\_\-SEMI\_\-LANDMARK}
+\label{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a2ebb795c7e887f4d69bae678ad490df6}
+}]The points are semi-\/landmarks. \index{TYPE\_\-POINT@{TYPE\_\-POINT}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!TYPE\_\-POINT@{TYPE\_\-POINT}}\item[{\em 
+\hypertarget{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a63adf7483ccd80afe7d295aecf1508c0}{
+TYPE\_\-POINT}
+\label{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a63adf7483ccd80afe7d295aecf1508c0}
+}]The point is a non-\/landmark point. \index{TYPE\_\-LINE@{TYPE\_\-LINE}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!TYPE\_\-LINE@{TYPE\_\-LINE}}\item[{\em 
+\hypertarget{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733af4a3d6f8994ebe1d4ee511fdf4ba6da0}{
+TYPE\_\-LINE}
+\label{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733af4a3d6f8994ebe1d4ee511fdf4ba6da0}
+}]The point represents a line, such as a best-\/fit axis of symmetry. \index{TYPE\_\-PLANE@{TYPE\_\-PLANE}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!TYPE\_\-PLANE@{TYPE\_\-PLANE}}\item[{\em 
+\hypertarget{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a7d720e976a12e6140d954e3dfbcfeb2f}{
+TYPE\_\-PLANE}
+\label{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a7d720e976a12e6140d954e3dfbcfeb2f}
+}]The point represents a plane, such as a best-\/fit multi-\/tangent or best-\/fit symmetry plane. \index{TYPE\_\-FRAME@{TYPE\_\-FRAME}!ew::Form3@{ew::Form3}}\index{ew::Form3@{ew::Form3}!TYPE\_\-FRAME@{TYPE\_\-FRAME}}\item[{\em 
+\hypertarget{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a03680acbf4911849a3fbdfa9c310f787}{
+TYPE\_\-FRAME}
+\label{classew_1_1Form3_abfa10aaae60c2888a7e201cd8fd45733a03680acbf4911849a3fbdfa9c310f787}
+}]The point represents a frame, such as a standard view. \end{description}
+\end{Desc}
+
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Form3_a142e4923377ce451364f9c902713372c}{
+\index{ew::Form3@{ew::Form3}!reset@{reset}}
+\index{reset@{reset}!ew::Form3@{ew::Form3}}
+\paragraph[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Form3::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Form3_a142e4923377ce451364f9c902713372c}
+This resets the form to its initial state. \hypertarget{classew_1_1Form3_a9de2d04fa5fd964de69951339ed9c1cf}{
+\index{ew::Form3@{ew::Form3}!read\_\-file@{read\_\-file}}
+\index{read\_\-file@{read\_\-file}!ew::Form3@{ew::Form3}}
+\paragraph[{read\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Form3::read\_\-file (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ file}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Form3_a9de2d04fa5fd964de69951339ed9c1cf}
+This reads a form from a file. The file must be a real filename, URL's are not supported. The file can be compressed with gzip compression. Relative filenames with initial path component \char`\"{}.\char`\"{} inside the file are converted to canonical filenames using the directory part of {\itshape file\/}. If an exception is thrown, the form is unchanged. 
+\begin{DoxyParams}{Parameters}
+\item[{\em file}]The canonical name of the file to read. \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em std::bad\_\-alloc}]\item[{\em \hyperlink{classew_1_1ErrorIO}{ew::ErrorIO}}]\end{DoxyExceptions}
+\hypertarget{classew_1_1Form3_ab5abad2f912616bc7d0a1e3dd37943bb}{
+\index{ew::Form3@{ew::Form3}!write\_\-file@{write\_\-file}}
+\index{write\_\-file@{write\_\-file}!ew::Form3@{ew::Form3}}
+\paragraph[{write\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Form3::write\_\-file (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ file, }
+\item[{bool}]{ compress}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Form3_ab5abad2f912616bc7d0a1e3dd37943bb}
+This writes a form to a file. Filenames written into the output are converted to relative filenames with initial path component \char`\"{}.\char`\"{} if their path contains the directory part of {\itshape file\/} as an initial segment. 
+\begin{DoxyParams}{Parameters}
+\item[{\em file}]The canonical name of the file to write. \item[{\em compress}]If {\ttfamily true}, write the file compressed with gzip compression. \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em std::bad\_\-alloc}]\item[{\em \hyperlink{classew_1_1ErrorIO}{ew::ErrorIO}}]\end{DoxyExceptions}
+\hypertarget{classew_1_1Form3_ad3f7f4ab0210f7753dc42df94fec817d}{
+\index{ew::Form3@{ew::Form3}!search\_\-volume@{search\_\-volume}}
+\index{search\_\-volume@{search\_\-volume}!ew::Form3@{ew::Form3}}
+\paragraph[{search\_\-volume}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3::search\_\-volume (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ position, }
+\item[{const char $\ast$}]{ id}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Form3_ad3f7f4ab0210f7753dc42df94fec817d}
+This searches the volumes in the form for an id. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em position}]The index in the vector that a volume with this id would be if inserted into the vector of volumes. \item[{\em id}]The id to search for. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the id is an existing volume id. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Form3_a863b953b1d79be8c29406cde111b4d6e}{
+\index{ew::Form3@{ew::Form3}!search\_\-surface@{search\_\-surface}}
+\index{search\_\-surface@{search\_\-surface}!ew::Form3@{ew::Form3}}
+\paragraph[{search\_\-surface}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3::search\_\-surface (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ position, }
+\item[{const char $\ast$}]{ id}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Form3_a863b953b1d79be8c29406cde111b4d6e}
+This searches the surfaces in the form for an id. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em position}]The index in the vector that a surface with this id would be if inserted into the vector of surfaces. \item[{\em id}]The id to search for. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the id is an existing surface id. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Form3_acef9a7cb9f65ccc4a7ed70c9968441ca}{
+\index{ew::Form3@{ew::Form3}!search\_\-curve@{search\_\-curve}}
+\index{search\_\-curve@{search\_\-curve}!ew::Form3@{ew::Form3}}
+\paragraph[{search\_\-curve}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3::search\_\-curve (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ position, }
+\item[{const char $\ast$}]{ id}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Form3_acef9a7cb9f65ccc4a7ed70c9968441ca}
+This searches the curves in the form for an id. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em position}]The index in the vector that a curve with this id would be if inserted into the vector of curves. \item[{\em id}]The id to search for. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the id is an existing curve id. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Form3_a1da8c7154ae6a6bbe904034c9fdbb8df}{
+\index{ew::Form3@{ew::Form3}!search\_\-pointset@{search\_\-pointset}}
+\index{search\_\-pointset@{search\_\-pointset}!ew::Form3@{ew::Form3}}
+\paragraph[{search\_\-pointset}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3::search\_\-pointset (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ position, }
+\item[{const char $\ast$}]{ id}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Form3_a1da8c7154ae6a6bbe904034c9fdbb8df}
+This searches the point sets in the form for an id. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em position}]The index in the vector that a point set with this id would be if inserted into the vector of point sets. \item[{\em id}]The id to search for. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the id is an existing point set id. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Form3_ac2ce9094d917d97a7424edae355c8328}{
+\index{ew::Form3@{ew::Form3}!search\_\-embedding@{search\_\-embedding}}
+\index{search\_\-embedding@{search\_\-embedding}!ew::Form3@{ew::Form3}}
+\paragraph[{search\_\-embedding}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3::search\_\-embedding (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ position, }
+\item[{const char $\ast$}]{ id1, }
+\item[{const char $\ast$}]{ id2}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Form3_ac2ce9094d917d97a7424edae355c8328}
+This searches the embeddings in the form for the id's. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em position}]The index in the vector that a embedding with these id's would be if inserted into the vector of embeddings. \item[{\em id1}]The subset\_\-id to search for. \item[{\em id2}]The superset\_\-id to search for. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the id's belong to an existing embedding. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Form3_a593bc0c4f71b5f24afee1d55ac07302e}{
+\index{ew::Form3@{ew::Form3}!search\_\-reflection@{search\_\-reflection}}
+\index{search\_\-reflection@{search\_\-reflection}!ew::Form3@{ew::Form3}}
+\paragraph[{search\_\-reflection}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3::search\_\-reflection (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ position, }
+\item[{const char $\ast$}]{ id1, }
+\item[{const char $\ast$}]{ id2}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Form3_a593bc0c4f71b5f24afee1d55ac07302e}
+This searches the reflections in the form for the id's. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em position}]The index in the vector that a reflection with these id's would be if inserted into the vector of reflections. \item[{\em id1}]The left\_\-id to search for. \item[{\em id2}]The right\_\-id to search for. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the id's belong to an existing reflection. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Form3_a7fa5b81fa3813eb833155e3d5cb7e2f3}{
+\index{ew::Form3@{ew::Form3}!search\_\-superset@{search\_\-superset}}
+\index{search\_\-superset@{search\_\-superset}!ew::Form3@{ew::Form3}}
+\paragraph[{search\_\-superset}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ ew::Form3::search\_\-superset (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ id}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Form3_a7fa5b81fa3813eb833155e3d5cb7e2f3}
+This searches the embedding relations to see what, if any, element is a unique superset of a given element. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em id}]The id of the original element. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The id of the unique superset of the original element, or 0. This pointer is valid until the form is changed. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Form3_a0918a426ed95d3244d8212dc985d0897}{
+\index{ew::Form3@{ew::Form3}!set\_\-superset@{set\_\-superset}}
+\index{set\_\-superset@{set\_\-superset}!ew::Form3@{ew::Form3}}
+\paragraph[{set\_\-superset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Form3::set\_\-superset (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ subset\_\-id, }
+\item[{const char $\ast$}]{ superset\_\-id}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Form3_a0918a426ed95d3244d8212dc985d0897}
+This makes one element the unique superset of another element. 
+\begin{DoxyParams}{Parameters}
+\item[{\em subset\_\-id}]The id of the element that should have a unique superset. \item[{\em superset\_\-id}]The id of the element that be the unique superset. \end{DoxyParams}
+\hypertarget{classew_1_1Form3_ae15e78e95043b8e7f196a32e7d4527a6}{
+\index{ew::Form3@{ew::Form3}!swap@{swap}}
+\index{swap@{swap}!ew::Form3@{ew::Form3}}
+\paragraph[{swap}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Form3::swap (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Form3} \&}]{ that}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Form3_ae15e78e95043b8e7f196a32e7d4527a6}
+This swaps the data of 2 forms without any copying. 
+\begin{DoxyParams}{Parameters}
+\item[{\em that}]The form to swap with {\ttfamily this}. \end{DoxyParams}
+\hypertarget{classew_1_1Form3_a7704ee4daef7adf30a0199756b2fcc22}{
+\index{ew::Form3@{ew::Form3}!operator==@{operator==}}
+\index{operator==@{operator==}!ew::Form3@{ew::Form3}}
+\paragraph[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Form3} \&}]{ a}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Form3_a7704ee4daef7adf30a0199756b2fcc22}
+Compares this form with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other form \end{DoxyParams}
+\hypertarget{classew_1_1Form3_a002e398fca7517dfacc077a1450190d0}{
+\index{ew::Form3@{ew::Form3}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!ew::Form3@{ew::Form3}}
+\paragraph[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Form3::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Form3} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Form3_a002e398fca7517dfacc077a1450190d0}
+Compares this form with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other form \end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Form3_aab5dcd7658c84512d05e095e58341fa7}{
+\index{ew::Form3@{ew::Form3}!volumes@{volumes}}
+\index{volumes@{volumes}!ew::Form3@{ew::Form3}}
+\paragraph[{volumes}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ {\bf ew::Form3Volume} $>$ {\bf ew::Form3::volumes}}\hfill}
+\label{classew_1_1Form3_aab5dcd7658c84512d05e095e58341fa7}
+An arbitrary number of volume elements. The volume data is stored in separate files. The files named are not expected to change during their use. These must be in alphabetical order by \hyperlink{classew_1_1Form3Volume_aede415929600c673c12b8d99f600ea37}{ew::Form3Volume::id} in the POSIX sorting order. \hypertarget{classew_1_1Form3_abd4405612b484b5d9d87b643d316b020}{
+\index{ew::Form3@{ew::Form3}!surfaces@{surfaces}}
+\index{surfaces@{surfaces}!ew::Form3@{ew::Form3}}
+\paragraph[{surfaces}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ {\bf ew::Form3Surface} $>$ {\bf ew::Form3::surfaces}}\hfill}
+\label{classew_1_1Form3_abd4405612b484b5d9d87b643d316b020}
+An arbitrary number of surface elements. The surface data is stored in separate files. The files named are not expected to change during their use. These must be in alphabetical order by \hyperlink{classew_1_1Form3Surface_aa207964ce409cd2cd7b0d4a02ad18d5a}{ew::Form3Surface::id} in the POSIX sorting order. \hypertarget{classew_1_1Form3_ab60def495fb8fea585dff2fb8c94d845}{
+\index{ew::Form3@{ew::Form3}!curves@{curves}}
+\index{curves@{curves}!ew::Form3@{ew::Form3}}
+\paragraph[{curves}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ {\bf ew::Form3Curve} $>$ {\bf ew::Form3::curves}}\hfill}
+\label{classew_1_1Form3_ab60def495fb8fea585dff2fb8c94d845}
+An arbitrary number of curve elements. The curve data is stored in separate files. The files named can be created during the digitization, so can change during their use. These must be in alphabetical order by \hyperlink{classew_1_1Form3Curve_a2bb3648bb9d075b67572de31ceb4f9c9}{ew::Form3Curve::id} in the POSIX sorting order. \hypertarget{classew_1_1Form3_aed0e94682a4de9b871c8fb15906bcc09}{
+\index{ew::Form3@{ew::Form3}!pointsets@{pointsets}}
+\index{pointsets@{pointsets}!ew::Form3@{ew::Form3}}
+\paragraph[{pointsets}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ {\bf ew::Form3PointSet} $>$ {\bf ew::Form3::pointsets}}\hfill}
+\label{classew_1_1Form3_aed0e94682a4de9b871c8fb15906bcc09}
+An arbitrary number of point set elements. These must be in alphabetical order by id in the POSIX sorting order. \hypertarget{classew_1_1Form3_a05ace76e2206ea825495538e93d9ba4c}{
+\index{ew::Form3@{ew::Form3}!embeddings@{embeddings}}
+\index{embeddings@{embeddings}!ew::Form3@{ew::Form3}}
+\paragraph[{embeddings}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ {\bf ew::Form3Embedding} $>$ {\bf ew::Form3::embeddings}}\hfill}
+\label{classew_1_1Form3_a05ace76e2206ea825495538e93d9ba4c}
+An arbitrary number of individual embedding relationships. These must be in alphabetical order by \hyperlink{classew_1_1Form3Embedding_a80d00799de7bebf48c00d6cd264a656e}{ew::Form3Embedding::subset\_\-id}, then \hyperlink{classew_1_1Form3Embedding_a8aff0a6b37b54d177c15abfca9191f67}{ew::Form3Embedding::superset\_\-id} in the POSIX sorting order. They must refer to elements of the form of appropriate dimension. This is how the curve or surface a semi-\/landmark belongs to is indicated. The semi-\/landmarks must be embedded in a unique curve or surface of the appropriate dimension. Regular landmarks can be embedded in one or more curves or surfaces. \hypertarget{classew_1_1Form3_a4df1d049f2c5ca83f194d4ac9cf9f074}{
+\index{ew::Form3@{ew::Form3}!reflections@{reflections}}
+\index{reflections@{reflections}!ew::Form3@{ew::Form3}}
+\paragraph[{reflections}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ {\bf ew::Form3Reflection} $>$ {\bf ew::Form3::reflections}}\hfill}
+\label{classew_1_1Form3_a4df1d049f2c5ca83f194d4ac9cf9f074}
+An arbitrary number of individual reflection relationships. These must be in alphabetical order by \hyperlink{classew_1_1Form3Reflection_a92f7f975175f01b8479fa8d40a6fba72}{ew::Form3Reflection::left\_\-id}, then \hyperlink{classew_1_1Form3Reflection_a81b3c3658154ec37de3f00b9af60e468}{ew::Form3Reflection::right\_\-id} in the POSIX sorting order. They must refer to elements of the form of appropriate dimension. 

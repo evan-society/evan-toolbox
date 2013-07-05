@@ -1,0 +1,315 @@
+.TH "ew::Dig3Space" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Dig3Space \- 
+.PP
+Space Element.  
+
+\fBew::Dig3Space\fP implements a space element of \fBew::Dig3\fP. There are 2 spaces, the template space and the specimen space. 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Dig3Space.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "const \fBew::DataflowForm3\fP * \fBget_form_node\fP ()"
+.br
+.ti -1c
+.RI "void \fBreset_form\fP ()"
+.br
+.ti -1c
+.RI "void \fBset_form_data\fP (const \fBew::Form3\fP *form_data)"
+.br
+.ti -1c
+.RI "const \fBew::Form3\fP * \fBget_form_data\fP () const "
+.br
+.ti -1c
+.RI "int \fBset_form_curve\fP (bool *replaced, const \fBew::Form3Curve\fP *cr)"
+.br
+.ti -1c
+.RI "void \fBremove_form_curve\fP (int n)"
+.br
+.ti -1c
+.RI "int \fBset_form_surface\fP (bool *replaced, const \fBew::Form3Surface\fP *sr)"
+.br
+.ti -1c
+.RI "void \fBremove_form_surface\fP (int n)"
+.br
+.ti -1c
+.RI "int \fBset_form_pointset\fP (bool *replaced, const \fBew::Form3PointSet\fP *ps)"
+.br
+.ti -1c
+.RI "void \fBset_form_pointset_location\fP (int n, int i, const double *loc)"
+.br
+.ti -1c
+.RI "void \fBset_form_pointset_relax\fP (int n, int i, int rdim, const double *rparam)"
+.br
+.ti -1c
+.RI "void \fBremove_form_pointset\fP (int n)"
+.br
+.ti -1c
+.RI "int \fBset_form_embedding\fP (bool *replaced, const \fBew::Form3Embedding\fP *em)"
+.br
+.ti -1c
+.RI "void \fBset_form_superset\fP (const char *subset_id, const char *superset_id)"
+.br
+.ti -1c
+.RI "void \fBremove_form_embedding\fP (int n)"
+.br
+.ti -1c
+.RI "int \fBget_curve_of_pointset\fP (int ps) const "
+.br
+.ti -1c
+.RI "int \fBget_surface_of_pointset\fP (int ps) const "
+.br
+.ti -1c
+.RI "void \fBget_bbox\fP (\fBew::Bbox3\fP *b) const "
+.br
+.ti -1c
+.RI "const \fBew::DataflowCurve3E\fP *const * \fBget_curve_nodes\fP () const "
+.br
+.ti -1c
+.RI "const \fBew::DataflowSurface3E\fP *const * \fBget_surface_nodes\fP () const "
+.br
+.ti -1c
+.RI "bool \fBproject\fP (int *rdim, double *rparam, double *proj, const double *p, const char *id) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBew::DataflowNetwork\fP *const \fBnetwork\fP"
+.br
+.ti -1c
+.RI "\fBew::Dig3\fP *const \fBdig3\fP"
+.br
+.ti -1c
+.RI "const int \fBindex\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "const \fBew::DataflowForm3\fP * ew::Dig3Space::get_form_node ()\fC [inline]\fP"This returns a pointer to the \fBew::DataflowForm3\fP node managed by the \fBew::Dig3Space\fP. This node can be changed using \fBew::Dig3Space\fP wrappers for the \fBew::DataflowForm3\fP methods. 
+.SS "void ew::Dig3Space::reset_form ()"This sets the space to an empty form. 
+.SS "void ew::Dig3Space::set_form_data (const \fBew::Form3\fP * form_data)"This sets the space to a new form. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIform_data\fP The form data to copy. 
+.RE
+.PP
+
+.SS "const \fBew::Form3\fP * ew::Dig3Space::get_form_data () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the ew::From3 data of the space. 
+.RE
+.PP
+
+.SS "int ew::Dig3Space::set_form_curve (bool * replaced, const \fBew::Form3Curve\fP * cr)"This adds or replaces a curve in the space. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the curve replaced an existing curve. 
+.br
+\fIcr\fP A pointer to the curve data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the curve. 
+.RE
+.PP
+
+.SS "void ew::Dig3Space::remove_form_curve (int n)"This deletes a curve from the space. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the curve to delete. 
+.RE
+.PP
+
+.SS "int ew::Dig3Space::set_form_surface (bool * replaced, const \fBew::Form3Surface\fP * sr)"This adds or replaces a surface in the space. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the surface replaced an existing surface. 
+.br
+\fIsr\fP A pointer to the surface data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the surface. 
+.RE
+.PP
+
+.SS "void ew::Dig3Space::remove_form_surface (int n)"This deletes a surface from the space. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the surface to delete. 
+.RE
+.PP
+
+.SS "int ew::Dig3Space::set_form_pointset (bool * replaced, const \fBew::Form3PointSet\fP * ps)\fC [inline]\fP"This adds or replaces a pointset in the space. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the point set replaced an existing point set. 
+.br
+\fIps\fP A pointer to the point set data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the point set. 
+.RE
+.PP
+
+.SS "void ew::Dig3Space::set_form_pointset_location (int n, int i, const double * loc)\fC [inline]\fP"This changes the coordinates of an element of the point set. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the point set. 
+.br
+\fIi\fP The index of the element in the point set. 
+.br
+\fIloc\fP A pointer to the new coordinates of this entry. 
+.RE
+.PP
+
+.SS "void ew::Dig3Space::set_form_pointset_relax (int n, int i, int rdim, const double * rparam)\fC [inline]\fP"This changes the relaxation parameters of an element of the point set. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the point set. 
+.br
+\fIi\fP The index of the element in the point set. 
+.br
+\fIrdim\fP The new relax_dims of this entry. 
+.br
+\fIrparam\fP A pointer to the new relax_params of this entry. 
+.RE
+.PP
+
+.SS "void ew::Dig3Space::remove_form_pointset (int n)\fC [inline]\fP"This deletes a point set from the space. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the point set to delete. 
+.RE
+.PP
+
+.SS "int ew::Dig3Space::set_form_embedding (bool * replaced, const \fBew::Form3Embedding\fP * em)\fC [inline]\fP"This adds or replaces a embedding in the space. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the embedding replaced an existing embedding. 
+.br
+\fIem\fP A pointer to the embedding data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the embedding. 
+.RE
+.PP
+
+.SS "void ew::Dig3Space::set_form_superset (const char * subset_id, const char * superset_id)\fC [inline]\fP"This makes one element of the form the unique superset of another element. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsubset_id\fP The id of the element that should have a unique superset. 
+.br
+\fIsuperset_id\fP The id of the element that be the unique superset. 
+.RE
+.PP
+
+.SS "void ew::Dig3Space::remove_form_embedding (int n)\fC [inline]\fP"This deletes a embedding from the space. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the embedding to delete. 
+.RE
+.PP
+
+.SS "int ew::Dig3Space::get_curve_of_pointset (int ps) const"This finds the curve a pointset is embedded in if any. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIps\fP The index of the pointset. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the curve, or -1. 
+.RE
+.PP
+
+.SS "int ew::Dig3Space::get_surface_of_pointset (int ps) const"This finds the surface a pointset is embedded in if any. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIps\fP The index of the pointset. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the surface, or -1. 
+.RE
+.PP
+
+.SS "void ew::Dig3Space::get_bbox (\fBew::Bbox3\fP * b) const"This calculates the bounding box of all elements of the space's form. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIb\fP Where to store the bounding box. 
+.RE
+.PP
+
+.SS "const \fBew::DataflowCurve3E\fP *const * ew::Dig3Space::get_curve_nodes () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The curve node index. The i'th entry is a pointer to the curve node corresponding to the i'th curve, or zero if this curve has no data. 
+.RE
+.PP
+
+.SS "const \fBew::DataflowSurface3E\fP *const * ew::Dig3Space::get_surface_nodes () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The surface node index. The i'th entry is a pointer to the surface node corresponding to the i'th surface, or zero if this surface has no data. 
+.RE
+.PP
+
+.SS "bool ew::Dig3Space::project (int * rdim, double * rparam, double * proj, const double * p, const char * id) const"This projects a point onto either a curve or surface. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIrdim\fP Where to store the relax_dim of the projection. 
+.br
+\fIrparam\fP Where to store the relax_params of the projection. This should point to an array of size 3. 
+.br
+\fIproj\fP Where to store the coordinates of the projected point. This should point to an array of size 3. 
+.br
+\fIp\fP The coordinates of the original point. This should point to an array of size 3. 
+.br
+\fIid\fP The id of the surface or curve to project onto. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Whether the operation could be performed. This is false if there is no surface or curve with the given id, or if this surface or curve is a placeholder (has no filename). 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "\fBew::DataflowNetwork\fP *const \fBew::Dig3Space::network\fP"This points to the \fBew::DataflowNetwork\fP that the \fBdig3\fP was created with. 
+.SS "\fBew::Dig3\fP *const \fBew::Dig3Space::dig3\fP"This points to the \fBew::Dig3\fP that this \fBew::Dig3Space\fP is contained in. 
+.SS "const int \fBew::Dig3Space::index\fP"This is 0 if this is the template space of \fBdig3\fP, 1 if the specimen space. 
+

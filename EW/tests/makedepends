@@ -1,0 +1,85 @@
+test_dataflow.o: test_dataflow.cpp TestDataflow.h Test.h
+test_dig3.o: test_dig3.cpp ../include/ew/Debug.h \
+ ../include/ew/Transform3.h ../include/ew/DataflowSurface3.h \
+ ../include/ew/Bbox3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowNode.h ../include/ew/DataflowSurface3E.h \
+ ../include/ew/Surface3.h ../include/ew/Dig3View.h \
+ ../include/ew/DataflowForm3.h ../include/ew/Form3.h \
+ ../include/ew/Form3Curve.h ../include/ew/Form3Embedding.h \
+ ../include/ew/Form3Pointset.h ../include/ew/Form3Reflection.h \
+ ../include/ew/Form3Surface.h ../include/ew/Form3Volume.h \
+ ../include/ew/View3Image.h ../include/ew/DataflowImage3.h \
+ ../include/ew/DataflowArray3.h ../include/ew/DataflowData3.h \
+ ../include/ew/View3Item.h ../include/ew/View3Widget.h \
+ ../include/ew/DataflowNotifier.h ../include/ew/View3Landmarks.h \
+ ../include/ew/DataflowArray3E.h ../include/ew/View3Curve.h \
+ ../include/ew/DataflowCurve3.h ../include/ew/View3Surface.h \
+ ../include/ew/Dig3.h ../include/ew/DataflowSpline3.h \
+ ../include/ew/Dig3Tableau.h ../include/ew/Dig3TableauSpace.h \
+ ../include/ew/Dig3SetCurve.h ../include/ew/Dig3SetSurface.h \
+ ../include/ew/Dig3Space.h ../include/ew/DataflowCurve3E.h \
+ ../include/ew/Curve3.h test_dig3.h testlowercase.h
+test_form3.o: test_form3.cpp ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowForm3.h \
+ ../include/ew/Bbox3.h ../include/ew/DataflowNode.h ../include/ew/Form3.h \
+ ../include/ew/Form3Curve.h ../include/ew/Form3Embedding.h \
+ ../include/ew/Form3Pointset.h ../include/ew/Form3Reflection.h \
+ ../include/ew/Form3Surface.h ../include/ew/Form3Volume.h \
+ ../include/ew/ErrorIO.h testlowercase.h
+test_geom3.o: test_geom3.cpp TestGeom3.h Test.h
+test_index3.o: test_index3.cpp ../include/ew/Bbox3.h \
+ ../include/ew/Debug.h ../include/ew/Surface3.h ../include/ew/Time.h \
+ ../src/Geom3.h ../src/Index3.h ../src/AutoArray.h testlowercase.h
+test_lmks3.o: test_lmks3.cpp ../include/ew/Debug.h \
+ ../include/ew/Transform3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowForm3.h ../include/ew/Bbox3.h \
+ ../include/ew/DataflowNode.h ../include/ew/Form3.h \
+ ../include/ew/Form3Curve.h ../include/ew/Form3Embedding.h \
+ ../include/ew/Form3Pointset.h ../include/ew/Form3Reflection.h \
+ ../include/ew/Form3Surface.h ../include/ew/Form3Volume.h \
+ ../include/ew/View3Widget.h ../include/ew/DataflowNotifier.h \
+ ../include/ew/View3Item.h ../include/ew/View3Landmarks.h test_lmks3.h \
+ testlowercase.h
+test_string.o: test_string.cpp TestString.h Test.h
+test_surface3.o: test_surface3.cpp ../include/ew/Debug.h \
+ ../include/ew/Transform3.h ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/FriendVariable.h \
+ ../include/ew/DataflowSurface3.h ../include/ew/Bbox3.h \
+ ../include/ew/DataflowNode.h ../include/ew/String.h \
+ ../include/ew/View3Widget.h ../include/ew/DataflowNotifier.h \
+ ../include/ew/View3Item.h ../include/ew/View3Surface.h test_surface3.h \
+ testlowercase.h
+test_tps2.o: test_tps2.cpp ../include/ew/Debug.h ../include/ew/Time.h \
+ ../include/ew/Tps2.h testlowercase.h
+test_tps3.o: test_tps3.cpp ../include/ew/Debug.h ../include/ew/Time.h \
+ ../include/ew/Tps3.h testlowercase.h
+test_transform2.o: test_transform2.cpp TestTransform2.h \
+ ../include/ew/Transform2.h Test.h
+test_transform3.o: test_transform3.cpp TestTransform3.h \
+ ../include/ew/Transform3.h Test.h
+DataflowTestNode.o: DataflowTestNode.cpp ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h ../include/ew/DataflowNode.h \
+ DataflowTestNode.h
+FilterForm3.o: FilterForm3.cpp ../include/ew/Form3.h \
+ ../include/ew/Form3Curve.h ../include/ew/Form3Embedding.h \
+ ../include/ew/Form3Pointset.h ../include/ew/Form3Reflection.h \
+ ../include/ew/Form3Surface.h ../include/ew/Form3Volume.h \
+ ../include/ew/Version.h ../src/File.h FilterForm3.h
+Test.o: Test.cpp ../include/ew/String.h ../include/ew/Version.h Test.h
+TestDataflow.o: TestDataflow.cpp ../include/ew/DataflowNetwork.h \
+ ../include/ew/DebugHelper.h ../include/ew/Debug.h \
+ ../include/ew/FriendVariable.h Test.h DataflowTestNode.h \
+ ../include/ew/DataflowNode.h DataflowTestNotifier.h \
+ ../include/ew/DataflowNotifier.h TestDataflow.h
+TestGeom3.o: TestGeom3.cpp ../include/ew/Bbox3.h ../include/ew/Debug.h \
+ ../include/ew/Time.h ../src/Geom3.h TestGeom3.h Test.h
+TestString.o: TestString.cpp ../include/ew/Debug.h ../include/ew/String.h \
+ ../include/ew/Time.h TestString.h Test.h
+TestTransform2.o: TestTransform2.cpp ../include/ew/Transform2.h \
+ TestTransform2.h Test.h
+TestTransform3.o: TestTransform3.cpp ../include/ew/Transform3.h \
+ TestTransform3.h Test.h

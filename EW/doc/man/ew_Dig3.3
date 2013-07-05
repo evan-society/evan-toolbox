@@ -1,0 +1,176 @@
+.TH "ew::Dig3" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Dig3 \- 
+.PP
+Digitizing Application.  
+
+\fBew::Dig3\fP implements a 3D digitizing application.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Dig3.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum \fBspace_index_t\fP { \fBSPACE_TEMPLATE\fP =  0, \fBSPACE_SPECIMEN\fP =  1 }"
+.br
+.ti -1c
+.RI "enum \fBtableau_flags_t\fP { \fBTABLEAU_VIEW\fP =  0x01, \fBTABLEAU_SETTINGS\fP =  0x02, \fBTABLEAU_ALL\fP =  0x03 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDig3\fP (\fBew::DataflowNetwork\fP *\fBnetwork\fP)"
+.br
+.ti -1c
+.RI "\fB~Dig3\fP ()"
+.br
+.ti -1c
+.RI "int \fBget_n_views\fP () const "
+.br
+.ti -1c
+.RI "\fBew::Dig3View\fP *const * \fBget_views\fP () const "
+.br
+.ti -1c
+.RI "\fBew::Dig3Space\fP *const * \fBget_spaces\fP () const "
+.br
+.ti -1c
+.RI "const \fBew::DataflowSpline3\fP * \fBget_spline_node\fP () const "
+.br
+.ti -1c
+.RI "void \fBsave_tableau\fP (\fBew::Dig3Tableau\fP *outp, int template_main, int template_slice, int specimen_main, int specimen_slice)"
+.br
+.ti -1c
+.RI "void \fBload_tableau\fP (const \fBew::Dig3Tableau\fP *inp, int view, unsigned int flags)"
+.br
+.ti -1c
+.RI "void \fBinterpolate_tableau\fP (const \fBew::Dig3Tableau\fP *inp1, const \fBew::Dig3Tableau\fP *inp2, double e, int view)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBew::DataflowNetwork\fP *const \fBnetwork\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Dig3\fP is a class without assignment or comparison. There are private member variables.
+.PP
+An \fBew::Dig3\fP maintains 2 space elements, the template and the specimen.
+.PP
+View elements can be added and removed by creating or destroying \fBew::Dig3View\fP objects. 
+.SH MEMBER ENUMERATIONS
+.PP 
+.SS "enum \fBew::Dig3::space_index_t\fP"These are the indices of the 2 spaces in the array of spaces. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fISPACE_TEMPLATE \fP\fP
+The index of the template space. 
+.TP
+\fB\fISPACE_SPECIMEN \fP\fP
+The index of the specimen space. 
+.SS "enum \fBew::Dig3::tableau_flags_t\fP"These are flags that can be or-ed and passed to \fBload_tableau\fP. 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fITABLEAU_VIEW \fP\fP
+Set the view mapping. 
+.TP
+\fB\fITABLEAU_SETTINGS \fP\fP
+Set the settings. 
+.TP
+\fB\fITABLEAU_ALL \fP\fP
+Set everything. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::Dig3::Dig3 (\fBew::DataflowNetwork\fP * network)\fC [explicit]\fP"This creates an empty digitizing application. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fInetwork\fP A pointer to a dataflow network. 
+.RE
+.PP
+
+.SS "ew::Dig3::~Dig3 ()"This destroys the digitizing application. Any \fBew::Dig3View\fP widgets associated with it are also destroyed. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "int ew::Dig3::get_n_views () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The number of views. 
+.RE
+.PP
+
+.SS "\fBew::Dig3View\fP *const * ew::Dig3::get_views () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The view index. 
+.RE
+.PP
+
+.SS "\fBew::Dig3Space\fP *const * ew::Dig3::get_spaces () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The space index. There are always 2 spaces and the index is constant. 
+.RE
+.PP
+
+.SS "const \fBew::DataflowSpline3\fP * ew::Dig3::get_spline_node () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the spline node that this \fBew::Dig3\fP manages. 
+.RE
+.PP
+
+.SS "void ew::Dig3::save_tableau (\fBew::Dig3Tableau\fP * outp, int template_main, int template_slice, int specimen_main, int specimen_slice)"This creates a tableau record from the indicated views, specified by index. The form filename fields of the tableau are left blank, and must be explicitly set. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIoutp\fP Where to store the tableau record. 
+.br
+\fItemplate_main\fP The index of a template main view to record. 
+.br
+\fItemplate_slice\fP The index of a template slice view to record. 
+.br
+\fIspecimen_main\fP The index of a specimen main view to record. 
+.br
+\fIspecimen_slice\fP The index of a specimen slice view to record. 
+.RE
+.PP
+
+.SS "void ew::Dig3::load_tableau (const \fBew::Dig3Tableau\fP * inp, int view, unsigned int flags)"This applies a tableau record to the indicated view. The type of view and its space determine which part of the record is applied. The form filename fields are not applied. The forms must be explicitly set beforehand. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinp\fP The tableau to apply. 
+.br
+\fIview\fP The index of the view to apply it to. 
+.br
+\fIflags\fP Flags of type \fBtableau_flags_t\fP indicating which parts of the tableau record to apply. 
+.RE
+.PP
+
+.SS "void ew::Dig3::interpolate_tableau (const \fBew::Dig3Tableau\fP * inp1, const \fBew::Dig3Tableau\fP * inp2, double e, int view)"This interpolates between tableau records and applies the result to the indicated view. Only the views are applied. The settings of the tableau and the forms cannot be interpolated and need to be manually applied when a new frame is reached in a filmstrip. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinp1,inp2\fP The tableaus to interpolate. 
+.br
+\fIe\fP The interpolation parameter, with 0.0 corresponding to \fIinp1\fP and 1.0 to \fIinp\fP. \fIe\fP is not restricted to [0.0, 1.0]. 
+.br
+\fIview\fP The index of the view to apply it to. 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "\fBew::DataflowNetwork\fP *const \fBew::Dig3::network\fP"This points to the \fBew::DataflowNetwork\fP that this \fBew::Dig3\fP was created with. 
+

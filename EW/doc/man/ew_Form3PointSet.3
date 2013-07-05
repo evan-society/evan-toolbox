@@ -1,0 +1,97 @@
+.TH "ew::Form3PointSet" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Form3PointSet \- 
+.PP
+Point Set Element.  
+
+\fBew::Form3PointSet\fP contains data for a point set element of \fBew::Form3\fP. This could be, for example, a single named landmark, a set of semi-landmarks or a set of landmarks which are not individually named. Also supported are features not intended to be interpreted as landmarks, such as non-landmark points or planes and frames which are represented as a point with a size and orientation.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Form3Pointset.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBForm3PointSet\fP ()"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Form3PointSet\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Form3PointSet\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBid\fP"
+.br
+.ti -1c
+.RI "int \fBtype\fP"
+.br
+.ti -1c
+.RI "int \fBstate\fP"
+.br
+.ti -1c
+.RI "int \fBn\fP"
+.br
+.ti -1c
+.RI "std::vector< double > \fBlocations\fP"
+.br
+.ti -1c
+.RI "std::vector< int > \fBrelax_dims\fP"
+.br
+.ti -1c
+.RI "std::vector< double > \fBrelax_params\fP"
+.br
+.ti -1c
+.RI "std::vector< double > \fBorientations\fP"
+.br
+.ti -1c
+.RI "std::vector< double > \fBsizes\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Form3PointSet\fP is a data structure that supports default construction, copy construction, assignment and equality comparison.
+.PP
+It is intended that landmarks be represented one to a point set. The use of the term 'point set' in this context might be confusing. The 'set' part of this is only really useful for semi-landmarks. Note that all elements of the point set share the same id, type and state. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::Form3PointSet::Form3PointSet ()\fC [inline]\fP"This sets intrinsic member variables to their default values. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::Form3PointSet::operator== (const \fBew::Form3PointSet\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SS "bool ew::Form3PointSet::operator!= (const \fBew::Form3PointSet\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::string \fBew::Form3PointSet::id\fP"The id of this element used as a key to refer to this element and as a label. 
+.SS "int \fBew::Form3PointSet::type\fP"A code indicating the type of point set. Its value is a \fBew::Form3::point_t\fP. The default is 0. 
+.SS "int \fBew::Form3PointSet::state\fP"A code indicating the digitizing state of the point set. Its value is a \fBew::Form3::state_t\fP. The default is 0. 
+.SS "int \fBew::Form3PointSet::n\fP"The number of points in the set. It must be non-negative. 
+.SS "std::vector< double > \fBew::Form3PointSet::locations\fP"The coordinates of the points. If all the coordinates are 0.0, this vector can have size 0. Otherwise it must have size \fBn\fP * 3. 
+.SS "std::vector< int > \fBew::Form3PointSet::relax_dims\fP"The relax dimensions of the points in the sense of \fBew::Tps3\fP. These are only relevant for points of type 'landmark' or 'semi-landmark'. They indicate the dimension of the linear space that the landmark or semi-landmark can slide along. A value of 0 indicates that landmark or semi-landmark should not slide. A value of 3 indicates that landmark or semi-landmark slide in the whole of \fBR\fP^3. In this case, the landmark or semi-landmark does contribute to the spline and its optimized image is just the image of the landmark or semi-landmark under the spline. Values of 1 and 2 are only applicable to semi-landmarks. A value of 1 indicates that the semi-landmark slides along a line. This is appropraite for a curve semi-landmark. A value of 2 indicates that the semi-landmark slides along a plane. This is appropraite for a surface emi-landmark. If all the relax dimensions are 0, this vector can have size 0. Otherwise it must have size \fBn\fP. 
+.SS "std::vector< double > \fBew::Form3PointSet::relax_params\fP"The relax parameters of the points in the sense of \fBew::Tps3\fP. These are only relevant for points of type 'semi-landmark'. They encode the direction or directions in which the semi-landmark is currently being slid. If all the relax dimensions are 0 or 3, this vector can have size 0. Otherwise it must have size \fBn\fP * 3. 
+.SS "std::vector< double > \fBew::Form3PointSet::orientations\fP"The orientations of the points, orthogonal matrices like \fBew::Transform3::orthog\fP. These are only relevant for points of type 'line', 'plane' or 'frame'. If all the matrices are identities, this vector can have size 0. Otherwise it must have size \fBn\fP * 9. 
+.SS "std::vector< double > \fBew::Form3PointSet::sizes\fP"The sizes of the points, like \fBew::Transform3::scale\fP. These are only relevant for points of type 'line', 'plane' or 'frame'. If all the scales are 1.0, this vector must can size 0. Otherwise it must have size \fBn\fP. 
+

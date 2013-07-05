@@ -1,0 +1,69 @@
+.TH "ew::DataflowSurface3E" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::DataflowSurface3E \- 
+.PP
+Explicit Surface Node.  
+
+\fBew::DataflowSurface3E\fP is a node containing an explicitly specified surface.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/DataflowSurface3E.h>\fP
+.PP
+Inherits \fBew::DataflowSurface3\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDataflowSurface3E\fP (\fBew::DataflowNetwork\fP *i_network)"
+.br
+.ti -1c
+.RI "void \fBset_data\fP (\fBew::Surface3\fP *data)"
+.br
+.ti -1c
+.RI "const \fBew::Surface3\fP * \fBget_data\fP () const "
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::DataflowSurface3E\fP objects may not be copied or compared. There are private member variables.
+.PP
+Nodes of this class do not depend on other nodes, but other nodes can depend on them. They are valid if they have some faces.
+.PP
+Initially and when reset, the node is empty. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::DataflowSurface3E::DataflowSurface3E (\fBew::DataflowNetwork\fP * i_network)\fC [explicit]\fP"This creates an explicit surface node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_network\fP The network this node should belong to. 
+.RE
+.PP
+
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::DataflowSurface3E::set_data (\fBew::Surface3\fP * data)"This transfers the surface data from the \fBew::Surface3\fP object to the node. Afterwards, the \fBew::Surface3\fP object is reset. 
+.PP
+\fBPrecondition:\fP
+.RS 4
+This node must not be a cached node. 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP The object containing the surface data. 
+.RE
+.PP
+
+.SS "const \fBew::Surface3\fP * ew::DataflowSurface3E::get_data () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the internal surface data. 
+.RE
+.PP
+
+

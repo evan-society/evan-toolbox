@@ -1,0 +1,71 @@
+.TH "ew::Form3Curve" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Form3Curve \- 
+.PP
+Curve Element.  
+
+\fBew::Form3Curve\fP contains data for a curve element of \fBew::Form3\fP.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Form3Curve.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBForm3Curve\fP ()"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Form3Curve\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Form3Curve\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBid\fP"
+.br
+.ti -1c
+.RI "std::string \fBfile\fP"
+.br
+.ti -1c
+.RI "int \fBstate\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Form3Curve\fP is a data structure that supports default construction, copy construction, assignment and equality comparison. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::Form3Curve::Form3Curve ()\fC [inline]\fP"This sets intrinsic member variables to their default values. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::Form3Curve::operator== (const \fBew::Form3Curve\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SS "bool ew::Form3Curve::operator!= (const \fBew::Form3Curve\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::string \fBew::Form3Curve::id\fP"The id of this element used as a key to refer to this element and as a label. 
+.SS "std::string \fBew::Form3Curve::file\fP"The canonical name of the file containing the data for this element, or an empty string indicating that there is no associated file. 
+.SS "int \fBew::Form3Curve::state\fP"A code indicating the digitizing state of the curve. Its value is a \fBew::Form3::state_t\fP. The default is 0. 
+

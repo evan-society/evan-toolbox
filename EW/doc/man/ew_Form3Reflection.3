@@ -1,0 +1,61 @@
+.TH "ew::Form3Reflection" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Form3Reflection \- 
+.PP
+Reflection Relation.  
+
+\fBew::Form3Reflection\fP contains data for a reflection relation of \fBew::Form3\fP. Only symmetries where one element is on the left and one on the right, or self symmetries for elements symbolically in the center plane, are supported.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Form3Reflection.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Form3Reflection\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Form3Reflection\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBleft_id\fP"
+.br
+.ti -1c
+.RI "std::string \fBright_id\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Form3Reflection\fP is a data structure that supports default construction, copy construction, assignment and equality comparison. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::Form3Reflection::operator== (const \fBew::Form3Reflection\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SS "bool ew::Form3Reflection::operator!= (const \fBew::Form3Reflection\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::string \fBew::Form3Reflection::left_id\fP"The id of the left element of the symmetry. 
+.SS "std::string \fBew::Form3Reflection::right_id\fP"The id of the right element of the symmetry. 
+

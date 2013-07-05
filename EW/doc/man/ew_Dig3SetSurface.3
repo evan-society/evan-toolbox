@@ -1,0 +1,79 @@
+.TH "ew::Dig3SetSurface" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Dig3SetSurface \- 
+.PP
+Surface Element.  
+
+\fBew::Dig3SetSurface\fP contains data for a surface element of ew::Tableau.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Dig3SetSurface.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDig3SetSurface\fP ()"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Dig3SetSurface\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Dig3SetSurface\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBid\fP"
+.br
+.ti -1c
+.RI "bool \fBshow_in_main\fP"
+.br
+.ti -1c
+.RI "bool \fBshow_in_slice\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBfront_col\fP [3]"
+.br
+.ti -1c
+.RI "unsigned char \fBback_col\fP [3]"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Dig3SetSurface\fP is a data structure that supports default construction, copy construction, assignment and equality comparison. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::Dig3SetSurface::Dig3SetSurface ()\fC [inline]\fP"This sets intrinsic member variables to their default values. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::Dig3SetSurface::operator== (const \fBew::Dig3SetSurface\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SS "bool ew::Dig3SetSurface::operator!= (const \fBew::Dig3SetSurface\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::string \fBew::Dig3SetSurface::id\fP"The \fBew::Form3Surface::id\fP of the surface this field should apply to. 
+.SS "bool \fBew::Dig3SetSurface::show_in_main\fP"\fCtrue\fP if the surface should be displayed in the main view. The default is \fCtrue\fP. 
+.SS "bool \fBew::Dig3SetSurface::show_in_slice\fP"\fCtrue\fP if the surface should be displayed in the slice view. The default is \fCtrue\fP. 
+.SS "unsigned char \fBew::Dig3SetSurface::front_col\fP[3]"The colour of the front side of the surface. The default is [128, 128, 128]. 
+.SS "unsigned char \fBew::Dig3SetSurface::back_col\fP[3]"The colour of the back side of the surface. The default is [128, 128, 128]. 
+
