@@ -71,6 +71,9 @@ namespace ew {
      ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
      ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim,
      double *pick_z);
+    bool ORIGINAL_pick(double x, double y, double sz, double burrow,
+     ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
+     ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z);
     void pickv(std::vector<ew::View3Pick> &outp, double x, double y,
      double sz);
 // private to the library

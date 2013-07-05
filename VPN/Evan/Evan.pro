@@ -13,17 +13,19 @@ CONFIG(debug, debug|release) {
     # debug stuff
 	LIBS += -lewd
 	#LIBS += -lew
+	LIBS += -lqwtd5 -lqwtplot3dd
 }
 CONFIG(release, debug|release) {
 	# release stuff
 	LIBS += -lew
+	LIBS += -lqwt5 -lqwtplot3d
 }
 
 LIBS += -lopengl32 -llibxml2 -lwsock32 -llapack_win32
 
 QT += xml opengl svg
 RC_FILE = Evan.rc
-LIBS += -lqwt5 -lqwtplot3d
+
 
 #INCLUDEPATH += "C:/Program Files/R/R-2.11.1/include"
 #LIBS +=  -L"C:/Program Files/R/R-2.11.1/bin" -lR
