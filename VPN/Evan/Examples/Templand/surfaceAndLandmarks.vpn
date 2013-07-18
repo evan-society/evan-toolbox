@@ -1,0 +1,8 @@
+<VPN>
+ <Node x="-1662" y="-229" params="D:\Users\phouska\Desktop\ET_bitbucket_clone\VPN\Evan\Examples\Templand\10LM&amp;15sLMcurve\Untitled.ltb" type="TemplandNode" annotation=""/>
+ <Node x="-1105" y="-394" params="1$$1$$1$$0$$0$$1$$0$$1$$1$$0$$0$$1$$1$$0$$0$$0$$100$$1e-12$$" type="GPANode" annotation=""/>
+ <Node x="-1264" y="-203" params="0.2|0.2|0.4|19.9899|0.1|10000|-0.26351|-0.636825|0.713666|0.125287|0.986661|-26.401|6.19382|0$Untitled2|192|192|192|255|1|1|1|0|0|0|1|0|0|0|0|0|0/697_uLM2_Dentin|192|192|192|255|1|1|1|0|0|0|1|0|0|0|0|0|0(697_uLM2_Dentin|0|0|0|01|1|1|0|0|0|1|0|0|0|0|0|0:)/" type="ViewerNode" annotation=""/>
+ <Link ports="6:0:0:0|0:0|0,1:1:0:0|0:0|0," sNode="0" eNode="1"/>
+ <Link ports="0:0:0:0|0:0|0,1:0:0:0|0:0|0," sNode="0" eNode="2"/>
+ <Settings zoom="100"/>
+</VPN>

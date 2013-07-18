@@ -4,7 +4,7 @@ D:\Users\phouska\Desktop\EW\src>make NODEBUG='1'
 for debug:
 D:\Users\phouska\Desktop\EW\src>make
 
-check this output to see, which function are in the library:
+check this output to see, which functions are in the library:
 nm -A -l --demangle=gnu dEvan.exe > dEvanSymbols.txt
 
 in affinic debugger:
