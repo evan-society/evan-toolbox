@@ -35,10 +35,10 @@ void MultiplyNode::process()
         for(unsigned int j=0;j<m_input->GetCols();j++)
             (*m_output)[i][j] = mult * (*m_input)[i][j];
 
-    for(int i=0;i<m_input->GetCols();i++)
+    for(size_t i=0u;i<m_input->GetCols();i++)
         m_output->setRowLabel(i,m_input->getRowLabel(i));
 
-    for(int j=0;j<m_input->GetCols();j++)
+    for(size_t j=0u;j<m_input->GetCols();j++)
         m_output->setColumnLabel(j,m_input->getColumnLabel(j));
 
     m_output->setNumScores(m_input->getNumScores());

@@ -8,10 +8,10 @@ void GetTime(string &str)
 //    time_t curtime = time(0);
 //    tm now = *localtime(&curtime);
 
-    char dest[255];
+    //! char dest[255];
 
     //Format string determines the conversion specification's behaviour
-    const char *format = "Date: %B %d %Y\nTime: %X";
+    //! const char *format = "Date: %B %d %Y\nTime: %X";
     //"%A day of week (Wednesday)
     // %B month (November)
     // %d day (12)

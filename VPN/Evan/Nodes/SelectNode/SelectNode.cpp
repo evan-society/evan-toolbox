@@ -108,7 +108,7 @@ void SelectNode::doSelection()
         //Add the selected specimens to the output
         foreach(unsigned int i, m_specimensModel->getSelectedSpecimens())
         {
-            if(i<0 || i>=m_specimenInput->getSize())
+            if( ( static_cast<int>(i) < 0 ) || ( i >= m_specimenInput->getSize() ) )
                 continue;
             unsigned int unselectedLMKs = m_specimensModel->getUnselectedLMKs().count();
             LandmarkSet* oldSet = m_specimenInput->getLandmarkSet(i);
@@ -135,7 +135,7 @@ void SelectNode::doSelection()
         SpecimenGroup* defaultGroup = new SpecimenGroup;
         foreach(unsigned int i, m_specimensModel->getSelectedSpecimens())
         {
-            if(i<0 || i>=m_specimenInput->getSize())
+            if( ( static_cast<int>(i) < 0 ) || ( i >= m_specimenInput->getSize() ) )
                 continue;
             unsigned int unselectedLMKs = m_specimensModel->getUnselectedLMKs().count();
             LandmarkSet* oldSet = m_specimenInput->getLandmarkSet(i);

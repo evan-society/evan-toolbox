@@ -829,7 +829,7 @@ bool Plotter3DNode::plot()
             for( unsigned int j = 0; j < sg->getSize(); ++j )
             {
                 unsigned int rowIndex = sg->getMember(j)->getSpecimenIndex();
-                if( rowIndex <0 || rowIndex>=m_xAxisInput->GetRows() )
+                if( ( static_cast<int>(rowIndex) < 0 ) || rowIndex>=m_xAxisInput->GetRows() )
                     continue;
                 double xVal = m_xAxisInput->get(rowIndex, m_xAxisCombo->currentIndex());
                 double yVal = m_yAxisInput->get(rowIndex, m_yAxisCombo->currentIndex());

@@ -195,12 +195,12 @@ void PrintNode::process()
 
 			str << "Transform matrices" << endl;
 
-			for (int j=0;j< tms->getSize();j++)
+            for (unsigned int j=0u; j< tms->getSize(); j++)
 			{
 				Matrix<double> *tm = tms->getTransformMatrix(j);
-				for (int k=0;k< tm->GetRows();k++)
+                for (size_t k=0u;k< tm->GetRows();k++)
 				{
-					for (int l=0;l< tm->GetCols();l++)
+                    for (size_t l=0u;l< tm->GetCols();l++)
 					{
 						QLocale loc;
 						QString d = loc.toString((*tm)[k][l],'f',8);

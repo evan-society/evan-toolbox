@@ -319,7 +319,7 @@ void MMRNode::Regress()
     int landmarks = m_specimens->getLandmarkCount();
     int dimensions = m_specimens->getLandmarkDimensions();
     int index = 0;
-    double x0 = lineEdit_2->text().toDouble();
+    //! double x0 = lineEdit_2->text().toDouble();
 
     if (comboBox->currentIndex() > 0)
     {
@@ -330,7 +330,7 @@ void MMRNode::Regress()
     {
         LandmarkSet pred(landmarks,dimensions);
         LandmarkSet res(landmarks,dimensions);
-        LandmarkSet *lmks = m_specimens->getLandmarkSet(i);
+        //! LandmarkSet *lmks = m_specimens->getLandmarkSet(i);
 
         for (int j=0;j<landmarks;j++)
         {
@@ -1398,7 +1398,7 @@ void MMRNode::PrintOutput()
     double tmp2 = 0.0;
 
     //calculate wilks lambda and pillai trace etc
-    for (int i = 0; i < D.GetCols(); i++)
+    for (size_t i = 0u; i < D.GetCols(); i++)
     {
         tmp1 = 1.0 / (1.0 + D[i]);
         tmp2 = D[i] / (1.0 + D[i]);
