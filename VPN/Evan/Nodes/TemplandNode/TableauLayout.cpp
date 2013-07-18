@@ -2040,7 +2040,7 @@ void TableauLayout::loadForm(FormItem* formTreeItem, bool loaded, bool focus, bo
                     if(lmkItem->getType() == ViewTreeItem::SEMILANDMARKS_ITEM)
                     {
                         std::vector<ew::Form3Embedding> embeddings = form.embeddings;
-                        for (int k = 0;k<embeddings.size();k++)
+                        for (unsigned int k = 0u; k<embeddings.size(); k++)
                         {
                             if(embeddings[k].subset_id == ((SemiLandmarksTopItem*)lmkItem)->getLmkID().toStdString())
                             {

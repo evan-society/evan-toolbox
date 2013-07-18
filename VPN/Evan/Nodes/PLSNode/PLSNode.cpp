@@ -999,18 +999,18 @@ void PLSNode::PrintOutput()
     QVector<double> cov;
 
     double sum = 0.0;
-    for(int i=0;i<m_singularValues->GetRows();i++)
+    for(size_t i=0u;i<m_singularValues->GetRows();i++)
     {
         sum += (*m_singularValues)[i][0] * (*m_singularValues)[i][0];
     }
 
-    for(int i=0;i<m_singularValues->GetRows();i++)
+    for(size_t i=0u;i<m_singularValues->GetRows();i++)
     {
         cov.append( (*m_singularValues)[i][0] * (*m_singularValues)[i][0] / sum);
     }
 
     outfile << "Singular Values\t% of total covariance\tPairwise Correlations" << endl;
-    for(int i=0;i<m_singularValues->GetRows();i++)
+    for(size_t i=0u; i<m_singularValues->GetRows(); i++)
     {
         outfile << (*m_singularValues)[i][0] << "\t" << cov[i]<< "\t" <<(*m_correlation)[i][0] << endl;
     }
