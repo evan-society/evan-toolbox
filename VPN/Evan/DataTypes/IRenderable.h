@@ -8,6 +8,8 @@
 #include <QStringList>
 #include <QColor>
 
+#include <assert.h>
+
 class IRenderable : public IDataType
 {
 protected:
@@ -34,7 +36,7 @@ public:
     osg::Uniform* getShaderUniform(const QString& name)
     {return m_osgGeometry->getOrCreateStateSet()->getUniform(name.toStdString());}
 
-    void setOsgNode(osg::Node* n)                     {m_osgNode = (osg::Geode*)n;}
+    void setOsgNode(osg::Node* n)                     { assert(n !=NULL); m_osgNode = (osg::Geode*)n;}
     void setFrontMaterial(const QColor&, bool apply=false);
     void setBackMaterial(const QColor&, bool apply=false);
     const QColor& getFrontMaterial()            const {return m_fMatColor;}
@@ -42,7 +44,7 @@ public:
 
     osg::ref_ptr<osg::Geode> getOsgNode()       const {return m_osgNode;}
     osg::ref_ptr<osg::Geometry> getOsgGeometry()const {return m_osgGeometry;}
-    QString getRenderableName()                 const {return QString(m_osgNode->getName().c_str());}
+    QString getRenderableName()                 const { assert(m_osgNode != NULL); return QString( m_osgNode->getName().c_str() );}
     osg::ref_ptr<osgManipulator::Selection> getOsgTransform()const {return m_osgTransform;}
 
     virtual QString toString() const;
