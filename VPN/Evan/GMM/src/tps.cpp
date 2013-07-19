@@ -166,7 +166,7 @@ TPS::WarpPoint(double *point, vector <double> *wpoint)
         (*wpoint)[j] = wpointSinglePtr[j];
     }
 
-    delete wpointSinglePtr;
+    delete[] wpointSinglePtr;
 }
 
 void

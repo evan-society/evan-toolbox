@@ -21,7 +21,15 @@ private:
     int m_specimenNumber;
 
 public:
-    Surface() : IRenderable(), m_vertices(NULL), m_indeces(NULL), m_bRaw(true), m_bTextured(false), m_specimenNumber(1)
+    Surface() : IRenderable(),
+        m_vertices(NULL),
+        m_indeces(NULL),
+        m_texture(),
+        m_bRaw(true),
+        m_bTextured(false),
+        m_hasTexture(false),
+        m_lineWidth(0),
+        m_specimenNumber(1)
     {
         addType(SURFACE_T);
         addPartOfRelation(SURFACE_VECTOR_T);

@@ -278,6 +278,10 @@ namespace miniexcel
   }
 
   ExcelCell& ExcelCell::operator=(const ExcelCell &v){
+  
+	if( this == &v ) // prevent assignment to self
+		return *this;
+		
 	if (m_pchValue != NULL) {
       free (m_pchValue);
       m_pchValue = NULL;

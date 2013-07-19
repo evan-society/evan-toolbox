@@ -1264,7 +1264,7 @@ namespace {
     int bb0, bb2, bb5, bbe, bd2, bd5, bbbits, bs2, c, decpt, denorm;
     int dsign, e, e1, e2, emin, esign, finished, i, inex, irv;
     int j, k, nbits, nd, nd0, nf, nz, nz0, rvbits, rve, rve1, sign;
-    int sudden_underflow;
+    int sudden_underflow=0;
     const char *s, *s0, *s1;
     double adj0, tol;
     int32_t L;

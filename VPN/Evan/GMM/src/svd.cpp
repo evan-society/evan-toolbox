@@ -129,11 +129,11 @@ int svd(Matrix<double> A, Matrix<double> * U, Matrix<double> * S, Matrix<double>
     // dgesvd_ returns V transposed so we need to correct
     SingleToDoubleTranspose(vt, V->GetMatrix(), n, n);
 
-    delete a;
-    delete s;
-    delete u;
-    delete vt;
-    delete work;
+    delete[] a;
+    delete[] s;
+    delete[] u;
+    delete[] vt;
+    delete[] work;
 
     return info;
 }
@@ -183,11 +183,11 @@ Row<double> svd(Matrix<double> A)
         S[i] = s[i];
     }
 
-    delete a;
-    delete s;
-    delete u;
-    delete vt;
-    delete work;
+    delete[] a;
+    delete[] s;
+    delete[] u;
+    delete[] vt;
+    delete[] work;
 
     return S;
 }

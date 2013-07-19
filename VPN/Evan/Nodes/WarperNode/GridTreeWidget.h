@@ -12,10 +12,16 @@ private:
     WarpGrid* m_warpGrid;
 
 public:
-    GridTreeItem() : QTreeWidgetItem(QTreeWidgetItem::UserType)
-    {setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);}
-    GridTreeItem(QTreeWidget* parent) :  QTreeWidgetItem(parent, QTreeWidgetItem::UserType)
-    {setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);}
+    GridTreeItem() :
+        QTreeWidgetItem(QTreeWidgetItem::UserType),
+        m_warpGrid(NULL)
+    { setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled); }
+
+    GridTreeItem(QTreeWidget* parent) :
+        QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
+        m_warpGrid(NULL)
+    { setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled); }
+
     void setGrid(WarpGrid* warpg){m_warpGrid=warpg;}
     WarpGrid* getGrid() {return m_warpGrid;}
 };
@@ -48,7 +54,9 @@ protected:
     GroupWarpGrids* m_groupWarpGrids;
 
 public:
-    GridTreeWidget(QWidget * parent = 0) : QTreeWidget(parent)
+    GridTreeWidget(QWidget * parent = 0) :
+        QTreeWidget(parent),
+        m_groupWarpGrids(NULL)
     {
         headerItem()->setText(0, "Name");
         setDragEnabled(true);
