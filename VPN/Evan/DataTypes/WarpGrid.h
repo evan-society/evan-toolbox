@@ -190,8 +190,10 @@ protected:
     QTimer m_timer;
 
 public:
-    GroupWarpGrids(): QObject(), IRenderable()
+    GroupWarpGrids(): QObject(), IRenderable(),
+        m_useShader(false)
     {
+
         m_isMainGroup=false;
 //        m_previousMatrixTransform=osg::Matrixd::identity();
         m_parentMatrixTransform=osg::Matrixd::identity();

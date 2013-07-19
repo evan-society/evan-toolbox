@@ -23,12 +23,32 @@ private:
     QAction* m_slideAction;
     QAction* m_renAction;
 
-    LandmarkItem() : ViewTreeItem(LANDMARK_ITEM), m_lmkIndex(-1), m_regAction(0), m_mapAction(0), m_projAction(0), m_slideAction(0), m_renAction(0)
+    LandmarkItem() :
+        ViewTreeItem(LANDMARK_ITEM),
+        m_lmkIndex(-1),
+        m_lmkLabel(),
+        m_lmkID(),
+        m_regAction(NULL),
+        m_mapAction(NULL),
+        m_projAction(NULL),
+        m_projActionC(NULL),
+        m_slideAction(NULL),
+        m_renAction(NULL)
     {
     }
 
 public:
-    LandmarkItem(LandmarksTopItem* parent) :  ViewTreeItem(parent, LANDMARK_ITEM), m_lmkIndex(-1), m_regAction(0), m_mapAction(0), m_projAction(0), m_slideAction(0), m_renAction(0)
+    LandmarkItem(LandmarksTopItem* parent) :
+        ViewTreeItem(parent, LANDMARK_ITEM),
+        m_lmkIndex(-1),
+        m_lmkLabel(),
+        m_lmkID(),
+        m_regAction(NULL),
+        m_mapAction(NULL),
+        m_projAction(NULL),
+        m_projActionC(NULL),
+        m_slideAction(NULL),
+        m_renAction(NULL)
     {
     }
 
