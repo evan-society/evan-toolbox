@@ -105,15 +105,17 @@ ew::Debug::~Debug()
           dprintf("%s::DTOR() {}", ClassName);
         }
       }
-    } catch (std::exception) {
+    } catch (std::exception &e) {
 // Discard final debug message exceptions or errors.
+    	dprintf( "%s\n", e.what() ); //?
     }
   }
   if (is_file) {
     try {
       file_str.close();
-    } catch (std::exception) {
+    } catch (std::exception &e) {
 // Discard file close exceptions or errors.
+    	dprintf( "%s\n", e.what() ); //?
     }
   }
 }
@@ -131,6 +133,7 @@ ew::Debug::dprintf(const char *msg, ...) const
   va_start(vargs, msg);
   dvprintf(msg, vargs);
   va_end(vargs);
+  return true; //!?
 }
 
 bool

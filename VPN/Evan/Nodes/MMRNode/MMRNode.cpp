@@ -26,8 +26,8 @@ int last,j,i;
 			r=c=0.0;
 			for (j=1;j<=n;j++)
 				if (j != i) {
-					c += fabs(a[j][i]);
-					r += fabs(a[i][j]);
+					//c += fabs(a[j][i]);r += fabs(a[i][j]);
+					c += abs(a[j][i]);r += abs(a[i][j]);
 				}
 			if (c && r) {
 				g=r/RADIX;

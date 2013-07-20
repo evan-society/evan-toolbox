@@ -199,6 +199,9 @@ private:
 public:
     AxesSettings(QWidget* parent=0)
     {
+    	m_xMin = m_xMax = 0.0;
+    	m_yMin = m_yMax = 0.0;
+    	m_plotter = NULL;
         setupUi(this);
         m_ready = false;
     }

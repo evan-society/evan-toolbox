@@ -30,7 +30,12 @@ private:
     QVector<GroupMemberData> m_memberData;
     bool m_hasMean;
 
-    SpecimenGroup(const SpecimenGroup&){}
+    SpecimenGroup(const SpecimenGroup&) :
+    	m_groupColor(),
+    	m_groupLMKSize(0.0f),
+    	m_groupPSymbol(0),
+    	m_hasMean(false)
+    {}
     SpecimenGroup & operator = (const SpecimenGroup& copy) {return *this;}
 
 public:

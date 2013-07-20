@@ -13,8 +13,8 @@ int last,j,i;
 			r=c=0.0;
 			for (j=1;j<=n;j++)
 				if (j != i) {
-					c += fabs(a[j][i]);
-					r += fabs(a[i][j]);
+					//c += fabs(a[j][i]); r += fabs(a[i][j]);
+					c += abs(a[j][i]); r += abs(a[i][j]);
 				}
 			if (c && r) {
 				g=r/RADIX;
@@ -58,7 +58,8 @@ thought of as zero, but are returned with random values.*/
 		x=0.0;
 		i=m;
 		for (j=m;j<=n;j++) {
-			if (fabs(a[j][m-1]) > fabs(x)) {
+			//if (fabs(a[j][m-1]) > fabs(x)) {
+			if (abs(a[j][m-1]) > abs(x)) {
 				x=a[j][m-1];
 				i=j;
 			}

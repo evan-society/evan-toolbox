@@ -6,6 +6,8 @@
 #include <QButtonGroup>
 #include <QPushButton>
 
+#include <cmath>
+
 extern ofstream dbgfile; //RP 3/1/09 Toolbox debug file
 
 WarperNode::WarperNode(QWidget* parent) : QTabWidget(parent), INode()
@@ -1550,6 +1552,8 @@ AnimationWidget::AnimationWidget(QWidget* parent):QWidget(parent)
     m_isActive = new QCheckBox("Active");
     m_currentMovement=0;
     m_nextMovement=0;
+    m_current = 0.0;
+    m_nbCycle = 0;
 
     animLayout->addWidget(m_minValueButton,0,0);
     animLayout->addWidget(m_minValue,0,1);

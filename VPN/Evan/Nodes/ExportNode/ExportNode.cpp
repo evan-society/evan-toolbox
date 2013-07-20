@@ -10,6 +10,7 @@
 #include "../../Labels/ScalarLabelValue.h"
 #include <QSettings>
 
+#include <cstdio>
 
 using namespace miniexcel;
 

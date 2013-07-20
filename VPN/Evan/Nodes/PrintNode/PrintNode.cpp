@@ -11,6 +11,7 @@
 #include "Labels/ScalarLabelValue.h"
 #include "../../Utilities/Logger.h"
 
+#include <math.h>
 
 PrintNode::PrintNode(QWidget* parent) : QDialog(parent),  INode()
 {

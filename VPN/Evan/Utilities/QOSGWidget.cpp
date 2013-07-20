@@ -208,6 +208,7 @@ bool DraggerHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAd
                 }
             }
         }
+        break; //!?
         case osgGA::GUIEventAdapter::DRAG:
         case osgGA::GUIEventAdapter::RELEASE:
         {

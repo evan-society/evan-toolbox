@@ -16,6 +16,7 @@ ewtst::DataflowTestNode::DataflowTestNode(ew::DataflowNetwork *i_network) :
  dbg(ClassName, ew::DataflowNode::dbg),
  inp_n(0)
 {
+	outp_sum = 0;
 }
 
 void

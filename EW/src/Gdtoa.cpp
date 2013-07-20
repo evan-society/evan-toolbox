@@ -1371,8 +1371,10 @@ namespace {
       switch(c = *++s) {
       case '-':
         esign = 1;
+        break; //!?
       case '+':
         c = *++s;
+        break; //!?
       }
       if (c >= '0' && c <= '9') {
         while(c == '0') {
@@ -2233,7 +2235,7 @@ namespace {
           ew::BigNum bn_b(b->wds, b->x);
           ew::BigNum bn_S(S->wds, S->x);
           j1 = (bn_b != bn_S);
-          if ((j1 > 0 || (j1 == 0 && dig & 1))
+          if ((j1 > 0 || ( ( j1 == 0 ) && ( dig & 1 ) ))
            && dig++ == '9') {
             goto round_9_up;
           }
@@ -2420,7 +2422,7 @@ ew::Gdtoa::dfmt(char *buf, double *d, int ndig, int bufsize)
     if (bufsize < 10) {
       return 0;
     }
-    if (L[HWORD] & 0xfffff || L[LWORD]) {
+    if ( ( L[HWORD] & 0xfffff ) || ( L[LWORD] ) ) {
       std::strcpy(buf, "NaN");
       return buf + 3;
     }

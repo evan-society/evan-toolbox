@@ -90,7 +90,9 @@ ew::Dig3View::~Dig3View()
   for (int i = 0; i < dig3->get_n_views(); i += 1) {
     ew::Dig3View *v = dig3->get_views()[i];
     VectorErase(v->slice_item_index, index);
-    if (v->view_link = this) {
+    //!? apart from the style warning, this causes a mem leak, doesn't it?!?
+    //!? if (v->view_link = this) {
+    if ( ( v->view_link = this ) != NULL ) {
       v->view_link = 0;
     }
   }

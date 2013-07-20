@@ -1,5 +1,7 @@
 #include "mexcel.h"
 
+#include <cassert>
+#include <cstdio>
 
 namespace miniexcel
 {
@@ -13,7 +15,8 @@ namespace miniexcel
   /* Destructor closes the file itself */
   LittleEndianWriter::~LittleEndianWriter ()
   {
-    fclose (m_pFile);
+	int closeStatus = fclose (m_pFile);
+    assert(closeStatus == 0);
   }
 
   /* Write 1 byte in the output */
@@ -224,7 +227,9 @@ namespace miniexcel
     m_nType = TYPE_NONE;
   }
 
-  ExcelCell::ExcelCell(const ExcelCell &v){
+  ExcelCell::ExcelCell(const ExcelCell &v) :
+      excelValueAttributes()
+  {
 	m_nType = v.m_nType;
 	if (m_nType == TYPE_STRING){
 	  m_pchValue = strdup (v.m_pchValue);

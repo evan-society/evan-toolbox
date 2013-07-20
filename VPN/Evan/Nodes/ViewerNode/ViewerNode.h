@@ -33,6 +33,7 @@ protected:
 
 public:
     ViewerMainWindow(ViewerNode* viewer);
+    virtual ~ViewerMainWindow() {} // class has virtual method(s) but doesn't have virtual destructor
     RenderableTree* getRendrableTree() const {return m_renderTable;}
     void  closeEvent(QCloseEvent * event) {close(); event->accept();}
 

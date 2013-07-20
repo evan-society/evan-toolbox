@@ -293,6 +293,7 @@ namespace {
         return pattern;
       }
     }
+    return NULL; //!?
   }
 
 }
@@ -313,6 +314,7 @@ ew::String::simple_match(const char *pattern, const char *str)
     }
     pattern += 1;
   }
+  return false; //!?
 }
 
 char *

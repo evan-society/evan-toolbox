@@ -136,7 +136,7 @@ void MyClipPlane::setClipPlaneIndex(int index)
 }
 
 //WarpGrid////////////////////////////////////////////////////////////////////////
-WarpGrid::WarpGrid():AbstractWarpGrid()
+WarpGrid::WarpGrid() : AbstractWarpGrid()
 {
     m_originalVertices=NULL;
     m_coefArray.clear();
@@ -147,6 +147,14 @@ WarpGrid::WarpGrid():AbstractWarpGrid()
     m_coefArray.append("coefArray5");
     m_bindNames << "morph1" << "morph2" << "morph3" << "morph4" << "morph5";
     m_bindLocations << 1 << 4 << 5 << 6 << 7;
+
+    m_cols = 0u;
+    m_rows = 0u;
+    m_referenceLMarks = NULL;
+    m_size = 0.0f;
+    m_useShader = false;
+    m_warpedLMarks = NULL;
+
     m_clipPlane=NULL;
 }
 
