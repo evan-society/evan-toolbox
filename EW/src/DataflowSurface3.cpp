@@ -43,6 +43,11 @@ ew::DataflowSurface3::DataflowSurface3(ew::DataflowNetwork *i_network,
  outp_index(new ew::Index3),
  update_cycle_bbox(0)
 {
+	outp_faces = NULL;
+	outp_num_faces = 0;
+
+	outp_points = NULL;
+	outp_num_points = 0;
 }
 
 // This is to keep auto_ptr happy.

@@ -3,6 +3,7 @@
 #include <ew/Tps2.h>
 #include <ew/Tps3.h>
 
+#include <cstring> // for memcpy
 
 // Constructor
 TPS::TPS( double **reference, double **target, int landmarks, int dimensions)
@@ -58,8 +59,8 @@ TPS::LoadData(Matrix<double> *reference, Matrix<double> *target)
     m_target.resize(m_landmarks*m_dimensions);
     m_spline.resize((m_landmarks+m_dimensions+1) * m_dimensions);
 
-    memcpy(&m_target[0],target->GetSinglePtr(),(m_landmarks*m_dimensions)*sizeof(double));
-    memcpy(&m_reference[0],reference->GetSinglePtr(),(m_landmarks*m_dimensions)*sizeof(double));
+    std::memcpy(&m_target[0],target->GetSinglePtr(),(m_landmarks*m_dimensions)*sizeof(double));
+    std::memcpy(&m_reference[0],reference->GetSinglePtr(),(m_landmarks*m_dimensions)*sizeof(double));
 }
 
 // Perform TPS on our data

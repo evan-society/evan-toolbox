@@ -8,7 +8,7 @@
 #include <QStringList>
 #include <QColor>
 
-#include <assert.h>
+#include <cassert>
 
 class IRenderable : public IDataType
 {

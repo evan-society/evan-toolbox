@@ -35,6 +35,9 @@ inline std::vector<string> split( const string& s, const string& f )
 
 GMMData::GMMData()
 {
+	m_dimensions = 0;
+	m_individuals = 0;
+	m_landmarks = 0;
 }
 
 GMMData::~GMMData()
@@ -107,7 +110,8 @@ int GMMData::ReadRawTextFile(const char * filename)
                 std::vector<double> tempvec;
                 for (int i=0;i<m_dimensions;i++)
                 {
-                    tempvec.push_back(atof(strvec1[i].c_str()));
+                    //tempvec.push_back(atof(strvec1[i].c_str()));
+                	tempvec.push_back( strtod( strvec1[i].c_str(), NULL ) );
                 }
                 m_rawdata.push_back(tempvec);
             }

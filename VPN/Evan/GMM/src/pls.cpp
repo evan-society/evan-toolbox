@@ -2,6 +2,7 @@
 #include <svd.h>
 #include <cerrno>
 
+#include <cmath>
 
 void GetTime(string &str)
 {
@@ -31,6 +32,11 @@ void GetTime(string &str)
 
 PLS::PLS()
 {
+	m_dimensions = 0;
+	m_individuals = 0;
+	m_calculated = false;
+	m_landmarks = 0;
+	m_rows = 0;
 }
 
 PLS::~PLS()
@@ -163,7 +169,7 @@ void CalculateCorrelationMatrix(Matrix<double> left, Matrix<double> right, Matri
     {
         for (unsigned int j=0;j<cov.GetCols();j++)
         {
-            double tmp = sqrt(cov[i][i]) * sqrt(cov[j][j]);
+            double tmp = std::sqrt(cov[i][i]) * std::sqrt(cov[j][j]);
             if (tmp > PLS::EPSILON)
             {
                 corr[i][j] = cov[i][j] / tmp;

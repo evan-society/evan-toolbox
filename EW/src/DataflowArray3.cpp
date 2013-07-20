@@ -18,6 +18,7 @@ ew::DataflowArray3::DataflowArray3(ew::DataflowNetwork *i_network,
  dbg(ClassName, ew::DataflowNode::dbg),
  update_cycle_bbox(0)
 {
+	outp_size = NULL;
 }
 
 void

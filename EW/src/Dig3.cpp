@@ -53,7 +53,8 @@ ew::Dig3::Dig3(ew::DataflowNetwork *i_network) :
     spl->set_template(spaces[0]->get_form_node());
     spl->set_specimen(spaces[1]->get_form_node());
 //XXX eliminate this catch
-  } catch (std::exception) {
+  } catch (std::exception &e) {
+	  dbg.on && dbg.dprintf( "%s\n", e.what() ); //?
     delete spaces[0];
     delete spaces[1];
     if (spl) {

@@ -1,6 +1,7 @@
 #include <pca.h>
 #include <svd.h>
 
+#include <cmath> // for sqrt
 
 PCA::PCA(double ** data, int rows, int cols)
 {

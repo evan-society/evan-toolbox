@@ -198,6 +198,7 @@ ew::String::scan_line(const char **se, const char *s)
       s += 1;
     }
   }
+  return false; //!?
 }
 
 #endif

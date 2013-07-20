@@ -23,7 +23,7 @@ class Writer
 
     private:
         Writer();
-        Writer(Writer&) {}
+        Writer(Writer&) : _writeTofile(false) {}
         Writer& operator=(const Writer&);
 
         void open();

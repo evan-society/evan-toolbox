@@ -7,6 +7,7 @@
 
 #include "../../Labels/StringLabelValue.h"
 
+#include <cmath> // for log()
 
 PCANode::PCANode() : INode()
 {

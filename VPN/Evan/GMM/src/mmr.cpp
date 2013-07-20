@@ -166,7 +166,8 @@ void MMR::PerformRegression(bool constantIsZero)
             {
                 tss[i][j] = yty[i][j];
                 ess[i][j] = btxty[i][j]; // explained variance (regression sum of squares)
-                if (fabs(tss[i][j]) > EPSILON)
+                //if (fabs(tss[i][j]) > EPSILON)
+                if (abs(tss[i][j]) > EPSILON)
                 {
                     Rsqr[i][j] = ess[i][j] / tss[i][j];
                 }
@@ -188,7 +189,8 @@ void MMR::PerformRegression(bool constantIsZero)
             {
                 tss[i][j] = yty[i][j] - (m_rows * (meany[j] * meany[j]));
                 ess[i][j] = btxty[i][j] - (m_rows* (meany[j] * meany[j])); // explained variance (regression sum of squares)
-                if (fabs(tss[i][j]) > EPSILON)
+                //if (fabs(tss[i][j]) > EPSILON)
+                if (abs(tss[i][j]) > EPSILON)
                 {
                     Rsqr[i][j] = ess[i][j] / tss[i][j];
                 }

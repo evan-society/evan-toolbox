@@ -6,6 +6,7 @@
 
 #include <svd.h>
 #include <algorithm>
+#include <cmath> // for log()
 
 #include "../../Labels/StringLabelValue.h"
 #include "../../Labels/ScalarLabelValue.h"

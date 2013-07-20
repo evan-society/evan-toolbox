@@ -15,16 +15,21 @@ private:
     double m_centroidSize;
 
 public:
-    LandmarkSet(size_t row = 0, size_t col = 0) : MatrixD(row,col)
+    LandmarkSet(size_t row = 0, size_t col = 0) :
+    	MatrixD(row,col),
+    	m_specimenIndex(0u)
     {
         addType(LANDMARKSET_T);
         addPartOfRelation(SPECIMENS_T);
         m_renderablePtr = DataTypePtr(new LMKSetRenderable);
         m_centroidSize = 0.0;
     }
-    LandmarkSet(const LandmarkSet& copy) : MatrixD(copy)
+    LandmarkSet(const LandmarkSet& copy) :
+    	MatrixD(copy),
+    	m_specimenIndex(0u)
     {
         m_renderablePtr = DataTypePtr(new LMKSetRenderable);
+        m_centroidSize = 0.0; //!?
     }
     ~LandmarkSet()
     {}

@@ -28,9 +28,15 @@ private:
     QColor m_color;
 
 public:
-    MemberTreeItem() : QTreeWidgetItem(QTreeWidgetItem::UserType), m_color(Qt::transparent)
+    MemberTreeItem() :
+    	QTreeWidgetItem(QTreeWidgetItem::UserType),
+    	m_specimenIndex(0u),
+    	m_color(Qt::transparent)
     {}
-    MemberTreeItem(QTreeWidgetItem* parent)    :  QTreeWidgetItem(parent, QTreeWidgetItem::UserType), m_color(Qt::transparent)
+    MemberTreeItem(QTreeWidgetItem* parent)    :
+    	QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
+    	m_specimenIndex(0u),
+    	m_color(Qt::transparent)
     {}
 
     unsigned int getSpecimenIndex() const {return m_specimenIndex;}
@@ -50,7 +56,9 @@ protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
 public:
-    GroupTreeWidget(QWidget * parent = 0) : QTreeWidget(parent)
+    GroupTreeWidget(QWidget * parent = 0) :
+    	QTreeWidget(parent),
+    	m_groupItemSize(0.0f)
     {
         connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(checkItemSize(QTreeWidgetItem*, int)));
         connect(this, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(saveItemSize(QTreeWidgetItem*, int)));

@@ -1,6 +1,8 @@
 #include "SubtractNode.h"
 #include "../../Utilities/Logger.h"
 
+#include <cmath> // for log()
+
 SubtractNode::SubtractNode() :  INode()
 {
 	m_baseInput = NULL;

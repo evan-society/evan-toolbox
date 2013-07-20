@@ -57,6 +57,17 @@ ew::DataflowSpline3::DataflowSpline3(ew::DataflowNetwork *i_network) :
  update_cycle_factorization(0),
  update_cycle_spline(0)
 {
+	outp_energy = 0.0;
+	outp_f_size = 0;
+	outp_is_mixed = false;
+	outp_is_reduced = false;
+	outp_n_lmks = 0;
+	outp_nonsingular = false; //? true;
+	outp_nonsingularity = 0.0;
+	outp_version_association = 0UL;
+	outp_version_factorization = 0UL;
+	outp_version_interaction = 0UL;
+	outp_version_spline = 0UL;
 }
 
 void

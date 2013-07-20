@@ -1,6 +1,7 @@
 #include <pco.h>
 #include <svd.h>
 
+#include <cmath> // for sqrt
 
 PCO::PCO(double ** distances, int size)
 {

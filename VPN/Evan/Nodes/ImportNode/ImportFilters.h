@@ -591,7 +591,8 @@ startloop:
                 }
                 if (str.substr(0,1) != "'")
                 {
-                    tempwire[j] = atoi(str.c_str());
+                    //! tempwire[j] = atoi(str.c_str());
+                	tempwire[j] = strtol(str.c_str(), NULL, 0);
 
                     j++;
                     if (j == 2)
@@ -620,7 +621,8 @@ startloop:
                 }
                 if (str.substr(0,1) != "'")
                 {
-                    temppoly[j] = atoi(str.c_str());
+                    //temppoly[j] = atoi(str.c_str());
+                	temppoly[j] = strtol( str.c_str(), NULL, 0 );
 
                     j++;
                     if (j == 3)

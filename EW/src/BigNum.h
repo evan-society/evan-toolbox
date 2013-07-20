@@ -255,6 +255,8 @@ ew::BigNum::add(const ew::BigNum *n)
 inline ew::BigNum &
 ew::BigNum::operator<<=(const uint32_t &that)
 {
+	//!? 
+	return *this;
 }
 
 inline int

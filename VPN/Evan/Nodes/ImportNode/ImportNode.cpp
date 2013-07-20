@@ -331,7 +331,8 @@ startloop:
                 }
                 if (str.substr(0,1) != "'")
                 {
-                    tempraw[j] = atof(str.c_str());
+                    //tempraw[j] = atof(str.c_str());
+                	tempraw[j] = strtod(str.c_str(), NULL);
                     j++;
                     if (j== dimensions)
                     {
@@ -359,7 +360,8 @@ startloop:
                 }
                 if (str.substr(0,1) != "'")
                 {
-                    tempwire[j] = atoi(str.c_str());
+                    //tempwire[j] = atoi(str.c_str());
+                	tempwire[j] = strtol( str.c_str(), NULL, 0 );
 
                     j++;
                     if (j == 2)

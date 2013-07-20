@@ -7,6 +7,8 @@
 #include <tps.h>
 #include <svd.h>
 
+#include <cmath> // for sqrt
+
 using namespace std;
 
 GPANode::GPANode(QWidget* parent) : QDialog(parent),  INode()

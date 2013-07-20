@@ -451,6 +451,7 @@ bool ew::View3Widget::ORIGINAL_pick(double x, double y, double sz, double burrow
   dbg.on && dbg.dprintf("%s::%s } (%s)", dbg.fn, "pick",
    ew::Debug::to_str(pi >= 0));
 
+  return true; //!?
 }
 
 bool

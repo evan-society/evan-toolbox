@@ -2199,7 +2199,7 @@ void TableauLayout::loadForm(FormItem* formTreeItem, bool loaded, bool focus, bo
             }
         }
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::information(this, "IO Exception", QString("Failed to load form!\n- %1)").arg(ex.what()));
     }
@@ -2287,7 +2287,7 @@ bool TableauLayout::saveForm(FormItem* formTreeItem)
         QString formID = fileName;
         formTreeItem->setText(0, QString("Form (%1)").arg(formID));
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::information(this, "IO Exception", QString("Failed to save form!\n- %1)").arg(ex.what()));
         QApplication::restoreOverrideCursor();
@@ -2458,7 +2458,7 @@ bool TableauLayout::loadTableau(QString loadedFile, bool loaded)
             result = false;
         delete loadDialog;
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::information(this, "IO Exception", QString("Failed to load tableau!\n- %1)").arg(ex.what()));
         result = false;
@@ -2546,7 +2546,7 @@ bool TableauLayout::saveTableau()
         m_savedAtleastOnce = true;
         emit status(QString("File %1 Saved").arg(m_tableauFile), 2000);
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::information(this, "IO Exception", QString("Failed to save tableau!\n- %1)").arg(ex.what()));
         QApplication::restoreOverrideCursor();
@@ -2977,7 +2977,7 @@ bool TableauLayout::addSurface(SurfaceItem* treeItem, FormItem* itemForm)
 
         result = true;
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::critical(this, "IO Exception", QString("Failed to load surface!\n- %1)").arg(ex.what()));
         result = false;
@@ -3086,7 +3086,7 @@ bool TableauLayout::addCurve(CurveItem* treeItem, FormItem* itemForm)
 
         result = true;
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::critical(this, "IO Exception", QString("Failed to load curve!\n- %1)").arg(ex.what()));
         result = false;

@@ -6,8 +6,10 @@
 ew::DataflowNotifier::DataflowNotifier(ew::DataflowNetwork *i_network) :
 // next_notifier uninitialized
  network(i_network),
+ next_notifier(NULL),
  is_registered(false)
 {
+
 }
 
 ew::DataflowNotifier::~DataflowNotifier()

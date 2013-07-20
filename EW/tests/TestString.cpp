@@ -1842,6 +1842,7 @@ ewtst::TestString::test08(bool return_name)
   if (FLT_ROUNDS != 1) {
     report_error("unexpected FLT_ROUNDS %d", FLT_ROUNDS);
   }
+  return NULL;//!?
 }
 
 const char *

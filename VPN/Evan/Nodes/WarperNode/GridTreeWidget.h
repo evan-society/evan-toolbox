@@ -64,6 +64,8 @@ public:
         viewport()->setAcceptDrops(true);
     }
 
+    virtual ~GridTreeWidget() {} // class has virtual method(s) but doesn't have virtual destructor
+
     bool isTopLevel(QTreeWidgetItem* item) const
     {
         for(int i=0; i<topLevelItemCount(); ++i)

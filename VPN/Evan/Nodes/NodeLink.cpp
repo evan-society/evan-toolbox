@@ -91,7 +91,11 @@ void PortLink::paint(QPainter *painter, const QStyleOptionGraphicsItem * ot, QWi
     QPainterPath myPath = path();
 
     if ( !m_startPortIcon || !m_endPortIcon || m_delete)
-		return painter->drawPath(myPath);
+    {
+		//return painter->drawPath(myPath);
+    	painter->drawPath(myPath);
+    	return;
+    }
 
 	QPointF inputMidPoint = mapFromItem(m_startPortIcon,5,5);
     QPointF outputMidPoint = mapFromItem(m_endPortIcon,5,10);

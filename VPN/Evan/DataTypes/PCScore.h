@@ -3,6 +3,8 @@
 
 #include "Variables.h"
 
+#include <stdio.h>
+
 class PCScore : public Variables
 {
 public:
