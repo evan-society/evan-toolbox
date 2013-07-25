@@ -11,7 +11,8 @@ LIBS += -L"lib/OpenSceneGraph" -L"lib/Qwt" -L"lib/ew" -L"lib/Qwt3D" -L"lib/DCMTK
 
 LIBS += -llibosg -llibosgManipulator -llibosgViewer -llibosgDB -llibosgGA -llibosgUtil -llibosgVolume
 
-
+QMAKE_LFLAGS = -enable-stdcall-fixup -Wl,-enable-auto-import -Wl,-enable-runtime-pseudo-reloc
+ 
 # NOTE: 
 # it is important that -lopengl32 is specified AFTER -lew[d]
 # otherwise we get lots of linker errors from .o files within libew.a
@@ -20,6 +21,9 @@ CONFIG(debug, debug|release) {
 	LIBS += -lewd
 	#LIBS += -lew
 	LIBS += -lqwtd5 -lqwtplot3dd
+	
+	QMAKE_CXXFLAGS += -Wall -pedantic
+	# -Werror
 }
 CONFIG(release, debug|release) {
 	# release stuff
