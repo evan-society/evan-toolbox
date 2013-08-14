@@ -637,7 +637,7 @@ void PlotterNode::plot()
                 for(unsigned int j=0; j<sg->getSize(); ++j)
                 {
                     unsigned int rowIndex = sg->getMember(j)->getSpecimenIndex();
-                    if(rowIndex <0 || rowIndex>=m_xAxisInput->GetRows())
+                    if( /* rowIndex <0 || */ rowIndex>=m_xAxisInput->GetRows())
                         continue;
                     double xVal = m_xAxisInput->get(rowIndex, m_xAxisCombo->currentIndex());
                     double yVal = m_yAxisInput->get(rowIndex, m_yAxisCombo->currentIndex());
@@ -802,7 +802,7 @@ void PlotterNode::selectMarkers()
     {
         for(int i=0; i<groupItem->childCount(); ++i)
         {
-            MemberTreeItem* mItem = (MemberTreeItem*)groupItem->child(i);
+            MemberTreeItem* mItem = dynamic_cast< MemberTreeItem* >( groupItem->child(i) );
             highlightMember(mItem);
         }
     }
@@ -1203,18 +1203,18 @@ QString PlotterNode::toString() const
 
     for(int i=0; i<m_groupsTree->topLevelItemCount(); ++i)
     {
-        GroupTreeItem* groupItem = (GroupTreeItem*)m_groupsTree->topLevelItem(i);
+        GroupTreeItem* groupItem = dynamic_cast< GroupTreeItem* >( m_groupsTree->topLevelItem(i) );
         QColor groupColor = groupItem->data(0, Qt::DecorationRole).value<QColor>();
         result += groupItem->text(0)+":";
         result += groupItem->text(1)+":";
         result +=   QString().setNum(groupColor.red())  +"|"+
                     QString().setNum(groupColor.green())+"|"+
                     QString().setNum(groupColor.blue())+":";
-        result += QString().setNum(((PlotSymbolCombo*)m_groupsTree->itemWidget(groupItem, 2))->currentIndex())+":";
+        result += QString().setNum( dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(groupItem, 2) )->currentIndex() )+":";
 
         for(int j=0; j<groupItem->childCount(); ++j)
         {
-            MemberTreeItem* groupMemberItem = ((MemberTreeItem*)groupItem->child(j));
+            MemberTreeItem* groupMemberItem = dynamic_cast< MemberTreeItem* >( groupItem->child(j) );
             result +=   groupMemberItem->text(0) + "^";
             result +=   groupMemberItem->text(1) + "^";
             result +=   QString().setNum(groupMemberItem->getSpecimenIndex()) + "^";
@@ -1222,7 +1222,8 @@ QString PlotterNode::toString() const
                         QString().setNum(groupMemberItem->getColor().green())+"|"+
                         QString().setNum(groupMemberItem->getColor().blue())+"|"+
                         QString().setNum(groupMemberItem->getColor().alpha())+"^";
-            result += QString().setNum(((PlotSymbolCombo*)m_groupsTree->itemWidget(groupMemberItem, 2))->currentIndex())+"/";
+            //result += QString().setNum(((PlotSymbolCombo*)m_groupsTree->itemWidget(groupMemberItem, 2))->currentIndex())+"/";
+			result += QString().setNum( dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(groupMemberItem, 2) )->currentIndex() )+"/";
         }
 
         result += ",";
@@ -1327,28 +1328,28 @@ void PlotterNode::checkLoadedGroups()
     {
         if(i>= m_loadedGroupItems.count())
             break;
-        GroupTreeItem* groupItem = (GroupTreeItem*)m_groupsTree->topLevelItem(i);
+        GroupTreeItem* groupItem = dynamic_cast< GroupTreeItem* >( m_groupsTree->topLevelItem(i) );
         if(groupItem->text(0) != m_loadedGroupItems[i]->text(0))
             continue;
 
         QColor groupColor = m_loadedGroupItems[i]->data(0, Qt::DecorationRole).value<QColor>();
         groupItem->setData(0, Qt::DecorationRole, groupColor);
         groupItem->setText(1, m_loadedGroupItems[i]->text(1));
-        ((PlotSymbolCombo*)m_groupsTree->itemWidget(groupItem, 2))->setCurrentIndex(m_loadedGroupItems[i]->text(2).toInt());
+        dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(groupItem, 2) )->setCurrentIndex( m_loadedGroupItems[i]->text(2).toInt() );
 
         for(int j=0; j<groupItem->childCount(); ++j)
         {
             if(j>= m_loadedGroupItems[i]->childCount())
                 break;
-            MemberTreeItem* groupMemberItem = ((MemberTreeItem*)groupItem->child(j));
-            MemberTreeItem* loadedMemberItem = ((MemberTreeItem*)m_loadedGroupItems[i]->child(j));
+            MemberTreeItem* groupMemberItem = dynamic_cast< MemberTreeItem* >( groupItem->child(j) );
+            MemberTreeItem* loadedMemberItem = dynamic_cast< MemberTreeItem* >( m_loadedGroupItems[i]->child(j) );
             if(groupMemberItem->text(0) != loadedMemberItem->text(0))
                 continue;
 
             QColor memberColor = loadedMemberItem->getColor();
             groupMemberItem->setData(0, Qt::DecorationRole, memberColor==Qt::transparent? groupColor:memberColor);
             groupMemberItem->setText(1, loadedMemberItem->text(1));
-            ((PlotSymbolCombo*)m_groupsTree->itemWidget(groupMemberItem, 2))->setCurrentIndex(loadedMemberItem->text(2).toInt());
+            dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(groupMemberItem, 2) )->setCurrentIndex( loadedMemberItem->text(2).toInt() );
 
             groupMemberItem->setColor(memberColor);
         }
@@ -1367,7 +1368,7 @@ void PlotterNode::refreshMarkers()
         oldSymbol.setSize((int)(markerItem->text(1).toDouble()*2.5f));
         oldSymbol.setBrush(QBrush(markerItem->data(0, Qt::DecorationRole).value<QColor>()));
         oldSymbol.setPen(QPen(markerItem->data(0, Qt::DecorationRole).value<QColor>()));
-        oldSymbol.setStyle(getSymbolFromIndex(((PlotSymbolCombo*)m_groupsTree->itemWidget(markerItem, 2))->currentIndex()));
+        oldSymbol.setStyle( getSymbolFromIndex( dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(markerItem, 2) )->currentIndex() ) );
         marker->setSymbol(oldSymbol);
     }
     m_plotArea->replot();
@@ -1478,7 +1479,7 @@ void PlotterNode::changeTitleColor()
 
 void PlotterNode::changeLabel(QTreeWidgetItem* item, int num)
 {
-    MemberTreeItem* changedItem = ((MemberTreeItem*)item);
+    MemberTreeItem* changedItem = dynamic_cast< MemberTreeItem* >( item );
     if(m_selectedMarkers.count() > 0)
     {
         QwtPlotMarker* marker = m_selectedMarkers[0];
