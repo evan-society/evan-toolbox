@@ -106,7 +106,7 @@ public:
 public slots:
     void onHideAllAction()
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( selectedItems().front() ) );
         selected->setSelected(false);
         for(int i=0; i<selected->childCount(); ++i)
         {
@@ -119,7 +119,7 @@ public slots:
 
     void onShowAllAction()
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( selectedItems().front() ) );
         selected->setSelected(false);
         for(int i=0; i<selected->childCount(); ++i)
         {
@@ -132,19 +132,19 @@ public slots:
 
     void onResetAction()
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( selectedItems().front() ) );
         emit renderableReset(selected->getItemRenderable());
     }
 
     void onShowAction()
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( selectedItems().front() ) );
         emit renderableToggled(true, selected->getItemPtr());
         selected->setCheckState(0, Qt::Checked);
     }
     void onHideAction()
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( selectedItems().front() ) );
         emit renderableToggled(false, selected->getItemPtr());
         selected->setCheckState(0, Qt::Unchecked);
         selected->setExpanded(false);
@@ -154,34 +154,34 @@ public slots:
     void onInvertFacesAction(bool);
     void onTransAction()
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( selectedItems().front() ) );
         if(selected->checkState(0) != Qt::Unchecked)
             emit transManipClicked(selected->getItemPtr());
     }
 
     void onRotateAction()
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( selectedItems().front() ) );
         if(selected->checkState(0) != Qt::Unchecked)
             emit rotateManipClicked(selected->getItemPtr());
     }
 
     void onScaleAction()
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( selectedItems().front() ) );
         if(selected->checkState(0) != Qt::Unchecked)
             emit scaleManipClicked(selected->getItemPtr());
     }
 
     void onItemClick(QTreeWidgetItem* item, int column)
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)item);
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( item ) );
         emit renderableToggled(selected->checkState(0)!=Qt::Unchecked, selected->getItemPtr());
     }
 
     void onItemChange(QTreeWidgetItem* current, QTreeWidgetItem* previous)
     {
-        emit renderableChanged(((RenderableTreeItem*)current),((RenderableTreeItem*)previous));
+        emit renderableChanged( ( dynamic_cast< RenderableTreeItem* >( current ) ),( dynamic_cast< RenderableTreeItem* >( previous ) ) );
     }
 
     void toggleTexture();

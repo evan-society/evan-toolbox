@@ -371,11 +371,10 @@ void GPANode::process()
                 for (int j=0;j<individuals;j++)
                 {
                     double sum2 = 0.0;
-                    double diff = 0.0;
 
                     for (int k=0;k<landmarks*dimensions;k++)
                     {
-                        diff = tancoords[i][k] - tancoords[j][k];
+                        double diff = tancoords[i][k] - tancoords[j][k];
                         sum2 += diff * diff;
                     }
                     dist[i][j] = sqrt(sum2);

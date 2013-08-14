@@ -8,7 +8,7 @@ bool Float::setFromContainer(DataTypePtr& rList, unsigned int partIndex)
     if(rList.isValid() && rList->isType(RLIST_T))
     {
         RList* results = dynamic_cast<RList *>( rList.getPtr() );
-        if(partIndex >= results->getSize() || partIndex < 0)
+        if(partIndex >= results->getSize() /* || partIndex < 0 */ )
             return false;
 
         DataTypePtr dt = results->getDataType(partIndex);

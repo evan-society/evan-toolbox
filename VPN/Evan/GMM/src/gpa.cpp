@@ -387,12 +387,13 @@ pcalign(Matrix<double>& x, Matrix<double>& rot)
     {
         double th0 = 0.0;
         double th1 = 0.0;
-        double err = 0.0;
         double f = 0.0;
         double df = 0.0;
 
         for (int k=0;k<100;k++)
         {
+			double err = 0.0;
+			
             evalf(x,th0,&f,&df);
             if (df>1.0e-12)
             {
@@ -423,13 +424,14 @@ pcalign(Matrix<double>& x, Matrix<double>& rot)
     {
         std::vector<double> th0(3);
         std::vector<double> th1(3);
-        double err = 0.0;
 
         std::vector<double> f(3);
         Matrix<double> J(3,3);
 
         for (int k=0;k<100;k++)
         {
+			double err = 0.0;
+			
             // find function values and jacobian matrix
             evalf3(x,th0,f,J);
 
@@ -746,10 +748,9 @@ GPA::GetTransformationMatrix(int i, Matrix<double> *T)
         }
     }
 
-    double tr;
     for (int j=0;j<m_dimensions;j++) //RP 28/12/08 Rotate & scale translation
     {
-        tr = 0.0;
+        double tr = 0.0;
         for (int k=0;k<m_dimensions;k++)
         {
             tr += rot[j][k] * (- m_translations[i][k]); // translation need negating

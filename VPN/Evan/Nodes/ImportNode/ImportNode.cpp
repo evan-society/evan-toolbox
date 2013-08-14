@@ -466,7 +466,7 @@ bool ImportNode::importRaw(const QString& filename)
     QTextStream input(&file);
 
     //initialization
-    bool ok1,ok2=true;
+    bool ok1;
     double x,y,z; //x,y,z temporary value
     char dummy;
     input >> m_sizePoint >> dummy;
@@ -474,7 +474,7 @@ bool ImportNode::importRaw(const QString& filename)
 
     for (int i=0;i<m_sizePoint;i++)
     {
-        ok2=true;
+        bool ok2=true;
         QString line = input.readLine();
         QStringList stringLine = line.split(QRegExp("\\s+"));
         if (stringLine.size() >= 3)
@@ -608,12 +608,11 @@ bool ImportNode::importObj(const QString& filename)
     	Matrix<double>* pointOutput = new Matrix<double>(m_sizePoint,3);
     	Matrix<unsigned int>* faceOutput = new Matrix<unsigned int>(m_facePoint,3);
 
-    	double x,y,z;
     	for (int i=0;i<m_sizePoint;i++)
     	{
-    		x = xc[i].toDouble();
-    		y = yc[i].toDouble();
-    		z = zc[i].toDouble();
+    		double x = xc[i].toDouble();
+    		double y = yc[i].toDouble();
+    		double z = zc[i].toDouble();
     		pointOutput->set(i,0,x);
     		pointOutput->set(i,1,y);
     		pointOutput->set(i,2,z);
@@ -641,12 +640,11 @@ bool ImportNode::importObj(const QString& filename)
     	Matrix<double>* pointOutput = new Matrix<double>(m_sizePoint,3);
     	Matrix<unsigned int>* faceOutput = new Matrix<unsigned int>(m_facePoint,2);
 
-    	double x,y,z;
     	for (int i=0;i<m_sizePoint;i++)
     	{
-    		x = xc[i].toDouble();
-    		y = yc[i].toDouble();
-    		z = zc[i].toDouble();
+    		double x = xc[i].toDouble();
+    		double y = yc[i].toDouble();
+    		double z = zc[i].toDouble();
     		pointOutput->set(i,0,x);
     		pointOutput->set(i,1,y);
     		pointOutput->set(i,2,z);
@@ -1304,7 +1302,7 @@ void ImportNode::setLmkFileInput()
                 return;
             }
 
-            std::vector<ew::Dig3Tableau> tempTableaus;
+            //std::vector<ew::Dig3Tableau> tempTableaus;
             std::vector<ew::Dig3Tableau> tableauList;
 
 #ifdef _WIN32
@@ -1794,10 +1792,12 @@ void ImportNode::importLmkTags()
         }
         else if (keyword.toLower() == "[values]")
         {
-            int specimenCount = 0, value = 0, lmkCount = 0;
+            int specimenCount = 0, lmkCount = 0;
             input >> specimenCount >> lmkCount;
             if (specimenCount && tagCount && lmkCount)
             {
+				int value = 0;
+				
                 Matrix<bool> tagValues(lmkCount,tagCount);
                 for (int i=0; i<specimenCount; ++i)
                 {

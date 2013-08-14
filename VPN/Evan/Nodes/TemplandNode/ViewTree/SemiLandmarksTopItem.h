@@ -161,7 +161,7 @@ public:
 public slots:
     void addHere(bool tog)
     {
-        ((LandmarksTopItem*)m_parentForm)->assignLandmarksHere( tog ? this : 0 );
+        ( dynamic_cast< LandmarksTopItem* >( m_parentForm ) )->assignLandmarksHere( tog ? this : 0 );
     }
 
     void slide( bool tog = true )
