@@ -654,7 +654,7 @@ void TemplandNode::GetSpecimens()
 
 	std::vector<std::vector<double> > rawdata;
 
-    std::vector<ew::Dig3Tableau> tempTableaus;
+    // std::vector<ew::Dig3Tableau> tempTableaus;
     std::vector<ew::Dig3Tableau> tableauList;
 
     QString fileName = getCurrentTableauFile()->toString();

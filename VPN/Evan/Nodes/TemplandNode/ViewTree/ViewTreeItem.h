@@ -5,6 +5,8 @@
 #include <QMenu>
 
 class FormItem;
+//#include "FormItem.h"
+
 class ViewTree;
 
 class ViewTreeItem : public QObject, public QTreeWidgetItem
@@ -27,7 +29,8 @@ public:
     {}
     ViewTreeItem(ViewTreeItem* parent, TreeItemTypes type = NONE) : QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
                                                                     m_contextMenu(new QMenu()),
-                                                                    m_parentForm((FormItem*)parent),
+                                                                    //m_parentForm( dynamic_cast<FormItem *>( parent ) ),
+                                                                    m_parentForm( (FormItem *)( parent ) ),
                                                                     m_parentTree(0),
                                                                     m_type(type)
     {}

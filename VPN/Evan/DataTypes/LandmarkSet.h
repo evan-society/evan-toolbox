@@ -15,21 +15,26 @@ private:
     double m_centroidSize;
 
 public:
-    LandmarkSet(size_t row = 0, size_t col = 0) : MatrixD(row,col)
+    LandmarkSet(size_t row = 0, size_t col = 0) :
+        MatrixD(row,col),
+        m_specimenIndex(0)
     {
         addType(LANDMARKSET_T);
         addPartOfRelation(SPECIMENS_T);
         m_renderablePtr = DataTypePtr(new LMKSetRenderable);
         m_centroidSize = 0.0;
     }
-    LandmarkSet(const LandmarkSet& copy) : MatrixD(copy)
+    LandmarkSet(const LandmarkSet& copy) :
+        MatrixD(copy),
+        m_specimenIndex(0),
+        m_renderablePtr( DataTypePtr(new LMKSetRenderable) ),
+        m_centroidSize(0.0)
     {
-        m_renderablePtr = DataTypePtr(new LMKSetRenderable);
     }
     ~LandmarkSet()
     {}
 
-    LMKSetRenderable* getRenderable() const {return (LMKSetRenderable*)m_renderablePtr.getPtr();}
+    LMKSetRenderable* getRenderable() const { return dynamic_cast<LMKSetRenderable*>( m_renderablePtr.getPtr() ); }
     void setSpecimenIndex(unsigned int i) {m_specimenIndex = i;}
     bool isComplete() const {return m_missing.empty();}
     void addMissing(unsigned int i) {m_missing.insert(i);}

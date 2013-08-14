@@ -2,6 +2,9 @@
 #include <svd.h>
 #include <cerrno>
 
+static const double valueEPSILON() { return 1e-12; }
+
+const double PLS::EPSILON = valueEPSILON();// = 1e-12;      //!< A Small floating point number
 
 void GetTime(string &str)
 {

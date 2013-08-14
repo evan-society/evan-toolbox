@@ -19,21 +19,21 @@ public:
     bool equals(const ILabelValue* sv)
     {
         if(sv->getType() == this->getType())
-            return ((ScalarLabelValue*)sv)->getValue() == this->getValue();
+            return ( dynamic_cast<const ScalarLabelValue *>( sv ) )->getValue() == this->getValue();
         return false;
     }
 
     bool moreThan(const ILabelValue* sv)
     {
         if(sv->getType() == this->getType())
-            return this->getValue() > ((ScalarLabelValue*)sv)->getValue();
+            return this->getValue() > ( dynamic_cast<const ScalarLabelValue *>( sv ) )->getValue();
         return false;
     }
 
     bool lessThan(const ILabelValue* sv)
     {
         if(sv->getType() == this->getType())
-            return this->getValue() < ((ScalarLabelValue*)sv)->getValue();
+            return this->getValue() < ( dynamic_cast<const ScalarLabelValue *>( sv ) )->getValue();
         return false;
     }
 

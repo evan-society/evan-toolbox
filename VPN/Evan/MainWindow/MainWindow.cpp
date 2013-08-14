@@ -166,8 +166,8 @@ void MainWindow::zoomChanged(int scale)
 {
     if (mdiArea->activeSubWindow())
     {
-        QGraphicsView* projectView = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectView();
-        m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
+        QGraphicsView* projectView = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() )->getProjectView();
+        m_activeProject = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() )->getProjectArea();
         if (projectView)
         {
             QMatrix oldMatrix = projectView->matrix();
@@ -265,7 +265,7 @@ void MainWindow::saveNetwork()
     }
     if (mdiArea->activeSubWindow())
     {
-        VPNLayout* vpnNetwork = (VPNLayout*)mdiArea->activeSubWindow();
+        VPNLayout* vpnNetwork = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() );
         if (!vpnNetwork)
             return;
         if (!vpnNetwork->isSaved())
@@ -288,7 +288,7 @@ void MainWindow::saveNetworkAs()
     }
     if (mdiArea->activeSubWindow())
     {
-        VPNLayout* vpnNetwork = (VPNLayout*)mdiArea->activeSubWindow();
+        VPNLayout* vpnNetwork = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() );
         if (!vpnNetwork)
             return;
         QApplication::setOverrideCursor(Qt::WaitCursor);
@@ -308,7 +308,7 @@ void MainWindow::saveNetworkWithStates()
     }
     if (mdiArea->activeSubWindow())
     {
-        VPNLayout* vpnNetwork = (VPNLayout*)mdiArea->activeSubWindow();
+        VPNLayout* vpnNetwork = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() );
         if (!vpnNetwork)
             return;
         QApplication::setOverrideCursor(Qt::WaitCursor);
@@ -323,7 +323,7 @@ void MainWindow::saveNetworkWithoutStates()
 {
     if (mdiArea->activeSubWindow())
     {
-        VPNLayout* vpnNetwork = (VPNLayout*)mdiArea->activeSubWindow();
+        VPNLayout* vpnNetwork = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() );
         if (!vpnNetwork)
             return;
         QApplication::setOverrideCursor(Qt::WaitCursor);
@@ -474,7 +474,9 @@ void MainWindow::connectVPN()
 {
     if (mdiArea->activeSubWindow())
     {
-        m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
+        //m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
+        m_activeProject = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() )->getProjectArea();
+
 //        connect(actionConnectMode, SIGNAL(toggled(bool)), m_activeProject, SLOT(enableConnect(bool)));
 //        connect(actionSelectMode, SIGNAL(toggled(bool)), m_activeProject, SLOT(enableMove(bool)));
         connect(actionDeleteSelection, SIGNAL(triggered()), m_activeProject, SLOT(deleteSelection()));
@@ -548,7 +550,7 @@ void MainWindow::nodeButtonChecked(QAbstractButton* button)
 //	actionSelectMode->setChecked(true);
     if (mdiArea->activeSubWindow())
     {
-        m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
+        m_activeProject = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() )->getProjectArea();
         if (m_activeProject)
         {
             m_activeProject->setMode(DropArea::NODE_INSERT);
@@ -566,7 +568,7 @@ void MainWindow::nodeButtonClicked(bool checked)
 //        actionSelectMode->setChecked(true);
         if (mdiArea->activeSubWindow())
         {
-            m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
+            m_activeProject = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() )->getProjectArea();
             if (m_activeProject)
             {
                 m_activeProject->setMode(DropArea::NODE_MOVE);
@@ -588,7 +590,7 @@ void MainWindow::linkCreateDone()
 //    actionSelectMode->setChecked(true);
     if (mdiArea->activeSubWindow())
     {
-        m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
+        m_activeProject = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() )->getProjectArea();
         if (m_activeProject)
             m_activeProject->setMode(DropArea::NODE_MOVE);
     }
@@ -613,7 +615,7 @@ void MainWindow::runNetwork(bool run)
 
     if (mdiArea->activeSubWindow())
     {
-        m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
+        m_activeProject = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() )->getProjectArea();
         if (m_activeProject)
         {
             if (run)
@@ -635,7 +637,7 @@ void MainWindow::forceRunNetwork(bool run)
 {
     if (mdiArea->activeSubWindow())
     {
-        m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
+        m_activeProject = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() )->getProjectArea();
         if (m_activeProject)
         {
             m_activeProject->setMode(DropArea::VPN_RUN);
@@ -766,7 +768,7 @@ void MainWindow::updateActions()
         action_Save->setDisabled(false);
         m_zoomSpin->setDisabled(false);
 
-        m_activeProject = ((VPNLayout*)mdiArea->activeSubWindow())->getProjectArea();
+        m_activeProject = dynamic_cast<VPNLayout *>( mdiArea->activeSubWindow() )->getProjectArea();
         if (m_activeProject)
         {
             if (m_activeProject->isRunning())

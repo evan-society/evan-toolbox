@@ -20,21 +20,21 @@ public:
     bool equals(const ILabelValue* sv)
     {
         if(sv->getType() == this->getType())
-            return ((StringLabelValue*)sv)->getValue() == this->getValue();
+            return ( dynamic_cast<const StringLabelValue *>( sv ) )->getValue() == this->getValue();
         return false;
     }
 
     bool moreThan(const ILabelValue* sv)
     {
         if(sv->getType() == this->getType())
-            return this->getValue() > ((StringLabelValue*)sv)->getValue();
+            return this->getValue() > ( dynamic_cast<const StringLabelValue *>( sv ) )->getValue();
         return false;
     }
 
     bool lessThan(const ILabelValue* sv)
     {
         if(sv->getType() == this->getType())
-            return this->getValue() < ((StringLabelValue*)sv)->getValue();
+            return this->getValue() < ( dynamic_cast<const StringLabelValue *>( sv ) )->getValue();
         return false;
     }
 

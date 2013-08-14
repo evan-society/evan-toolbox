@@ -12,7 +12,7 @@ class PLS
 
 public:
 
-    static const double EPSILON = 1e-12;      //!< A Small floating point number
+    static const double EPSILON;// = 1e-12;      //!< A Small floating point number
 
     //! Constructor
     PLS();

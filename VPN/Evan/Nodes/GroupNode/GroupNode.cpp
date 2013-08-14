@@ -142,28 +142,30 @@ void GroupNode::doGrouping()
     //Add the grouping info
     for(int i=0; i<m_groupsView->topLevelItemCount(); ++i)
     {
-        GroupTreeItem* groupItem = (GroupTreeItem*)m_groupsView->topLevelItem(i);
+        GroupTreeItem *groupItem = dynamic_cast<GroupTreeItem *>( m_groupsView->topLevelItem( i ) );
         if(groupItem->childCount() == 0)
             continue;
-        SpecimenGroup* sg = new SpecimenGroup;
+        SpecimenGroup *sg = new SpecimenGroup;
         for(int j=0; j<groupItem->childCount(); ++j)
         {
-            MemberTreeItem* groupMemberItem = ((MemberTreeItem*)groupItem->child(j));
+            MemberTreeItem *groupMemberItem = dynamic_cast<MemberTreeItem*>( groupItem->child( j ) );
             unsigned int specimenIndex = groupMemberItem->getSpecimenIndex();
             if(specimenIndex == m_specimensInput->getSize())
                 sg->addMean(m_specimensInput->getSize(), groupMemberItem->text(0),
                             groupMemberItem->getColor(), groupMemberItem->text(1).toFloat(),
-                            ((PlotSymbolCombo*)m_groupsView->itemWidget(groupMemberItem,2))->currentIndex());
+                            dynamic_cast<PlotSymbolCombo *>( m_groupsView->itemWidget( groupMemberItem, 2 ) )->currentIndex()
+                            );
             else
                 sg->addMember(  m_specimensOutput->getLandmarkSet(specimenIndex),
                                 groupMemberItem->text(0),
                                 groupMemberItem->getColor(),
                                 groupMemberItem->text(1).toFloat(),
-                                ((PlotSymbolCombo*)m_groupsView->itemWidget(groupMemberItem,2))->currentIndex());
+                                dynamic_cast<PlotSymbolCombo *>( m_groupsView->itemWidget( groupMemberItem, 2 ) )->currentIndex()
+                                );
         }
         sg->setGroupLMKSize(groupItem->text(1).toFloat());
         sg->setGroupColor(groupItem->data(0, Qt::DecorationRole).value<QColor>());
-        sg->setGroupPlotSymbol(((PlotSymbolCombo*)m_groupsView->itemWidget(groupItem,2))->currentIndex());
+        sg->setGroupPlotSymbol( dynamic_cast<PlotSymbolCombo *>( m_groupsView->itemWidget( groupItem, 2 ) )->currentIndex() );
         m_specimensOutput->addGroup(groupItem->text(0), sg);
 
         if( groupItem->text(0) != "Ungrouped" && sg->getSize()>0)
@@ -179,7 +181,8 @@ void GroupNode::doGrouping()
             m_groupMeans->setLabelValue(i, "ID", groupName);
             defaultGroup->addMember(meanSpecimen, groupName,
                                     groupItem->data(0, Qt::DecorationRole).value<QColor>(), groupItem->text(1).toFloat(),
-                                    ((PlotSymbolCombo*)m_groupsView->itemWidget(groupItem,2))->currentIndex());
+                                    dynamic_cast<PlotSymbolCombo *>( m_groupsView->itemWidget( groupItem, 2 ) )->currentIndex()
+                                    );
         }
     }
 
@@ -253,7 +256,7 @@ void GroupNode::addToGroup()
                 int j = selected->childCount()-1;
                 for( ; j>=0; --j)
                 {
-                    MemberTreeItem* groupMemberItem = ((MemberTreeItem*)selected->child(j));
+                    MemberTreeItem* groupMemberItem = dynamic_cast<MemberTreeItem *>( selected->child( j ) );
                     if(groupMemberItem->getSpecimenIndex() < i)
                         break;
                 }
@@ -266,7 +269,7 @@ void GroupNode::addToGroup()
                 selected->insertChild(j+1, memberItem);
 
                 PlotSymbolCombo* memberPlotSym = new PlotSymbolCombo(m_groupsView,memberItem);
-                PlotSymbolCombo* groupPlotSym = (PlotSymbolCombo*)m_groupsView->itemWidget(selected, 2);
+                PlotSymbolCombo* groupPlotSym = dynamic_cast<PlotSymbolCombo *>( m_groupsView->itemWidget(selected, 2) );
                 memberPlotSym->setCurrentIndex(groupPlotSym->currentIndex());
                 m_groupsView->setItemWidget(memberItem, 2, memberPlotSym);
                 connect(memberPlotSym, SIGNAL(symbolChanged(int,int,QTreeWidgetItem*)), m_groupsView, SLOT(changeGroupPSymbol(int,int,QTreeWidgetItem*)));

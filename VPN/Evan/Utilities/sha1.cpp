@@ -91,7 +91,6 @@ void SHA1::process()
 	for(; t< 80; t++ ) W[t] = lrot( W[t-3]^W[t-8]^W[t-14]^W[t-16], 1 );
 
 	/* main loop */
-	Uint32 temp;
 	for( t = 0; t < 80; t++ )
 	{
 		if( t < 20 ) {
@@ -107,7 +106,7 @@ void SHA1::process()
 			K = 0xca62c1d6;
 			f = b ^ c ^ d;
 		}
-		temp = lrot(a,5) + f + e + W[t] + K;
+		Uint32 temp = lrot(a,5) + f + e + W[t] + K;
 		e = d;
 		d = c;
 		c = lrot(b,30);

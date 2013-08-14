@@ -181,9 +181,9 @@ private slots:
 
 
 protected:
-	Variables* getInputPortData0()const {return (Variables*)getInputData(0);}
-	Variables* getInputPortData1()const {return (Variables*)getInputData(1);}
-	Variables* getInputPortData2()const {return (Variables*)getInputData(2);}
+	Variables* getInputPortData0()const { return dynamic_cast<Variables *>( getInputData( 0 ) ); }
+	Variables* getInputPortData1()const { return dynamic_cast<Variables *>( getInputData( 1 ) ); }
+	Variables* getInputPortData2()const { return dynamic_cast<Variables *>( getInputData( 2 ) ); }
 	bool inputChanged(int);
 
 public:

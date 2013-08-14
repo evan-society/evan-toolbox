@@ -26,9 +26,9 @@ private:
 	void addToUngrouped(unsigned int index);
 
 protected:
-	Specimens* getInputPortData0()const {return (Specimens*)getInputData(0);}
-	void setOutputPort0(Specimens* p){setOutputData(0,p);}
-	void setOutputPort1(Specimens* p){setOutputData(1,p);}
+    Specimens* getInputPortData0()const { return dynamic_cast<Specimens *>( getInputData( 0 ) ); }
+    void setOutputPort0(Specimens* p){ setOutputData( 0, p ); }
+    void setOutputPort1(Specimens* p){ setOutputData( 1, p ); }
 
 public:
 	GroupNode(QWidget* parent=0);

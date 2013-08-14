@@ -35,7 +35,7 @@ public:
                 m_printables.removeAt(i);
         }
     }
-    IPrintable* getPrintable(int i)       const {return (IPrintable*)m_printables[i].getPtr();}
+    IPrintable* getPrintable(int i)       const { return dynamic_cast<IPrintable *>( m_printables[i].getPtr() ); }
     unsigned int getSize()                  const {return m_printables.size();}
     bool containsPrintable(IPrintable* p) const {return m_printables.contains(DataTypePtr(p));}
 

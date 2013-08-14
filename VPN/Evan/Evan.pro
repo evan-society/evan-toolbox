@@ -22,7 +22,8 @@ CONFIG(debug, debug|release) {
 	#LIBS += -lew
 	LIBS += -lqwtd5 -lqwtplot3dd
 	
-	QMAKE_CXXFLAGS += -Wall -pedantic
+	QMAKE_CXXFLAGS += -Wall
+	# -pedantic
 	# -Werror
 }
 CONFIG(release, debug|release) {

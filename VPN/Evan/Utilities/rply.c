@@ -1035,8 +1035,17 @@ static void *ply_grow_array(p_ply ply, void **pointer,
         long *nmemb, long size) {
     void *temp = *pointer;
     long count = *nmemb + 1;
-    if (!temp) temp = malloc(count*size);
-    else temp = realloc(temp, count*size);
+	
+    if (!temp) 
+		temp = malloc(count*size);
+    else {	
+		temp = realloc(temp, count*size);
+		if ( temp == NULL ) {
+			free (temp );
+			temp = NULL;
+		}
+	}
+		
     if (!temp) {
         ply_error(ply, "Out of memory");
         return NULL;

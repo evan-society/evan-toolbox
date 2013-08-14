@@ -222,11 +222,10 @@ void WarpGrid::generateShape()
     Matrix<double>* pointInput = new Matrix<double>(*m_originalVertices);
     pointInput->transform(*osgMatrixToEvanMatrix(computeWorldtoLocalMatrix()));
     QVector<osg::Vec3Array*> warpGridVector;
-    Matrix<double>* pointOutMat;
 
     for (int i=0; i<qMin(5,getParent()->getTps().size()); i++)
     {
-        pointOutMat = new Matrix<double>((int) pointInput->GetRows(),3);
+        Matrix<double> *pointOutMat = new Matrix<double>((int) pointInput->GetRows(),3);
         getParent()->getTps().value(i)->WarpPoints(pointInput->GetMatrix(),pointOutMat,pointInput->GetRows());
         osg::Vec3Array* morphVector = new osg::Vec3Array;
         for (unsigned int i=0;i< pointOutMat->GetRows();i++)

@@ -44,8 +44,8 @@ private:
     void FillComboBox();
 
 protected:
-	Specimens* getInputPortData0()const {return (Specimens*)getInputData(0);}
-    Variables* getInputPortData1()const {return (Variables*)getInputData(1);}
+	Specimens* getInputPortData0()const { return dynamic_cast<Specimens *>( getInputData( 0 ) ); }
+    Variables* getInputPortData1()const { return dynamic_cast<Variables *>( getInputData( 1 ) ); }
 
 	void setOutputPort0(Loadings* p){setOutputData(0,p);}
 	void setOutputPort1(Specimens* p){setOutputData(1,p);}
