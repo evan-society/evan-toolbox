@@ -794,7 +794,7 @@ void PlotterNode::selectMarkers()
     QTreeWidgetItem* selected = m_groupsTree->selectedItems().front();
     m_cachedSize = (int)(selected->text(1).toFloat()*2.5f);
     m_cachedColor = selected->data(0, Qt::DecorationRole).value<QColor>();
-    m_cachedSymbol = getSymbolFromIndex(((PlotSymbolCombo*)m_groupsTree->itemWidget(selected,2))->currentIndex());
+    m_cachedSymbol = getSymbolFromIndex( dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(selected,2) )->currentIndex() );
 
     GroupTreeItem* groupItem = dynamic_cast<GroupTreeItem*>(selected);
     MemberTreeItem* memberItem = dynamic_cast<MemberTreeItem*>(selected);

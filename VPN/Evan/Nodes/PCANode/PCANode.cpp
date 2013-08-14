@@ -98,7 +98,7 @@ void PCANode::process()
     m_pca.PerformPCA(m_centerCheckBox->isChecked(), m_scaleCheckBox->isChecked());
 
     vector<double> eigval;
-    vector<vector<double> > eigvec;
+    //vector<vector<double> > eigvec;
 
     m_pca.GetEigenvalues(&eigval);
 

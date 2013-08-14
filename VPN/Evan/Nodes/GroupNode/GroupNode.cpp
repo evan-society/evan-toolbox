@@ -307,9 +307,9 @@ void GroupNode::removeFromGroup()
 {
     if(m_groupsView->selectedItems().count())
     {
-        MemberTreeItem* selected = ((MemberTreeItem*)m_groupsView->selectedItems().front());
+        MemberTreeItem* selected = ( dynamic_cast< MemberTreeItem* >( m_groupsView->selectedItems().front() ) );
         unsigned int removedIndex = selected->getSpecimenIndex();
-        GroupTreeItem* groupItem = (GroupTreeItem*)selected->parent();
+        GroupTreeItem* groupItem = dynamic_cast< GroupTreeItem* >( selected->parent() );
         groupItem->removeChild(selected);
         if(removedIndex == m_specimensInput->getSize())
             groupItem->setHasMean(false);
@@ -325,7 +325,7 @@ void GroupNode::removeFromUngrouped(unsigned int index)
     QTreeWidgetItem* ungroupedItem = m_groupsView->topLevelItem(0);
     for(int i=0; i<ungroupedItem->childCount(); ++i)
     {
-        MemberTreeItem* groupMemberItem = ((MemberTreeItem*)ungroupedItem->child(i));
+        MemberTreeItem* groupMemberItem = ( dynamic_cast< MemberTreeItem* >( ungroupedItem->child(i) ) );
         if(groupMemberItem->getSpecimenIndex() == index)
         {
             ungroupedItem->removeChild(groupMemberItem);
@@ -344,7 +344,7 @@ void GroupNode::addToUngrouped(unsigned int index)
         QTreeWidgetItem* groupItem = m_groupsView->topLevelItem(i);
         for(int j=0; j<groupItem->childCount(); ++j)
         {
-            MemberTreeItem* groupMemberItem = ((MemberTreeItem*)groupItem->child(j));
+            MemberTreeItem* groupMemberItem = ( dynamic_cast< MemberTreeItem* >( groupItem->child(j) ) );
             if(groupMemberItem->getSpecimenIndex() == index)
             {
                 found = true;
@@ -360,7 +360,7 @@ void GroupNode::addToUngrouped(unsigned int index)
         int i = ungroupedItem->childCount()-1;
         for( ; i>=0; --i)
         {
-            MemberTreeItem* groupMemberItem = ((MemberTreeItem*)ungroupedItem->child(i));
+            MemberTreeItem* groupMemberItem = ( dynamic_cast< MemberTreeItem* >( ungroupedItem->child(i) ) );
             if(groupMemberItem->getSpecimenIndex() < index)
                 break;
         }
@@ -373,7 +373,7 @@ void GroupNode::addToUngrouped(unsigned int index)
         ungroupedItem->insertChild(i+1, memberItem);
 
         PlotSymbolCombo* memberPlotSym = new PlotSymbolCombo(m_groupsView,memberItem);
-        PlotSymbolCombo* groupPlotSym = (PlotSymbolCombo*)m_groupsView->itemWidget(ungroupedItem, 2);
+        PlotSymbolCombo* groupPlotSym = dynamic_cast< PlotSymbolCombo* >( m_groupsView->itemWidget(ungroupedItem, 2) );
         memberPlotSym->setCurrentIndex(groupPlotSym->currentIndex());
         m_groupsView->setItemWidget(memberItem, 2, memberPlotSym);
         memberPlotSym->setDisabled(true);
@@ -385,18 +385,19 @@ QString GroupNode::toString() const
     QString result = "";
     for(int i=0; i<m_groupsView->topLevelItemCount(); ++i)
     {
-        GroupTreeItem* groupItem = (GroupTreeItem*)m_groupsView->topLevelItem(i);
+        GroupTreeItem* groupItem = dynamic_cast< GroupTreeItem* >( m_groupsView->topLevelItem(i) );
         QColor groupColor = groupItem->data(0, Qt::DecorationRole).value<QColor>();
         result += groupItem->text(0)+":";
         result += groupItem->text(1)+":";
         result +=   QString().setNum(groupColor.red())  +"|"+
                     QString().setNum(groupColor.green())+"|"+
                     QString().setNum(groupColor.blue())+":";
-        result += QString().setNum(((PlotSymbolCombo*)m_groupsView->itemWidget(groupItem, 2))->currentIndex())+":";
+        //result += QString().setNum(((PlotSymbolCombo*)m_groupsView->itemWidget(groupItem, 2))->currentIndex())+":";
+		result += QString().setNum( ( dynamic_cast< PlotSymbolCombo* >( m_groupsView->itemWidget(groupItem, 2) ) )->currentIndex() )+":";
 
         for(int j=0; j<groupItem->childCount(); ++j)
         {
-            MemberTreeItem* groupMemberItem = ((MemberTreeItem*)groupItem->child(j));
+            MemberTreeItem* groupMemberItem = dynamic_cast< MemberTreeItem* >( groupItem->child(j) ) ;
             result +=   groupMemberItem->text(0) + "^";
             result +=   groupMemberItem->text(1) + "^";
             result +=   QString().setNum(groupMemberItem->getSpecimenIndex()) + "^";
@@ -404,7 +405,8 @@ QString GroupNode::toString() const
                         QString().setNum(groupMemberItem->getColor().green())+"|"+
                         QString().setNum(groupMemberItem->getColor().blue())+"|"+
                         QString().setNum(groupMemberItem->getColor().alpha())+"^";
-            result += QString().setNum(((PlotSymbolCombo*)m_groupsView->itemWidget(groupMemberItem, 2))->currentIndex())+"/";
+            //result += QString().setNum(((PlotSymbolCombo*)m_groupsView->itemWidget(groupMemberItem, 2))->currentIndex())+"/";
+			result += QString().setNum( ( dynamic_cast< PlotSymbolCombo* >( m_groupsView->itemWidget(groupMemberItem, 2) ) )->currentIndex())+"/";
         }
 
         result += ",";
@@ -484,7 +486,7 @@ void GroupNode::fillLoadedGroups()
         }
         for(int i=0; i<groupItem->childCount(); ++i)
         {
-            MemberTreeItem* memberItem = (MemberTreeItem*)groupItem->child(i);
+            MemberTreeItem* memberItem = dynamic_cast< MemberTreeItem* >( groupItem->child(i) );
             if(memberItem->getSpecimenIndex() > m_specimensInput->getSize() || memberItem->getSpecimenIndex()<0)
             {
                 ++x;
@@ -509,7 +511,7 @@ void GroupNode::fillLoadedGroups()
 
         for(int i=0; i<groupItem->childCount(); ++i)
         {
-            MemberTreeItem* memberItem = (MemberTreeItem*)groupItem->child(i);
+            MemberTreeItem* memberItem = dynamic_cast< MemberTreeItem* >( groupItem->child(i) );
             PlotSymbolCombo* memberPlotSym = new PlotSymbolCombo(m_groupsView,memberItem);
             memberPlotSym->setCurrentIndex(memberItem->text(2).toInt());
             m_groupsView->setItemWidget(memberItem, 2, memberPlotSym);
