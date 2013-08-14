@@ -138,6 +138,13 @@ void MyClipPlane::setClipPlaneIndex(int index)
 //WarpGrid////////////////////////////////////////////////////////////////////////
 WarpGrid::WarpGrid():AbstractWarpGrid()
 {
+    m_useShader = static_cast< bool >( 0 );
+    m_referenceLMarks = NULL;
+    m_warpedLMarks = NULL;
+    m_rows = 0u;
+    m_cols = 0u;
+    m_size = 0.0f;
+
     m_originalVertices=NULL;
     m_coefArray.clear();
     m_coefArray.append("coefArray1");

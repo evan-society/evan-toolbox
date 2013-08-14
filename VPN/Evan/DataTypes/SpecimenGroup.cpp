@@ -1,7 +1,12 @@
 #include "SpecimenGroup.h"
 #include "Specimens.h"
 
-SpecimenGroup::SpecimenGroup() : IRenderable(), m_groupColor(Qt::lightGray), m_groupLMKSize(3.0f), m_groupPSymbol(0), m_hasMean(false)
+SpecimenGroup::SpecimenGroup() :
+    IRenderable(),
+    m_groupColor(Qt::lightGray),
+    m_groupLMKSize(3.0f),
+    m_groupPSymbol(0),
+    m_hasMean(false)
 {}
 
 SpecimenGroup::~SpecimenGroup()

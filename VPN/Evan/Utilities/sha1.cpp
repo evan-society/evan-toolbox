@@ -59,6 +59,8 @@ SHA1::SHA1()
 	H4 = ' ';   //0xc3d2e1f0;
 	unprocessedBytes = 0;
 	size = 0;
+
+    memset( &bytes[0], 0, sizeof( bytes ) / sizeof( bytes[0] ) );
 }
 
 // Destructor ********************************************************

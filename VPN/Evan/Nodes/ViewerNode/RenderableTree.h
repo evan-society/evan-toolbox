@@ -19,11 +19,22 @@ private:
     osg::ref_ptr<osg::Node> m_itemPtr;
 
 public:
-    RenderableTreeItem() : QTreeWidgetItem(QTreeWidgetItem::UserType)//, m_itemPtr(NULL)
+    RenderableTreeItem() : 
+		QTreeWidgetItem(QTreeWidgetItem::UserType),
+		m_itemRenderable( NULL )
+		//, m_itemPtr(NULL)
     { setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled|Qt::ItemIsEditable);}
-    RenderableTreeItem(QTreeWidget * parent)    :  QTreeWidgetItem(parent, QTreeWidgetItem::UserType)//, m_itemPtr(NULL)
+	
+    RenderableTreeItem(QTreeWidget * parent)    :  
+		QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
+		m_itemRenderable( NULL )
+		//, m_itemPtr(NULL)
     { setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled|Qt::ItemIsEditable);}
-    RenderableTreeItem(QTreeWidgetItem * parent):  QTreeWidgetItem(parent, QTreeWidgetItem::UserType)//, m_itemPtr(NULL)
+	
+    RenderableTreeItem(QTreeWidgetItem * parent)	:  
+		QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
+		m_itemRenderable( NULL )
+		//, m_itemPtr(NULL)
     { setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled|Qt::ItemIsEditable);}
 
     osg::ref_ptr<osg::Node> getItemPtr()    const {return m_itemPtr;}

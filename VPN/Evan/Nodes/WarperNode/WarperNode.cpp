@@ -187,11 +187,11 @@ void WarperNode::processWarps()
                 return;
             }
 
-            int numscores = ((Loadings*)loadings)->getNumScores();
+            int numscores = ( dynamic_cast< Loadings* >( loadings) )->getNumScores();
 
             if(numscores == 0)
             {
-                numscores = ((Loadings*)loadings)->GetCols();
+                numscores = ( dynamic_cast< Loadings* >( loadings) )->GetCols();
             }
             for(int j=0; j<numscores; ++j)
             {
@@ -211,8 +211,8 @@ void WarperNode::processWarps()
             // 26.06.09 hpg - get scale values from min and max scores
             vector<double> minrange;
             vector<double> maxrange;
-            minrange = *((Loadings*)loadings)->getMin();
-            maxrange = *((Loadings*)loadings)->getMax();
+            minrange = *( dynamic_cast< Loadings* >( loadings) )->getMin();
+            maxrange = *( dynamic_cast< Loadings* >( loadings) )->getMax();
             m_scaleAmounts.resize(maxrange.size());
             for(int k=0;k<m_scaleAmounts.size();k++)
             {
@@ -962,12 +962,11 @@ void WarperNode::doTPS()
     }
 
     clearTPS();
-    TPS* tps;
 
     for (unsigned int i=0; i<m_convertedWarpings->getSize(); i++)
     {
         MatrixD* mat = m_convertedWarpings->getWarp(i);
-        tps = new TPS;
+        TPS *tps = new TPS;
         tps->LoadData(m_lmk1Input->GetMatrix(),mat->GetMatrix(),m_lmk1Input->GetRows(),3);
         tps->PerformTPS();
         m_tps.push_back(tps);
@@ -1522,7 +1521,8 @@ void WarperNode::membersUpdated()
 }
 
 ///////AnimationWidget/////////////////////////////////////////////////////////////
-AnimationWidget::AnimationWidget(QWidget* parent):QWidget(parent)
+AnimationWidget::AnimationWidget(QWidget* parent):
+	QWidget(parent)
 {
     QGridLayout* animLayout = new QGridLayout();
     m_minValueButton = new QPushButton("Minimum");
