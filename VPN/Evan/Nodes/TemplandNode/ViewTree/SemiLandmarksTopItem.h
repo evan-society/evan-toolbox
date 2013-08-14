@@ -170,12 +170,12 @@ public slots:
     }
     void lmkDeleted()
     {
-        ((LandmarksTopItem*)m_parentForm)->assignLandmarksHere( 0 );
+        dynamic_cast< LandmarksTopItem* >( m_parentForm )->assignLandmarksHere( 0 );
         emit lmkDeleteAction(m_lmkIndex);
     }
     void lmkMoved()
     {
-        ((LandmarksTopItem*)m_parentForm)->assignLandmarksHere( 0 );
+        dynamic_cast< LandmarksTopItem* >( m_parentForm )->assignLandmarksHere( 0 );
         emit lmkMoveAction(m_lmkIndex);
     }
     void lmkMovedChild( FormItem* semipatch, ViewTreeItem* semi, int  semiID );

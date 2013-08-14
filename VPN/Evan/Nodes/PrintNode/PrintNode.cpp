@@ -43,7 +43,8 @@ void PrintNode::process()
 	{
    		if(p->getPrintable(i)->isType(IDataType::SPECIMENS_T))
         {
-            Specimens * specimens = (Specimens*)p->getPrintable(i);
+            //Specimens * specimens = (Specimens*)p->getPrintable(i);
+            Specimens * specimens = dynamic_cast<Specimens*>( p->getPrintable(i) );
                 str<<"[individuals]"<<endl;
                 str<<specimens->getSize()<<endl;
                 str<<"[landmarks]"<<endl;
@@ -151,7 +152,7 @@ void PrintNode::process()
         }
         else if(p->getPrintable(i)->isType(IDataType::CENTROIDSIZES_T))
 		{
-			Variables *v = (Variables*)(p->getPrintable(i));
+			Variables *v = dynamic_cast< Variables* >( p->getPrintable(i) );
 			str <<	"\t" << "Centroid Size" << "\t" << "Ln of Centroid Size" << endl;
 			for (unsigned int j=0;j<v->GetRows();j++)
 			{
@@ -167,7 +168,7 @@ void PrintNode::process()
 		}
 		else if (p->getPrintable(i)->isType(IDataType::VARIABLES_T))
 		{
-			Variables *v = (Variables*)p->getPrintable(i);
+			Variables *v = dynamic_cast< Variables* >( p->getPrintable(i) );
 
 			for (unsigned int j=0;j<v->GetCols();j++)
 			{
@@ -191,7 +192,7 @@ void PrintNode::process()
 		}
 		else if(p->getPrintable(i)->isType(IDataType::TRANSFORMMATRIX_T))
 		{
-			TransformMatrix *tms = (TransformMatrix*)p->getPrintable(i);
+			TransformMatrix *tms = dynamic_cast< TransformMatrix* >( p->getPrintable(i) );
 
 			str << "Transform matrices" << endl;
 
