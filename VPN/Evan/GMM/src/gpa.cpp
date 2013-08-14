@@ -5,6 +5,12 @@
 #include <ew/Tps2.h>
 #include <ew/Tps3.h>
 
+static const double valueEPSILON() { return 1e-12; }
+static const double valueSQRT2() { return 1.414213562373095; }
+
+const double GPA::EPSILON = valueEPSILON();// = 1e-12;            //!< A small number
+const double GPA::SQRT2 = valueSQRT2();// = 1.414213562373095;  //!< The square root of two
+
 void
 GPA::GetProcrustesDistances(Matrix<double> *dist, int method, bool formSpace)
 {

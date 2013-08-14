@@ -49,7 +49,13 @@ public:
     }
 
 
-    LandmarksTopItem(FormItem* parent) :  ViewTreeItem(parent, LANDMARKS_ITEM), m_templateTreeView(false), m_mapAllAction(0), m_assignhere(0)/*, addAction(0)//, m_splineAction(0)*/, m_projectAction(0), m_fixAction(0)
+    LandmarksTopItem(FormItem* parent) :
+        ViewTreeItem(parent, LANDMARKS_ITEM),
+        m_templateTreeView(false),
+        m_mapAllAction(0),
+        m_assignhere(0)/*, addAction(0)//, m_splineAction(0)*/,
+        m_projectAction(0),
+        m_fixAction(0)
     {
         fillContextMenu();
         m_moving = false;

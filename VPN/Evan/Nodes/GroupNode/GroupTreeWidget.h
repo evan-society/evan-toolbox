@@ -28,9 +28,15 @@ private:
     QColor m_color;
 
 public:
-    MemberTreeItem() : QTreeWidgetItem(QTreeWidgetItem::UserType), m_color(Qt::transparent)
+    MemberTreeItem() : 
+		QTreeWidgetItem(QTreeWidgetItem::UserType), 
+		m_specimenIndex( 0u ),
+		m_color(Qt::transparent)
     {}
-    MemberTreeItem(QTreeWidgetItem* parent)    :  QTreeWidgetItem(parent, QTreeWidgetItem::UserType), m_color(Qt::transparent)
+    MemberTreeItem(QTreeWidgetItem* parent)    :  
+		QTreeWidgetItem(parent, QTreeWidgetItem::UserType), 
+		m_specimenIndex( 0u ),
+		m_color(Qt::transparent)
     {}
 
     unsigned int getSpecimenIndex() const {return m_specimenIndex;}
@@ -67,7 +73,7 @@ public:
     {
         for(int i=0; i<parent->childCount(); ++i)
         {
-            MemberTreeItem* groupMemberItem = ((MemberTreeItem*)parent->child(i));
+            MemberTreeItem* groupMemberItem = dynamic_cast<MemberTreeItem *>( parent->child( i ) );
             if(groupMemberItem->getSpecimenIndex() == index)
                 return true;
         }

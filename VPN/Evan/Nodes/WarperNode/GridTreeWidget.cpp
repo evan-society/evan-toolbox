@@ -94,7 +94,7 @@ QMimeData* GridTreeWidget::mimeData(const QList<QTreeWidgetItem *> items) const
 
 void GridTreeWidget::dropEvent(QDropEvent *event)
  {
-    GridTreeItem* drag;
+    GridTreeItem* drag = NULL;
     if (event->mimeData()->hasFormat("myownmimetype/grid"))
     {
         QByteArray itemData = event->mimeData()->data("myownmimetype/grid");
@@ -125,7 +125,7 @@ void GridTreeWidget::dropEvent(QDropEvent *event)
     else return;
 
     QTreeWidget::dropEvent(event);
-    GroupWarpGrids* gwarpg;
+    GroupWarpGrids* gwarpg = NULL;
     if (drag->parent())
     {
         GroupGridTreeItem* newParent = dynamic_cast<GroupGridTreeItem*>(drag->parent());

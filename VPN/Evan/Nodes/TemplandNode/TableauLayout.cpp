@@ -125,7 +125,7 @@ void projectOntoCurve(const ew::DataflowCurve3E * const * cur, int *edge, double
 
 const unsigned char* chooseColor(const unsigned char* oldCol)
 {
-    unsigned char* col;
+    unsigned char* col = NULL;
     QColor result;
     result.setRgb(oldCol[0], oldCol[1], oldCol[2]);
     result = QColorDialog::getColor(result);
@@ -4268,7 +4268,7 @@ void TableauLayout::lmkExportAll(FormItem* formTreeItem)
 
         std::vector<std::vector<double> > rawdata;
 
-        std::vector<ew::Dig3Tableau> tempTableaus;
+        // std::vector<ew::Dig3Tableau> tempTableaus;
         std::vector<ew::Dig3Tableau> tableauList;
 
         if(m_tableauFile != "")

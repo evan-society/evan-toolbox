@@ -279,15 +279,15 @@ void DropArea::deleteSelection()
         }
         else if(!flagListItems(item))
         {
-            m_scheduler.flagLink((PortLink*)item);
+            m_scheduler.flagLink( dynamic_cast<PortLink *>( item ) );
         }
         else
         {
-            m_scheduler.removeNode(m_sceneNodes[getSelectedNode(item)]);
+            m_scheduler.removeNode( m_sceneNodes[getSelectedNode(item)] );
 
             if(m_sceneNodes[getSelectedNode(item)]->getType() == "TemplandNode")
             {
-                if(((TemplandNode*)m_sceneNodes[getSelectedNode(item)])->canDelete())
+                if( dynamic_cast<TemplandNode *>( m_sceneNodes[ getSelectedNode( item ) ] )->canDelete() )
                 {
                     m_scheduler.flagLinks(m_sceneNodes[getSelectedNode(item)]);
                     removeItem(item);

@@ -77,7 +77,7 @@ public:
             m_centroidSizes[i] = csize;
 
         if(i<m_landmarkSets.size() && i>=0)
-            ((LandmarkSet*)m_landmarkSets[i].getPtr())->setCentroidSize(csize);
+            ( dynamic_cast<LandmarkSet*>( m_landmarkSets[i].getPtr() ) )->setCentroidSize(csize);
     }
     void addLandmarkPair(QPair<int,int> p)
     {m_landmarkPairs.push_back(p);}
@@ -95,12 +95,12 @@ public:
         m_tangentProjected = tangentProjected;
     }
 
-    SpecimenGroup* getGroup(int i)              const {return (SpecimenGroup*)m_groups[i].getPtr();}
-    const QString& getGroupName(int i)          const {return m_groupNames[i];}
-    unsigned int getGroupNumber()               const {return m_groups.size();}
-    LandmarkSet* getLandmarkSet(int i)          const {return (LandmarkSet*)m_landmarkSets[i].getPtr();}
-    Labels* getSpecimenLabels(int i)            const {return (Labels*)m_specimensLabels[i].getPtr();}
-    Labels* getLandmarkLabels(int i)            const {return (Labels*)m_landmarksLabels[i].getPtr();}
+    SpecimenGroup* getGroup(int i)              const { return dynamic_cast<SpecimenGroup*>( m_groups[i].getPtr() ); }
+    const QString& getGroupName(int i)          const { return m_groupNames[i]; }
+    unsigned int getGroupNumber()               const { return m_groups.size(); }
+    LandmarkSet* getLandmarkSet(int i)          const { return dynamic_cast<LandmarkSet*>( m_landmarkSets[i].getPtr() ); }
+    Labels* getSpecimenLabels(int i)            const { return dynamic_cast<Labels*>( m_specimensLabels[i].getPtr() ); }
+    Labels* getLandmarkLabels(int i)            const { return dynamic_cast<Labels*>( m_landmarksLabels[i].getPtr() ); }
     QString getSpecimenLabelValue(int i, const QString& labelName) const {return getSpecimenLabels(i)->getLabel(labelName);}
     QString getLandmarkLabelValue(int i, const QString& labelName) const {return getLandmarkLabels(i)->getLabel(labelName);}
     const QVector<DataTypePtr>& getSpecimenLabels()   const {return m_specimensLabels;}
@@ -219,13 +219,13 @@ public:
     {
         if(rList.isValid() && rList->isType(RLIST_T))
         {
-            RList* results = (RList*)rList.getPtr();
+            RList* results = dynamic_cast<RList*>( rList.getPtr() );
             if(partIndex >= results->getSize() || partIndex < 0)
                 return false;
             DataTypePtr dt = results->getDataType(partIndex);
             if(directMatch(dt.getPtr()))
             {
-                Specimens* sp = (Specimens*)dt.getPtr();
+                Specimens* sp = dynamic_cast<Specimens*>( dt.getPtr() );
                 SpecimenGroup* defaultGroup = new SpecimenGroup;
                 for (unsigned int i=0;i<sp->getSize();i++)
                 {

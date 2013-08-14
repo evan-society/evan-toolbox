@@ -137,11 +137,10 @@ bool Volumes::initialize(const QString& name)
         int image_s = m_image->s();
         int image_t = m_image->t();
         int image_r = m_image->r();
-        float xSize=0.0f, ySize=0.0f, zSize=0.0f;
 
-        if (xSize==0.0) xSize = static_cast<float>(image_s);
-        if (ySize==0.0) ySize = static_cast<float>(image_t);
-        if (zSize==0.0) zSize = static_cast<float>(image_r);
+        // float xSize = static_cast<float>(image_s);
+        // float ySize = static_cast<float>(image_t);
+        // float zSize = static_cast<float>(image_r);
 
         matrix = new osg::RefMatrix(1.0, 0.0,   0.0,   0.0,
                                     0.0,   1, 0.0,   0.0,

@@ -158,7 +158,7 @@ protected slots:
     {
         if(model())
         {
-            SpecimensModel* m = (SpecimensModel*)model();
+            SpecimensModel* m = dynamic_cast<SpecimensModel *>( model() );
             m->selectAllSpecimens();
             emit selectedAll();
         }
@@ -167,7 +167,7 @@ protected slots:
     {
         if(model())
         {
-            SpecimensModel* m = (SpecimensModel*)model();
+            SpecimensModel* m = dynamic_cast<SpecimensModel *>( model() );
             m->unSelectAllSpecimens();
         }
     }

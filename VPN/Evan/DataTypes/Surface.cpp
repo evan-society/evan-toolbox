@@ -13,8 +13,11 @@ bool Surface::setFromContainer(DataTypePtr& surfacesPtr, unsigned int partIndex)
     {
         if(!surfacesPtr->isType(SURFACE_VECTOR_T))
             return false;
-        SurfaceVector* surfaces = (SurfaceVector*)surfacesPtr.getPtr();
-        if(partIndex >= surfaces->getSize() || surfaces < 0)
+        SurfaceVector* surfaces = dynamic_cast<SurfaceVector *>( surfacesPtr.getPtr() );
+        //if(partIndex >= surfaces->getSize() || surfaces < 0)
+		if( surfaces == NULL)
+			return false;
+		if( partIndex >= surfaces->getSize() )
             return false;
         initialize(surfaces->getSurface(partIndex), surfaces->getSurface(partIndex)->getRenderableName());
     }

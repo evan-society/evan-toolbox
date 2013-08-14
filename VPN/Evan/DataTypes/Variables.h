@@ -81,9 +81,9 @@ public:
         m_specimenGroups.push_back(DataTypePtr(sg));
         m_specimenGroupNames.push_back(groupName);
     }
-    SpecimenGroup* getSpecimenGroup(int i)      const {return (SpecimenGroup*)m_specimenGroups[i].getPtr();}
-    const QString& getSpecimenGroupName(int i)  const {return m_specimenGroupNames[i];}
-    unsigned int getSpecimenGroupNumber()       const {return m_specimenGroups.size();}
+    SpecimenGroup* getSpecimenGroup(int i)      const { return dynamic_cast<SpecimenGroup*>( m_specimenGroups[i].getPtr() ); }
+    const QString& getSpecimenGroupName(int i)  const { return m_specimenGroupNames[i]; }
+    unsigned int getSpecimenGroupNumber()       const { return m_specimenGroups.size(); }
     void clearSpecimenGroups()
     {
         for(int i=0; i<m_specimenGroups.size(); ++i)

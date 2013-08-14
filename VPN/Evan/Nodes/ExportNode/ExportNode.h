@@ -19,9 +19,9 @@ private:
 //	bool m_updated;
 
 protected:
-	Specimens* getInputPortData0()const {return (Specimens*)getInputData(0);}
-	Surface* getInputPortData1()const {return (Surface*)getInputData(1);}
-	MatrixD* getInputPortData2()const {return (MatrixD*)getInputData(2);}
+	Specimens* getInputPortData0()const { return dynamic_cast<Specimens *>( getInputData( 0 ) ); }
+	Surface* getInputPortData1()const { return dynamic_cast<Surface *>( getInputData( 1 ) ); }
+	MatrixD* getInputPortData2()const { return dynamic_cast<MatrixD *>( getInputData( 2 ) ); }
 
 public:
 	ExportNode(QWidget* parent=0);

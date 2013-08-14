@@ -78,10 +78,10 @@ private:
     QString m_animParam;
 
 protected:
-    LandmarkSet* getInputPortData0()const {return (LandmarkSet*)getInputData(0);}
-    Warpings* getInputPortData1()const {return (Warpings*)getInputData(1);}
-    Surface* getInputPortData2()const {return (Surface*)getInputData(2);}
-    FloatVector* getInputPortData3()const {return (FloatVector*)getInputData(3);}
+    LandmarkSet* getInputPortData0()const { return dynamic_cast<LandmarkSet *>( getInputData( 0 ) ); }
+    Warpings* getInputPortData1()const { return dynamic_cast<Warpings *>( getInputData( 1 ) ); }
+    Surface* getInputPortData2()const { return dynamic_cast<Surface *>( getInputData( 2 ) ); }
+    FloatVector* getInputPortData3()const { return dynamic_cast<FloatVector *>(getInputData( 3 ) ); }
 
     void setOutputPort0(LandmarkSet* p)   {setOutputData(0,p);}
     void setOutputPort1(Surface* p)       {setOutputData(1,p);}

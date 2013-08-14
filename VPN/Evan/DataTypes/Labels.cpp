@@ -20,9 +20,9 @@ QString Labels::getLabel(const QString& labelName) const
     {
         ILabelValue* label = this->value(labelName);
         if(label->getType() == ILabelValue::STRING_VALUE)
-            result = ((StringLabelValue*)label)->getValue();
+            result = dynamic_cast<StringLabelValue *>( label )->getValue();
         else if(label->getType() == ILabelValue::SCALAR_VALUE)
-            result.setNum(((ScalarLabelValue*)label)->getValue());
+            result.setNum( dynamic_cast<ScalarLabelValue *>( label )->getValue() );
     }
     return result;
 }
