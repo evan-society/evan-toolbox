@@ -25,9 +25,9 @@ private:
     bool m_indexChanged;
 
 protected:
-	LandmarkSet* getInputPortData0()const {return (LandmarkSet*)getInputData(0);}
-	Surface* getInputPortData1()const {return (Surface*)getInputData(1);}
-	TransformMatrix* getInputPortData2()const {return (TransformMatrix*)getInputData(2);}
+	LandmarkSet* getInputPortData0()const { return dynamic_cast< LandmarkSet* >( getInputData(0) ); }
+	Surface* getInputPortData1()const { return dynamic_cast< Surface* >( getInputData(1) ); }
+	TransformMatrix* getInputPortData2()const { return dynamic_cast< TransformMatrix* >( getInputData(2) ); }
 	void setOutputPort0(LandmarkSet* p){setOutputData(0,p);}
 	void setOutputPort1(Surface* p){setOutputData(1,p);}
 

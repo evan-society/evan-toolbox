@@ -246,7 +246,8 @@ void GroupNode::addToGroup()
     m_specimensInput = getInputPortData0();
     if(m_groupsView->selectedItems().count())
     {
-        GroupTreeItem* selected = (GroupTreeItem*)m_groupsView->selectedItems().front();
+        //GroupTreeItem* selected = (GroupTreeItem*)m_groupsView->selectedItems().front();
+		GroupTreeItem* selected = dynamic_cast< GroupTreeItem* >( m_groupsView->selectedItems().front() );
         if(m_groupsView->isTopLevel(selected) && m_specimensModel->getSelectedSpecimens().count())
         {
             foreach(unsigned int i, m_specimensModel->getSelectedSpecimens())
@@ -286,7 +287,7 @@ void GroupNode::addToGroup()
                 memberItem->setTextAlignment(1, Qt::AlignCenter);
 
                 PlotSymbolCombo* memberPlotSym = new PlotSymbolCombo(m_groupsView,memberItem);
-                PlotSymbolCombo* groupPlotSym = (PlotSymbolCombo*)m_groupsView->itemWidget(selected, 2);
+                PlotSymbolCombo* groupPlotSym = dynamic_cast< PlotSymbolCombo* >( m_groupsView->itemWidget(selected, 2) );
                 memberPlotSym->setCurrentIndex(groupPlotSym->currentIndex());
                 m_groupsView->setItemWidget(memberItem, 2, memberPlotSym);
                 connect(memberPlotSym, SIGNAL(symbolChanged(int,int,QTreeWidgetItem*)), m_groupsView, SLOT(changeGroupPSymbol(int,int,QTreeWidgetItem*)));
