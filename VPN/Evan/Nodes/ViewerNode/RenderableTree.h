@@ -51,7 +51,9 @@ private:
     osg::ref_ptr<osgVolume::Volume> m_itemPtr;
 
 public:
-    VolumeRenderableTreeItem(QTreeWidget * parent) : QTreeWidgetItem(parent, QTreeWidgetItem::UserType)
+    VolumeRenderableTreeItem(QTreeWidget * parent) : 
+		QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
+		m_itemRenderable( NULL )
     {setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);}
 
     osg::ref_ptr<osgVolume::Volume> getItemPtr()    const {return m_itemPtr;}

@@ -1550,6 +1550,8 @@ AnimationWidget::AnimationWidget(QWidget* parent):
     m_isActive = new QCheckBox("Active");
     m_currentMovement=0;
     m_nextMovement=0;
+    m_current = 0.0;
+    m_nbCycle = 0;
 
     animLayout->addWidget(m_minValueButton,0,0);
     animLayout->addWidget(m_minValue,0,1);

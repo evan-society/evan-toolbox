@@ -12,6 +12,20 @@ SpecimenGroup::SpecimenGroup() :
 SpecimenGroup::~SpecimenGroup()
 {}
 
+SpecimenGroup & SpecimenGroup::operator = (const SpecimenGroup& copy)
+{
+    // http://courses.cms.caltech.edu/cs11/material/cpp/donnie/cpp-ops.html
+    if (this == &rhs) {     // Same object?
+        return *this;        // Yes, so skip assignment, and just return *this.
+    }
+    // perform actual copy of values
+    m_groupLMKSize = copy.m_groupLMKSize;
+    m_groupPSymbol = copy.m_groupPSymbol;
+    m_hasMean = copy.m_hasMean;
+    return *this;
+
+}
+
 void SpecimenGroup::addMean(unsigned int index, const QString& ID, const QColor& vColor, float vSize, int pSymbol)
 {
     if(getSize() == 0)
