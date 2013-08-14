@@ -1036,13 +1036,28 @@ static void *ply_grow_array(p_ply ply, void **pointer,
     void *temp = *pointer;
     long count = *nmemb + 1;
 	
+	void *temp_realloc = NULL;
+	
     if (!temp) 
 		temp = malloc(count*size);
     else {	
-		temp = realloc(temp, count*size);
-		if ( temp == NULL ) {
-			free (temp );
+		// common realloc mistake: http://sourceforge.net/p/sar2/bugs-and-features/14/
+		// Should realloc fail, it will return null, but it won't free 'temp'.
+		// http://www.cplusplus.com/reference/cstdlib/realloc/
+		// If the function fails to allocate the requested block of memory, a null pointer is returned, and the memory block pointed to by argument ptr is not deallocated (it is still valid, and with its contents unchanged).
+
+		//temp = realloc(temp, count*size);
+		//if ( temp == NULL ) {
+		//	free (temp );
+		//	temp = NULL;
+		///}
+		
+		temp_realloc = realloc(temp, count*size);
+		if ( temp_realloc == NULL ) {
+			free( temp );
 			temp = NULL;
+		} else {
+			temp = temp_realloc;
 		}
 	}
 		

@@ -31,7 +31,8 @@ private:
     bool m_hasMean;
 
     SpecimenGroup(const SpecimenGroup&){}
-    SpecimenGroup & operator = (const SpecimenGroup& copy) {return *this;}
+    //SpecimenGroup & operator = (const SpecimenGroup& copy) {return *this;}
+    SpecimenGroup & operator = (const SpecimenGroup& copy);
 
 public:
     SpecimenGroup();

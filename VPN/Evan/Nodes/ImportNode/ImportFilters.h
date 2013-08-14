@@ -1,6 +1,6 @@
 
 
-void find_and_replace( string &source, const string find, string replace )
+void find_and_replace( string &source, const string &find, string replace )
 {
     size_t j;
     for ( ; (j = source.find( find )) != string::npos ; )
