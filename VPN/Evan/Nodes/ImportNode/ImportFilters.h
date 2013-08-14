@@ -44,7 +44,7 @@ int ReadFromRawTextFile( QString filename,
     // we read landmark count from first line
     int ilandmarks = 0;
 
-    string strline;
+    //string strline;
 
     QString seperator = "";
     QString line;// = input.readLine();
