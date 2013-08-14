@@ -148,8 +148,7 @@ void TemplandNode::connectActions()
 TableauLayout* TemplandNode::newTableau( bool createNewTab )
 {
 
-    bool first = false;
-    first = getCurrentTableauFile() == 0;
+    bool first = getCurrentTableauFile() == 0;
     TableauLayout* newProject = new TableauLayout(0, first ? 0 : m_share );
 
     newProject->setWindowTitle(QString("Untitled %1.ltb*").arg(mdiArea->subWindowList().count()+1));
