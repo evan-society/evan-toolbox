@@ -31,9 +31,8 @@
 double project_point_to_line_segment(float *A, float *B, double *p, double *q)
 {
     double d = 0;
-    double t = 0;
+
     float AB[3];
-    float Ap[3];
 
     AB[0] = (B[0]-A[0]);
     AB[1] = (B[1]-A[1]);
@@ -48,11 +47,12 @@ double project_point_to_line_segment(float *A, float *B, double *p, double *q)
     }
     else
     {
+		float Ap[3];
         Ap[0] = (p[0]-A[0]);
         Ap[1] = (p[1]-A[1]);
         Ap[2] = (p[2]-A[2]);
 
-        t = (Ap[0]*AB[0]+Ap[1]*AB[1]+Ap[2]*AB[2])/AB_squared;
+        double t = (Ap[0]*AB[0]+Ap[1]*AB[1]+Ap[2]*AB[2])/AB_squared;
         if (t < 0.0)
         {
             q[0] = A[0];
@@ -458,11 +458,11 @@ void TableauLayout::projectAll( bool checksurface )
     int count = m_targetTopLandmarks->childCount();
     for( int i = 0; i < count; ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)m_targetTopLandmarks->child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( i ) );
 
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
         {
-            LandmarkItem *li = (LandmarkItem*)vti;
+            LandmarkItem *li = dynamic_cast< LandmarkItem* >( vti );
             if( projectLmk( vti, li->getLmkIndex(), checksurface, false ) == false )
             {
                 ++notprojected;
@@ -510,7 +510,7 @@ bool TableauLayout::projectLmk( ViewTreeItem* item, int index, bool checksurface
 
 bool TableauLayout::projectLmkOntoSurface( ViewTreeItem* item, int index, bool checksurface, bool showstatus )
 {
-    std::string s = ((LandmarkItem*)item)->getLmkID().toStdString();
+    std::string s = dynamic_cast< LandmarkItem* >( item )->getLmkID().toStdString();
     const ew::Form3* form = m_dig3.get_spaces()[1]->get_form_data();
     if( form != 0 )
         for(unsigned int j=0; j<form->pointsets.size(); ++j)
@@ -576,7 +576,7 @@ bool TableauLayout::projectLmkOntoSurface( ViewTreeItem* item, int index, bool c
 
 bool TableauLayout::projectLmkOntoCurve( ViewTreeItem* item, int index, bool checksurface, bool showstatus )
 {
-    std::string s = ((LandmarkItem*)item)->getLmkID().toStdString();
+    std::string s = dynamic_cast< LandmarkItem* >( item )->getLmkID().toStdString();
     const ew::Form3* form = m_dig3.get_spaces()[1]->get_form_data();
     if( form != 0 )
         for(unsigned int j=0; j<form->pointsets.size(); ++j)
@@ -651,7 +651,7 @@ bool TableauLayout::projectSemiLmk( ViewTreeItem* item, bool checksurface, bool 
         }
     }
 
-    std::string semiLmkId = ((SemiLandmarksTopItem*)item)->getLmkID().toStdString();
+    std::string semiLmkId = dynamic_cast< SemiLandmarksTopItem* >( item )->getLmkID().toStdString();
 
     const ew::Form3* form = m_dig3.get_spaces()[1]->get_form_data();
 
@@ -872,7 +872,7 @@ void TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, boo
         return;
     }
 
-    std::string semiLmkId = ((SemiLandmarksTopItem*)item)->getLmkID().toStdString();
+    std::string semiLmkId = dynamic_cast< SemiLandmarksTopItem* >( item )->getLmkID().toStdString();
     const ew::Form3* frm = m_dig3.get_spaces()[1]->get_form_data();
 
     int surface_index = -1;
@@ -923,7 +923,7 @@ void TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, boo
 
     if( item->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
     {
-        std::string lmkId = ((SemiLandmarksTopItem*)item)->getLmkID().toStdString();
+        std::string lmkId = dynamic_cast< SemiLandmarksTopItem* >( item )->getLmkID().toStdString();
 
         if(surface_index != -1)
         {
@@ -1061,17 +1061,17 @@ bool TableauLayout::isInTargetTreeView( const QString& id )
     int size = m_targetTopLandmarks->childCount();
     for( int i = 0; i < size; ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)m_targetTopLandmarks->child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( i ) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
         {
-            if( ((LandmarkItem*)vti)->getLmkID() == id )
+            if( dynamic_cast< LandmarkItem* >( vti )->getLmkID() == id )
             {
                 return true;
             }
         }
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
         {
-            if( ((SemiLandmarksTopItem*)vti)->getLmkID() == id )
+            if( dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID() == id )
             {
                 return true;
             }
@@ -1102,10 +1102,10 @@ void TableauLayout::mapLmk(FormItem* item, int index)
         int size = m_templateTopLandmarks->childCount();
         for( int i = 0; i < size; ++i )
         {
-            ViewTreeItem* vti = (ViewTreeItem*)m_templateTopLandmarks->child( i );
+            ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
             if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
             {
-                LandmarkItem* lmi = (LandmarkItem*)m_templateTopLandmarks->child( i );
+                LandmarkItem* lmi = dynamic_cast< LandmarkItem* >( m_templateTopLandmarks->child( i ) );
                 if( lmi->getLmkIndex() == index )
                 {
                     std::string tt = lmi->getLmkID().toStdString();
@@ -1160,7 +1160,7 @@ void TableauLayout::mapLmk(FormItem* item, int index)
             }
             else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
             {
-                SemiLandmarksTopItem* lmi = (SemiLandmarksTopItem*)m_templateTopLandmarks->child( i );
+                SemiLandmarksTopItem* lmi = dynamic_cast< SemiLandmarksTopItem* >( m_templateTopLandmarks->child( i ) );
                 if( lmi->getLmkIndex() != index )
                     continue;
 
@@ -1222,10 +1222,10 @@ void TableauLayout::mapLmk(FormItem* item, int index)
                                 // activate the semilandmark patch
                                 for( int c = 0; c < m_targetTopLandmarks->childCount(); ++c )
                                 {
-                                    ViewTreeItem* vti = (ViewTreeItem*)m_targetTopLandmarks->child( c );
+                                    ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( c ) );
                                     if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
                                     {
-                                        if( ((LandmarkItem*)vti)->getLmkID() == lmi->getLmkID() )
+                                        if( dynamic_cast< LandmarkItem* >( vti )->getLmkID() == lmi->getLmkID() )
                                         {
                                             m_targetTopLandmarks->assignLandmarksHere( vti );
                                             break;
@@ -1233,7 +1233,7 @@ void TableauLayout::mapLmk(FormItem* item, int index)
                                     }
                                     else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
                                     {
-                                        if( ((SemiLandmarksTopItem*)vti)->getLmkID() == lmi->getLmkID() )
+                                        if( dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID() == lmi->getLmkID() )
                                         {
                                             m_targetTopLandmarks->assignLandmarksHere( vti );
                                             break;
@@ -1253,7 +1253,8 @@ void TableauLayout::mapLmk(FormItem* item, int index)
                 else
                 {
                     m_targetTopLandmarks->addSemiLandmark( tt.c_str() );
-                    m_targetTopLandmarks->assignLandmarksHere( (ViewTreeItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) );
+                    //m_targetTopLandmarks->assignLandmarksHere( (ViewTreeItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) );
+					m_targetTopLandmarks->assignLandmarksHere( dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) ) );
                     for( int c = 0; c < numSemi; ++c )
                     {
                         m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
@@ -1271,7 +1272,8 @@ void TableauLayout::mapLmk(FormItem* item, int index)
                         bool b = false;
                         m_dig3.get_spaces()[1]->set_form_embedding( &b, &fe );
 
-                        ((SemiLandmarksTopItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1))->setEmbeddedItemID(embeddedItemId.c_str());
+                        //((SemiLandmarksTopItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1))->setEmbeddedItemID(embeddedItemId.c_str());
+						dynamic_cast< SemiLandmarksTopItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1) )->setEmbeddedItemID(embeddedItemId.c_str());
                     }
                 }
 
@@ -1318,15 +1320,15 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
         std::vector<int> semiindices;
         for( int i = 0; i < size; ++i )
         {
-            ViewTreeItem* vti = (ViewTreeItem*)m_templateTopLandmarks->child( i );
+            ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
             if( vti->getType() != ViewTreeItem::LANDMARK_ITEM && vti->getType() != ViewTreeItem::SEMILANDMARKS_ITEM )
                 continue;
 
             std::string tt;
             if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-                tt = ((LandmarkItem*)vti)->getLmkID().toStdString();
+                tt = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
             else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-                tt = ((SemiLandmarksTopItem*)vti)->getLmkID().toStdString();
+                tt = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID().toStdString();
 
             double x, y, z;
             int index = 0;
@@ -1376,15 +1378,15 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
             count = 0;
             for( unsigned int i = 0; i < indices.size(); ++i )
             {
-                ViewTreeItem* vti = (ViewTreeItem*)m_templateTopLandmarks->child( indiceslbl[i] );
+                ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( indiceslbl[i] ) );
 
                 m_targetTopLandmarks->assignLandmarksHere( 0 );
 
                 // is it already available in target
-                if( isInTargetTreeView( ((LandmarkItem*)vti)->getLmkID() ) )
+                if( isInTargetTreeView(  dynamic_cast< LandmarkItem* >( vti )->getLmkID() ) )
                 {
                     // update the existing point location
-                    std::string str = ((LandmarkItem*)vti)->getLmkID().toStdString();
+                    std::string str = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
                     const ew::Form3 * form = m_dig3.get_spaces()[1]->get_form_data();
                     for( unsigned int i = 0; i < form->pointsets.size(); ++i )
                     {
@@ -1424,10 +1426,10 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
 
         for( unsigned int i = 0; i < semiindices.size(); ++i )
         {
-            ViewTreeItem* vti = (ViewTreeItem*)m_templateTopLandmarks->child( semiindices[i] );
+            ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( semiindices[i] ) );
             if( vti->getType() != ViewTreeItem::SEMILANDMARKS_ITEM )
                 continue;
-            std::string tt = ((SemiLandmarksTopItem*)vti)->getLmkID().toStdString();
+            std::string tt = dynamic_cast< SemiLandmarksTopItem* >( vti ) ->getLmkID().toStdString();
 
             double x, y, z;
             int index = 0;
@@ -1458,7 +1460,7 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
 
             count = 0;
             // is it already available in target
-            if( isInTargetTreeView( ((SemiLandmarksTopItem*)vti)->getLmkID() ) )
+            if( isInTargetTreeView( dynamic_cast< SemiLandmarksTopItem* >(vti)->getLmkID() ) )
             {
                 // update the existing point location
                 const ew::Form3 * form = m_dig3.get_spaces()[1]->get_form_data();
@@ -1485,10 +1487,11 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
                             // activate the semilandmark patch
                             for( int c = 0; c < m_targetTopLandmarks->childCount(); ++c )
                             {
-                                ViewTreeItem* vti2 = (ViewTreeItem*)m_targetTopLandmarks->child( c );
+                                ViewTreeItem* vti2 = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( c ) );
                                 if( vti2->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
                                 {
-                                    if( ((SemiLandmarksTopItem*)vti2)->getLmkID() == ((SemiLandmarksTopItem*)vti)->getLmkID() )
+                                    if( dynamic_cast< SemiLandmarksTopItem* >( vti2 )->getLmkID() == 
+										dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID() )
                                     {
                                         m_targetTopLandmarks->assignLandmarksHere( vti2 );
                                         break;
@@ -1508,7 +1511,7 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
             else
             {
                 m_targetTopLandmarks->addSemiLandmark( tt.c_str() );
-                m_targetTopLandmarks->assignLandmarksHere( (ViewTreeItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) );
+                m_targetTopLandmarks->assignLandmarksHere( dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) ) );
                 for( int c = 0; c < numSemi; ++c )
                 {
                     m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
@@ -1516,7 +1519,7 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
                 }
                 m_targetTopLandmarks->assignLandmarksHere( 0 );
 
-                std::string embeddedItemId = ((SemiLandmarksTopItem*)vti)->getEmbeddedItemID().toStdString();
+                std::string embeddedItemId = dynamic_cast< SemiLandmarksTopItem* >( vti )->getEmbeddedItemID().toStdString();
                 if(embeddedItemId != "")
                 {
                     ew::Form3Embedding fe;
@@ -1525,7 +1528,7 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
                     bool b = false;
                     m_dig3.get_spaces()[1]->set_form_embedding( &b, &fe );
 
-                    ((SemiLandmarksTopItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1))->setEmbeddedItemID(embeddedItemId.c_str());
+                    dynamic_cast< SemiLandmarksTopItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1) )->setEmbeddedItemID(embeddedItemId.c_str());
                 }
             }
 
@@ -1561,10 +1564,10 @@ void TableauLayout::matchLmk(FormItem* item, int index)
     QStringList sl;
     for( int i = 0; i < size; ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)m_templateTopLandmarks->child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
         if( vti->getType() != ViewTreeItem::LANDMARK_ITEM )
             continue;
-        sl.push_back( ((LandmarkItem*)m_templateTopLandmarks->child( i ))->getLmkID() );
+        sl.push_back( dynamic_cast< LandmarkItem* >( m_templateTopLandmarks->child( i ) )->getLmkID() );
     }
 
     if( size == 0 )
@@ -1576,10 +1579,10 @@ void TableauLayout::matchLmk(FormItem* item, int index)
             int size = m_targetTopLandmarks->childCount();
             for( int i = 0; i < size; ++i )
             {
-                ViewTreeItem* vti = (ViewTreeItem*)m_targetTopLandmarks->child( i );
+                ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( i ) );
                 if( vti->getType() != ViewTreeItem::LANDMARK_ITEM )
                     continue;
-                LandmarkItem* lmi = (LandmarkItem*)m_targetTopLandmarks->child( i );
+                LandmarkItem* lmi = dynamic_cast< LandmarkItem* >( m_targetTopLandmarks->child( i ) );
                 if( lmi->getLmkIndex() == index )
                 {
                     std::string tt = lmi->getLmkID().toStdString();
@@ -1648,10 +1651,10 @@ void TableauLayout::matchAllLmk()
     QStringList sl;
     for( int i = 0; i < size; ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)m_templateTopLandmarks->child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
         if( vti->getType() != ViewTreeItem::LANDMARK_ITEM )
             continue;
-        sl.push_back( ((LandmarkItem*)m_templateTopLandmarks->child( i ))->getLmkID() );
+        sl.push_back( dynamic_cast< LandmarkItem* >( m_templateTopLandmarks->child( i ) )->getLmkID() );
     }
 
     if( size == 0 )
@@ -1660,7 +1663,7 @@ void TableauLayout::matchAllLmk()
     int counter = 0;
     for( int i = 0; i < m_targetTopLandmarks->childCount(); ++i )
     {
-        LandmarkItem* lti = (LandmarkItem*)m_targetTopLandmarks->child( i );
+        LandmarkItem* lti = dynamic_cast< LandmarkItem* >( m_targetTopLandmarks->child( i ) );
         if( lti->getType() != ViewTreeItem::LANDMARK_ITEM )
             continue;
         QString lbl = lti->getLmkID();
@@ -1793,13 +1796,13 @@ void TableauLayout::loadViewTreeItems(const FormItem* formTreeItem, const ew::Fo
     m_treesFull = false;
     for(int i=0; i<formTreeItem->childCount(); ++i)
     {
-        ViewTreeItem* treeItem = (ViewTreeItem*)formTreeItem->child(i);
+        ViewTreeItem* treeItem = dynamic_cast< ViewTreeItem* >( formTreeItem->child(i) );
 
         switch(treeItem->getType())
         {
             case ViewTreeItem::SURFACES_ITEM:
             {
-                SurfaceTopItem* surTopItem = (SurfaceTopItem*)treeItem;
+                SurfaceTopItem* surTopItem = dynamic_cast< SurfaceTopItem* >( treeItem );
                 for(unsigned int j=0; j<form.surfaces.size(); ++j)
                 {
                     surTopItem->addSurface(form.surfaces[j].id.c_str(), form.surfaces[j].file.c_str(), true);
@@ -1808,7 +1811,7 @@ void TableauLayout::loadViewTreeItems(const FormItem* formTreeItem, const ew::Fo
             break;
             case ViewTreeItem::CURVES_ITEM:
             {
-                CurvesTopItem* curTopItem = (CurvesTopItem*)treeItem;
+                CurvesTopItem* curTopItem = dynamic_cast< CurvesTopItem* >( treeItem );
                 for(unsigned int j=0; j<form.curves.size(); ++j)
                 {
                     curTopItem->addCurve(form.curves[j].id.c_str(), form.curves[j].file.c_str(), true);
@@ -1817,7 +1820,7 @@ void TableauLayout::loadViewTreeItems(const FormItem* formTreeItem, const ew::Fo
             break;
             case ViewTreeItem::LANDMARKS_ITEM:
             {
-                LandmarksTopItem* lmkTopItem = (LandmarksTopItem*)treeItem;
+                LandmarksTopItem* lmkTopItem = dynamic_cast< LandmarksTopItem* >( treeItem );
 
                 for(unsigned int j=0; j<form.pointsets.size(); ++j)
                 {
@@ -1829,13 +1832,13 @@ void TableauLayout::loadViewTreeItems(const FormItem* formTreeItem, const ew::Fo
                     else if( form.pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK )
                     {
                         lmkTopItem->addSemiLandmark( form.pointsets[j].id.c_str() );
-                        lmkTopItem->assignLandmarksHere( (ViewTreeItem*)lmkTopItem->child( lmkTopItem->childCount() - 1 ) );
+                        lmkTopItem->assignLandmarksHere( dynamic_cast< ViewTreeItem* >( lmkTopItem->child( lmkTopItem->childCount() - 1 ) ) );
 
                         unsigned int count = form.pointsets[j].locations.size();
 
                         for( unsigned int k = 0; k < count/3; ++k )
                         {
-                            ((SemiLandmarksTopItem*)lmkTopItem->child( lmkTopItem->childCount() - 1 ))->addSemiLandmarkItem();
+                            dynamic_cast< SemiLandmarksTopItem* >( lmkTopItem->child( lmkTopItem->childCount() - 1 ) )->addSemiLandmarkItem();
                         }
                     }
                 } // end for loop
@@ -2031,18 +2034,18 @@ void TableauLayout::loadForm(FormItem* formTreeItem, bool loaded, bool focus, bo
         // set embedded objects
         for(int i=0; i<formTreeItem->childCount();i++)
         {
-            ViewTreeItem* treeItem = (ViewTreeItem*)formTreeItem->child(i);
+            ViewTreeItem* treeItem = dynamic_cast< ViewTreeItem* >( formTreeItem->child(i) );
             if(treeItem->getType() == ViewTreeItem::LANDMARKS_ITEM)
             {
                 for(int j=0; j<treeItem->childCount();j++)
                 {
-                    ViewTreeItem* lmkItem = (ViewTreeItem*)treeItem->child(j);
+                    ViewTreeItem* lmkItem = dynamic_cast< ViewTreeItem* >( treeItem->child(j) );
                     if(lmkItem->getType() == ViewTreeItem::SEMILANDMARKS_ITEM)
                     {
                         std::vector<ew::Form3Embedding> embeddings = form.embeddings;
                         for (unsigned int k = 0u; k<embeddings.size(); k++)
                         {
-                            if(embeddings[k].subset_id == ((SemiLandmarksTopItem*)lmkItem)->getLmkID().toStdString())
+                            if(embeddings[k].subset_id == dynamic_cast< SemiLandmarksTopItem* >( lmkItem )->getLmkID().toStdString())
                             {
                                 ((SemiLandmarksTopItem*)lmkItem)->setEmbeddedItemID(embeddings[k].superset_id.c_str());
                                 break;
@@ -2059,17 +2062,17 @@ void TableauLayout::loadForm(FormItem* formTreeItem, bool loaded, bool focus, bo
             bool found = false;
             for(int i=0; i<formTreeItem->childCount() || !found; ++i)
             {
-                ViewTreeItem* treeItem = (ViewTreeItem*)formTreeItem->child(i);
+                ViewTreeItem* treeItem = dynamic_cast< ViewTreeItem* >( formTreeItem->child(i) );
                 switch(treeItem->getType())
                 {
                     case ViewTreeItem::SURFACES_ITEM:
                     {
-                        SurfaceTopItem* surTopItem = (SurfaceTopItem*)treeItem;
+                        SurfaceTopItem* surTopItem = dynamic_cast< SurfaceTopItem* >( treeItem );
 
                         if( surTopItem->childCount() <= 0 )
                             break;
 
-                        SurfaceItem* sur = (SurfaceItem*)surTopItem->child( 0 );
+                        SurfaceItem* sur = dynamic_cast< SurfaceItem* >( surTopItem->child( 0 ) );
 
                         sur->setSurfaceIndex(0);
                         if( focus )
@@ -2087,17 +2090,17 @@ void TableauLayout::loadForm(FormItem* formTreeItem, bool loaded, bool focus, bo
             bool found = false;
             for(int i=0; i<formTreeItem->childCount() || !found; ++i)
             {
-                ViewTreeItem* treeItem = (ViewTreeItem*)formTreeItem->child(i);
+                ViewTreeItem* treeItem = dynamic_cast< ViewTreeItem* >( formTreeItem->child(i) );
                 switch(treeItem->getType())
                 {
                     case ViewTreeItem::CURVES_ITEM:
                     {
-                        CurvesTopItem* curTopItem = (CurvesTopItem*)treeItem;
+                        CurvesTopItem* curTopItem = dynamic_cast< CurvesTopItem* >( treeItem );
 
                         if( curTopItem->childCount() <= 0 )
                             break;
 
-                        CurveItem* cur = (CurveItem*)curTopItem->child( 0 );
+                        CurveItem* cur = dynamic_cast< CurveItem* >( curTopItem->child( 0 ) );
                         cur->setCurveIndex(0);
 
                         if( focus )
@@ -2199,7 +2202,7 @@ void TableauLayout::loadForm(FormItem* formTreeItem, bool loaded, bool focus, bo
             }
         }
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::information(this, "IO Exception", QString("Failed to load form!\n- %1)").arg(ex.what()));
     }
@@ -2287,7 +2290,7 @@ bool TableauLayout::saveForm(FormItem* formTreeItem)
         QString formID = fileName;
         formTreeItem->setText(0, QString("Form (%1)").arg(formID));
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::information(this, "IO Exception", QString("Failed to save form!\n- %1)").arg(ex.what()));
         QApplication::restoreOverrideCursor();
@@ -2458,7 +2461,7 @@ bool TableauLayout::loadTableau(QString loadedFile, bool loaded)
             result = false;
         delete loadDialog;
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::information(this, "IO Exception", QString("Failed to load tableau!\n- %1)").arg(ex.what()));
         result = false;
@@ -2546,7 +2549,7 @@ bool TableauLayout::saveTableau()
         m_savedAtleastOnce = true;
         emit status(QString("File %1 Saved").arg(m_tableauFile), 2000);
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::information(this, "IO Exception", QString("Failed to save tableau!\n- %1)").arg(ex.what()));
         QApplication::restoreOverrideCursor();
@@ -2977,7 +2980,7 @@ bool TableauLayout::addSurface(SurfaceItem* treeItem, FormItem* itemForm)
 
         result = true;
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::critical(this, "IO Exception", QString("Failed to load surface!\n- %1)").arg(ex.what()));
         result = false;
@@ -3086,7 +3089,7 @@ bool TableauLayout::addCurve(CurveItem* treeItem, FormItem* itemForm)
 
         result = true;
     }
-    catch(ew::ErrorIO ex)
+    catch(ew::ErrorIO &ex)
     {
         QMessageBox::critical(this, "IO Exception", QString("Failed to load curve!\n- %1)").arg(ex.what()));
         result = false;
@@ -3105,7 +3108,7 @@ void TableauLayout::applyItemChange(ViewTree* itemTree, QTreeWidgetItem* treeIte
     const ew::Dig3View* surfaceView = itemTree==m_targetItemTree ?  m_targetView : m_templateView;
     const ew::Dig3View* sliceView = itemTree==m_targetItemTree ?  m_targetSliceView : m_templateSliceView;
 
-    switch(((ViewTreeItem*)treeItem)->getType())
+    switch( dynamic_cast< ViewTreeItem* >( treeItem )->getType() )
     {
         case ViewTreeItem::SURFACES_ITEM:
             for(int i=0; i<treeItem->childCount(); ++i)
@@ -3119,7 +3122,7 @@ void TableauLayout::applyItemChange(ViewTree* itemTree, QTreeWidgetItem* treeIte
         break;
         case ViewTreeItem::SURFACE_ITEM:
         {
-            SurfaceItem* surItem = (SurfaceItem*)treeItem;
+            SurfaceItem* surItem = dynamic_cast< SurfaceItem* >( treeItem );
             int surIndex = surItem->getSurfaceIndex();
             if(surIndex != -1)
             {
@@ -3142,7 +3145,7 @@ void TableauLayout::applyItemChange(ViewTree* itemTree, QTreeWidgetItem* treeIte
         break;
         case ViewTreeItem::CURVE_ITEM:
         {
-            CurveItem* curItem = (CurveItem*)treeItem;
+            CurveItem* curItem = dynamic_cast< CurveItem* >( treeItem );
             int curIndex = curItem->getCurveIndex();
             if(curIndex != -1)
             {
@@ -3192,19 +3195,19 @@ void TableauLayout::deleteLmk(FormItem* itemForm, int i)
     std::string id;
     if( itemForm==m_targetFormItem )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)m_targetTopLandmarks->child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( i ) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-            id = ((LandmarkItem*)vti)->getLmkID().toStdString();
+            id = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-            id = ((SemiLandmarksTopItem*)vti)->getLmkID().toStdString();
+            id = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID().toStdString();
     }
     else if( itemForm==m_templateFormItem )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)m_templateTopLandmarks->child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-            id = ((LandmarkItem*)vti)->getLmkID().toStdString();
+            id = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-            id = ((SemiLandmarksTopItem*)vti)->getLmkID().toStdString();
+            id = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID().toStdString();
     }
 
     if( id.empty() )
@@ -3233,7 +3236,7 @@ void TableauLayout::deleteLmk(FormItem* itemForm, int i)
 
 void TableauLayout::deleteLmk(FormItem* patch, ViewTreeItem* semi, int index )
 {
-    std::string id = ((SemiLandmarksTopItem*)patch)->getLmkID().toStdString();
+    std::string id = dynamic_cast< SemiLandmarksTopItem* >( patch )->getLmkID().toStdString();
 
     const ew::Form3* form = m_dig3.get_spaces()[ 1 ]->get_form_data();
     if( form != 0 )
@@ -3282,19 +3285,19 @@ void TableauLayout::deleteAllLmk(FormItem* itemForm, int i)
     std::string id;
     if( itemForm==m_targetFormItem )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)m_targetTopLandmarks->child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( i ) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-            id = ((LandmarkItem*)vti)->getLmkID().toStdString();
+            id = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-            id = ((SemiLandmarksTopItem*)vti)->getLmkID().toStdString();
+            id = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID().toStdString();
     }
     else if( itemForm==m_templateFormItem )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)m_templateTopLandmarks->child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-            id = ((LandmarkItem*)vti)->getLmkID().toStdString();
+            id = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-            id = ((SemiLandmarksTopItem*)vti)->getLmkID().toStdString();
+            id = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID().toStdString();
     }
 
     if( id.empty() )
@@ -3338,10 +3341,10 @@ void TableauLayout::stateLmk(FormItem* form, ViewTreeItem* item, int index, int 
         // loop through all the Landmark children and change state to fixed
         for( int i = 0; i < item->childCount(); ++i )
         {
-            ViewTreeItem* vti = (ViewTreeItem*)item->child(i);
+            ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( item->child(i) );
             if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
             {
-                LandmarkItem* li = (LandmarkItem*)vti;
+                LandmarkItem* li = dynamic_cast< LandmarkItem* >( vti );
                 QString id = li->getLmkID();
 
                 changeState( id.toStdString(), newState );
@@ -3353,7 +3356,7 @@ void TableauLayout::stateLmk(FormItem* form, ViewTreeItem* item, int index, int 
     }
     else if( item->getType() == ViewTreeItem::LANDMARK_ITEM )
     {
-        LandmarkItem* li = (LandmarkItem*)item;
+        LandmarkItem* li = dynamic_cast< LandmarkItem* >( item );
         QString id = li->getLmkID();
 
         changeState( id.toStdString(), newState );
@@ -3363,7 +3366,7 @@ void TableauLayout::stateLmk(FormItem* form, ViewTreeItem* item, int index, int 
     }
     else if( item->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
     {
-        SemiLandmarksTopItem* sti = (SemiLandmarksTopItem*)item;
+        SemiLandmarksTopItem* sti = dynamic_cast< SemiLandmarksTopItem* >( item );
         QString id = sti->getLmkID();
 
         changeState( id.toStdString(), newState );
@@ -3406,12 +3409,12 @@ void TableauLayout::renameLmk(FormItem* form, ViewTreeItem* item, int index, con
     // get the old name
     if( item->getType() == ViewTreeItem::LANDMARK_ITEM )
     {
-        LandmarkItem* li = (LandmarkItem*)item;
+        LandmarkItem* li = dynamic_cast< LandmarkItem* >( item );
         oldID = li->getLmkID().toStdString();
     }
     else if( item->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
     {
-        SemiLandmarksTopItem* sti = (SemiLandmarksTopItem*)item;
+        SemiLandmarksTopItem* sti = dynamic_cast< SemiLandmarksTopItem* >( item );
         oldID = sti->getLmkID().toStdString();
     }
 
@@ -3419,16 +3422,16 @@ void TableauLayout::renameLmk(FormItem* form, ViewTreeItem* item, int index, con
     bool exists = false;
     for( int i = 0; i < m_targetTopLandmarks->childCount() && !exists; ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)m_targetTopLandmarks->child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( i ) );
 
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
         {
-            LandmarkItem* li = (LandmarkItem*)vti;
+            LandmarkItem* li = dynamic_cast< LandmarkItem* >( vti );
             exists = ( li->getLmkID() == newID );
         }
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
         {
-            SemiLandmarksTopItem* sti = (SemiLandmarksTopItem*)vti;
+            SemiLandmarksTopItem* sti = dynamic_cast< SemiLandmarksTopItem* >( vti );
             exists = ( sti->getLmkID() == newID );
         }
     }
@@ -3461,7 +3464,7 @@ void TableauLayout::renameLmk(FormItem* form, ViewTreeItem* item, int index, con
             // update the UI text and internal ID
             if( item->getType() == ViewTreeItem::LANDMARK_ITEM )
             {
-                LandmarkItem* li = (LandmarkItem*)item;
+                LandmarkItem* li = dynamic_cast< LandmarkItem* >( item );
                 li->setLmkID( newID );
                 QString state = stateLabel( ps.state );
                 state += " ";
@@ -3470,7 +3473,7 @@ void TableauLayout::renameLmk(FormItem* form, ViewTreeItem* item, int index, con
             }
             else if( item->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
             {
-                SemiLandmarksTopItem* sti = (SemiLandmarksTopItem*)item;
+                SemiLandmarksTopItem* sti = dynamic_cast< SemiLandmarksTopItem* >( item );
                 sti->setLmkID( newID );
                 QString state = stateLabel( ps.state );
                 state += " ";
@@ -3481,13 +3484,13 @@ void TableauLayout::renameLmk(FormItem* form, ViewTreeItem* item, int index, con
             // update landmark index after pointset deletion and insertion
             for( int i = 0; i < m_targetTopLandmarks->childCount(); ++i )
             {
-                ViewTreeItem* vti = (ViewTreeItem*)m_targetTopLandmarks->child( i );
+                ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( i ) );
 
                 if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
                 {
                     double x, y, z;
                     int index = -1;
-                    LandmarkItem* li = (LandmarkItem*)vti;
+                    LandmarkItem* li = dynamic_cast< LandmarkItem* >( vti );
                     if( getPointsetLocation( li->getLmkID().toStdString(), 1, x, y, z, index ) )
                         li->setLmkIndex( index );
                 }
@@ -3495,7 +3498,7 @@ void TableauLayout::renameLmk(FormItem* form, ViewTreeItem* item, int index, con
                 {
                     double x, y, z;
                     int index = -1;
-                    SemiLandmarksTopItem* sti = (SemiLandmarksTopItem*)vti;
+                    SemiLandmarksTopItem* sti = dynamic_cast< SemiLandmarksTopItem* >( vti );
                     if( getPointsetLocation( sti->getLmkID().toStdString(), 1, x, y, z, index ) )
                         sti->setLmkIndex( index );
                 }
@@ -3524,11 +3527,11 @@ void TableauLayout::highlightItem(ViewTree* itemTree, QTreeWidgetItem* treeItem)
     LandmarksTopItem* other = itemTree==m_targetItemTree ? m_templateTopLandmarks : m_targetTopLandmarks;
     LandmarksTopItem* same = itemTree==m_targetItemTree ? m_targetTopLandmarks : m_templateTopLandmarks;
 
-    switch(((ViewTreeItem*)treeItem)->getType())
+    switch( dynamic_cast< ViewTreeItem* >( treeItem )->getType() )
     {
         case ViewTreeItem::LANDMARK_ITEM:
         {
-            LandmarkItem* lmkItem = (LandmarkItem*)treeItem;
+            LandmarkItem* lmkItem = dynamic_cast< LandmarkItem* >( treeItem );
             int index = lmkItem->getLmkIndex();
 
             std::string id = lmkItem->getLmkID().toStdString();
@@ -3576,7 +3579,7 @@ void TableauLayout::highlightItem(ViewTree* itemTree, QTreeWidgetItem* treeItem)
         break;
         case ViewTreeItem::SEMILANDMARKS_ITEM:
         {
-            SemiLandmarksTopItem* lmkItem = (SemiLandmarksTopItem*)treeItem;
+            SemiLandmarksTopItem* lmkItem = dynamic_cast< SemiLandmarksTopItem* >( treeItem );
             int index = lmkItem->getLmkIndex();
 
             std::string id = lmkItem->getLmkID().toStdString();
@@ -3618,9 +3621,9 @@ void TableauLayout::highlightItem(ViewTree* itemTree, QTreeWidgetItem* treeItem)
         break;
         case ViewTreeItem::SEMILANDMARK_ITEM:
         {
-            SemiLandmarkItem* lmkItem = (SemiLandmarkItem*)treeItem;
-            QTreeWidgetItem* parent = ((QTreeWidgetItem*)lmkItem)->parent();
-            int index = ((SemiLandmarksTopItem*)parent)->getLmkIndex();
+            SemiLandmarkItem* lmkItem = dynamic_cast< SemiLandmarkItem* >( treeItem );
+            QTreeWidgetItem* parent = dynamic_cast< QTreeWidgetItem* >( lmkItem )->parent();
+            int index = dynamic_cast< SemiLandmarksTopItem* >( parent )->getLmkIndex();
             int within = lmkItem->getLmkIndex();
 
             std::string id = ((SemiLandmarksTopItem*)parent)->getLmkID().toStdString();
@@ -3659,7 +3662,7 @@ void TableauLayout::highlightItem(ViewTree* itemTree, QTreeWidgetItem* treeItem)
             }
 
             // add new landmarks to the selected semilandmark item
-            ((SemiLandmarksTopItem*)parent)->addHere(true);
+            dynamic_cast< SemiLandmarksTopItem* >( parent )->addHere(true);
 
         }
         break;
@@ -3684,10 +3687,10 @@ void TableauLayout::landmarkSelected( const QString& id, int index, int indexWit
 
     for(int i = 0; i < lti->childCount(); ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)lti->child(i);
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( lti->child(i) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
         {
-            if( ((LandmarkItem*)vti)->getLmkID() == id )
+            if( dynamic_cast< LandmarkItem* >( vti )->getLmkID() == id )
             {
                 highlightItem( itemTree, vti );
                 break;
@@ -3695,7 +3698,7 @@ void TableauLayout::landmarkSelected( const QString& id, int index, int indexWit
         }
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
         {
-            if( ((SemiLandmarksTopItem*)vti)->getLmkID() == id )
+            if( dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID() == id )
             {
                 highlightItem( itemTree, vti->child( indexWithin ) );
 
@@ -3743,11 +3746,11 @@ void TableauLayout::updateTreeViewStates( int space )
     for( int i = 0; i < lti->childCount(); ++i )
     {
         QString lbl;
-        ViewTreeItem* vti = (ViewTreeItem*)lti->child(i);
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( lti->child(i) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-            lbl = ((LandmarkItem*)vti)->getLmkID();
+            lbl = dynamic_cast< LandmarkItem* >( vti )->getLmkID();
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-            lbl = ((SemiLandmarksTopItem*)vti)->getLmkID();
+            lbl = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID();
 
         QString lblWithout;
 
@@ -3850,7 +3853,7 @@ void TableauLayout::focusView(FormItem* itemForm, ViewTreeItem* treeItem)
         break;
         case ViewTreeItem::SURFACE_ITEM:
         {
-            SurfaceItem* surItem = (SurfaceItem*)treeItem;
+            SurfaceItem* surItem = dynamic_cast< SurfaceItem* >( treeItem );
             ew::Dig3Space *sp = m_dig3.get_spaces()[itemForm==m_targetFormItem ? 1 : 0];
             if (sp->get_form_data()->surfaces.size() && surItem->getSurfaceIndex()<(int)sp->get_form_data()->surfaces.size())
             {
@@ -3864,7 +3867,7 @@ void TableauLayout::focusView(FormItem* itemForm, ViewTreeItem* treeItem)
         break;
         case ViewTreeItem::CURVE_ITEM:
         {
-            CurveItem* curItem = (CurveItem*)treeItem;
+            CurveItem* curItem = dynamic_cast< CurveItem* >( treeItem );
             ew::Dig3Space *sp = m_dig3.get_spaces()[itemForm==m_targetFormItem ? 1 : 0];
             if (sp->get_form_data()->curves.size() && curItem->getCurveIndex()<(int)sp->get_form_data()->curves.size())
             {
