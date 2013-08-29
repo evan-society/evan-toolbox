@@ -1,5 +1,5 @@
 [Files]
-Source: ..\Evan\*.*; Excludes: "dEvan.exe,EvanDebug.exe,*.bat"; DestDir: {app}\Evan\
+Source: ..\Evan\*.*; Excludes: "dEvan.exe,EvanDebug.exe,*.bat,*d4.dll,qwtd5.dll,qwtplot3dd.dll"; DestDir: {app}\Evan\
 Source: ..\Evan\Nodes\*.*; DestDir: {app}\Evan\Nodes\
 Source: ..\Evan\Shaders\*.*; DestDir: {app}\Evan\Shaders\
 Source: ..\Evan\Images\*.*; DestDir: {app}\Evan\Images\
