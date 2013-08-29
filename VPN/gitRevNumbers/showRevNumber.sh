@@ -28,7 +28,7 @@ echo "GIT_REV=${GIT_REV}" | tr -d ' '
 #echo "GIT_DATE=${GIT_DATE}" | tr -d ' '
 
 #info about latest commit
-git show --name-status
+git show --name-status --date=iso
 
 # and some usage:
 # mapping back to GIT IDs

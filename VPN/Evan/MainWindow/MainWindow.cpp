@@ -731,13 +731,18 @@ void MainWindow::showAbout()
     parser.gotoElement("Website");
     website->setText(parser.getAttribute("path"));
 
-    parser.gotoElement("SVN");
+    //parser.gotoElement("SVN");
+    //QString revisionString = parser.getAttribute("revision");
+    //QString dateString = parser.getAttribute("date");
+    parser.gotoElement("GIT");
     QString revisionString = parser.getAttribute("revision");
     QString dateString = parser.getAttribute("date");
 
+
     buildString.append(dateString.left(10));
 
-    revisionString = "Revision: " + revisionString;
+    //revisionString = "Revision: " + revisionString;
+    revisionString = "git revision: " + revisionString;
     revision->setText(revisionString);
 
     build->setText(buildString);

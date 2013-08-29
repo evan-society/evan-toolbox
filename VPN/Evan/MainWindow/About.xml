@@ -10,5 +10,5 @@
 <Author name="Oualid Ben Ali" />
 <Version year="2012" month="July" day="23" ni="1.64" revision="1664" />
 <Website path="www.evan-society.org" />
-<SVN revision="1664" date="2013/07/04 20:00:19" path="svn://131.130.59.105/evan/VPN/Evan" />
+<GIT revision="39" date="2013-08-29 17:15:19 +0200" />
 </About>
