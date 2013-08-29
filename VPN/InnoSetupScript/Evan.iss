@@ -11,7 +11,8 @@ Name: {app}\Evan\Nodes
 Name: {app}\Evan\Images
 [Setup]
 AppName=Evan Toolbox
-AppVerName=Evan Toolbox 1.64 (revision 1664)
+;AppVerName=Evan Toolbox 1.64 (revision 1664)
+AppVerName=Evan Toolbox 1.64 (git revision 38)
 AppPublisher=EVAN (European Virtual Anthropology Network)
 AppPublisherURL=http://www.evan.at/
 AppUpdatesURL=http://www.evan-society.org/
