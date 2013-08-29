@@ -8,6 +8,8 @@
 
 #include <QInputDialog>
 
+//#include <cassert> // for assert()
+
 class LandmarksTopItem;
 
 class SemiLandmarksTopItem : public ViewTreeItem
@@ -161,7 +163,18 @@ public:
 public slots:
     void addHere(bool tog)
     {
-        ( dynamic_cast< LandmarksTopItem* >( m_parentForm ) )->assignLandmarksHere( tog ? this : 0 );
+        if ( m_parentForm == NULL ) {
+            Logger::getInstance()->log( "parentForm is NULL" );
+        }
+
+        LandmarksTopItem *pLti = dynamic_cast< LandmarksTopItem* >( m_parentForm );
+        //if( pLti == NULL )
+        //assert( pLti != NULL );
+        if( pLti != NULL ) {
+            pLti->assignLandmarksHere( tog ? this : 0 );
+        } else {
+            Logger::getInstance()->log( "failed to cast type of parentForm to LandmarksTopItem*" );
+        }
     }
 
     void slide( bool tog = true )
