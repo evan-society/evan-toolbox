@@ -36,7 +36,10 @@ public:
   }
   
   //! Assignment in the same spirit as copy ctor
+  // CppCheck:  'qwt3d_ptr::operator=' should return 'qwt3d_ptr &'.
+  // should remove <T> from function return type
   qwt3d_ptr<T>& operator=(qwt3d_ptr const& val)
+  //==> qwt3d_ptr& operator=(qwt3d_ptr const& val)
   {
     if (this == &val)
       return *this;
