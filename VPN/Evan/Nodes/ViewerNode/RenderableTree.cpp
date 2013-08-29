@@ -128,7 +128,8 @@ RenderableTreeItem* isOrChildOf(RenderableTreeItem* treeItem, const osg::Node* n
     RenderableTreeItem* result = NULL;
     for(int i=0; i<treeItem->childCount(); ++i)
     {
-        result = isOrChildOf((RenderableTreeItem*)treeItem->child(i), n);
+        //result = isOrChildOf((RenderableTreeItem*)treeItem->child(i), n);
+		result = isOrChildOf( dynamic_cast< RenderableTreeItem* >( treeItem->child(i) ), n);
         if(result)
             break;
     }
@@ -139,7 +140,8 @@ void changeChildrenColor(RenderableTreeItem* item, QColor c)
 {
     for(int i=0; i<item->childCount(); ++i)
     {
-        RenderableTreeItem* childItem = (RenderableTreeItem*)item->child(i);
+        //RenderableTreeItem* childItem = (RenderableTreeItem*)item->child(i);
+		RenderableTreeItem* childItem = dynamic_cast< RenderableTreeItem* >( item->child(i) );
 //        if(!childItem->getItemPtr()->getStateSet())
         {
             childItem->getItemRenderable()->setFrontMaterial(c, true);
@@ -151,7 +153,7 @@ void changeChildrenColor(RenderableTreeItem* item, QColor c)
 
 void RenderableTree::onMaterialAction()
 {
-    RenderableTreeItem* treeItem = (RenderableTreeItem*)(selectedItems().front());
+    RenderableTreeItem* treeItem = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     osg::ref_ptr<osg::Node> node = treeItem->getItemPtr();
     osg::ref_ptr<osg::StateSet> nodess = node->getStateSet();
     QColor result;
@@ -179,7 +181,7 @@ void RenderableTree::onMaterialAction()
 
 void RenderableTree::onBackMaterialAction()
 {
-    RenderableTreeItem* treeItem = (RenderableTreeItem*)(selectedItems().front());
+    RenderableTreeItem* treeItem = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     osg::ref_ptr<osg::Node> node = treeItem->getItemPtr();
     osg::ref_ptr<osg::StateSet> nodess = node->getStateSet();
     QColor result;
@@ -202,7 +204,7 @@ void RenderableTree::onBackMaterialAction()
 
 void RenderableTree::onInvertFacesAction(bool on)
 {
-    RenderableTreeItem* treeItem = (RenderableTreeItem*)(selectedItems().front());
+    RenderableTreeItem* treeItem = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     osg::ref_ptr<osg::Node> node = treeItem->getItemPtr();
 
     if(on)
@@ -329,10 +331,10 @@ void RenderableTree::toggleTexture()
     QAction* tex = getContextMenu()->findChild<QAction *>("texture");
     if (tex)
     {
-        RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+        RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
         if(selected->checkState(0) != Qt::Unchecked){
             tex->setChecked((tex->isChecked()));
-            Surface* surf = dynamic_cast<Surface *>(selected->getItemRenderable());
+            Surface* surf = dynamic_cast<Surface *>( selected->getItemRenderable() );
             if (surf){
                 if (tex->isChecked())
                 {
@@ -349,7 +351,7 @@ void RenderableTree::toggleTexture()
 
 void RenderableTree::changeLineThickness()
 {
-    RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+    RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     if(selected->checkState(0) != Qt::Unchecked){
         WarpGrid* warpg = dynamic_cast<WarpGrid *>(selected->getItemRenderable());
         if (warpg){
@@ -361,7 +363,7 @@ void RenderableTree::changeLineThickness()
 
 void RenderableTree::slotCameraFocus()
 {
-    RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+    RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     if(selected->checkState(0) != Qt::Unchecked){
         AbstractWarpGrid* warpg = dynamic_cast<AbstractWarpGrid *>(selected->getItemRenderable());
         if (warpg){
@@ -405,7 +407,7 @@ VolumeRenderableTreeItem* RenderableTree::getVolumeItem(const osgVolume::Volume*
 
 void RenderableTree::clipGrid(bool show)
 {
-    RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+    RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     if(selected->checkState(0) != Qt::Unchecked){
         MyClipPlane* clipp = dynamic_cast<MyClipPlane *>(selected->getItemRenderable());
         if (clipp){ //the item selected is a MyClipPlane
@@ -451,7 +453,7 @@ void RenderableTree::clipGrid(bool show)
 
 void RenderableTree::flipClipGrid()
 {
-    RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+    RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     MyClipPlane* clipp = dynamic_cast<MyClipPlane *>(selected->getItemRenderable());
     if (clipp){ //the item selected is a MyClipPlane
         if (clipp->getClipPlaneIndex()>=0){
@@ -462,7 +464,7 @@ void RenderableTree::flipClipGrid()
 
 void RenderableTree::deleteClipGrid()
 {
-    RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+    RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     MyClipPlane* clipp = dynamic_cast<MyClipPlane *>(selected->getItemRenderable());
     if (clipp)
     {
@@ -480,7 +482,7 @@ void RenderableTree::deleteClipGrid()
 
 void RenderableTree::addBestFitClipPlane()
 {
-    RenderableTreeItem* selected = ((RenderableTreeItem*)selectedItems().front());
+    RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     if(selected->checkState(0) != Qt::Unchecked){
         WarpGrid* warpg = dynamic_cast<WarpGrid *>(selected->getItemRenderable());
         if (warpg){
@@ -495,7 +497,7 @@ void RenderableTree::addBestFitClipPlane()
 
 void RenderableTree::changeAlphaValue()
 {
-    VolumeRenderableTreeItem* selected = ((VolumeRenderableTreeItem*)selectedItems().front());
+    VolumeRenderableTreeItem* selected = dynamic_cast< VolumeRenderableTreeItem* >( selectedItems().front() );
     if(selected->checkState(0) != Qt::Unchecked){
         Volumes* vol = dynamic_cast<Volumes *>(selected->getVolumeRenderable());
         if (vol)

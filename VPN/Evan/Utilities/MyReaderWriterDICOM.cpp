@@ -333,7 +333,7 @@ class MyReaderWriterDICOM : public osgDB::ReaderWriter
             unsigned int pixelSize = 0;
 
             typedef std::list<FileInfo> FileInfoList;
-            FileInfoList fileInfoList;
+            //FileInfoList fileInfoList;
 
             typedef std::map<double, FileInfo> DistanceFileInfoMap;
             typedef std::map<osg::Vec3d, DistanceFileInfoMap> OrientationFileInfoMap;
@@ -354,7 +354,7 @@ class MyReaderWriterDICOM : public osgDB::ReaderWriter
 
                 double pixelSize_y = 1.0;
                 double pixelSize_x = 1.0;
-                double sliceThickness = 1.0;
+                //double sliceThickness = 1.0;
                 double imagePositionPatient[3] = {0, 0, 0};
                 double imageOrientationPatient[6] = {1.0, 0.0, 0.0, 0.0, 1.0, 0.0 };
                 Uint16 numOfSlices = 1;
@@ -375,7 +375,8 @@ class MyReaderWriterDICOM : public osgDB::ReaderWriter
                 // Get slice thickness
                 if (fileformat.getDataset()->findAndGetFloat64(DCM_SliceThickness, value).good())
                 {
-                    sliceThickness = value;
+                    //sliceThickness = value;
+					double sliceThickness = value;
 
                     fileInfo.sliceThickness = sliceThickness;
                 }

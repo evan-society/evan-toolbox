@@ -1067,12 +1067,12 @@ void WarperNode::doWarp()
         return;
     }
 
-    float x,y,z;
+
     for (unsigned int i=0; i<m_warpedLmksOutput->GetRows();++i)
     {
-        x=m_lmk1Input->get(i,0);
-        y=m_lmk1Input->get(i,1);
-        z=m_lmk1Input->get(i,2);
+	    float x=m_lmk1Input->get(i,0);
+        float y=m_lmk1Input->get(i,1);
+        float z=m_lmk1Input->get(i,2);
         for (unsigned int n=0;n<m_convertedWarpings->getSize();n++)
         {
             x += m_morphAmount[n] * m_convertedWarpings->getWarp(n)->get(i,0) * 0.01f;
