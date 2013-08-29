@@ -585,7 +585,7 @@ int ply_write(p_ply ply, double value) {
 }
 
 int ply_close(p_ply ply) {
-    long i;
+    //long i;
     assert(ply && ply->fp);
     assert(ply->element || ply->nelements == 0);
     assert(!ply->element || ply->nelements > 0);
@@ -598,7 +598,9 @@ int ply_close(p_ply ply) {
     fclose(ply->fp);
     /* free all memory used by handle */
     if (ply->element) {
+		long i;
         for (i = 0; i < ply->nelements; i++) {
+		//for (long i = 0; i < ply->nelements; i++) {
             p_ply_element element = &ply->element[i];
             if (element->property) free(element->property);
         }
@@ -979,10 +981,11 @@ static int ply_read_chunk_reverse(p_ply ply, void *anybuffer, size_t size) {
 
 static void ply_reverse(void *anydata, size_t size) {
     char *data = (char *) anydata;
-    char temp;
+    //char temp;
     size_t i;
     for (i = 0; i < size/2; i++) {
-        temp = data[i];
+        //temp = data[i];
+		char temp = data[i];
         data[i] = data[size-i-1];
         data[size-i-1] = temp;
     }

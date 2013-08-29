@@ -33,8 +33,14 @@ MemBuf::MemBuf(int sizebytes)
 void MemBuf::resize()
 {		// Use power of 2 resizing
     membuf_t lb = p_m;
-    lb = p_m = (membuf_st*) realloc(lb, lb->size*2+sizeof(struct membuf_st));
-    if (lb == NULL)	exit(1);
+    //lb = p_m = (membuf_st*) realloc(lb, lb->size*2+sizeof(struct membuf_st));
+	void *tmp = realloc(lb, lb->size*2+sizeof(struct membuf_st));
+	if ( tmp != NULL ) {
+		lb = p_m = ( membuf_st* ) ( tmp );
+	} else {
+		exit( 1 );
+	}
+    //if (lb == NULL)	exit(1);
     lb->size =  lb->size * 2;
     lb->buf = (unsigned char *)lb+sizeof(struct membuf_st);
 }

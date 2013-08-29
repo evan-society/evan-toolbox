@@ -655,9 +655,6 @@ bool TableauLayout::projectSemiLmk( ViewTreeItem* item, bool checksurface, bool 
 
     const ew::Form3* form = m_dig3.get_spaces()[1]->get_form_data();
 
-    int surface_index = -1;
-    int curve_index = -1;
-
     std::string embeddedItemId = "";
 
     const char* found_embedding = m_dig3.get_spaces()[1]->get_form_data()->search_superset(semiLmkId.c_str());
@@ -686,6 +683,9 @@ bool TableauLayout::projectSemiLmk( ViewTreeItem* item, bool checksurface, bool 
 
     if( form != 0 )
     {
+		int surface_index = -1;
+		int curve_index = -1;
+	
 		for(unsigned int j=0; j<form->surfaces.size(); ++j)
 		{
 			if(form->surfaces[j].id == embeddedItemId)
@@ -878,11 +878,9 @@ void TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, boo
     int surface_index = -1;
     int curve_index = -1;
 
-    std::string embeddedItemId = "";
-
     const char* found_embedding = m_dig3.get_spaces()[1]->get_form_data()->search_superset(semiLmkId.c_str());
 
-	embeddedItemId = std::string(found_embedding);
+	std::string embeddedItemId = std::string(found_embedding);
 
     if(embeddedItemId == "" || found_embedding == 0)
     {
@@ -2047,7 +2045,8 @@ void TableauLayout::loadForm(FormItem* formTreeItem, bool loaded, bool focus, bo
                         {
                             if(embeddings[k].subset_id == dynamic_cast< SemiLandmarksTopItem* >( lmkItem )->getLmkID().toStdString())
                             {
-                                ((SemiLandmarksTopItem*)lmkItem)->setEmbeddedItemID(embeddings[k].superset_id.c_str());
+                                //((SemiLandmarksTopItem*)lmkItem)->setEmbeddedItemID(embeddings[k].superset_id.c_str());
+								( dynamic_cast< SemiLandmarksTopItem* >( lmkItem ) )->setEmbeddedItemID(embeddings[k].superset_id.c_str());
                                 break;
                             }
                         }
@@ -3626,7 +3625,8 @@ void TableauLayout::highlightItem(ViewTree* itemTree, QTreeWidgetItem* treeItem)
             int index = dynamic_cast< SemiLandmarksTopItem* >( parent )->getLmkIndex();
             int within = lmkItem->getLmkIndex();
 
-            std::string id = ((SemiLandmarksTopItem*)parent)->getLmkID().toStdString();
+            //std::string id = ((SemiLandmarksTopItem*)parent)->getLmkID().toStdString();
+			std::string id = dynamic_cast< SemiLandmarksTopItem* >( parent )->getLmkID().toStdString();
 
             const ew::Form3* form = m_dig3.get_spaces()[ (itemTree==m_targetItemTree) ? 1 : 0 ]->get_form_data();
             if( form != 0 )
