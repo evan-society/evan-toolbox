@@ -111,7 +111,7 @@ private:
 
 
 protected:
-	Renderables* getInputPortData0()const {return (Renderables*)getInputData(0);}
+	Renderables* getInputPortData0()const { return dynamic_cast< Renderables* >( getInputData(0) ); }
 
 public:
 	ViewerNode( QWidget * parent = 0, const char * name = 0,

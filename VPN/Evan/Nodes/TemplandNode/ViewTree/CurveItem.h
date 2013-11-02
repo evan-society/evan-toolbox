@@ -15,7 +15,11 @@ private:
     int m_curveIndex;
 
 public:
-    CurveItem() : ViewTreeItem(CURVE_ITEM), m_curveID(""), m_curveFile(""), m_curveIndex(-1)
+    CurveItem() :
+        ViewTreeItem(CURVE_ITEM),
+        m_curveID(""),
+        m_curveFile(""),
+        m_curveIndex(-1)
     {fillContextMenu();}
     CurveItem(CurvesTopItem* parent) :   ViewTreeItem(parent, CURVE_ITEM),
                                             m_curveID(""),

@@ -583,12 +583,12 @@ void ExportNode::exportSpecimens()
                                 {
                                     if (labelValues[j]->getType()==ILabelValue::STRING_VALUE)
                                     {
-                                        StringLabelValue * val = (StringLabelValue*)(labelValues[j]);
+                                        StringLabelValue *val = dynamic_cast<StringLabelValue *>(labelValues[j]);
                                         out<<val->getValue().toStdString()<<" ";
                                     }
                                     else if (labelValues[j]->getType()==ILabelValue::SCALAR_VALUE)
                                     {
-                                        ScalarLabelValue * val = (ScalarLabelValue*)(labelValues[j]);
+                                        ScalarLabelValue *val = dynamic_cast<ScalarLabelValue *>(labelValues[j]);
                                         out<<val->getValue()<<" ";
                                     }
                                 }
@@ -748,7 +748,8 @@ void ExportNode::exportMatrix()
             Variables * var;
             if (m_matrix->isType(IDataType::VARIABLES_T))
             {
-                var = (Variables*) m_matrix;
+                // due to the above type-check, static cast should work well (no need for dynamic_cast?)
+                var = dynamic_cast<Variables *>( m_matrix );
             }
             else
             {

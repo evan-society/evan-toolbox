@@ -386,7 +386,7 @@ void Plotter3DNode::selectMarkers()
     {
         for(int i=0; i<groupItem->childCount(); ++i)
         {
-            MemberTreeItem* mItem = (MemberTreeItem*)groupItem->child(i);
+            MemberTreeItem* mItem = dynamic_cast< MemberTreeItem* >( groupItem->child(i) );
             highlightMember(mItem);
         }
     }

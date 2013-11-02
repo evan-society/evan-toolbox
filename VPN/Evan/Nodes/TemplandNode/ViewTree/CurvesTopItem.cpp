@@ -80,7 +80,7 @@ void CurvesTopItem::addCurve(const QString& id, const QString& file, bool loaded
             //Update the curve index the old curves
             for(int j=i+1 ; j<childCount(); ++j)
             {
-                CurveItem* oldCurve = (CurveItem*)child(j);
+                CurveItem* oldCurve = dynamic_cast< CurveItem* >( child(j) );
                 oldCurve->setCurveIndex(j);
             }
 
@@ -102,7 +102,7 @@ void CurvesTopItem::signalDelete(CurveItem* curItem)
     delete curItem;
     for(int i=0; i<childCount(); ++i)
     {
-        CurveItem* curveItem = (CurveItem*)child(i);
+        CurveItem* curveItem = dynamic_cast< CurveItem* >( child(i) );
         curveItem->setCurveIndex(i);
     }
 }

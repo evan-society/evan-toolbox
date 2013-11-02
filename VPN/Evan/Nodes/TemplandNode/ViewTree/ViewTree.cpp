@@ -3,7 +3,9 @@
 
 void ViewTree::contextMenuEvent(QContextMenuEvent* event)
 {
-    ViewTreeItem* item = (ViewTreeItem*)itemAt(event->pos());
+    //ViewTreeItem* item = (ViewTreeItem*)itemAt(event->pos());
+	ViewTreeItem* item = dynamic_cast< ViewTreeItem* >( itemAt( event->pos() ) );
+	
     if(item)
     {
         clearSelection();

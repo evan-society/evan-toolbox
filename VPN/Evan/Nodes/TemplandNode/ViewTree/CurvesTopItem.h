@@ -7,6 +7,9 @@
 
 
 class CurveItem;
+//#include "CurveItem.h"
+
+//#include "ViewTreeItem.h"
 
 class CurvesTopItem : public ViewTreeItem
 {
@@ -53,7 +56,10 @@ public slots:
     void createCurve(const QString& id="", const QString& file="", bool loaded=false);
     void signalCurveColor(CurveItem* item) {emit curveColorChange(item, m_parentForm);}
     void signalDelete(CurveItem*);
-    void signalCurveFocus(CurveItem* item) {emit curveFocus(m_parentForm, (ViewTreeItem*)item);}
+	
+	// error: cannot dynamic_cast 'item' (of type 'struct CurveItem*') to type 'class ViewTreeItem*' (source is a pointer to incomplete type)
+    //void signalCurveFocus(CurveItem* item) {emit curveFocus(m_parentForm, dynamic_cast<ViewTreeItem *>( item ) );}
+    void signalCurveFocus(CurveItem* item) {emit curveFocus(m_parentForm, (ViewTreeItem *)( item ) );}
 
 signals:
     void curveFocus(FormItem*, ViewTreeItem*);

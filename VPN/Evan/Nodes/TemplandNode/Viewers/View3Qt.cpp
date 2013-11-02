@@ -132,10 +132,10 @@ void View3Qt::mouseDoubleClickEvent(QMouseEvent *ev)
         int x = ev->x();
         int y = ev->y();
         double z = 0.0;
-        double loc[3];
+
         try
         {
-
+        double loc[3];
         if(get_use_depth())
             ew::View3Widget::pick(x, y, 0.00001, 0.0, 0, -1, 2, 0, 0, 0, &z);
         get_pointer_location(loc, x * 1.0, y * 1.0, z);
@@ -156,28 +156,32 @@ QString View3Qt::createAlphaNumeric( unsigned int idnum )
 {
     QString num; num = num.setNum( idnum );
     QString base = "LM";
-    if( idnum < 99999  && idnum <= 9999)
+    //if( idnum < 99999  && idnum <= 9999)
+	if( idnum < 99999  && idnum >= 10000 )
         base += "0";
     else
     {
         base += num;
         return base;
     }
-    if( idnum < 9999  && idnum <= 999)
+    //if( idnum < 9999  && idnum <= 999)
+	if( idnum < 9999  && idnum >= 1000 )
         base += "0";
     else
     {
         base += num;
         return base;
     }
-    if( idnum < 999  && idnum <= 99)
+    //if( idnum < 999  && idnum <= 99)
+	if( idnum < 999  && idnum >= 100 )
         base += "0";
     else
     {
         base += num;
         return base;
     }
-    if( idnum < 99  && idnum <= 9)
+    //if( idnum < 99  && idnum <= 9)
+	if( idnum < 99  && idnum >= 10)
         base += "0";
     else
     {
@@ -202,10 +206,11 @@ void View3Qt::placePoint( double x, double y, double z, bool promptID, bool fixe
         for( int i = 0; i < m_tarLmkTopItem->childCount(); ++i )
         {
             QString cmp = "";
-            ViewTreeItem* vti = (ViewTreeItem*)m_tarLmkTopItem->child(i);
+            //ViewTreeItem* vti = (ViewTreeItem*)m_tarLmkTopItem->child(i);
+			ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_tarLmkTopItem->child(i) );
             if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
             {
-                LandmarkItem* lti = (LandmarkItem*)vti;
+                LandmarkItem* lti = dynamic_cast< LandmarkItem* >( vti );
                 cmp = lti->getLmkID();
                 if(lmkID == cmp )
                 {
@@ -215,7 +220,7 @@ void View3Qt::placePoint( double x, double y, double z, bool promptID, bool fixe
             }
             else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
             {
-                SemiLandmarksTopItem* sli = (SemiLandmarksTopItem*)vti;
+                SemiLandmarksTopItem* sli = dynamic_cast< SemiLandmarksTopItem* >( vti );
                 cmp = sli->getLmkID();
             }
         }
@@ -256,15 +261,15 @@ void View3Qt::placePoint( double x, double y, double z, bool promptID, bool fixe
             for( int i = 0; i < m_tarLmkTopItem->childCount() && unique; ++i )
             {
                 QString cmp = "";
-                ViewTreeItem* vti = (ViewTreeItem*)m_tarLmkTopItem->child(i);
+                ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_tarLmkTopItem->child(i) );
                 if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
                 {
-                    LandmarkItem* lti = (LandmarkItem*)vti;
+                    LandmarkItem* lti = dynamic_cast< LandmarkItem* >( vti );
                     cmp = lti->getLmkID();
                 }
                 else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
                 {
-                    SemiLandmarksTopItem* sli = (SemiLandmarksTopItem*)vti;
+                    SemiLandmarksTopItem* sli = dynamic_cast< SemiLandmarksTopItem* >( vti );
                     cmp = sli->getLmkID();
                 }
 

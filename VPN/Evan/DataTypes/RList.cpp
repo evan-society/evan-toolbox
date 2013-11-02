@@ -137,7 +137,7 @@ void RList::addPart(DataTypePtr& part, const QString& desc)
 
     if(part->isType(SPECIMENS_T))
     {
-        Specimens* arr = (Specimens*)(part.getPtr());
+        Specimens* arr = dynamic_cast<Specimens *>( part.getPtr() );
 
         int n = arr->getSize();
         int k = arr->getLandmarkCount();
@@ -171,7 +171,7 @@ void RList::addPart(DataTypePtr& part, const QString& desc)
     }
     else if(part->isType(MATRIXD_T))
     {
-        MatrixD* mat = (MatrixD*)part.getPtr();
+        MatrixD* mat = dynamic_cast<MatrixD *>( part.getPtr() );
         unsigned int nx = mat->GetRows();
         unsigned int ny = mat->GetCols();
         double** matPtr = mat->GetMatrix();
@@ -200,7 +200,7 @@ void RList::addPart(DataTypePtr& part, const QString& desc)
     }
     else if(part->isType(FLOAT_T))
     {
-        Float* real = (Float*)part.getPtr();
+        Float* real = dynamic_cast<Float *>( part.getPtr() );
         value = (i>=0) ? m_values[i] : PROTECT(Rf_allocVector(REALSXP, 1));
         varName = (i>=0) ? m_names[i] : QString("float%1").arg(getSize()).toStdString();
         REAL(value)[0] = real->getData();
@@ -211,7 +211,7 @@ void RList::addPart(DataTypePtr& part, const QString& desc)
     // add specimen labels
     if(part->isType(SPECIMENS_T))
     {
-        Specimens* arr = (Specimens*)(part.getPtr());
+        Specimens* arr = dynamic_cast<Specimens *>( part.getPtr() );
         unsigned int nx = arr->getSize();
 
         if (!arr->getSpecimenLabels(0)->empty())

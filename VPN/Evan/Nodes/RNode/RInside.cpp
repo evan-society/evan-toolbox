@@ -146,7 +146,7 @@ int RInside::parseEval(const std::string & line, SEXP & ans)
 {
     //membuf_t mb = pmb_m;
     ParseStatus status;
-    SEXP cmdSexp, cmdexpr = R_NilValue;
+    SEXP cmdSexp, cmdexpr;// = R_NilValue;
     int i, errorOccurred, result = 0;
 
     //mb = pmb_m = add_to_membuf(&pmb_m, (char*)line.c_str());

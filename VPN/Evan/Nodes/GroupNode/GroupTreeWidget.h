@@ -28,15 +28,15 @@ private:
     QColor m_color;
 
 public:
-    MemberTreeItem() :
-    	QTreeWidgetItem(QTreeWidgetItem::UserType),
-    	m_specimenIndex(0u),
-    	m_color(Qt::transparent)
+    MemberTreeItem() : 
+		QTreeWidgetItem(QTreeWidgetItem::UserType), 
+		m_specimenIndex( 0u ),
+		m_color(Qt::transparent)
     {}
-    MemberTreeItem(QTreeWidgetItem* parent)    :
-    	QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
-    	m_specimenIndex(0u),
-    	m_color(Qt::transparent)
+    MemberTreeItem(QTreeWidgetItem* parent)    :  
+		QTreeWidgetItem(parent, QTreeWidgetItem::UserType), 
+		m_specimenIndex( 0u ),
+		m_color(Qt::transparent)
     {}
 
     unsigned int getSpecimenIndex() const {return m_specimenIndex;}
@@ -56,9 +56,7 @@ protected:
     void contextMenuEvent(QContextMenuEvent* event);
 
 public:
-    GroupTreeWidget(QWidget * parent = 0) :
-    	QTreeWidget(parent),
-    	m_groupItemSize(0.0f)
+    GroupTreeWidget(QWidget * parent = 0) : QTreeWidget(parent)
     {
         connect(this, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(checkItemSize(QTreeWidgetItem*, int)));
         connect(this, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(saveItemSize(QTreeWidgetItem*, int)));
@@ -75,7 +73,7 @@ public:
     {
         for(int i=0; i<parent->childCount(); ++i)
         {
-            MemberTreeItem* groupMemberItem = ((MemberTreeItem*)parent->child(i));
+            MemberTreeItem* groupMemberItem = dynamic_cast<MemberTreeItem *>( parent->child( i ) );
             if(groupMemberItem->getSpecimenIndex() == index)
                 return true;
         }

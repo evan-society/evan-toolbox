@@ -20,8 +20,8 @@ private:
     QString m_textB;
 
 protected:
-	LandmarkSet* getInputPortData0()const {return (LandmarkSet*)getInputData(0);}
-	Specimens* getInputPortData1()const {return (Specimens*)getInputData(1);}
+	LandmarkSet* getInputPortData0()const { return dynamic_cast<LandmarkSet *>( getInputData( 0 ) ); }
+	Specimens* getInputPortData1()const { return dynamic_cast<Specimens *>( getInputData( 1 ) ); }
 	void setOutputPort0(Loadings* p){setOutputData(0,p);}
 	void setOutputPort1(Specimens* p){setOutputData(1,p);}
 

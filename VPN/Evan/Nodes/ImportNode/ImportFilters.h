@@ -1,6 +1,6 @@
 
 
-void find_and_replace( string &source, const string find, string replace )
+void find_and_replace( string &source, const string &find, string replace )
 {
     size_t j;
     for ( ; (j = source.find( find )) != string::npos ; )
@@ -44,7 +44,7 @@ int ReadFromRawTextFile( QString filename,
     // we read landmark count from first line
     int ilandmarks = 0;
 
-    string strline;
+    //string strline;
 
     QString seperator = "";
     QString line;// = input.readLine();

@@ -15,9 +15,9 @@ private:
 	LandmarkSet* m_specimensOutput;
 
 protected:
-	LandmarkSet* getInputPortData0()const {return (LandmarkSet*)getInputData(0);}
-	Loadings* getInputPortData1()const {return (Loadings*)getInputData(1);}
-	FloatVector* getInputPortData2()const {return (FloatVector*)getInputData(2);}
+	LandmarkSet* getInputPortData0()const { return dynamic_cast<LandmarkSet *>( getInputData( 0 ) ); }
+	Loadings* getInputPortData1()const { return dynamic_cast<Loadings *>( getInputData( 1 ) ); }
+	FloatVector* getInputPortData2()const { return dynamic_cast<FloatVector *>( getInputData( 2 ) ); }
 	void setOutputPort0(LandmarkSet* p){setOutputData(0,p);}
 
 public:

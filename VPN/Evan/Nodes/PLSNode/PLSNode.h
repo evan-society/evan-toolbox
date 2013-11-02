@@ -41,8 +41,8 @@ private:
     void PrintOutput();
 
 protected:
-	Specimens* getInputPortData0()const {return (Specimens*)getInputData(0);}
-	Specimens* getInputPortData1()const {return (Specimens*)getInputData(1);}
+    Specimens* getInputPortData0()const { return dynamic_cast<Specimens *>( getInputData( 0 ) ); }
+    Specimens* getInputPortData1()const { return dynamic_cast<Specimens *>( getInputData( 1 ) ); }
 
 	void setOutputPort0(PCScore* p){setOutputData(0,p);}
 	void setOutputPort1(PCScore* p){setOutputData(1,p);}

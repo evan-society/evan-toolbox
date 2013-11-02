@@ -14,7 +14,7 @@ void SemiLandmarksTopItem::addSemiLandmarkItem()
         id = createAlphaNumeric( startingID );
         for( int i = 0; i < childCount(); ++i )
         {
-            SemiLandmarkItem* s = (SemiLandmarkItem*)child(i);
+            SemiLandmarkItem* s = dynamic_cast< SemiLandmarkItem* >( child(i) );
             if( s->text(0) == id )
                 foundUnique = false;
         }
@@ -42,28 +42,32 @@ QString SemiLandmarksTopItem::createAlphaNumeric( unsigned int idnum )
 {
     QString num; num = num.setNum( idnum );
     QString base = "SM";
-    if( idnum < 99999  && idnum <= 9999)
+    //if( idnum < 99999  && idnum <= 9999)
+	if( idnum < 99999  && idnum >= 10000 )
         base += "0";
     else
     {
         base += num;
         return base;
     }
-    if( idnum < 9999  && idnum <= 999)
+    //if( idnum < 9999  && idnum <= 999)
+	if( idnum < 9999  && idnum >= 1000 )
         base += "0";
     else
     {
         base += num;
         return base;
     }
-    if( idnum < 999  && idnum <= 99)
+    //if( idnum < 999  && idnum <= 99)
+	if( idnum < 999  && idnum >= 100 )
         base += "0";
     else
     {
         base += num;
         return base;
     }
-    if( idnum < 99  && idnum <= 9)
+    //if( idnum < 99  && idnum <= 9)
+	if( idnum < 99  && idnum >= 10 )
         base += "0";
     else
     {
@@ -88,8 +92,8 @@ void SemiLandmarksTopItem::lmkDeletedChild( FormItem* semipatch, ViewTreeItem* s
     delete childItem;
     for(int i=0; i<childCount(); ++i)
     {
-        ViewTreeItem* vti = (ViewTreeItem*)child(i);
-        SemiLandmarkItem* lmkItem = (SemiLandmarkItem*)vti;
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( child(i) );
+        SemiLandmarkItem* lmkItem = dynamic_cast< SemiLandmarkItem* >( vti );
         lmkItem->setLmkIndex(i);
     }
 }

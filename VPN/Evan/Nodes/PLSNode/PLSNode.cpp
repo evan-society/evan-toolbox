@@ -598,7 +598,7 @@ void PLSNode::LoadData()
                     {
                         if (labelValues[j]->getType()==ILabelValue::STRING_VALUE)
                         {
-                            StringLabelValue * val = (StringLabelValue*)(labelValues[j]);
+                            StringLabelValue * val = dynamic_cast< StringLabelValue* >( labelValues[j] );
                             if (!strvalues[j].contains(val->getValue()))
                             {
                                 labelMatrix[i][j] = strvalues[j].size();
@@ -611,7 +611,7 @@ void PLSNode::LoadData()
                         }
                         else if (labelValues[j]->getType()==ILabelValue::SCALAR_VALUE)
                         {
-                            ScalarLabelValue * val = (ScalarLabelValue*)(labelValues[j]);
+                            ScalarLabelValue * val = dynamic_cast< ScalarLabelValue* >( labelValues[j] );
                             labelMatrix[i][j] = val->getValue();
                         }
                     }
@@ -724,7 +724,7 @@ void PLSNode::LoadData()
                     {
                         if (labelValues[j]->getType()==ILabelValue::STRING_VALUE)
                         {
-                            StringLabelValue * val = (StringLabelValue*)(labelValues[j]);
+                            StringLabelValue * val = dynamic_cast< StringLabelValue* >( labelValues[j] );
                             if (!strvalues[j].contains(val->getValue()))
                             {
                                 labelMatrix[i][j] = strvalues[j].size();
@@ -737,7 +737,7 @@ void PLSNode::LoadData()
                         }
                         else if (labelValues[j]->getType()==ILabelValue::SCALAR_VALUE)
                         {
-                            ScalarLabelValue * val = (ScalarLabelValue*)(labelValues[j]);
+                            ScalarLabelValue * val = dynamic_cast< ScalarLabelValue* >( labelValues[j] );
                             labelMatrix[i][j] = val->getValue();
                         }
                     }

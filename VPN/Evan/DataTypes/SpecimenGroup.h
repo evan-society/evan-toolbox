@@ -30,13 +30,9 @@ private:
     QVector<GroupMemberData> m_memberData;
     bool m_hasMean;
 
-    SpecimenGroup(const SpecimenGroup&) :
-    	m_groupColor(),
-    	m_groupLMKSize(0.0f),
-    	m_groupPSymbol(0),
-    	m_hasMean(false)
-    {}
-    SpecimenGroup & operator = (const SpecimenGroup& copy) {return *this;}
+    SpecimenGroup(const SpecimenGroup&){}
+    //SpecimenGroup & operator = (const SpecimenGroup& copy) {return *this;}
+    SpecimenGroup & operator = (const SpecimenGroup& copy);
 
 public:
     SpecimenGroup();
@@ -61,10 +57,10 @@ public:
         m_memberData.push_back(info);
     }
     unsigned int getSize()                              const {return m_memberData.size();}
-    LandmarkSet* getMember(unsigned int i)              const {return (LandmarkSet*)m_memberData[i].memberPtr.getPtr();}
+    LandmarkSet* getMember(unsigned int i)              const { return dynamic_cast<LandmarkSet*>( m_memberData[i].memberPtr.getPtr() ); }
     const QString& getMemberID(unsigned int i)          const {return m_memberData[i].ID;}
     const QColor& getMemberColor(unsigned int i)        const {return m_memberData[i].viewerColor;}
-    LMKSetRenderable* getMemberViewerPtr(unsigned int i)const {return (LMKSetRenderable*)m_memberData[i].viewerPtr.getPtr();}
+    LMKSetRenderable* getMemberViewerPtr(unsigned int i)const { return dynamic_cast<LMKSetRenderable*>( m_memberData[i].viewerPtr.getPtr() ); }
     float getMemberViewerSize(unsigned int i)           const {return m_memberData[i].viewerSize;}
     int getMemberPlotSymbol(unsigned int i)             const {return m_memberData[i].plotSymbol;}
 
@@ -86,7 +82,7 @@ public:
         {
             return 0;
         }
-        return (LandmarkSet*)m_memberData.last().memberPtr.getPtr();
+        return dynamic_cast<LandmarkSet*>( m_memberData.last().memberPtr.getPtr() );
     }
 
     unsigned int getChildrenNum()        const{return getSize();}

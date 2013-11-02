@@ -68,8 +68,8 @@ void GroupTreeWidget::changeGroupPSymbol(int oldIndex, int index, QTreeWidgetIte
         MemberTreeItem* memberItem = dynamic_cast<MemberTreeItem*>(groupItem->child(i));
         if(memberItem)
         {
-            if( ((PlotSymbolCombo*)itemWidget(memberItem,2))->currentIndex() == oldIndex)
-                ((PlotSymbolCombo*)itemWidget(memberItem,2))->setCurrentIndex(index);
+            if( dynamic_cast< PlotSymbolCombo* >( itemWidget(memberItem,2) )->currentIndex() == oldIndex )
+                dynamic_cast< PlotSymbolCombo* >( itemWidget(memberItem,2) )->setCurrentIndex(index);
         }
     }
     emit membersUpdated();

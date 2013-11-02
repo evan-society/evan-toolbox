@@ -6,7 +6,7 @@ bool LandmarkSet::setFromContainer(DataTypePtr& specimens, unsigned int partInde
 {
     if(specimens.isValid())
     {
-        Specimens* spec = (Specimens*)specimens.getPtr();
+        Specimens* spec = dynamic_cast<Specimens *>( specimens.getPtr() );
         if(partIndex >= spec->getSize() || ( static_cast<int>(partIndex) < 0 ) )
             return false;
         *this = *(spec->getLandmarkSet(partIndex));

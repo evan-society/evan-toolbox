@@ -27,8 +27,8 @@ private:
 	void clearInputsTable();
 
 protected:
-	RList* getInputPortData0()const {return (RList*)getInputData(0);}
-	void setOutputPort0(RList* p){setOutputData(0,(IDataType*)p);}
+	RList* getInputPortData0()const { return dynamic_cast<RList *>( getInputData( 0 ) ); }
+	void setOutputPort0(RList* p){ setOutputData(0, dynamic_cast<IDataType *>( p ) ); }
 
 public:
 	RNode(QWidget* parent=0);

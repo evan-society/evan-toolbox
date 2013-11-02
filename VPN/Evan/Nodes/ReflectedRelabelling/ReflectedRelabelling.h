@@ -14,7 +14,7 @@ private:
 //	bool m_updated;
 
 protected:
-	Specimens* getInputPortData0()const {return (Specimens*)getInputData(0);}
+	Specimens* getInputPortData0()const { return dynamic_cast<Specimens *>( getInputData( 0 ) ); }
 	void setOutputPort0(Specimens* p){setOutputData(0,p);}
 
 public:

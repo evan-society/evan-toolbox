@@ -44,7 +44,8 @@ void LandmarksTopItem::addLandmarkItem(const QString& id)
     }
     else
     {
-        SemiLandmarksTopItem* sl = (SemiLandmarksTopItem*)m_assignhere;
+        //SemiLandmarksTopItem* sl = (SemiLandmarksTopItem*)m_assignhere;
+		SemiLandmarksTopItem* sl = dynamic_cast< SemiLandmarksTopItem* >( m_assignhere );
         sl->addSemiLandmarkItem();
     }
     m_moving = false;
@@ -60,15 +61,19 @@ void LandmarksTopItem::signalDelete(int index)
     delete childItem;
     for(int i=0; i<childCount(); ++i)
     {
-        ViewTreeItem* vti = (ViewTreeItem*)child(i);
+        //ViewTreeItem* vti = (ViewTreeItem*)child(i);
+		ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( child(i) );
+		
         if( vti->getType() == LANDMARK_ITEM )
         {
-            LandmarkItem* lmkItem = (LandmarkItem*)vti;
+            //LandmarkItem* lmkItem = (LandmarkItem*)vti;
+			LandmarkItem* lmkItem = dynamic_cast< LandmarkItem* >( vti );
+			
             lmkItem->setLmkIndex(i);
         }
         else if( vti->getType() == SEMILANDMARKS_ITEM )
         {
-            SemiLandmarksTopItem* lmkItem = (SemiLandmarksTopItem*)vti;
+            SemiLandmarksTopItem* lmkItem = dynamic_cast< SemiLandmarksTopItem* >( vti );
             lmkItem->setLmkIndex(i);
         }
     }
@@ -91,7 +96,7 @@ void LandmarksTopItem::signalMove(int index)
 void LandmarksTopItem::signalMove(FormItem* semipatch, ViewTreeItem* semilmk, int index)
 {
 	m_moving = true;
-    m_movingIndex = ((SemiLandmarksTopItem*)semipatch)->getLmkIndex();
+    m_movingIndex = dynamic_cast< SemiLandmarksTopItem* >( semipatch )->getLmkIndex();
 	m_movingSubIndex = index;
 
     emit lmkMovedChild(semipatch, semilmk, index);
@@ -118,7 +123,7 @@ void LandmarksTopItem::enableMapChild( int index, bool enable )
     int size = childCount();
     for( int i = 0; i < size; ++i )
     {
-        LandmarkItem* lmi = (LandmarkItem*)child( i );
+        LandmarkItem* lmi = dynamic_cast< LandmarkItem* >( child( i ) );
         if( lmi->getLmkIndex() == index )
         {
             lmi->mapEnable( enable );
@@ -131,7 +136,7 @@ void LandmarksTopItem::enableRegChild( int index, bool enable )
     int size = childCount();
     for( int i = 0; i < size; ++i )
     {
-        LandmarkItem* lmi = (LandmarkItem*)child( i );
+        LandmarkItem* lmi = dynamic_cast< LandmarkItem* >( child( i ) );
         if( lmi->getLmkIndex() == index )
         {
             lmi->regEnable( enable );
@@ -160,10 +165,10 @@ QString LandmarksTopItem::getSelectedLandmarkID()
     {
         for( int i = 0; i < childCount(); ++i )
         {
-            ViewTreeItem* vti = (ViewTreeItem*)child(i);
+            ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( child(i) );
             if( vti->getType() == LANDMARK_ITEM && vti->isSelected() )
             {
-                LandmarkItem* lti = (LandmarkItem*)vti;
+                LandmarkItem* lti = dynamic_cast< LandmarkItem* >( vti );
                 return lti->getLmkID();
             }
         }
@@ -187,16 +192,16 @@ Logger::getInstance()->log("2");
 
     for( int i = 0; i < childCount(); ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)child(i);
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( child(i) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
         {
-            LandmarkItem* li = (LandmarkItem*)vti;
+            LandmarkItem* li = dynamic_cast< LandmarkItem* >( vti );
             child(i)->setSelected( li->getLmkID() == parentid );
         }
         // deselect the semilandmark children
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
         {
-            SemiLandmarksTopItem* sli = (SemiLandmarksTopItem*)child(i);
+            SemiLandmarksTopItem* sli = dynamic_cast< SemiLandmarksTopItem* >( child(i) );
             if( sli->getLmkID() == parentid )
             {
                 sli->setSelected( (childid == "") );
@@ -226,16 +231,16 @@ bool LandmarksTopItem::doesChildExist( const QString& parentid, const QString& c
     // first check if the item exists in the tree
     for( int i = 0; i < childCount() && !found; ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)child(i);
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( child(i) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
         {
-            LandmarkItem* li = (LandmarkItem*)vti;
+            LandmarkItem* li = dynamic_cast< LandmarkItem* >( vti );
             found = ( li->getLmkID() == parentid );
         }
         // deselect the semilandmark children
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
         {
-            SemiLandmarksTopItem* sli = (SemiLandmarksTopItem*)child(i);
+            SemiLandmarksTopItem* sli = dynamic_cast< SemiLandmarksTopItem* >( child(i) );
             if( sli->getLmkID() == parentid )
             {
                 for( int c = 0; c < sli->childCount() && !found; ++c )
@@ -261,16 +266,16 @@ void LandmarksTopItem::select( const QString& parentid, const QString& childid )
 
     for( int i = 0; i < childCount(); ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)child(i);
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( child(i) );
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
         {
-            LandmarkItem* li = (LandmarkItem*)vti;
+            LandmarkItem* li = dynamic_cast< LandmarkItem* >( vti );
             child(i)->setSelected( li->getLmkID() == parentid );
         }
         // deselect the semilandmark children
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
         {
-            SemiLandmarksTopItem* sli = (SemiLandmarksTopItem*)child(i);
+            SemiLandmarksTopItem* sli = dynamic_cast< SemiLandmarksTopItem* >( child(i) );
             if( sli->getLmkID() == parentid )
             {
                 sli->setSelected( (childid == "") );
@@ -299,7 +304,7 @@ void LandmarksTopItem::addSemiLandmarkSet( int t, const QString& suggestedName )
     int count = 1;
     for( int i = 0; i < childCount(); ++i )
     {
-        ViewTreeItem* vti = (ViewTreeItem*)child( i );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( child( i ) );
         if( vti->getType() == SEMILANDMARKS_ITEM )
             count++;
     }
@@ -395,10 +400,10 @@ void LandmarksTopItem::assignLandmarksHere( ViewTreeItem* vti )
     {
         for( int i = 0; i < childCount(); ++i )
         {
-            ViewTreeItem* vti = (ViewTreeItem*)child( i );
+            ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( child( i ) );
             if( vti->getType() == SEMILANDMARKS_ITEM )
             {
-                SemiLandmarksTopItem* s = (SemiLandmarksTopItem*)vti;
+                SemiLandmarksTopItem* s = dynamic_cast< SemiLandmarksTopItem* >( vti );
                 s->toggleAdd( false );
             }
         }
@@ -407,10 +412,10 @@ void LandmarksTopItem::assignLandmarksHere( ViewTreeItem* vti )
     {
         for( int i = 0; i < childCount(); ++i )
         {
-            ViewTreeItem* vti = (ViewTreeItem*)child( i );
+            ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( child( i ) );
             if( vti->getType() == SEMILANDMARKS_ITEM )
             {
-                SemiLandmarksTopItem* s = (SemiLandmarksTopItem*)vti;
+                SemiLandmarksTopItem* s = dynamic_cast< SemiLandmarksTopItem* >( vti );
                 if( s != m_assignhere )
                     s->toggleAdd( false );
                 else
