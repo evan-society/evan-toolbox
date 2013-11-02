@@ -267,7 +267,7 @@ ew::View3Widget::dataflow_check()
 /// successful
 
 
-bool ew::View3Widget::ORIGINAL_pick(double x, double y, double sz, double burrow,
+bool ew::View3Widget::pick(double x, double y, double sz, double burrow,
  ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
  ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z)
 {
@@ -346,6 +346,11 @@ bool ew::View3Widget::ORIGINAL_pick(double x, double y, double sz, double burrow
       }
     }
     glPopName();
+    
+    //husky - maybe picking-related bugs are due to incorrect CPU/GPU sync
+    glFlush();
+    glFinish();
+    
     hits = glRenderMode(GL_RENDER);
     if (hits >= 0) {
       break;
@@ -455,7 +460,7 @@ bool ew::View3Widget::ORIGINAL_pick(double x, double y, double sz, double burrow
 }
 
 bool
-ew::View3Widget::pick(double x, double y, double sz, double burrow,
+ew::View3Widget::MODIFIED_TEST_pick(double x, double y, double sz, double burrow,
  ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
  ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z)
 {

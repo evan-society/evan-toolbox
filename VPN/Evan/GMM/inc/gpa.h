@@ -15,8 +15,8 @@ class GPA
 
 public:
 
-    static const double EPSILON = 1e-12;            //!< A small number
-    static const double SQRT2 = 1.414213562373095;  //!< The square root of two
+    static const double EPSILON;// = 1e-12;            //!< A small number
+    static const double SQRT2;// = 1.414213562373095;  //!< The square root of two
 
     //! Constructor
     //! \param data the landmark coordinates

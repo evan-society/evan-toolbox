@@ -22,7 +22,7 @@ private:
     QString m_lastText;
 
 protected:
-    Printables* getInputPortData0()  const {return (Printables*)getInputData(0);}
+    Printables* getInputPortData0()  const { return dynamic_cast<Printables *>( getInputData( 0 ) ); }
 
 public:
     PrintNode(QWidget* parent=0);

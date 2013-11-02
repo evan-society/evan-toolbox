@@ -72,10 +72,11 @@ QMimeData* GridTreeWidget::mimeData(const QList<QTreeWidgetItem *> items) const
         {
             return md;
         }
-        int a,b;
 
         if (items[0]->parent())
         {
+			int a,b;
+		
             a=indexOfTopLevelItem(items[0]->parent());
             if (a==-1)
             {
@@ -94,7 +95,7 @@ QMimeData* GridTreeWidget::mimeData(const QList<QTreeWidgetItem *> items) const
 
 void GridTreeWidget::dropEvent(QDropEvent *event)
  {
-    GridTreeItem* drag;
+    GridTreeItem* drag = NULL;
     if (event->mimeData()->hasFormat("myownmimetype/grid"))
     {
         QByteArray itemData = event->mimeData()->data("myownmimetype/grid");
@@ -125,7 +126,7 @@ void GridTreeWidget::dropEvent(QDropEvent *event)
     else return;
 
     QTreeWidget::dropEvent(event);
-    GroupWarpGrids* gwarpg;
+    GroupWarpGrids* gwarpg = NULL;
     if (drag->parent())
     {
         GroupGridTreeItem* newParent = dynamic_cast<GroupGridTreeItem*>(drag->parent());
@@ -150,7 +151,7 @@ void GridTreeWidget::dropEvent(QDropEvent *event)
 
 void GridTreeWidget::deleteGrid()
 {
-    GridTreeItem* selected = ((GridTreeItem*)selectedItems().front());
+    GridTreeItem* selected = dynamic_cast< GridTreeItem* >( selectedItems().front() );
     if (selected)
     {
         selected->getGrid()->getParent()->deleteGrid(selected->getGrid());
@@ -161,7 +162,7 @@ void GridTreeWidget::deleteGrid()
 
 void GridTreeWidget::deleteGroupGrid()
 {
-    GroupGridTreeItem* selected = ((GroupGridTreeItem*)selectedItems().front());
+    GroupGridTreeItem* selected = dynamic_cast< GroupGridTreeItem* >( selectedItems().front() );
     if (selected)
     {
         m_groupWarpGrids->deleteGroupGrid(selected->getGroupGrid());
@@ -187,7 +188,7 @@ void GridTreeWidget::createGrid()
         }
         else // the selected items  is a GridTreeItem
         {
-            GridTreeItem* gridItem = ((GridTreeItem*)selectedItems().front());
+            GridTreeItem* gridItem = dynamic_cast< GridTreeItem* >( selectedItems().front() );
             if (!gridItem->parent())
                 emit showCreateGridDialog();
             else
@@ -211,14 +212,18 @@ void GridTreeWidget::createGrid()
 
 void GridTreeWidget::cloneGrid()
 {
-    GridTreeItem* selected = ((GridTreeItem*)selectedItems().front());
+    GridTreeItem* selected = dynamic_cast< GridTreeItem* >( selectedItems().front() );
     if (selected)
     {
-        GroupGridTreeItem* parent;
+        //GroupGridTreeItem* parent;
+		GroupGridTreeItem* parent = static_cast< GroupGridTreeItem* >( 0 );
+		
+		// CppCheck:  Found duplicate branches for 'if' and 'else'.
         if (selected->parent())
             parent = dynamic_cast<GroupGridTreeItem*>(selected->parent());
-        else
-            parent = dynamic_cast<GroupGridTreeItem*>(selected->parent());
+        //else
+        //    parent = dynamic_cast<GroupGridTreeItem*>(selected->parent());
+			
         if (parent)
         {
             emit signalCloneGrid(selected->getGrid()->asWarpGrid());
@@ -235,14 +240,18 @@ void GridTreeWidget::cloneGrid()
 
 void GridTreeWidget::parallelGrid()
 {
-    GridTreeItem* selected = ((GridTreeItem*)selectedItems().front());
+    GridTreeItem* selected = dynamic_cast< GridTreeItem* >( selectedItems().front() );
     if (selected)
     {
-        GroupGridTreeItem* parent;
+        //GroupGridTreeItem* parent;
+		GroupGridTreeItem* parent = static_cast< GroupGridTreeItem* >( 0 );
+		
+		// CppCheck:  Found duplicate branches for 'if' and 'else'.
         if (selected->parent())
             parent = dynamic_cast<GroupGridTreeItem*>(selected->parent());
-        else
-            parent = dynamic_cast<GroupGridTreeItem*>(selected->parent());
+        //else
+        //    parent = dynamic_cast<GroupGridTreeItem*>(selected->parent());
+			
         if (parent)
         {
             emit parallelGrid(selected->getGrid()->asWarpGrid());
@@ -259,14 +268,18 @@ void GridTreeWidget::parallelGrid()
 
 void GridTreeWidget::perpendicularGrid()
 {
-    GridTreeItem* selected = ((GridTreeItem*)selectedItems().front());
+    GridTreeItem* selected = dynamic_cast< GridTreeItem* >( selectedItems().front() );
     if (selected)
     {
-        GroupGridTreeItem* parent;
+        //GroupGridTreeItem* parent;
+		GroupGridTreeItem* parent = static_cast< GroupGridTreeItem* >( 0 );
+		
+		// CppCheck:  Found duplicate branches for 'if' and 'else'.
         if (selected->parent())
             parent = dynamic_cast<GroupGridTreeItem*>(selected->parent());
-        else
-            parent = dynamic_cast<GroupGridTreeItem*>(selected->parent());
+        //else
+        //    parent = dynamic_cast<GroupGridTreeItem*>(selected->parent());
+			
         if (parent)
         {
             emit perpendicularGrid(selected->getGrid()->asWarpGrid());
@@ -283,7 +296,7 @@ void GridTreeWidget::perpendicularGrid()
 
 void GridTreeWidget::propertyGrid()
 {
-    GridTreeItem* selected = ((GridTreeItem*)selectedItems().front());
+    GridTreeItem* selected = dynamic_cast< GridTreeItem* >( selectedItems().front() );
     if (selected)
     {
         emit propertyGrid(selected);
@@ -372,7 +385,7 @@ void GridTreeWidget::updateName()
         }
         else
         {
-            GroupGridTreeItem* group = (GroupGridTreeItem*) topLevelItem(i);
+            GroupGridTreeItem* group = dynamic_cast< GroupGridTreeItem* >( topLevelItem(i) );
             if (group)
             {
                 group->setText(0,group->getGroupGrid()->getRenderableName());

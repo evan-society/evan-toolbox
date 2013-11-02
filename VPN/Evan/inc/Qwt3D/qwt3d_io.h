@@ -87,6 +87,7 @@ private:
     ~Entry();
 
     Entry(Entry const& e);
+	// CppCheck:  'Entry::operator=' should return 'Entry &'.
     void operator=(Entry const& e);
     
     Entry(QString const& s, Functor const& f);

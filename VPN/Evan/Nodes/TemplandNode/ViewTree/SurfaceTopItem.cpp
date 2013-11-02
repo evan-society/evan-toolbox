@@ -77,7 +77,7 @@ void SurfaceTopItem::addSurface(const QString& id, const QString& file, bool loa
             //Update the surface index the old surfaces
             for(int j=i+1 ; j<childCount(); ++j)
             {
-                SurfaceItem* oldSurface = (SurfaceItem*)child(j);
+                SurfaceItem* oldSurface = dynamic_cast< SurfaceItem* >( child(j) );
                 oldSurface->setSurfaceIndex(j);
             }
 
@@ -97,7 +97,7 @@ void SurfaceTopItem::signalDelete(SurfaceItem* surItem)
     delete surItem;
     for(int i=0; i<childCount(); ++i)
     {
-        SurfaceItem* surfaceItem = (SurfaceItem*)child(i);
+        SurfaceItem* surfaceItem = dynamic_cast< SurfaceItem* >( child(i) );
         surfaceItem->setSurfaceIndex(i);
     }
 }

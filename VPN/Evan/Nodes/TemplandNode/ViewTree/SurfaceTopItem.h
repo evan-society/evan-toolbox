@@ -33,7 +33,10 @@ public slots:
     void addSurface(const QString& id="", const QString& file="", bool loaded=false);
     void signalSurfaceColor(SurfaceItem* item, bool front) {emit surfaceColorChange(item, m_parentForm, front);}
     void signalDelete(SurfaceItem*);
-    void signalSurfaceFocus(SurfaceItem* item) {emit surfaceFocus(m_parentForm, (ViewTreeItem*)item);}
+	
+	//error: cannot dynamic_cast 'item' (of type 'struct SurfaceItem*') to type 'class ViewTreeItem*' (source is a pointer to incomplete type)
+    //void signalSurfaceFocus(SurfaceItem* item) { emit surfaceFocus(m_parentForm, dynamic_cast< ViewTreeItem* >( item ) ); }
+	void signalSurfaceFocus(SurfaceItem* item) { emit surfaceFocus(m_parentForm, ( ViewTreeItem * )( item ) ); }
 
 signals:
     void surfaceFocus(FormItem*, ViewTreeItem*);

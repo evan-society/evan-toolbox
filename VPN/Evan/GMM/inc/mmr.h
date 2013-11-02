@@ -14,7 +14,7 @@ class MMR
 public:
 
     //! A small number
-    static const double EPSILON = 1e-12;
+    static const double EPSILON;// = 1e-12;
 
     //! Constructor
     //! \param independent the independent variables

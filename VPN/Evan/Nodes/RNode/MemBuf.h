@@ -12,6 +12,13 @@ private:
 	unsigned char *buf;
     } *membuf_t;
     membuf_t p_m;
+	
+	// CppCheck:
+	//  'class MemBuf' does not have a copy constructor which is recommended since the class contains a pointer to allocated memory.
+	//	==> added at least private copy constructor and assignment operator ( it should not be possible to copy this object now! )
+	MemBuf( const MemBuf &rhs );
+	MemBuf &operator=( const MemBuf &rhs );
+	
 public:    
     MemBuf(int sizebytes=1024);
     ~MemBuf();

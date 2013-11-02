@@ -333,6 +333,6 @@ namespace miniexcel
 			void Write (FILE *dest);
   };
 
-};
+}
 
 #endif  /* #ifndef MINI_EXCEL_H_ALREADY_INCLUDED */

@@ -1,0 +1,14 @@
+# pkg-config source file
+
+prefix=C:/Projects/OpenSceneGraph/OpenSceneGraph-Bin
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: openscenegraph-osgUtil
+Description: Utility library for Openscenegraph
+Version: 2.9.8
+Requires: openscenegraph-osg openthreads
+Conflicts:
+Libs: -L${libdir} -losgUtil
+Cflags: -I${includedir}

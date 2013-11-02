@@ -19,7 +19,7 @@ private:
 //    bool m_updated;
 
 protected:
-	Variables* getInputPortData0()const {return (Variables*)getInputData(0);}
+	Variables* getInputPortData0()const { return dynamic_cast<Variables *>( getInputData( 0 ) ); }
 	void setOutputPort0(Variables* p){setOutputData(0,p);}
 	void setOutputPort1(Variables* p){setOutputData(1,p);}
 

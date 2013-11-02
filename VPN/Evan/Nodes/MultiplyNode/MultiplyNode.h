@@ -16,7 +16,7 @@ private:
 	double m_mult;
 
 protected:
-	Loadings* getInputPortData0()const {return (Loadings*)getInputData(0);}
+	Loadings* getInputPortData0()const { return dynamic_cast<Loadings *>( getInputData( 0 ) ); }
 	void setOutputPort0(Loadings* p){setOutputData(0,p);}
 
 public:

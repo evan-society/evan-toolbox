@@ -91,7 +91,7 @@ QString TemplandNode::toString() const
         QMdiSubWindow * cwin = cwindows[0];
         if( cwin != 0 )
         {
-            TableauLayout* tableau = (TableauLayout*)cwin->widget();
+            TableauLayout* tableau = dynamic_cast< TableauLayout* >( cwin->widget() );
             tableaus += tableau->getCurrentFilename();
         }
         for (int i=1;i<cwindows.size();i++)
@@ -99,7 +99,7 @@ QString TemplandNode::toString() const
             cwin = cwindows[i];
             if( cwin != 0 )
             {
-                TableauLayout* tableau = (TableauLayout*)cwin->widget();
+                TableauLayout* tableau = dynamic_cast< TableauLayout* >( cwin->widget() );
                 tableaus += "$$" + tableau->getCurrentFilename();
             }
         }
@@ -148,8 +148,7 @@ void TemplandNode::connectActions()
 TableauLayout* TemplandNode::newTableau( bool createNewTab )
 {
 
-    bool first = false;
-    first = getCurrentTableauFile() == 0;
+    bool first = getCurrentTableauFile() == 0;
     TableauLayout* newProject = new TableauLayout(0, first ? 0 : m_share );
 
     newProject->setWindowTitle(QString("Untitled %1.ltb*").arg(mdiArea->subWindowList().count()+1));
@@ -345,7 +344,7 @@ void TemplandNode::subWindowChanged( QMdiSubWindow * window )
         if( w != 0 )
         {
             str += " - ";
-            TableauLayout* tbl = (TableauLayout*)w;
+            TableauLayout* tbl = dynamic_cast< TableauLayout* >( w );
             str += tbl->getCurrentFilename();
         }
     }
@@ -374,7 +373,7 @@ void TemplandNode::selectPoints( bool tog )
         if( msw == 0 )
             continue;
 
-        TableauLayout* tl = (TableauLayout*)msw->widget();
+        TableauLayout* tl = dynamic_cast< TableauLayout* >( msw->widget() );
         tl->selectPointsInViews( tog );
     }
 }
@@ -386,7 +385,7 @@ void TemplandNode::refreshOutputs()
     if( cwin == 0 )
         return;
     emit status(QString("Refreshing Output Ports, Please wait..."));
-    TableauLayout* tlw = (TableauLayout*)cwin->widget();
+    TableauLayout* tlw = dynamic_cast< TableauLayout* >( cwin->widget() );
 
     bool surfaceAdded = false;
 	const ew::Form3 * form =  tlw->getTargetFormData();
@@ -654,7 +653,7 @@ void TemplandNode::GetSpecimens()
 
 	std::vector<std::vector<double> > rawdata;
 
-    std::vector<ew::Dig3Tableau> tempTableaus;
+    // std::vector<ew::Dig3Tableau> tempTableaus;
     std::vector<ew::Dig3Tableau> tableauList;
 
     QString fileName = getCurrentTableauFile()->toString();

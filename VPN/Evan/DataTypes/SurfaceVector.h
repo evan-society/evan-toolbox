@@ -21,7 +21,7 @@ public:
     void addSurface(Surface* s)         {m_surfaces.push_back(DataTypePtr(s));}
     void setSurface(int i, Surface* s)  {m_surfaces[i] = DataTypePtr(s);}
 
-    Surface* getSurface(int i)      const {return (Surface*)m_surfaces[i].getPtr();}
+    Surface* getSurface(int i)      const { return dynamic_cast<Surface*>( m_surfaces[i].getPtr() ); }
 
     void clear()
     {

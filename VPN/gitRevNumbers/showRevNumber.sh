@@ -22,6 +22,14 @@ GIT_REV=`git rev-list HEAD | wc -l`
 # direct trim
 echo "${BASE_SVN_REV}.${GIT_REV}" | tr -d ' '
 
+echo "GIT_REV=${GIT_REV}" | tr -d ' '
+
+#GIT_DATE=`git log --date=local`
+#echo "GIT_DATE=${GIT_DATE}" | tr -d ' '
+
+#info about latest commit
+git show --name-status --date=iso
+
 # and some usage:
 # mapping back to GIT IDs
 # git show-rev-number 1234

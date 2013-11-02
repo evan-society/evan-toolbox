@@ -22,7 +22,14 @@ private:
     QAction*            swapNextAction;
 
 public:
-    FormItem(ViewTree* parent, bool specimenOpt) :  ViewTreeItem(parent, FORM_ITEM), addSpecimentOptions(specimenOpt), newAction(0), appendAction(0), insertAction(0), replaceAction(0), deleteAction(0)
+    FormItem(ViewTree* parent, bool specimenOpt) :
+        ViewTreeItem(parent, FORM_ITEM),
+        addSpecimentOptions(specimenOpt),
+        newAction(0),
+        appendAction(0),
+        insertAction(0),
+        replaceAction(0),
+        deleteAction(0)
     {fillContextMenu();}
 
     void fillContextMenu()

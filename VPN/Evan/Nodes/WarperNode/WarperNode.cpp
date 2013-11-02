@@ -189,11 +189,11 @@ void WarperNode::processWarps()
                 return;
             }
 
-            int numscores = ((Loadings*)loadings)->getNumScores();
+            int numscores = ( dynamic_cast< Loadings* >( loadings) )->getNumScores();
 
             if(numscores == 0)
             {
-                numscores = ((Loadings*)loadings)->GetCols();
+                numscores = ( dynamic_cast< Loadings* >( loadings) )->GetCols();
             }
             for(int j=0; j<numscores; ++j)
             {
@@ -213,8 +213,8 @@ void WarperNode::processWarps()
             // 26.06.09 hpg - get scale values from min and max scores
             vector<double> minrange;
             vector<double> maxrange;
-            minrange = *((Loadings*)loadings)->getMin();
-            maxrange = *((Loadings*)loadings)->getMax();
+            minrange = *( dynamic_cast< Loadings* >( loadings) )->getMin();
+            maxrange = *( dynamic_cast< Loadings* >( loadings) )->getMax();
             m_scaleAmounts.resize(maxrange.size());
             for(int k=0;k<m_scaleAmounts.size();k++)
             {
@@ -964,12 +964,11 @@ void WarperNode::doTPS()
     }
 
     clearTPS();
-    TPS* tps;
 
     for (unsigned int i=0; i<m_convertedWarpings->getSize(); i++)
     {
         MatrixD* mat = m_convertedWarpings->getWarp(i);
-        tps = new TPS;
+        TPS *tps = new TPS;
         tps->LoadData(m_lmk1Input->GetMatrix(),mat->GetMatrix(),m_lmk1Input->GetRows(),3);
         tps->PerformTPS();
         m_tps.push_back(tps);
@@ -1070,12 +1069,12 @@ void WarperNode::doWarp()
         return;
     }
 
-    float x,y,z;
+
     for (unsigned int i=0; i<m_warpedLmksOutput->GetRows();++i)
     {
-        x=m_lmk1Input->get(i,0);
-        y=m_lmk1Input->get(i,1);
-        z=m_lmk1Input->get(i,2);
+	    float x=m_lmk1Input->get(i,0);
+        float y=m_lmk1Input->get(i,1);
+        float z=m_lmk1Input->get(i,2);
         for (unsigned int n=0;n<m_convertedWarpings->getSize();n++)
         {
             x += m_morphAmount[n] * m_convertedWarpings->getWarp(n)->get(i,0) * 0.01f;
@@ -1524,7 +1523,8 @@ void WarperNode::membersUpdated()
 }
 
 ///////AnimationWidget/////////////////////////////////////////////////////////////
-AnimationWidget::AnimationWidget(QWidget* parent):QWidget(parent)
+AnimationWidget::AnimationWidget(QWidget* parent):
+	QWidget(parent)
 {
     QGridLayout* animLayout = new QGridLayout();
     m_minValueButton = new QPushButton("Minimum");

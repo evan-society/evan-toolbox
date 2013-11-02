@@ -44,7 +44,7 @@ public:
 
     osg::ref_ptr<osg::Geode> getOsgNode()       const {return m_osgNode;}
     osg::ref_ptr<osg::Geometry> getOsgGeometry()const {return m_osgGeometry;}
-    QString getRenderableName()                 const { assert(m_osgNode != NULL); return QString( m_osgNode->getName().c_str() );}
+    QString getRenderableName()                 const { /*assert(m_osgNode != NULL);*/ return ( m_osgNode != NULL ) ? QString( m_osgNode->getName().c_str() ) : QString("?"); }
     osg::ref_ptr<osgManipulator::Selection> getOsgTransform()const {return m_osgTransform;}
 
     virtual QString toString() const;

@@ -61,7 +61,7 @@ private:
         if( cwin == 0 )
             return 0;
 
-        return (TableauLayout*)cwin->widget();
+        return dynamic_cast<TableauLayout *>( cwin->widget() );
 	}
 
 	void GetSpecimens();

@@ -35,7 +35,7 @@ public:
                 m_renderables.removeAt(i);
         }
     }
-    IRenderable* getRenderable(int i)       const {return (IRenderable*)m_renderables[i].getPtr();}
+    IRenderable* getRenderable(int i)       const { return dynamic_cast<IRenderable *>( m_renderables[i].getPtr() ); }
     unsigned int getSize()                  const {return m_renderables.size();}
     bool containsRenderable(IRenderable* r) const {return m_renderables.contains(DataTypePtr(r));}
 
@@ -57,7 +57,7 @@ public:
             }
             else if(part->isType(LANDMARKSET_T))
             {
-                LandmarkSet* lmkSet = (LandmarkSet*)part.getPtr();
+                LandmarkSet* lmkSet = dynamic_cast<LandmarkSet *>( part.getPtr() );
                 addRenderable(lmkSet->getRenderable());
             }
         }
@@ -73,7 +73,7 @@ public:
             }
             else if(part->isType(LANDMARKSET_T))
             {
-                LandmarkSet* lmkSet = (LandmarkSet*)part.getPtr();
+                LandmarkSet* lmkSet = dynamic_cast<LandmarkSet *>( part.getPtr() );
                 removeRenderable(lmkSet->getRenderable());
             }
         }

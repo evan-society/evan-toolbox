@@ -27,7 +27,7 @@ public:
             addWarp(ls);
     }
 
-    MatrixD* getWarp(int i)             const {return (MatrixD*)m_warpMatrices.value(i).getPtr();}
+    MatrixD* getWarp(int i)             const { return dynamic_cast<MatrixD *>( m_warpMatrices.value(i).getPtr() ); }
 
     void clear()
     {

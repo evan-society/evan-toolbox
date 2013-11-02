@@ -8,13 +8,13 @@ bool MatrixD::setFromContainer(DataTypePtr& rList, unsigned int partIndex)
 {
     if(rList.isValid() && rList->isType(RLIST_T))
     {
-        RList* results = (RList*)rList.getPtr();
-        if(partIndex >= results->getSize() || partIndex < 0)
+        RList* results = dynamic_cast<RList *>( rList.getPtr() );
+        if(partIndex >= results->getSize() /* || partIndex < 0 */ )
             return false;
         DataTypePtr dt = results->getDataType(partIndex);
 //        if(matches(dt.getPtr()))
         {
-            MatrixD* mat = (MatrixD*)dt.getPtr();
+            MatrixD* mat = dynamic_cast<MatrixD *>( dt.getPtr() );
             reAssign(mat->GetRows(), mat->GetCols(), mat->GetMatrix());
         }
     }

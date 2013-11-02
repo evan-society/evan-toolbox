@@ -117,9 +117,9 @@ private:
     void updatePlot();
 
 protected:
-	Variables* getInputPortData0()const {return (Variables*)getInputData(0);}
-	Variables* getInputPortData1()const {return (Variables*)getInputData(1);}
-	Loadings* getInputPortData2()const {return (Loadings*)getInputData(2);}
+	Variables* getInputPortData0()const { return dynamic_cast<Variables*>( getInputData( 0 ) ); }
+	Variables* getInputPortData1()const { return dynamic_cast<Variables*>( getInputData( 1 ) ); }
+	Loadings* getInputPortData2()const { return dynamic_cast<Loadings *>( getInputData( 2 ) ); }
 
 	void setOutputPort0(Loadings* p){setOutputData(0,p);}
 	void setOutputPort1(FloatVector* p){setOutputData(1,p);}

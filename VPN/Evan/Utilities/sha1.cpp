@@ -59,6 +59,8 @@ SHA1::SHA1()
 	H4 = ' ';   //0xc3d2e1f0;
 	unprocessedBytes = 0;
 	size = 0;
+
+    memset( &bytes[0], 0, sizeof( bytes ) / sizeof( bytes[0] ) );
 }
 
 // Destructor ********************************************************
@@ -91,7 +93,6 @@ void SHA1::process()
 	for(; t< 80; t++ ) W[t] = lrot( W[t-3]^W[t-8]^W[t-14]^W[t-16], 1 );
 
 	/* main loop */
-	Uint32 temp;
 	for( t = 0; t < 80; t++ )
 	{
 		if( t < 20 ) {
@@ -107,7 +108,7 @@ void SHA1::process()
 			K = 0xca62c1d6;
 			f = b ^ c ^ d;
 		}
-		temp = lrot(a,5) + f + e + W[t] + K;
+		Uint32 temp = lrot(a,5) + f + e + W[t] + K;
 		e = d;
 		d = c;
 		c = lrot(b,30);

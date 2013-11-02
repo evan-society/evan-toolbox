@@ -64,12 +64,12 @@ but not required, is that this routine be preceded by balanc. On output, the
 Hessenberg matrix is in elements a[i][j] with i ¡Ü j+1. Elements with i > j+1 are to be
 thought of as zero, but are returned with random values.*/
 {
-    int m,j,i;
-	double  y,x;
+    int m,j;
+	double  y;
 
 	for (m=2;m<n;m++) {
-		x=0.0;
-		i=m;
+		int i=m;
+		double x=0.0;
 		for (j=m;j<=n;j++) {
 			if (fabs(a[j][m-1]) > fabs(x)) {
 				x=a[j][m-1];
@@ -101,7 +101,7 @@ thought of as zero, but are returned with random values.*/
 void _hqr(double **a, int n, double wr[], double wi[])
 
 {
-	int nn,m,l,k,j,its,i,mmin;
+	int nn,m,l,k,j,i,mmin;
 	double z,y,x,w,v,u,t,s,r,q,p,anorm;
 
 anorm=fabs(a[1][1]);
@@ -112,7 +112,7 @@ anorm=fabs(a[1][1]);
 	t=0.0;
 
 	while (nn >= 1) {
-		its=0;
+		int its=0;
 		do {
 			for (l=nn;l>=2;l--) {
 				s=fabs(a[l-1][l-1])+fabs(a[l][l]);
@@ -557,7 +557,7 @@ void MMRNode::LoadData()
                     {
                         if (labelValues[j]->getType()==ILabelValue::STRING_VALUE)
                         {
-                            StringLabelValue * val = (StringLabelValue*)(labelValues[j]);
+                            StringLabelValue * val = dynamic_cast< StringLabelValue* >( labelValues[j] );
                             if (!strvalues[j].contains(val->getValue()))
                             {
                                 labelMatrix[i][j] = strvalues[j].size();
@@ -570,7 +570,7 @@ void MMRNode::LoadData()
                         }
                         else if (labelValues[j]->getType()==ILabelValue::SCALAR_VALUE)
                         {
-                            ScalarLabelValue * val = (ScalarLabelValue*)(labelValues[j]);
+                            ScalarLabelValue * val = dynamic_cast< ScalarLabelValue* >( labelValues[j] );
                             labelMatrix[i][j] = val->getValue();
                         }
                     }
@@ -693,7 +693,7 @@ void MMRNode::LoadData()
                     {
                         if (labelValues[j]->getType()==ILabelValue::STRING_VALUE)
                         {
-                            StringLabelValue * val = (StringLabelValue*)(labelValues[j]);
+                            StringLabelValue * val = dynamic_cast< StringLabelValue* >( labelValues[j] );
                             if (!strvalues[j].contains(val->getValue()))
                             {
                                 labelMatrix[i][j] = strvalues[j].size();
@@ -706,7 +706,7 @@ void MMRNode::LoadData()
                         }
                         else if (labelValues[j]->getType()==ILabelValue::SCALAR_VALUE)
                         {
-                            ScalarLabelValue * val = (ScalarLabelValue*)(labelValues[j]);
+                            ScalarLabelValue * val = dynamic_cast< ScalarLabelValue* >( labelValues[j] );
                             labelMatrix[i][j] = val->getValue();
                         }
                     }
@@ -1607,7 +1607,7 @@ void MMRNode::standardise()
                 {
                     if (labelValues[j]->getType()==ILabelValue::STRING_VALUE)
                     {
-                        StringLabelValue * val = (StringLabelValue*)(labelValues[j]);
+                        StringLabelValue * val = dynamic_cast< StringLabelValue* >( labelValues[j] );
                         if (!strvalues[j].contains(val->getValue()))
                         {
                             labelMatrix[i][j] = strvalues[j].size();
@@ -1620,7 +1620,7 @@ void MMRNode::standardise()
                     }
                     else if (labelValues[j]->getType()==ILabelValue::SCALAR_VALUE)
                     {
-                        ScalarLabelValue * val = (ScalarLabelValue*)(labelValues[j]);
+                        ScalarLabelValue * val = dynamic_cast< ScalarLabelValue* >( labelValues[j] );
                         labelMatrix[i][j] = val->getValue();
                     }
                 }
@@ -1773,7 +1773,7 @@ void MMRNode::comboChanged()
                 {
                     if (labelValues[j]->getType()==ILabelValue::STRING_VALUE)
                     {
-                        StringLabelValue * val = (StringLabelValue*)(labelValues[j]);
+                        StringLabelValue * val = dynamic_cast< StringLabelValue* >( labelValues[j] );
                         if (!strvalues[j].contains(val->getValue()))
                         {
                             labelMatrix[i][j] = strvalues[j].size();
@@ -1786,7 +1786,7 @@ void MMRNode::comboChanged()
                     }
                     else if (labelValues[j]->getType()==ILabelValue::SCALAR_VALUE)
                     {
-                        ScalarLabelValue * val = (ScalarLabelValue*)(labelValues[j]);
+                        ScalarLabelValue * val = dynamic_cast< ScalarLabelValue* >( labelValues[j] );
                         labelMatrix[i][j] = val->getValue();
                     }
                 }

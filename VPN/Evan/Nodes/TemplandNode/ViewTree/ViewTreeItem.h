@@ -5,6 +5,8 @@
 #include <QMenu>
 
 class FormItem;
+//#include "FormItem.h"
+
 class ViewTree;
 
 class ViewTreeItem : public QObject, public QTreeWidgetItem
@@ -27,7 +29,9 @@ public:
     {}
     ViewTreeItem(ViewTreeItem* parent, TreeItemTypes type = NONE) : QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
                                                                     m_contextMenu(new QMenu()),
-                                                                    m_parentForm((FormItem*)parent),
+																	// error: cannot dynamic_cast 'parent' (of type 'class ViewTreeItem*') to type 'struct FormItem*' (target is not pointer or reference to complete type)
+                                                                    //m_parentForm( dynamic_cast<FormItem *>( parent ) ),
+                                                                    m_parentForm( (FormItem *)( parent ) ),
                                                                     m_parentTree(0),
                                                                     m_type(type)
     {}

@@ -105,14 +105,14 @@ GPANode::CalculateGPA()
             }
             for (int j=0;j<pairs.size();j++)
             {
-                vector<int>::iterator it = midline.begin();
-                while (it!=midline.end())
+                vector<int>::iterator endIt = midline.end();
+                for ( vector<int>::iterator it = midline.begin(); it != endIt; ++it )
                 {
                     if (*it==pairs[j].first || *it==pairs[j].second)
                     {
-                        midline.erase(it);
+                        it = midline.erase(it);
                     }
-                    it++;
+
                 }
             }
             if (midline.empty())
@@ -373,11 +373,10 @@ void GPANode::process()
                 for (int j=0;j<individuals;j++)
                 {
                     double sum2 = 0.0;
-                    double diff = 0.0;
 
                     for (int k=0;k<landmarks*dimensions;k++)
                     {
-                        diff = tancoords[i][k] - tancoords[j][k];
+                        double diff = tancoords[i][k] - tancoords[j][k];
                         sum2 += diff * diff;
                     }
                     dist[i][j] = sqrt(sum2);
@@ -495,7 +494,7 @@ void GPANode::process()
             }
             else if(tpsresult == 3)
             {
-                Logger::getInstance()->log("[GPA Node] Error warping surface to the mean. Data is singluar", Logger::RUN_ERROR);
+                Logger::getInstance()->log("[GPA Node] Error warping surface to the mean. Data is singular", Logger::RUN_ERROR);
             }
         }
         else

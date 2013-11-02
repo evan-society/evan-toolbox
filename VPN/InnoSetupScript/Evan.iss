@@ -1,8 +1,10 @@
 [Files]
-Source: ..\Evan\*.*; Excludes: "dEvan.exe,EvanDebug.exe,*.bat"; DestDir: {app}\Evan\
-Source: ..\Evan\Nodes\*.*; DestDir: {app}\Evan\Nodes\
+Source: ..\Evan\*.*; Excludes: "dEvan.exe,EvanDebug.exe,EvanQTC.exe,NodeWizard.exe,*.bat,*.qrc,*d4.dll,qwtd5.dll,qwtplot3dd.dll,*.h,*.cpp,Makefile*,*.ltb,*.dat,*.txt,.cproject,.project,Evan.cbp,Evan.depend,Evan.layout,Evan.pro*,Evan.rc,Evan.workspace,*.rar,object_script.*,package-osx"; DestDir: {app}\Evan\
+;Source: ..\Evan\Nodes\*.*; DestDir: {app}\Evan\Nodes\
+Source: ..\Evan\Nodes\Nodes.xml; DestDir: {app}\Evan\Nodes\
 Source: ..\Evan\Shaders\*.*; DestDir: {app}\Evan\Shaders\
 Source: ..\Evan\Images\*.*; DestDir: {app}\Evan\Images\
+Source: ..\Evan\Examples\*.*; Excludes: "Templand\-*,Templand\10LM&15sLMcurve"; DestDir: {app}\Evan\Examples\
 [Dirs]
 Name: {app}\Evan
 Name: {app}\Evan\Examples
@@ -11,7 +13,8 @@ Name: {app}\Evan\Nodes
 Name: {app}\Evan\Images
 [Setup]
 AppName=Evan Toolbox
-AppVerName=Evan Toolbox 1.64 (revision 1664)
+;AppVerName=Evan Toolbox 1.64 (revision 1664)
+AppVerName=Evan Toolbox 1.64 (git revision 38)
 AppPublisher=EVAN (European Virtual Anthropology Network)
 AppPublisherURL=http://www.evan.at/
 AppUpdatesURL=http://www.evan-society.org/
