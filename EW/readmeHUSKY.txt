@@ -4,6 +4,9 @@ D:\Users\phouska\Desktop\EW\src>make NODEBUG='1'
 for debug:
 D:\Users\phouska\Desktop\EW\src>make
 
+NEW (Nov,4th,2013): 
+* added rebuildDebug.bat and rebuildRelease.bat which rebuild the respective EW lib and also copy it to the Evan-EW-lib directory
+
 check this output to see, which functions are in the library:
 nm -A -l --demangle=gnu dEvan.exe > dEvanSymbols.txt
 
