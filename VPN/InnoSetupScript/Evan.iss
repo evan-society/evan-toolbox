@@ -1,10 +1,15 @@
 [Files]
-Source: ..\Evan\*.*; Excludes: "dEvan.exe,EvanDebug.exe,EvanQTC.exe,NodeWizard.exe,*.bat,*.qrc,*d4.dll,qwtd5.dll,qwtplot3dd.dll,*.h,*.cpp,Makefile*,*.ltb,*.dat,*.txt,.cproject,.project,Evan.cbp,Evan.depend,Evan.layout,Evan.pro*,Evan.rc,Evan.workspace,*.rar,object_script.*,package-osx"; DestDir: {app}\Evan\
+;Source: ..\Evan\*.*; Excludes: "dEvan.exe,EvanDebug.exe,EvanQTC.exe,NodeWizard.exe,*.bat,*.qrc,*d4.dll,qwtd5.dll,qwtplot3dd.dll,*.h,*.cpp,Makefile*,*.ltb,*.dat,*.txt,.cproject,.project,Evan.cbp,Evan.depend,Evan.layout,Evan.pro*,Evan.rc,Evan.workspace,*.rar,object_script.*,package-osx"; DestDir: {app}\Evan\
+Source: ..\Evan\Evan.exe; DestDir: {app}\Evan\
+Source: ..\Evan\startEvan.bat; DestDir: {app}\Evan\
+Source: ..\Evan\*.dll; Excludes: "Qt*d4.dll,qwtd5.dll,qwtplot3dd.dll"; DestDir: {app}\Evan\
 ;Source: ..\Evan\Nodes\*.*; DestDir: {app}\Evan\Nodes\
 Source: ..\Evan\Nodes\Nodes.xml; DestDir: {app}\Evan\Nodes\
 Source: ..\Evan\Shaders\*.*; DestDir: {app}\Evan\Shaders\
 Source: ..\Evan\Images\*.*; DestDir: {app}\Evan\Images\
-Source: ..\Evan\Examples\*.*; Excludes: "Templand\-*,Templand\10LM&15sLMcurve"; DestDir: {app}\Evan\Examples\
+;Source: ..\Evan\Examples\*.*; Excludes: "-*,Templand\-*,Templand\10LM&15sLMcurve"; DestDir: {app}\Evan\Examples\
+Source: ..\Evan\license\*.txt; DestDir: {app}\Evan\
+
 [Dirs]
 Name: {app}\Evan
 Name: {app}\Evan\Examples
@@ -12,15 +17,19 @@ Name: {app}\Evan\Shaders
 Name: {app}\Evan\Nodes
 Name: {app}\Evan\Images
 [Setup]
-AppName=Evan Toolbox
+;AppName=Evan Toolbox
+AppName=Evan Toolbox 1.70
 ;AppVerName=Evan Toolbox 1.64 (revision 1664)
-AppVerName=Evan Toolbox 1.64 (git revision 38)
+;AppVerName=Evan Toolbox 1.64; (git revision 38)
+AppVerName=Evan Toolbox 1.70
 AppPublisher=EVAN (European Virtual Anthropology Network)
 AppPublisherURL=http://www.evan.at/
 AppUpdatesURL=http://www.evan-society.org/
-DefaultDirName={pf}\Evan Toolbox
+;DefaultDirName={pf}\Evan Toolbox
+DefaultDirName={pf}\Evan Toolbox 1.70
 OutputBaseFilename=EvanToolboxSetup
-DefaultGroupName=Evan Toolbox
+;DefaultGroupName=Evan Toolbox
+DefaultGroupName=Evan Toolbox 1.70
 LicenseFile=..\Evan\license\evantoolbox_public_license.txt
 [Run]
 Filename: "{app}\Evan\Evan.exe"; Description: "{cm:LaunchProgram,Evan Toolkit}"; Flags: nowait postinstall skipifsilent

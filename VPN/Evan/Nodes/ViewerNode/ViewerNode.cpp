@@ -21,6 +21,8 @@
 
 ViewerMainWindow::ViewerMainWindow(ViewerNode* viewer): QMainWindow(), m_viewer(viewer)
 {
+    std::cout << "ViewerMainWindow::ViewerMainWindow\n"; //husky debug
+
     QMenuBar* menubar = new QMenuBar();
     QMenu* viewMenu = new QMenu("View");
 
@@ -28,6 +30,12 @@ ViewerMainWindow::ViewerMainWindow(ViewerNode* viewer): QMainWindow(), m_viewer(
     axesAction->setCheckable(true);
     viewMenu->addAction(axesAction);
     connect(axesAction, SIGNAL(toggled(bool)), m_viewer, SLOT(toggleAxes(bool)));
+
+// husky
+    QAction* focusAction = new QAction("Focus Scene", viewMenu);
+    viewMenu->addAction( focusAction );
+    connect( focusAction, SIGNAL(triggered()), this, SLOT( focusCameraSlot() ) );
+
 
     QAction* bckgnd = new QAction("Background Colour", viewMenu);
     viewMenu->addAction(bckgnd);
@@ -149,6 +157,8 @@ ViewerMainWindow::ViewerMainWindow(ViewerNode* viewer): QMainWindow(), m_viewer(
             m_viewer, SLOT(assignManipulators(RenderableTreeItem*,RenderableTreeItem*)));
     connect(m_renderTable, SIGNAL(signalFocusCamera(osg::Vec3,float,osg::Matrixd)),
             m_viewer, SLOT(focusCamera(osg::Vec3,float,osg::Matrixd)));
+    connect(m_renderTable, SIGNAL(signalFocusObjectCamera(osg::Vec3,float,osg::Matrixd)),
+            m_viewer, SLOT(focusObjectCamera(osg::Vec3,float,osg::Matrixd)));
     connect(m_renderTable, SIGNAL(addClipPlane(osg::ClipPlane*,bool)),m_viewer,SLOT(addClipPlane(osg::ClipPlane*,bool)));
     connect(m_renderTable, SIGNAL(addMyClipPlane(MyClipPlane*)),m_viewer,SLOT(addMyClipPlane(MyClipPlane*)));
     connect(m_renderTable, SIGNAL(removeManipulator(RenderableTreeItem*)),m_viewer,SLOT(removeManipulator(RenderableTreeItem*)));
@@ -206,6 +216,29 @@ void ViewerMainWindow::stereoAction(QAction* clickedItem)
     }
     m_viewer->setStereo(toggled, mode);
 }
+
+void ViewerMainWindow::focusCameraSlot()
+{
+    if ( m_renderTable != NULL ) {
+        m_renderTable->slotCameraFocus();
+    } else {
+        Logger::getInstance()->log( "[ViewerMainWindow] failed to focus", Logger::INFO );
+    }
+
+//    m_viewer->focusCamera(v3, float, matrix);
+}
+/*
+void ViewerMainWindow::focusCameraObjectSlot()
+{
+    if ( m_renderTable != NULL ) {
+        m_renderTable->slotCameraObjectFocus();
+    } else {
+        Logger::getInstance()->log( "[ViewerMainWindow] failed to focus", Logger::INFO );
+    }
+
+//    m_viewer->focusCamera(v3, float, matrix);
+}
+*/
 
 void ViewerMainWindow::changeClearColour()
 {
@@ -393,6 +426,8 @@ void ViewerNode::loadSavedRenderable(IRenderable* renderable, const RenderableIn
 
 void ViewerNode::process()
 {
+    Logger::getInstance()->log( "[ViewerNode] process" ); //husky
+
 	m_renderInput = getInputPortData0();
 	if ( m_renderInput == NULL || !m_renderInput->isValid() )
         return;
@@ -442,9 +477,14 @@ void ViewerNode::process()
             item->setData(0, Qt::DecorationRole, renderable->getFrontMaterial());
             item->setCheckState(0, Qt::Checked);
             Logger::getInstance()->log("[Viewer Node] New Renderable : '"+renderable->getRenderableName()+"'");
+
+            //positionManipulators( renderable->getOsgNode() ); //husky
         }
-        else if(m_currentScene.value(renderable) != renderable->getOsgNode().get())
+        else if(m_currentScene.value(renderable) != renderable->getOsgNode().get()) {
             updateOsgNode(renderable, m_currentScene.value(renderable));
+
+            //positionManipulators( renderable->getOsgNode() ); //husky
+        }
 	}
 
     if(newRenderable)
@@ -477,13 +517,28 @@ void ViewerNode::process()
 
         if(!m_loadedViewMatrix.isIdentity())
         {
+
             double left=0, right=0, bottom=0, up=0, zNear=0, zFar=0;
             getCamera()->getProjectionMatrixAsOrtho(left, right, bottom, up, zNear, zFar);
             double aspectRatio = up ? right/up : 0;
             m_cameraManipulator->setDistance(m_loadedCameraDist);
+
+            Logger::getInstance()->log( QString("[ViewerNode] loaded camera dist = ").append( QString::number( m_loadedCameraDist ) ) ); //husky
+
             m_cameraManipulator->applyOrtho(aspectRatio,m_loadedZNear,m_loadedZFar);
             m_cameraManipulator->setByMatrix(m_loadedViewMatrix);
             m_loadedViewMatrix.makeIdentity();
+
+            //husky
+            int i=0;
+            IRenderable* renderable = m_renderInput->getRenderable(i);
+            if ( renderable != NULL ) {
+                    Logger::getInstance()->log( "[ViewerNode] process, can position manipulators" );
+                positionManipulators( renderable->getOsgNode() ); //husky
+            } else {
+                Logger::getInstance()->log( "[ViewerNode] process, can NOT position manipulators" );
+            }
+
         }
     }
 }
@@ -601,6 +656,8 @@ void ViewerNode::resetRenderable(IRenderable* renderable)
 
 void ViewerNode::toggleRenderable(bool flag, osg::ref_ptr<osg::Node> osgNode)
 {
+    Logger::getInstance()->log( "[ViewerNode] toggleRenderable" ); //husky
+
     for(unsigned int i=0; i< osgNode->getNumParents(); ++i)
     {
         osg::ref_ptr<osg::Group> osgParent =osgNode->getParent(i);
@@ -626,6 +683,8 @@ void ViewerNode::toggleRenderable(bool flag, osg::ref_ptr<osg::Node> osgNode)
 
 void ViewerNode::toggleTransManip(osg::ref_ptr<osg::Node> node)
 {
+    Logger::getInstance()->log( "[ViewerNode] positionManipulators Translate" ); //husky
+
     osg::ref_ptr<osg::Group> osgParent = m_tranDragger->getParent(0);
     if(osgParent.valid())
     {
@@ -650,6 +709,8 @@ void ViewerNode::toggleTransManip(osg::ref_ptr<osg::Node> node)
 
 void ViewerNode::toggleRotateManip(osg::ref_ptr<osg::Node> node)
 {
+    Logger::getInstance()->log( "[ViewerNode] positionManipulators Rotate" ); //husky
+
     osg::ref_ptr<osg::Group> osgParent = m_rotDragger->getParent(0);
     if(osgParent.valid())
     {
@@ -674,6 +735,8 @@ void ViewerNode::toggleRotateManip(osg::ref_ptr<osg::Node> node)
 
 void ViewerNode::toggleScaleManip(osg::ref_ptr<osg::Node> node)
 {
+    Logger::getInstance()->log( "[ViewerNode] positionManipulators Scale" ); //husky
+
     osg::ref_ptr<osg::Group> osgParent = m_scaleDragger->getParent(0);
     if(osgParent.valid())
     {
@@ -777,10 +840,42 @@ void ViewerNode::toggleLighting(bool on)
         m_root->getOrCreateStateSet()->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
 }
 
+
 void ViewerNode::focusCamera(osg::Vec3 center ,float distance,osg::Matrixd transfo)
 {
+    Logger::getInstance()->log( "[ViewerNode] focusCamera" );
+    //!
     m_cameraManipulator->setRotation(transfo.getRotate());
+
+    //osg::Quat q;
+    //q.set( transfo.getRotate() );
+    //m_cameraManipulator->setRotation( q );
+
     m_cameraManipulator->setCenter(center);
+   // m_cameraManipulator->setDistance( distance ); //husky
+}
+
+void ViewerNode::focusObjectCamera(osg::Vec3 center ,float distance,osg::Matrixd transfo)
+{
+    Logger::getInstance()->log( "[ViewerNode] focusObjectCamera" );
+    //!    m_cameraManipulator->setRotation(transfo.getRotate());
+
+
+
+    //osg::Quat q;
+    //q.set( transfo.getRotate() );
+    //m_cameraManipulator->setRotation( q );
+
+    m_cameraManipulator->setCenter(center);
+
+    distance *= 2.0f;
+
+   //m_cameraManipulator->setDistance( distance ); //husky
+/*
+   osg::Vec3 up( 0.0, 1.0, 0.0 );
+   osg::Vec3 eye( center.x(), center.y(), center.z() + distance );
+   m_cameraManipulator->setTransformation( eye, center, up );
+*/
 }
 
 QString ViewerNode::toString() const
@@ -862,6 +957,7 @@ void ViewerNode::fromString(const QString& params)
                                                viewerAttribs[2].toDouble(),
                                                1.0));
         m_loadedCameraDist = viewerAttribs[3].toDouble();
+        //m_loadedCameraDist = 10.0;
         m_loadedZNear = viewerAttribs[4].toDouble();
         m_loadedZFar = viewerAttribs[5].toDouble();
         m_loadedViewMatrix =osg::Matrix::rotate(osg::Quat(viewerAttribs[6].toDouble(), viewerAttribs[7].toDouble(), viewerAttribs[8].toDouble(), viewerAttribs[9].toDouble())) *
@@ -915,9 +1011,12 @@ void ViewerNode::fromString(const QString& params)
 
 void ViewerNode::positionManipulators(osg::ref_ptr<osg::Node> node)
 {
+    Logger::getInstance()->log( "[ViewerNode] positionManipulators" ); //husky
+
     osg::ref_ptr<osgManipulator::Selection> select = getParentSelection(node);
     if(select.valid())
     {
+
         float scale = node->getBound().radius() * 1.3;
         osg::Matrixd transform = osg::Matrix::scale(scale, scale, scale) *
                                  osg::Matrix::translate(node->getBound().center()) *
@@ -930,6 +1029,8 @@ void ViewerNode::positionManipulators(osg::ref_ptr<osg::Node> node)
                                  osg::Matrix::translate(node->getBound().center()) *
                                 select->getMatrix();
         m_scale2Dragger->setMatrix(transform);
+
+        Logger::getInstance()->log( "[ViewerNode] positionManipulators selection was valid" ); //husky
     }
 }
 

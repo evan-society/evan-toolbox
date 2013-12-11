@@ -3,7 +3,7 @@
 
 #include "ViewTreeItem.h"
 
-#include "../Utilities/Logger.h"
+#include "../../Utilities/Logger.h"
 
 class ViewTree : public QTreeWidget
 {

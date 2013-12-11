@@ -5,7 +5,7 @@
 #include <QTextStream>
 #include <QSettings>
 
-#include "../Utilities/Logger.h"
+#include "../../Utilities/Logger.h"
 
 void CurvesTopItem::addCurve(const QString& id, const QString& file, bool loaded)
 {

@@ -410,11 +410,11 @@ void TemplandNode::refreshOutputs()
             {
                 if(form->pointsets[j].type == ew::Form3::TYPE_LANDMARK)
                 {
-                    
+
                     m_targetLmks->set(lmkIndex, 0, form->pointsets[j].locations[0]);
                     m_targetLmks->set(lmkIndex, 1, -form->pointsets[j].locations[2]);
                     m_targetLmks->set(lmkIndex, 2, form->pointsets[j].locations[1]);
-                    
+
                     //m_targetLmks->set(lmkIndex, 0, form->pointsets[j].locations[0]);
                     //m_targetLmks->set(lmkIndex, 1/*2*/, form->pointsets[j].locations[1]);
                     //m_targetLmks->set(lmkIndex, 2/*1*/, form->pointsets[j].locations[2]);
@@ -424,14 +424,14 @@ void TemplandNode::refreshOutputs()
                 {
                     for ( int k = 0; k < form->pointsets[j].n; k++ )
                     {
-                        
+
                         m_targetLmks->set(lmkIndex, 0, form->pointsets[j].locations[3*k]);
                         m_targetLmks->set(lmkIndex, 1, -form->pointsets[j].locations[3*k+2]);
                         m_targetLmks->set(lmkIndex, 2, form->pointsets[j].locations[3*k+1]);
-                        
+
                         //m_targetLmks->set(lmkIndex, 0, form->pointsets[j].locations[3*k]);
                         //m_targetLmks->set(lmkIndex, 1/*2*/, form->pointsets[j].locations[3*k+1]);
-                        //m_targetLmks->set(lmkIndex, 2/*1*/, form->pointsets[j].locations[3*k+2]);                        
+                        //m_targetLmks->set(lmkIndex, 2/*1*/, form->pointsets[j].locations[3*k+2]);
                         lmkIndex++;
                     }
                 }

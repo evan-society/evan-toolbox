@@ -107,7 +107,8 @@ bool HybridTrackballManipulator::handle(const osgGA::GUIEventAdapter& ea, osgGA:
         }
 
         default:
-            return osgGA::TrackballManipulator::handle(ea,us);
+			return osgGA::TrackballManipulator::handle(ea,us);
+            //return osgGA::SphericalManipulator::handle(ea,us);
     }
 }
 
@@ -121,7 +122,8 @@ void HybridTrackballManipulator::applyOrtho(double aspectRatio, double zNear, do
 
 void HybridTrackballManipulator::home(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& us)
 {
-    osgGA::TrackballManipulator::home(ea,us);
+	osgGA::TrackballManipulator::home(ea,us);
+    //osgGA::SphericalManipulator::home(ea,us);
     if(m_ortho)
     {
         double left=0, right=0, bottom=0, up=0, zNear=0, zFar=0;
@@ -163,7 +165,9 @@ bool HybridTrackballManipulator::calcMovement()
         return true;
     }
     else
-        return osgGA::TrackballManipulator::calcMovement();
+        //return osgGA::TrackballManipulator::calcMovement(); // only available in 'older' OSG versions!
+		return osgGA::TrackballManipulator::performMovement();
+		//return osgGA::SphericalManipulator::calcMovement();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

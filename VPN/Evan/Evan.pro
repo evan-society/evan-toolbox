@@ -3,25 +3,59 @@
 # ... but already edited by husky ;-)
 ######################################################################
 
-INCLUDEPATH += . "inc/OpenSceneGraph"  "inc/Qwt" "inc/" "inc/Qwt3D" "inc/DCMTK" "GMM/inc"
-#LIBS += -L"lib/OpenSceneGraph" -L"lib/Qwt" -L"lib/ew" -L"lib/Qwt3D" -L"lib/DCMTK" -llibosg -llibosgManipulator -llibosgViewer -llibosgDB -llibosgGA -llibosgUtil -llibosgVolume -lew -lopengl32 -llibxml2 -lwsock32 -llapack_win32
-#LIBS += -L"lib/OpenSceneGraph" -L"lib/Qwt" -L"lib/ew" -L"lib/Qwt3D" -L"lib/DCMTK" -llibosg -llibosgManipulator -llibosgViewer -llibosgDB -llibosgGA -llibosgUtil -llibosgVolume 
+# INCLUDEPATH += . "inc/OpenSceneGraph"  "inc/Qwt" "inc/" "inc/Qwt3D" "inc/DCMTK" "GMM/inc"
 
-LIBS += -L"lib/OpenSceneGraph" -L"lib/Qwt" -L"lib/ew" -L"lib/Qwt3D" -L"lib/DCMTK" 
+THIRD_PARTY_BASE = "../../external"
+# EW_BASE = "../../EW"
+EW_BASE = "EW" ## removed libew[d] linking and added EW-src files
+# OSG_VER = "OSG-2.9.16"
+OSG_VER = "OSG-3.0.1"
+# OSG_VER = "OSG-3.2.0"
+QWT_VER = "qwt-5.2"
+QWTPLOT3D_VER = "qwtplot3d-0.2.7"
+DCMTK_VER = "dcmtk-3.6.1_20121102"
+LAPACK_VER = "lapack-3.4.0"
+ICONV_VER = "libiconv-1.14"
+XML_VER = "libxml2-2.9.1"
 
-LIBS += -llibosg -llibosgManipulator -llibosgViewer -llibosgDB -llibosgGA -llibosgUtil -llibosgVolume
+INCLUDEPATH += . 
+INCLUDEPATH += "$$THIRD_PARTY_BASE/$$OSG_VER/include" 
+INCLUDEPATH += "$$THIRD_PARTY_BASE/$$QWT_VER/include" 
+INCLUDEPATH += "$$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include" 
+INCLUDEPATH += "$$THIRD_PARTY_BASE/$$DCMTK_VER/include" 
+INCLUDEPATH += "$$THIRD_PARTY_BASE/$$LAPACK_VER/include" 
+INCLUDEPATH += "$$THIRD_PARTY_BASE/$$ICONV_VER/include" 
+INCLUDEPATH += "$$THIRD_PARTY_BASE/$$XML_VER/include/libxml2"
+INCLUDEPATH += "$$EW_BASE/include"
+INCLUDEPATH += "GMM/include"
 
-QMAKE_LFLAGS = -enable-stdcall-fixup -Wl,-enable-auto-import -Wl
-#,-enable-runtime-pseudo-reloc
+# LIBS += -L"lib/OpenSceneGraph" -L"lib/Qwt" -L"lib/ew" -L"lib/Qwt3D" -L"lib/DCMTK" 
+
+LIBS += -L"$$THIRD_PARTY_BASE/$$OSG_VER/lib"
+LIBS += -L"$$THIRD_PARTY_BASE/$$QWT_VER/lib" 
+LIBS += -L"$$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/lib" 
+LIBS += -L"$$THIRD_PARTY_BASE/$$DCMTK_VER/lib" 
+LIBS += -L"$$THIRD_PARTY_BASE/$$LAPACK_VER" 
+LIBS += -L"$$THIRD_PARTY_BASE/$$XML_VER/lib" 
+LIBS += -L"lib/ew"
+
+
+# QMAKE_LFLAGS = -enable-stdcall-fixup -Wl,-enable-auto-import 
+#-Wl,-enable-runtime-pseudo-reloc
+ 
+# unfortunately, this does not work on windows (to be able to move the dlls to a separate directory...)
+# QMAKE_LFLAGS = -Wl,-rpath,./:./dlls:./dlls/osgPlugins
+ 
  
 # NOTE: 
 # it is important that -lopengl32 is specified AFTER -lew[d]
 # otherwise we get lots of linker errors from .o files within libew.a
 CONFIG(debug, debug|release) {
     # debug stuff
-	LIBS += -lewd
-	#LIBS += -lew
-	LIBS += -lqwtd5 -lqwtplot3dd
+	## LIBS += -lewd
+	
+	#LIBS += -lqwtd5 -lqwtplot3dd
+	LIBS += -lqwt5 -lqwtplot3d
 	
 	QMAKE_CXXFLAGS += -Wall
 	# -pedantic
@@ -29,11 +63,17 @@ CONFIG(debug, debug|release) {
 }
 CONFIG(release, debug|release) {
 	# release stuff
-	LIBS += -lew
+	## LIBS += -lew
 	LIBS += -lqwt5 -lqwtplot3d
 }
 
-LIBS += -lopengl32 -llibxml2 -lwsock32 -llapack_win32
+# LIBS +=  -llapack -lrefblas -ltmglib -lgfortran
+LIBS +=  -llapack -lrefblas -lgfortran
+
+LIBS += -llibOpenThreads
+LIBS += -llibosg -llibosgManipulator -llibosgViewer -llibosgGA -llibosgUtil -llibosgVolume -llibosgDB
+
+LIBS += -lopengl32 -llibxml2 -lwsock32
 
 QT += xml opengl svg
 RC_FILE = Evan.rc
@@ -56,22 +96,22 @@ DEFINES += QT_USE_NATIVE_WINDOWS
 LIBS += -liphlpapi
 
 
+
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += . \
-              DataTypes \
-              inc \
+              DataTypes \			  
               Labels \
               MainWindow \
               Nodes \
               release \
               Scheduler \
               Utilities \
-              GMM/inc \
+              GMM/include \
               GMM/src \
-              inc/EW \
-              inc/Qwt \
-              inc/Qwt3D \
+              $$EW_BASE/include/ew \
+              $$THIRD_PARTY_BASE/$$QWT_VER/include \
+              $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include \
               MainWindow/Designer \
               Nodes/AnnotationNode \
               Nodes/ConcatNode \
@@ -97,10 +137,11 @@ DEPENDPATH += . \
               Nodes/TransformNode \
               Nodes/ViewerNode \
               Nodes/WarperNode \
-              inc/DCMTK/config \
-              inc/DCMTK/dcmdata \
-              inc/DCMTK/dcmimgle \
-              inc/DCMTK/ofstd \
+              $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/config \
+              $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata \
+              $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle \
+              $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd \
+			  $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/libi2d \
               Nodes/ExportNode/Designer \
               Nodes/GPANode/Designer \
               Nodes/GroupNode/Designer \
@@ -117,8 +158,8 @@ DEPENDPATH += . \
               Nodes/TemplandNode/Designer \
               Nodes/TemplandNode/Viewers \
               Nodes/TemplandNode/ViewTree \
-              Nodes/WarperNode/Designer \
-              inc/DCMTK/dcmdata/libi2d
+              Nodes/WarperNode/Designer
+			  
 INCLUDEPATH += .
 
 # Input
@@ -177,167 +218,166 @@ HEADERS += DataTypes/CentroidSizes.h \
            Utilities/Writer.h \
            Utilities/XMLParser.h \
            Utilities/asa063.hpp \
-           GMM/inc/eig.h \
-           GMM/inc/gmm.h \
-           GMM/inc/gpa.h \
-           GMM/inc/import.h \
-           GMM/inc/Matrix.h \
-           GMM/inc/mmr.h \
-           GMM/inc/pca.h \
-           GMM/inc/pco.h \
-           GMM/inc/pls.h \
-           GMM/inc/svd.h \
-           GMM/inc/tpp.h \
-           GMM/inc/tps.h \
-           GMM/inc/version.h \
-           inc/EW/bbox3.h \
-           inc/EW/curve3.h \
-           inc/EW/DataflowArray3.h \
-           inc/EW/DataflowArray3E.h \
-           inc/EW/DataflowCurve3.h \
-           inc/EW/DataflowCurve3E.h \
-           inc/EW/DataflowData3.h \
-           inc/EW/DataflowForm3.h \
-           inc/EW/DataflowImage3.h \
-           inc/EW/DataflowNetwork.h \
-           inc/EW/DataflowNode.h \
-           inc/EW/DataflowNotifier.h \
-           inc/EW/DataflowSpline3.h \
-           inc/EW/DataflowSurface3.h \
-           inc/EW/DataflowSurface3E.h \
-           inc/EW/Debug.h \
-           inc/EW/DebugHelper.h \
-           inc/EW/dig3.h \
-           inc/EW/Dig3SetCurve.h \
-           inc/EW/Dig3SetSurface.h \
-           inc/EW/Dig3Space.h \
-           inc/EW/Dig3Tableau.h \
-           inc/EW/Dig3TableauSpace.h \
-           inc/EW/Dig3View.h \
-           inc/EW/ErrorIO.h \
-           inc/EW/ErrorLogic.h \
-           inc/EW/ErrorRuntime.h \
-           inc/EW/form3.h \
-           inc/EW/Form3Curve.h \
-           inc/EW/Form3Embedding.h \
-           inc/EW/Form3Pointset.h \
-           inc/EW/Form3Reflection.h \
-           inc/EW/Form3Surface.h \
-           inc/EW/Form3Volume.h \
-           inc/EW/FriendVariable.h \
-           inc/EW/String.h \
-           inc/EW/surface3.h \
-           inc/EW/Time.h \
-           inc/EW/tps2.h \
-           inc/EW/tps3.h \
-           inc/EW/transform2.h \
-           inc/EW/transform3.h \
-           inc/EW/version.h \
-           inc/EW/View3Curve.h \
-           inc/EW/View3Image.h \
-           inc/EW/View3Item.h \
-           inc/EW/View3Landmarks.h \
-           inc/EW/View3Pick.h \
-           inc/EW/View3Surface.h \
-           inc/EW/View3Widget.h \
-           inc/Qwt/qwt.h \
-           inc/Qwt/qwt_abstract_scale.h \
-           inc/Qwt/qwt_abstract_scale_draw.h \
-           inc/Qwt/qwt_abstract_slider.h \
-           inc/Qwt/qwt_analog_clock.h \
-           inc/Qwt/qwt_array.h \
-           inc/Qwt/qwt_arrow_button.h \
-           inc/Qwt/qwt_clipper.h \
-           inc/Qwt/qwt_color_map.h \
-           inc/Qwt/qwt_compass.h \
-           inc/Qwt/qwt_compass_rose.h \
-           inc/Qwt/qwt_counter.h \
-           inc/Qwt/qwt_curve_fitter.h \
-           inc/Qwt/qwt_data.h \
-           inc/Qwt/qwt_dial.h \
-           inc/Qwt/qwt_dial_needle.h \
-           inc/Qwt/qwt_double_interval.h \
-           inc/Qwt/qwt_double_range.h \
-           inc/Qwt/qwt_double_rect.h \
-           inc/Qwt/qwt_dyngrid_layout.h \
-           inc/Qwt/qwt_event_pattern.h \
-           inc/Qwt/qwt_global.h \
-           inc/Qwt/qwt_interval_data.h \
-           inc/Qwt/qwt_knob.h \
-           inc/Qwt/qwt_layout_metrics.h \
-           inc/Qwt/qwt_legend.h \
-           inc/Qwt/qwt_legend_item.h \
-           inc/Qwt/qwt_legend_itemmanager.h \
-           inc/Qwt/qwt_magnifier.h \
-           inc/Qwt/qwt_math.h \
-           inc/Qwt/qwt_paint_buffer.h \
-           inc/Qwt/qwt_painter.h \
-           inc/Qwt/qwt_panner.h \
-           inc/Qwt/qwt_picker.h \
-           inc/Qwt/qwt_picker_machine.h \
-           inc/Qwt/qwt_plot.h \
-           inc/Qwt/qwt_plot_canvas.h \
-           inc/Qwt/qwt_plot_curve.h \
-           inc/Qwt/qwt_plot_dict.h \
-           inc/Qwt/qwt_plot_grid.h \
-           inc/Qwt/qwt_plot_item.h \
-           inc/Qwt/qwt_plot_layout.h \
-           inc/Qwt/qwt_plot_magnifier.h \
-           inc/Qwt/qwt_plot_marker.h \
-           inc/Qwt/qwt_plot_panner.h \
-           inc/Qwt/qwt_plot_picker.h \
-           inc/Qwt/qwt_plot_printfilter.h \
-           inc/Qwt/qwt_plot_rasteritem.h \
-           inc/Qwt/qwt_plot_rescaler.h \
-           inc/Qwt/qwt_plot_scaleitem.h \
-           inc/Qwt/qwt_plot_spectrogram.h \
-           inc/Qwt/qwt_plot_zoomer.h \
-           inc/Qwt/qwt_polygon.h \
-           inc/Qwt/qwt_raster_data.h \
-           inc/Qwt/qwt_rect.h \
-           inc/Qwt/qwt_round_scale_draw.h \
-           inc/Qwt/qwt_scale_div.h \
-           inc/Qwt/qwt_scale_draw.h \
-           inc/Qwt/qwt_scale_engine.h \
-           inc/Qwt/qwt_scale_map.h \
-           inc/Qwt/qwt_scale_widget.h \
-           inc/Qwt/qwt_slider.h \
-           inc/Qwt/qwt_spline.h \
-           inc/Qwt/qwt_symbol.h \
-           inc/Qwt/qwt_text.h \
-           inc/Qwt/qwt_text_engine.h \
-           inc/Qwt/qwt_text_label.h \
-           inc/Qwt/qwt_thermo.h \
-           inc/Qwt/qwt_valuelist.h \
-           inc/Qwt/qwt_wheel.h \
-           inc/Qwt3D/qwt3d_autoptr.h \
-           inc/Qwt3D/qwt3d_autoscaler.h \
-           inc/Qwt3D/qwt3d_axis.h \
-           inc/Qwt3D/qwt3d_color.h \
-           inc/Qwt3D/qwt3d_colorlegend.h \
-           inc/Qwt3D/qwt3d_coordsys.h \
-           inc/Qwt3D/qwt3d_drawable.h \
-           inc/Qwt3D/qwt3d_enrichment.h \
-           inc/Qwt3D/qwt3d_enrichment_std.h \
-           inc/Qwt3D/qwt3d_function.h \
-           inc/Qwt3D/qwt3d_global.h \
-           inc/Qwt3D/qwt3d_graphplot.h \
-           inc/Qwt3D/qwt3d_gridmapping.h \
-           inc/Qwt3D/qwt3d_helper.h \
-           inc/Qwt3D/qwt3d_io.h \
-           inc/Qwt3D/qwt3d_io_gl2ps.h \
-           inc/Qwt3D/qwt3d_io_reader.h \
-           inc/Qwt3D/qwt3d_label.h \
-           inc/Qwt3D/qwt3d_mapping.h \
-           inc/Qwt3D/qwt3d_multiplot.h \
-           inc/Qwt3D/qwt3d_openglhelper.h \
-           inc/Qwt3D/qwt3d_parametricsurface.h \
-           inc/Qwt3D/qwt3d_plot.h \
-           inc/Qwt3D/qwt3d_portability.h \
-           inc/Qwt3D/qwt3d_scale.h \
-           inc/Qwt3D/qwt3d_surfaceplot.h \
-           inc/Qwt3D/qwt3d_types.h \
-           inc/Qwt3D/qwt3d_volumeplot.h \
+           GMM/include/eig.h \
+           GMM/include/gmm.h \
+           GMM/include/gpa.h \
+           GMM/include/import.h \
+           GMM/include/Matrix.h \
+           GMM/include/mmr.h \
+           GMM/include/pca.h \
+           GMM/include/pco.h \
+           GMM/include/pls.h \
+           GMM/include/svd.h \
+           GMM/include/tpp.h \
+           GMM/include/tps.h \
+           GMM/include/version.h \
+           $$EW_BASE/include/ew/bbox3.h \
+           $$EW_BASE/include/ew/curve3.h \
+           $$EW_BASE/include/ew/DataflowArray3.h \
+           $$EW_BASE/include/ew/DataflowArray3E.h \
+           $$EW_BASE/include/ew/DataflowCurve3.h \
+           $$EW_BASE/include/ew/DataflowCurve3E.h \
+           $$EW_BASE/include/ew/DataflowData3.h \
+           $$EW_BASE/include/ew/DataflowForm3.h \
+           $$EW_BASE/include/ew/DataflowImage3.h \
+           $$EW_BASE/include/ew/DataflowNetwork.h \
+           $$EW_BASE/include/ew/DataflowNode.h \
+           $$EW_BASE/include/ew/DataflowNotifier.h \
+           $$EW_BASE/include/ew/DataflowSpline3.h \
+           $$EW_BASE/include/ew/DataflowSurface3.h \
+           $$EW_BASE/include/ew/DataflowSurface3E.h \
+           $$EW_BASE/include/ew/Debug.h \
+           $$EW_BASE/include/ew/DebugHelper.h \
+           $$EW_BASE/include/ew/dig3.h \
+           $$EW_BASE/include/ew/Dig3SetCurve.h \
+           $$EW_BASE/include/ew/Dig3SetSurface.h \
+           $$EW_BASE/include/ew/Dig3Space.h \
+           $$EW_BASE/include/ew/Dig3Tableau.h \
+           $$EW_BASE/include/ew/Dig3TableauSpace.h \
+           $$EW_BASE/include/ew/Dig3View.h \
+           $$EW_BASE/include/ew/ErrorIO.h \
+           $$EW_BASE/include/ew/ErrorLogic.h \
+           $$EW_BASE/include/ew/ErrorRuntime.h \
+           $$EW_BASE/include/ew/form3.h \
+           $$EW_BASE/include/ew/Form3Curve.h \
+           $$EW_BASE/include/ew/Form3Embedding.h \
+           $$EW_BASE/include/ew/Form3Pointset.h \
+           $$EW_BASE/include/ew/Form3Reflection.h \
+           $$EW_BASE/include/ew/Form3Surface.h \
+           $$EW_BASE/include/ew/Form3Volume.h \
+           $$EW_BASE/include/ew/FriendVariable.h \
+           $$EW_BASE/include/ew/String.h \
+           $$EW_BASE/include/ew/surface3.h \
+           $$EW_BASE/include/ew/Time.h \
+           $$EW_BASE/include/ew/tps2.h \
+           $$EW_BASE/include/ew/tps3.h \
+           $$EW_BASE/include/ew/transform2.h \
+           $$EW_BASE/include/ew/transform3.h \
+           $$EW_BASE/include/ew/version.h \
+           $$EW_BASE/include/ew/View3Curve.h \
+           $$EW_BASE/include/ew/View3Image.h \
+           $$EW_BASE/include/ew/View3Item.h \
+           $$EW_BASE/include/ew/View3Landmarks.h \
+           $$EW_BASE/include/ew/View3Pick.h \
+           $$EW_BASE/include/ew/View3Surface.h \
+           $$EW_BASE/include/ew/View3Widget.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_abstract_scale.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_abstract_scale_draw.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_abstract_slider.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_analog_clock.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_array.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_arrow_button.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_clipper.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_color_map.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_compass.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_compass_rose.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_counter.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_curve_fitter.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_data.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_dial.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_dial_needle.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_double_interval.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_double_range.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_double_rect.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_dyngrid_layout.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_event_pattern.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_global.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_interval_data.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_knob.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_layout_metrics.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_legend.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_legend_item.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_legend_itemmanager.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_magnifier.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_math.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_paint_buffer.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_painter.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_panner.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_picker.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_picker_machine.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_canvas.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_curve.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_dict.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_grid.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_item.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_layout.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_magnifier.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_marker.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_panner.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_picker.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_printfilter.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_rasteritem.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_rescaler.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_scaleitem.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_spectrogram.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_plot_zoomer.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_polygon.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_raster_data.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_round_scale_draw.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_scale_div.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_scale_draw.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_scale_engine.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_scale_map.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_scale_widget.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_slider.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_spline.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_symbol.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_text.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_text_engine.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_text_label.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_thermo.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_valuelist.h \
+           $$THIRD_PARTY_BASE/$$QWT_VER/include/qwt_wheel.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_autoptr.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_autoscaler.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_axis.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_color.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_colorlegend.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_coordsys.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_drawable.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_enrichment.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_enrichment_std.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_function.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_global.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_graphplot.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_gridmapping.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_helper.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_io.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_io_gl2ps.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_io_reader.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_label.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_mapping.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_multiplot.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_openglhelper.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_parametricsurface.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_plot.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_portability.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_scale.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_surfaceplot.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_types.h \
+           $$THIRD_PARTY_BASE/$$QWTPLOT3D_VER/include/qwt3d_volumeplot.h \
            MainWindow/Designer/ui_regInstruct.h \
            Nodes/AnnotationNode/AnnotationNode.h \
            Nodes/ConcatNode/ConcatNode.h \
@@ -379,163 +419,169 @@ HEADERS += DataTypes/CentroidSizes.h \
            Nodes/ViewerNode/ViewerNode.h \
            Nodes/WarperNode/GridTreeWidget.h \
            Nodes/WarperNode/WarperNode.h \
-           inc/DCMTK/config/cfunix.h \
-           inc/DCMTK/config/osconfig.h \
-           inc/DCMTK/dcmdata/cmdlnarg.h \
-           inc/DCMTK/dcmdata/dcbytstr.h \
-           inc/DCMTK/dcmdata/dcchrstr.h \
-           inc/DCMTK/dcmdata/dccodec.h \
-           inc/DCMTK/dcmdata/dcdatset.h \
-           inc/DCMTK/dcmdata/dcddirif.h \
-           inc/DCMTK/dcmdata/dcdebug.h \
-           inc/DCMTK/dcmdata/dcdefine.h \
-           inc/DCMTK/dcmdata/dcdeftag.h \
-           inc/DCMTK/dcmdata/dcdicdir.h \
-           inc/DCMTK/dcmdata/dcdicent.h \
-           inc/DCMTK/dcmdata/dcdict.h \
-           inc/DCMTK/dcmdata/dcdirrec.h \
-           inc/DCMTK/dcmdata/dcelem.h \
-           inc/DCMTK/dcmdata/dcerror.h \
-           inc/DCMTK/dcmdata/dcfcache.h \
-           inc/DCMTK/dcmdata/dcfilefo.h \
-           inc/DCMTK/dcmdata/dchashdi.h \
-           inc/DCMTK/dcmdata/dcistrma.h \
-           inc/DCMTK/dcmdata/dcistrmb.h \
-           inc/DCMTK/dcmdata/dcistrmf.h \
-           inc/DCMTK/dcmdata/dcistrmz.h \
-           inc/DCMTK/dcmdata/dcitem.h \
-           inc/DCMTK/dcmdata/dclist.h \
-           inc/DCMTK/dcmdata/dcmetinf.h \
-           inc/DCMTK/dcmdata/dcobject.h \
-           inc/DCMTK/dcmdata/dcofsetl.h \
-           inc/DCMTK/dcmdata/dcostrma.h \
-           inc/DCMTK/dcmdata/dcostrmb.h \
-           inc/DCMTK/dcmdata/dcostrmf.h \
-           inc/DCMTK/dcmdata/dcostrmz.h \
-           inc/DCMTK/dcmdata/dcovlay.h \
-           inc/DCMTK/dcmdata/dcpath.h \
-           inc/DCMTK/dcmdata/dcpcache.h \
-           inc/DCMTK/dcmdata/dcpixel.h \
-           inc/DCMTK/dcmdata/dcpixseq.h \
-           inc/DCMTK/dcmdata/dcpxitem.h \
-           inc/DCMTK/dcmdata/dcrleccd.h \
-           inc/DCMTK/dcmdata/dcrlecce.h \
-           inc/DCMTK/dcmdata/dcrlecp.h \
-           inc/DCMTK/dcmdata/dcrledec.h \
-           inc/DCMTK/dcmdata/dcrledrg.h \
-           inc/DCMTK/dcmdata/dcrleenc.h \
-           inc/DCMTK/dcmdata/dcrleerg.h \
-           inc/DCMTK/dcmdata/dcrlerp.h \
-           inc/DCMTK/dcmdata/dcsequen.h \
-           inc/DCMTK/dcmdata/dcstack.h \
-           inc/DCMTK/dcmdata/dcswap.h \
-           inc/DCMTK/dcmdata/dctag.h \
-           inc/DCMTK/dcmdata/dctagkey.h \
-           inc/DCMTK/dcmdata/dctk.h \
-           inc/DCMTK/dcmdata/dctypes.h \
-           inc/DCMTK/dcmdata/dcuid.h \
-           inc/DCMTK/dcmdata/dcvm.h \
-           inc/DCMTK/dcmdata/dcvr.h \
-           inc/DCMTK/dcmdata/dcvrae.h \
-           inc/DCMTK/dcmdata/dcvras.h \
-           inc/DCMTK/dcmdata/dcvrat.h \
-           inc/DCMTK/dcmdata/dcvrcs.h \
-           inc/DCMTK/dcmdata/dcvrda.h \
-           inc/DCMTK/dcmdata/dcvrds.h \
-           inc/DCMTK/dcmdata/dcvrdt.h \
-           inc/DCMTK/dcmdata/dcvrfd.h \
-           inc/DCMTK/dcmdata/dcvrfl.h \
-           inc/DCMTK/dcmdata/dcvris.h \
-           inc/DCMTK/dcmdata/dcvrlo.h \
-           inc/DCMTK/dcmdata/dcvrlt.h \
-           inc/DCMTK/dcmdata/dcvrobow.h \
-           inc/DCMTK/dcmdata/dcvrof.h \
-           inc/DCMTK/dcmdata/dcvrpn.h \
-           inc/DCMTK/dcmdata/dcvrpobw.h \
-           inc/DCMTK/dcmdata/dcvrsh.h \
-           inc/DCMTK/dcmdata/dcvrsl.h \
-           inc/DCMTK/dcmdata/dcvrss.h \
-           inc/DCMTK/dcmdata/dcvrst.h \
-           inc/DCMTK/dcmdata/dcvrtm.h \
-           inc/DCMTK/dcmdata/dcvrui.h \
-           inc/DCMTK/dcmdata/dcvrul.h \
-           inc/DCMTK/dcmdata/dcvrulup.h \
-           inc/DCMTK/dcmdata/dcvrus.h \
-           inc/DCMTK/dcmdata/dcvrut.h \
-           inc/DCMTK/dcmdata/dcwcache.h \
-           inc/DCMTK/dcmdata/dcxfer.h \
-           inc/DCMTK/dcmdata/vrscan.h \
-           inc/DCMTK/dcmimgle/dcmimage.h \
-           inc/DCMTK/dcmimgle/dibaslut.h \
-           inc/DCMTK/dcmimgle/diciefn.h \
-           inc/DCMTK/dcmimgle/dicielut.h \
-           inc/DCMTK/dcmimgle/dicrvfit.h \
-           inc/DCMTK/dcmimgle/didislut.h \
-           inc/DCMTK/dcmimgle/didispfn.h \
-           inc/DCMTK/dcmimgle/didocu.h \
-           inc/DCMTK/dcmimgle/diflipt.h \
-           inc/DCMTK/dcmimgle/digsdfn.h \
-           inc/DCMTK/dcmimgle/digsdlut.h \
-           inc/DCMTK/dcmimgle/diimage.h \
-           inc/DCMTK/dcmimgle/diinpx.h \
-           inc/DCMTK/dcmimgle/diinpxt.h \
-           inc/DCMTK/dcmimgle/diluptab.h \
-           inc/DCMTK/dcmimgle/dimo1img.h \
-           inc/DCMTK/dcmimgle/dimo2img.h \
-           inc/DCMTK/dcmimgle/dimocpt.h \
-           inc/DCMTK/dcmimgle/dimoflt.h \
-           inc/DCMTK/dcmimgle/dimoimg.h \
-           inc/DCMTK/dcmimgle/dimoipxt.h \
-           inc/DCMTK/dcmimgle/dimomod.h \
-           inc/DCMTK/dcmimgle/dimoopx.h \
-           inc/DCMTK/dcmimgle/dimoopxt.h \
-           inc/DCMTK/dcmimgle/dimopx.h \
-           inc/DCMTK/dcmimgle/dimopxt.h \
-           inc/DCMTK/dcmimgle/dimorot.h \
-           inc/DCMTK/dcmimgle/dimosct.h \
-           inc/DCMTK/dcmimgle/diobjcou.h \
-           inc/DCMTK/dcmimgle/diovdat.h \
-           inc/DCMTK/dcmimgle/diovlay.h \
-           inc/DCMTK/dcmimgle/diovlimg.h \
-           inc/DCMTK/dcmimgle/diovpln.h \
-           inc/DCMTK/dcmimgle/dipixel.h \
-           inc/DCMTK/dcmimgle/diplugin.h \
-           inc/DCMTK/dcmimgle/dipxrept.h \
-           inc/DCMTK/dcmimgle/diregbas.h \
-           inc/DCMTK/dcmimgle/dirotat.h \
-           inc/DCMTK/dcmimgle/discalet.h \
-           inc/DCMTK/dcmimgle/displint.h \
-           inc/DCMTK/dcmimgle/ditranst.h \
-           inc/DCMTK/dcmimgle/diutils.h \
-           inc/DCMTK/ofstd/ofalgo.h \
-           inc/DCMTK/ofstd/ofbmanip.h \
-           inc/DCMTK/ofstd/ofcast.h \
-           inc/DCMTK/ofstd/ofcmdln.h \
-           inc/DCMTK/ofstd/ofconapp.h \
-           inc/DCMTK/ofstd/ofcond.h \
-           inc/DCMTK/ofstd/ofconfig.h \
-           inc/DCMTK/ofstd/ofconsol.h \
-           inc/DCMTK/ofstd/ofcrc32.h \
-           inc/DCMTK/ofstd/ofdate.h \
-           inc/DCMTK/ofstd/ofdatime.h \
-           inc/DCMTK/ofstd/offile.h \
-           inc/DCMTK/ofstd/offname.h \
-           inc/DCMTK/ofstd/ofglobal.h \
-           inc/DCMTK/ofstd/oflist.h \
-           inc/DCMTK/ofstd/oflogfil.h \
-           inc/DCMTK/ofstd/ofoset.h \
-           inc/DCMTK/ofstd/ofset.h \
-           inc/DCMTK/ofstd/ofsetit.h \
-           inc/DCMTK/ofstd/ofstack.h \
-           inc/DCMTK/ofstd/ofstd.h \
-           inc/DCMTK/ofstd/ofstdinc.h \
-           inc/DCMTK/ofstd/ofstream.h \
-           inc/DCMTK/ofstd/ofstring.h \
-           inc/DCMTK/ofstd/ofthread.h \
-           inc/DCMTK/ofstd/oftime.h \
-           inc/DCMTK/ofstd/oftimer.h \
-           inc/DCMTK/ofstd/oftypes.h \
-           inc/DCMTK/ofstd/ofuoset.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/config/osconfig.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/config/osconfig.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/cmdlnarg.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcbytstr.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcchrstr.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dccodec.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcdatset.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcddirif.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcdefine.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcdeftag.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcdicdir.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcdicent.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcdict.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcdirrec.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcelem.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcerror.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcfcache.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcfilefo.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dchashdi.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcistrma.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcistrmb.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcistrmf.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcistrmz.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcitem.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dclist.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcmetinf.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcobject.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcofsetl.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcostrma.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcostrmb.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcostrmf.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcostrmz.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcovlay.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcpath.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcpcache.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcpixel.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcpixseq.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcpxitem.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcrleccd.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcrlecce.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcrlecp.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcrledec.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcrledrg.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcrleenc.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcrleerg.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcrlerp.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcsequen.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcstack.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcswap.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dctag.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dctagkey.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dctk.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dctypes.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcuid.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvr.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrae.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvras.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrat.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrcs.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrda.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrds.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrdt.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrfd.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrfl.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvris.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrlo.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrlt.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrobow.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrof.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrpn.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrpobw.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrsh.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrsl.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrss.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrst.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrtm.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrui.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrul.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrulup.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrus.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcvrut.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcwcache.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/dcxfer.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/vrscan.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dcmimage.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dibaslut.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diciefn.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dicielut.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dicrvfit.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/didislut.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/didispfn.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/didocu.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diflipt.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/digsdfn.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/digsdlut.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diimage.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diinpx.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diinpxt.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diluptab.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimo1img.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimo2img.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimocpt.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimoflt.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimoimg.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimoipxt.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimomod.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimoopx.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimoopxt.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimopx.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimopxt.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimorot.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dimosct.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diobjcou.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diovdat.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diovlay.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diovlimg.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diovpln.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dipixel.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diplugin.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dipxrept.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diregbas.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/dirotat.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/discalet.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/displint.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/ditranst.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmimgle/diutils.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofalgo.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofbmanip.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofcast.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofcmdln.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofconapp.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofcond.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofconfig.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofconsol.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofcrc32.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofdate.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofdatime.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/offile.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/offname.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofglobal.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/oflist.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/offile.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofoset.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofset.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofsetit.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofstack.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofstd.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofstdinc.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofstream.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofstring.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofthread.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/oftime.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/oftimer.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/oftypes.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/ofstd/ofuoset.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/libi2d/i2d.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/libi2d/i2dbmps.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/libi2d/i2dimgs.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/libi2d/i2djpgs.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/libi2d/i2doutpl.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/libi2d/i2dplnsc.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/libi2d/i2dplsc.h \
+           $$THIRD_PARTY_BASE/$$DCMTK_VER/include/dcmtk/dcmdata/libi2d/i2dplvlp.h \
            Nodes/ImportNode/Designer/ui_import.h \
            Nodes/PlotterNode/Designer/ui_axesSettings.h \
            Nodes/SubtractNode/Designer/ui_subtract.h \
@@ -558,14 +604,6 @@ HEADERS += DataTypes/CentroidSizes.h \
            Nodes/WarperNode/Designer/ui_createGrid.h \
            Nodes/WarperNode/Designer/ui_gridProperty.h \
            Nodes/WarperNode/Designer/ui_warper.h \
-           inc/DCMTK/dcmdata/libi2d/i2d.h \
-           inc/DCMTK/dcmdata/libi2d/i2dbmps.h \
-           inc/DCMTK/dcmdata/libi2d/i2dimgs.h \
-           inc/DCMTK/dcmdata/libi2d/i2djpgs.h \
-           inc/DCMTK/dcmdata/libi2d/i2doutpl.h \
-           inc/DCMTK/dcmdata/libi2d/i2dplnsc.h \
-           inc/DCMTK/dcmdata/libi2d/i2dplsc.h \
-           inc/DCMTK/dcmdata/libi2d/i2dplvlp.h \
            Utilities/MyReaderWriterDICOM.cpp \
            Utilities/sha1.cpp
 FORMS += MainWindow/Designer/license.ui \
@@ -629,15 +667,58 @@ SOURCES += Evan.cpp \
            Utilities/Writer.cpp \
            Utilities/XMLParser.cpp \
            Utilities/asa063.cpp \
-	   GMM/src/gpa.cpp \
-           GMM/src/import.cpp \
-           GMM/src/mmr.cpp \
-           GMM/src/pca.cpp \
-           GMM/src/pco.cpp \
-           GMM/src/pls.cpp \
-           GMM/src/svd.cpp \
-           GMM/src/tpp.cpp \
-           GMM/src/tps.cpp \
+		GMM/src/gpa.cpp \
+			GMM/src/import.cpp \
+			GMM/src/mmr.cpp \
+			GMM/src/pca.cpp \
+			GMM/src/pco.cpp \
+			GMM/src/pls.cpp \
+			GMM/src/svd.cpp \
+			GMM/src/tpp.cpp \
+			GMM/src/tps.cpp \
+		$$EW_BASE/src/Bbox3.cpp \
+			$$EW_BASE/src/Curve3.cpp \
+			$$EW_BASE/src/DataflowArray3.cpp \
+			$$EW_BASE/src/DataflowArray3E.cpp \
+			$$EW_BASE/src/DataflowCurve3.cpp \
+			$$EW_BASE/src/DataflowCurve3E.cpp \
+			$$EW_BASE/src/DataflowForm3.cpp \
+			$$EW_BASE/src/DataflowImage3.cpp \
+			$$EW_BASE/src/DataflowNetwork.cpp \
+			$$EW_BASE/src/DataflowNode.cpp \
+			$$EW_BASE/src/DataflowNotifier.cpp \
+			$$EW_BASE/src/DataflowSpline3.cpp \
+			$$EW_BASE/src/DataflowSurface3.cpp \
+			$$EW_BASE/src/DataflowSurface3E.cpp \
+			$$EW_BASE/src/Debug.cpp \
+			$$EW_BASE/src/DebugHelper.cpp \
+			$$EW_BASE/src/Dig3.cpp \
+			$$EW_BASE/src/Dig3Space.cpp \
+			$$EW_BASE/src/Dig3Tableau.cpp \
+			$$EW_BASE/src/Dig3View.cpp \
+			$$EW_BASE/src/ErrorIO.cpp \
+			$$EW_BASE/src/ErrorLogic.cpp \
+			$$EW_BASE/src/ErrorRuntime.cpp \
+			$$EW_BASE/src/File.cpp \
+			$$EW_BASE/src/Form3.cpp \
+			$$EW_BASE/src/Gdtoa.cpp \
+			$$EW_BASE/src/Geom3.cpp \
+			$$EW_BASE/src/Index3.cpp \
+			$$EW_BASE/src/String.cpp \
+			$$EW_BASE/src/Surface3.cpp \
+			$$EW_BASE/src/Time.cpp \
+			$$EW_BASE/src/Tps2.cpp \
+			$$EW_BASE/src/Tps3.cpp \
+			$$EW_BASE/src/Transform2.cpp \
+			$$EW_BASE/src/Transform3.cpp \
+			$$EW_BASE/src/View3Curve.cpp \
+			$$EW_BASE/src/View3Image.cpp \
+			$$EW_BASE/src/View3Item.cpp \
+			$$EW_BASE/src/View3Landmarks.cpp \
+			$$EW_BASE/src/View3Surface.cpp \
+			$$EW_BASE/src/View3Widget.cpp \
+			$$EW_BASE/src/XmlReader.cpp \
+			$$EW_BASE/src/XmlWriter.cpp \
            Nodes/AnnotationNode/AnnotationNode.cpp \
            Nodes/ConcatNode/ConcatNode.cpp \
            Nodes/ExportNode/ExportNode.cpp \

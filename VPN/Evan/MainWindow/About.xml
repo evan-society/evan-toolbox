@@ -8,7 +8,8 @@
 <Author name="Vincent Dalge" />
 <Author name="Ramy Gowigati" />
 <Author name="Oualid Ben Ali" />
-<Version year="2012" month="July" day="23" ni="1.64" revision="1664" />
+<!-- <Version year="2012" month="July" day="23" ni="1.64" revision="1664" /> -->
+<Version year="2013" month="December" day="1" ni="1.70" />
 <Website path="www.evan-society.org" />
-<GIT revision="39" date="2013-08-29 17:15:19 +0200" />
+<!-- <GIT revision="39" date="2013-08-29 17:15:19 +0200" /> -->
 </About>
