@@ -96,12 +96,12 @@
 					<Add directory="lib/Qwt3D" />
 				</Linker>
 				<MakeCommands>
-					<Build command="mingw32-make.exe -f $makefile.$target" />
+					<Build command="mingw32-make.exe debug" />
 					<CompileFile command="mingw32-make.exe -f $makefile $file" />
-					<Clean command="mingw32-make.exe -f $makefile.$target clean" />
+					<Clean command="mingw32-make.exe -f Makefile.Debug clean" />
 					<DistClean command="mingw32-make.exe -f $makefile.$target distclean" />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -s -f $makefile $target" />
+					<AskRebuildNeeded command="$make -q -f $makefile.$target" />
+					<SilentBuild command="mingw32-make.exe debug &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="Release">
@@ -184,12 +184,12 @@
 					<Add directory="C:/Program Files/R/R-2.11.1/bin" />
 				</Linker>
 				<MakeCommands>
-					<Build command="mingw32-make.exe -f $makefile.$target" />
+					<Build command="mingw32-make.exe release" />
 					<CompileFile command="mingw32-make.exe -f $makefile $file" />
-					<Clean command="mingw32-make.exe -f $makefile.$target clean" />
+					<Clean command="mingw32-make.exe -f Makefile.Release clean" />
 					<DistClean command="mingw32-make.exe -f $makefile.$target distclean" />
-					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -s -f $makefile $target" />
+					<AskRebuildNeeded command="$make -q -f $makefile.$target" />
+					<SilentBuild command="mingw32-make.exe release &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 		</Build>
@@ -295,11 +295,139 @@
 		<Unit filename="DataTypes/WarpGrid.cpp" />
 		<Unit filename="DataTypes/WarpGrid.h" />
 		<Unit filename="DataTypes/Warpings.h" />
+		<Unit filename="EW/include/ew/Bbox3.h" />
+		<Unit filename="EW/include/ew/Curve3.h" />
+		<Unit filename="EW/include/ew/DataflowArray3.h" />
+		<Unit filename="EW/include/ew/DataflowArray3E.h" />
+		<Unit filename="EW/include/ew/DataflowCurve3.h" />
+		<Unit filename="EW/include/ew/DataflowCurve3E.h" />
+		<Unit filename="EW/include/ew/DataflowData3.h" />
+		<Unit filename="EW/include/ew/DataflowForm3.h" />
+		<Unit filename="EW/include/ew/DataflowImage3.h" />
+		<Unit filename="EW/include/ew/DataflowNetwork.h" />
+		<Unit filename="EW/include/ew/DataflowNode.h" />
+		<Unit filename="EW/include/ew/DataflowNotifier.h" />
+		<Unit filename="EW/include/ew/DataflowSpline3.h" />
+		<Unit filename="EW/include/ew/DataflowSurface3.h" />
+		<Unit filename="EW/include/ew/DataflowSurface3E.h" />
+		<Unit filename="EW/include/ew/Debug.h" />
+		<Unit filename="EW/include/ew/DebugHelper.h" />
+		<Unit filename="EW/include/ew/Dig3.h" />
+		<Unit filename="EW/include/ew/Dig3SetCurve.h" />
+		<Unit filename="EW/include/ew/Dig3SetSurface.h" />
+		<Unit filename="EW/include/ew/Dig3Space.h" />
+		<Unit filename="EW/include/ew/Dig3Tableau.h" />
+		<Unit filename="EW/include/ew/Dig3TableauSpace.h" />
+		<Unit filename="EW/include/ew/Dig3View.h" />
+		<Unit filename="EW/include/ew/ErrorIO.h" />
+		<Unit filename="EW/include/ew/ErrorLogic.h" />
+		<Unit filename="EW/include/ew/ErrorRuntime.h" />
+		<Unit filename="EW/include/ew/Form3.h" />
+		<Unit filename="EW/include/ew/Form3Curve.h" />
+		<Unit filename="EW/include/ew/Form3Embedding.h" />
+		<Unit filename="EW/include/ew/Form3Pointset.h" />
+		<Unit filename="EW/include/ew/Form3Reflection.h" />
+		<Unit filename="EW/include/ew/Form3Surface.h" />
+		<Unit filename="EW/include/ew/Form3Volume.h" />
+		<Unit filename="EW/include/ew/FriendVariable.h" />
+		<Unit filename="EW/include/ew/String.h" />
+		<Unit filename="EW/include/ew/Surface3.h" />
+		<Unit filename="EW/include/ew/Time.h" />
+		<Unit filename="EW/include/ew/Tps2.h" />
+		<Unit filename="EW/include/ew/Tps3.h" />
+		<Unit filename="EW/include/ew/Transform2.h" />
+		<Unit filename="EW/include/ew/Transform3.h" />
+		<Unit filename="EW/include/ew/Version.h" />
+		<Unit filename="EW/include/ew/View3Curve.h" />
+		<Unit filename="EW/include/ew/View3Image.h" />
+		<Unit filename="EW/include/ew/View3Item.h" />
+		<Unit filename="EW/include/ew/View3Landmarks.h" />
+		<Unit filename="EW/include/ew/View3Pick.h" />
+		<Unit filename="EW/include/ew/View3Surface.h" />
+		<Unit filename="EW/include/ew/View3Widget.h" />
+		<Unit filename="EW/src/AutoArray.h" />
+		<Unit filename="EW/src/Bbox3.cpp" />
+		<Unit filename="EW/src/BigNum.h" />
+		<Unit filename="EW/src/Curve3.cpp" />
+		<Unit filename="EW/src/DataflowArray3.cpp" />
+		<Unit filename="EW/src/DataflowArray3E.cpp" />
+		<Unit filename="EW/src/DataflowCurve3.cpp" />
+		<Unit filename="EW/src/DataflowCurve3E.cpp" />
+		<Unit filename="EW/src/DataflowForm3.cpp" />
+		<Unit filename="EW/src/DataflowImage3.cpp" />
+		<Unit filename="EW/src/DataflowNetwork.cpp" />
+		<Unit filename="EW/src/DataflowNode.cpp" />
+		<Unit filename="EW/src/DataflowNotifier.cpp" />
+		<Unit filename="EW/src/DataflowSpline3.cpp" />
+		<Unit filename="EW/src/DataflowSurface3.cpp" />
+		<Unit filename="EW/src/DataflowSurface3E.cpp" />
+		<Unit filename="EW/src/Debug.cpp" />
+		<Unit filename="EW/src/DebugHelper.cpp" />
+		<Unit filename="EW/src/Dig3.cpp" />
+		<Unit filename="EW/src/Dig3Space.cpp" />
+		<Unit filename="EW/src/Dig3Tableau.cpp" />
+		<Unit filename="EW/src/Dig3View.cpp" />
+		<Unit filename="EW/src/ErrorIO.cpp" />
+		<Unit filename="EW/src/ErrorLogic.cpp" />
+		<Unit filename="EW/src/ErrorRuntime.cpp" />
+		<Unit filename="EW/src/File.cpp" />
+		<Unit filename="EW/src/File.h" />
+		<Unit filename="EW/src/Form3.cpp" />
+		<Unit filename="EW/src/Gdtoa.cpp" />
+		<Unit filename="EW/src/Gdtoa.h" />
+		<Unit filename="EW/src/Geom3.cpp" />
+		<Unit filename="EW/src/Geom3.h" />
+		<Unit filename="EW/src/Index3.cpp" />
+		<Unit filename="EW/src/Index3.h" />
+		<Unit filename="EW/src/Index3ToCheck.h" />
+		<Unit filename="EW/src/Index3ToIndex.h" />
+		<Unit filename="EW/src/String.cpp" />
+		<Unit filename="EW/src/Surface3.cpp" />
+		<Unit filename="EW/src/Time.cpp" />
+		<Unit filename="EW/src/Tps2.cpp" />
+		<Unit filename="EW/src/Tps3.cpp" />
+		<Unit filename="EW/src/Transform2.cpp" />
+		<Unit filename="EW/src/Transform3.cpp" />
+		<Unit filename="EW/src/View3Curve.cpp" />
+		<Unit filename="EW/src/View3Image.cpp" />
+		<Unit filename="EW/src/View3Item.cpp" />
+		<Unit filename="EW/src/View3Landmarks.cpp" />
+		<Unit filename="EW/src/View3Surface.cpp" />
+		<Unit filename="EW/src/View3Widget.cpp" />
+		<Unit filename="EW/src/XmlAutoDocPtr.h" />
+		<Unit filename="EW/src/XmlAutoWriPtr.h" />
+		<Unit filename="EW/src/XmlReader.cpp" />
+		<Unit filename="EW/src/XmlReader.h" />
+		<Unit filename="EW/src/XmlWriter.cpp" />
+		<Unit filename="EW/src/XmlWriter.h" />
 		<Unit filename="Evan.cpp" />
 		<Unit filename="Evan.pro" />
+		<Unit filename="GMM/include/Matrix.h" />
+		<Unit filename="GMM/include/eig.h" />
+		<Unit filename="GMM/include/gmm.h" />
+		<Unit filename="GMM/include/gpa.h" />
+		<Unit filename="GMM/include/import.h" />
+		<Unit filename="GMM/include/mmr.h" />
+		<Unit filename="GMM/include/pca.h" />
+		<Unit filename="GMM/include/pco.h" />
+		<Unit filename="GMM/include/pls.h" />
+		<Unit filename="GMM/include/svd.h" />
+		<Unit filename="GMM/include/tpp.h" />
+		<Unit filename="GMM/include/tps.h" />
+		<Unit filename="GMM/include/version.h" />
+		<Unit filename="GMM/src/gpa.cpp" />
+		<Unit filename="GMM/src/import.cpp" />
+		<Unit filename="GMM/src/mmr.cpp" />
+		<Unit filename="GMM/src/pca.cpp" />
+		<Unit filename="GMM/src/pco.cpp" />
+		<Unit filename="GMM/src/pls.cpp" />
+		<Unit filename="GMM/src/svd.cpp" />
+		<Unit filename="GMM/src/tpp.cpp" />
+		<Unit filename="GMM/src/tps.cpp" />
 		<Unit filename="Labels/ILabelValue.h" />
 		<Unit filename="Labels/ScalarLabelValue.h" />
 		<Unit filename="Labels/StringLabelValue.h" />
+		<Unit filename="MainWindow/About.xml" />
 		<Unit filename="MainWindow/Designer/MainWindow.ui" />
 		<Unit filename="MainWindow/Designer/Refresh.bat" />
 		<Unit filename="MainWindow/Designer/ui_MainWindow.h" />
@@ -467,8 +595,19 @@
 		<Unit filename="Utilities/sha1.h" />
 		<Extensions>
 			<code_completion />
-			<debugger />
+			<debugger>
+				<search_path add="E:\TDM-GCC-32\bin" />
+			</debugger>
 			<envvars />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

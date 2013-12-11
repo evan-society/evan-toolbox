@@ -2,7 +2,7 @@
 #define LANDMARKITEM_H
 
 #include "LandmarksTopItem.h"
-#include "../Utilities/Logger.h"
+#include "../../Utilities/Logger.h"
 
 #include <QInputDialog>
 

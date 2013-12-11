@@ -10,6 +10,9 @@
 #include <osg/ClipPlane>
 #include "DataTypes/Volume.h"
 
+#include "../../Utilities/Logger.h" //husky
+
+
 class IRenderable;
 
 class RenderableTreeItem : public QTreeWidgetItem
@@ -19,19 +22,19 @@ private:
     osg::ref_ptr<osg::Node> m_itemPtr;
 
 public:
-    RenderableTreeItem() : 
+    RenderableTreeItem() :
 		QTreeWidgetItem(QTreeWidgetItem::UserType),
 		m_itemRenderable( NULL )
 		//, m_itemPtr(NULL)
     { setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled|Qt::ItemIsEditable);}
-	
-    RenderableTreeItem(QTreeWidget * parent)    :  
+
+    RenderableTreeItem(QTreeWidget * parent)    :
 		QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
 		m_itemRenderable( NULL )
 		//, m_itemPtr(NULL)
     { setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled|Qt::ItemIsEditable);}
-	
-    RenderableTreeItem(QTreeWidgetItem * parent)	:  
+
+    RenderableTreeItem(QTreeWidgetItem * parent)	:
 		QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
 		m_itemRenderable( NULL )
 		//, m_itemPtr(NULL)
@@ -51,7 +54,7 @@ private:
     osg::ref_ptr<osgVolume::Volume> m_itemPtr;
 
 public:
-    VolumeRenderableTreeItem(QTreeWidget * parent) : 
+    VolumeRenderableTreeItem(QTreeWidget * parent) :
 		QTreeWidgetItem(parent, QTreeWidgetItem::UserType),
 		m_itemRenderable( NULL )
     {setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);}
@@ -176,17 +179,20 @@ public slots:
     void onItemClick(QTreeWidgetItem* item, int column)
     {
         RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( item ) );
+        Logger::getInstance()->log( "[RenderableTree] onItemClick", Logger::INFO ); //husky
         emit renderableToggled(selected->checkState(0)!=Qt::Unchecked, selected->getItemPtr());
     }
 
     void onItemChange(QTreeWidgetItem* current, QTreeWidgetItem* previous)
     {
+        Logger::getInstance()->log( "[RenderableTree] onItemChange", Logger::INFO ); //husky
         emit renderableChanged( ( dynamic_cast< RenderableTreeItem* >( current ) ),( dynamic_cast< RenderableTreeItem* >( previous ) ) );
     }
 
     void toggleTexture();
     void changeLineThickness();
     void slotCameraFocus();
+    void slotCameraObjectFocus();
     void clipGrid(bool);
     void flipClipGrid();
     void deleteClipGrid();
@@ -203,6 +209,7 @@ signals:
     void rotateManipClicked(osg::ref_ptr<osg::Node>);
     void scaleManipClicked(osg::ref_ptr<osg::Node>);
     void signalFocusCamera(osg::Vec3,float,osg::Matrixd);
+    void signalFocusObjectCamera(osg::Vec3,float,osg::Matrixd);
     void addClipPlane(osg::ClipPlane*,bool);
     void addMyClipPlane(MyClipPlane*);
     void removeClipPlane(MyClipPlane*);

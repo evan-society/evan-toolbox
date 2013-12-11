@@ -726,6 +726,13 @@ void MainWindow::showAbout()
 #else
     version->setText(versionString + " for Linux");
 #endif
+	
+	QString dateString;
+	dateString.append( parser.getAttribute("month") );
+	dateString.append( "-" );
+	dateString.append( parser.getAttribute("day") );
+	dateString.append( "-" );
+	dateString.append( parser.getAttribute("year") );
 
     QString buildString("Build Date: ");
     parser.gotoElement("Website");
@@ -734,16 +741,17 @@ void MainWindow::showAbout()
     //parser.gotoElement("SVN");
     //QString revisionString = parser.getAttribute("revision");
     //QString dateString = parser.getAttribute("date");
-    parser.gotoElement("GIT");
-    QString revisionString = parser.getAttribute("revision");
-    QString dateString = parser.getAttribute("date");
+	
+    //! parser.gotoElement("GIT");
+    //! QString revisionString = parser.getAttribute("revision");
+    //! QString dateString = parser.getAttribute("date");
 
-
-    buildString.append(dateString.left(10));
+    //buildString.append(dateString.left(30));
+	buildString.append( dateString.left( dateString.length() ) );
 
     //revisionString = "Revision: " + revisionString;
-    revisionString = "git revision: " + revisionString;
-    revision->setText(revisionString);
+    //revisionString = "git revision: " + revisionString;
+    //revision->setText(revisionString);
 
     build->setText(buildString);
 

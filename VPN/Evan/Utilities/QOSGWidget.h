@@ -5,6 +5,7 @@
 #include <osgViewer/api/Win32/GraphicsWindowWin32>
 #endif
 #include <osgGA/TrackballManipulator>
+//#include <osgGA/SphericalManipulator>
 #include <osgDB/ReadFile>
 #include <osg/Node>
 #include <osg/Group>
@@ -45,13 +46,15 @@ class AdapterWidget : public QGLWidget
 };
 
 class HybridTrackballManipulator : public osgGA::TrackballManipulator
+//class HybridTrackballManipulator : public osgGA::SphericalManipulator
 {
     protected:
         osg::ref_ptr<osg::Camera> m_viewerCamera;
         bool m_ortho;
         bool calcMovement();
     public:
-        HybridTrackballManipulator(osg::Camera* cam) : osgGA::TrackballManipulator(), m_viewerCamera(cam), m_ortho(true)
+		HybridTrackballManipulator(osg::Camera* cam) : osgGA::TrackballManipulator(), m_viewerCamera(cam), m_ortho(true)
+        //HybridTrackballManipulator(osg::Camera* cam) : osgGA::SphericalManipulator(), m_viewerCamera(cam), m_ortho(true)
         {}
         bool handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& us);
         void home(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& us);

@@ -4,7 +4,7 @@
 #include "FormItem.h"
 #include "ew/View3Landmarks.h"
 #include "LandmarksTopItem.h"
-#include "../Utilities/Logger.h"
+#include "../../Utilities/Logger.h"
 
 #include <QInputDialog>
 

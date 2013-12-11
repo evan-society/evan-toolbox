@@ -197,7 +197,7 @@ bool Surface::initialize(const Surface* originalSurface, const QString& nodeName
     }
     else
     {
-        m_osgNode = new osg::Geode;//(*(originalSurface->getOsgNode().get()), osg::CopyOp::DEEP_COPY_ALL);
+        m_osgNode = new osg::Geode;// (*(originalSurface->getOsgNode().get()), osg::CopyOp::DEEP_COPY_ALL);
         m_osgGeometry = new osg::Geometry(*(originalSurface->getOsgGeometry().get()), osg::CopyOp::DEEP_COPY_ALL);
         m_osgNode->addDrawable(m_osgGeometry);
         setRenderableName(nodeName);

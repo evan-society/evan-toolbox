@@ -433,6 +433,8 @@ int checkForLicense()
 #else
         ifstream infile("license.dat");
 #endif
+
+
         while(!infile.eof())
         {
             infile >> str;
@@ -441,8 +443,21 @@ int checkForLicense()
                 keys.push_back(str.c_str());
             }
         }
+
+        for( int i = 0; i < keys.size(); ++i ) {
+            Logger::getInstance()->log( QString( "HUSKY: license humanreadable: " ) + keys[i] );//husky
+        }
+
+
         if(keys.size()>0)
         {
+            // special handling of trial licenses
+            // NOTE: trial licenses worked OOTB in 1.63!
+            // however, now it seems that we need this additional code:
+            if ( keys.last() == QString( "trial" ) ) {
+                keys.pop_back();
+            }
+
             QStringList expDateStr = keys.last().split("x");
             if(expDateStr.size() == 3)
             {

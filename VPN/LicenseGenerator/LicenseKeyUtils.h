@@ -11,6 +11,8 @@
 #include <iphlpapi.h>
 #include <assert.h>
 
+#include <cstdio> // for sprintf
+
 // Fetches all MAC addresses as a QStringList
 QStringList GetMACaddresses()
 {

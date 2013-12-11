@@ -11,7 +11,7 @@
 #include "ew/DataflowSpline3.h"
 #if TEMPLAND_TOOLKIT_BUILD
 #include "tps.h"
-#include "../DataTypes/MatrixD.h"
+#include "../../DataTypes/MatrixD.h"
 #endif
 
 
