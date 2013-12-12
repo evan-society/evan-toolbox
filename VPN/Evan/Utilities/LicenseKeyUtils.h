@@ -415,46 +415,30 @@ QStringList GetEncryptedKeyList(QStringList macAddresses)
     return licenseKeyList;
 }
 
-int checkForLicense()
+// returns 1 if license is valid; returns 0 if license is invalid
+int parseLicense( const QStringList &keysIn, QStringList &validKeys, QString &timekey, bool &isTrialLicense )
 {
-    QDir qd;
-
-    // check for license
-#ifdef USE_UNIX_LOCATIONS
-    if(qd.exists(licensepath))
-#else
-    if(qd.exists("license.dat"))
-#endif
-    {
         QStringList keys;
-        string str;
-#ifdef USE_UNIX_LOCATIONS
-        ifstream infile((licensepath).toUtf8().data());
-#else
-        ifstream infile("license.dat");
-#endif
+        keys.reserve( keysIn.size() );
 
-
-        while(!infile.eof())
+        //if(keys.size()>0)
+        if ( keysIn.size() > 0 )
         {
-            infile >> str;
-            if(str!="")
-            {
-                keys.push_back(str.c_str());
+            isTrialLicense = false;
+
+            // special handling
+            for ( int i = 0; i < keysIn.size(); i++ ) {
+                keys.push_back( keysIn[i].trimmed() );
             }
-        }
+            if ( keys.last().isEmpty() ) {
+                keys.pop_back();
+            }
 
-        for( int i = 0; i < keys.size(); ++i ) {
-            Logger::getInstance()->log( QString( "HUSKY: license humanreadable: " ) + keys[i] );//husky
-        }
-
-
-        if(keys.size()>0)
-        {
             // special handling of trial licenses
             // NOTE: trial licenses worked OOTB in 1.63!
             // however, now it seems that we need this additional code:
             if ( keys.last() == QString( "trial" ) ) {
+                isTrialLicense = true;
                 keys.pop_back();
             }
 
@@ -469,23 +453,43 @@ int checkForLicense()
                 QDate date(year,month,day);
                 if(date > date.currentDate())
                 {
-                    QString timekey = keys.last();
+                    timekey = keys.last();
                     QString daysLeft;
                     daysLeft.setNum(date.currentDate().daysTo(date));
 
                     QStringList qmaclist = GetMACaddresses();
+                    if ( isTrialLicense ) {
+                        //qmaclist.clear();
+                        if ( date.currentDate().daysTo(date) < 62 ) { // approximately 2 months max period for trial license
+                            qmaclist.push_back( "99-99-99-99-99-99" );
+                        } else {
+                            QString warnMsg( "Trial license found, but a trial license is limited to a maximum of approximately 2 months, whereas this trial license is valid for " );
+                            warnMsg += daysLeft;
+                            warnMsg += " days.";
+                            Logger::getInstance()->log( warnMsg, Logger::WARNING);
+                        }
+                    }
                     for(int i=0;i<qmaclist.size();i++)
                     {
                         qmaclist[i] += timekey;
                     }
+
+                    bool isValid = false;
                     QStringList encryptedList = GetEncryptedKeyList(qmaclist);
                     for(int i=0;i<keys.size();i++)
                     {
                         if(encryptedList.contains(keys[i]))
                         {
-//                            Logger::getInstance()->log("Trial license. " + daysLeft + " days remaining.", Logger::INFO);
-                            return 1;
+                            isValid = true;
+                            validKeys.push_back(keys[i]);
+                            if ( isTrialLicense ) {
+                                Logger::getInstance()->log("Trial license. " + daysLeft + " days remaining.", Logger::INFO);
+                                //return 1; // valid license found
+                            }
                         }
+                    }
+                    if ( isValid ) {
+                        return 1; // valid license found
                     }
                     Logger::getInstance()->log("No valid license key found in file: license.dat. Go to Help->Register to register your copy.", Logger::WARNING);
                 }
@@ -503,6 +507,46 @@ int checkForLicense()
         {
             Logger::getInstance()->log("License file contains no data. Go to Help->Register to register your copy.", Logger::WARNING);
         }
+
+    return 0; // no valid license found
+}
+
+int checkForLicense()
+{
+    QDir qd;
+
+    // check for license
+#ifdef USE_UNIX_LOCATIONS
+    if(qd.exists(licensepath))
+#else
+    if(qd.exists("license.dat"))
+#endif
+    {
+        QStringList keys;
+        string str;
+        ifstream infile;
+#ifdef USE_UNIX_LOCATIONS
+        infile.open((licensepath).toUtf8().data());
+#else
+        infile.open( "license.dat" );
+#endif
+
+        while( infile >> str )
+        {
+            if(str!="")
+            {
+                keys.push_back(str.c_str());
+            }
+        }
+
+        infile.close();
+
+        bool isTrialLicense;
+        QStringList validKeys;
+        QString timekey;
+        int parseResult = parseLicense( keys, validKeys, timekey, isTrialLicense );
+
+        return parseResult;
     }
     else
     {
