@@ -726,7 +726,7 @@ void MainWindow::showAbout()
 #else
     version->setText(versionString + " for Linux");
 #endif
-	
+
 	QString dateString;
 	dateString.append( parser.getAttribute("month") );
 	dateString.append( "-" );
@@ -741,7 +741,7 @@ void MainWindow::showAbout()
     //parser.gotoElement("SVN");
     //QString revisionString = parser.getAttribute("revision");
     //QString dateString = parser.getAttribute("date");
-	
+
     //! parser.gotoElement("GIT");
     //! QString revisionString = parser.getAttribute("revision");
     //! QString dateString = parser.getAttribute("date");
@@ -871,30 +871,13 @@ bool MainWindow::validateLicenseKey()
         Logger::getInstance()->log("This copy is already registered.");
         return true;
     }
-    QStringList qmaclist = GetMACaddresses();
     QStringList keys = m_licenseText.split("\n");
     QString timekey;
 
-    if(keys.size() > 0)
-    {
-        timekey = keys.last();
-        for (int i=0;i<qmaclist.size();i++)
-        {
-            qmaclist[i] += timekey;
-        }
-    }
-
-    QStringList encryptedKeys = GetEncryptedKeyList(qmaclist);
+    bool isTrialLicense;
     QStringList validKeys;
+    IsRegistered = parseLicense( keys, validKeys, timekey, isTrialLicense );
 
-    for (int i=0;i<keys.size();i++)
-    {
-        if(encryptedKeys.contains(keys[i]))
-        {
-            validKeys.push_back(keys[i]);
-            IsRegistered = 1;
-        }
-    }
     if(IsRegistered == 1)
     {
 #ifdef USE_UNIX_LOCATIONS
@@ -907,7 +890,13 @@ bool MainWindow::validateLicenseKey()
             licenseFile << validKeys[i].toStdString() << endl;
         }
         licenseFile << timekey.toStdString() << endl;
+
+        if ( isTrialLicense ) {
+            licenseFile << "trial" << endl;
+        }
+
         Logger::getInstance()->log("Valid License Key entered. This copy is now registered.");
+
         return true;
     }
     if(m_licenseText != "")
