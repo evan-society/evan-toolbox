@@ -21,6 +21,7 @@ void Generator::generate()
     month.setNum(m_date.month(),16);
     year.setNum(m_date.year(),16);
     QString timekey = day + "x" + month + "x" + year;
+	timekey = timekey.trimmed();
 /* /block */
 
     QString key;
@@ -28,6 +29,8 @@ void Generator::generate()
     QStringList addresses = m_macAddress.split("\n");
     for(int j=0;j<addresses.size();j++)
     {
+		addresses[j] = addresses[j].trimmed();
+		
 		if(addresses[j] != "")
 		{
 		    if(addresses[j].length() != 17)
