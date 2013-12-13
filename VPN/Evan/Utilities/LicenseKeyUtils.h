@@ -482,13 +482,25 @@ int parseLicense( const QStringList &keysIn, QStringList &validKeys, QString &ti
                         {
                             isValid = true;
                             validKeys.push_back(keys[i]);
-                            if ( isTrialLicense ) {
-                                Logger::getInstance()->log("Trial license. " + daysLeft + " days remaining.", Logger::INFO);
-                                //return 1; // valid license found
-                            }
+                            //return 1; // valid license found
                         }
                     }
                     if ( isValid ) {
+
+                        if ( isTrialLicense ) {
+                            Logger::getInstance()->log( "Trial License Key - " +
+                                                        daysLeft +
+                                                        " day" + ( ( date.currentDate().daysTo(date) > 1 ) ? "s" : "" ) +
+                                                        " remaining.",
+                                                        Logger::INFO );
+                        } else {
+                            Logger::getInstance()->log( "Valid License Key - " +
+                                                        daysLeft +
+                                                        " day" + ( ( date.currentDate().daysTo(date) > 1 ) ? "s" : "" ) +
+                                                        " remaining.",
+                                                        Logger::INFO );
+                        }
+
                         return 1; // valid license found
                     }
                     Logger::getInstance()->log("No valid license key found in file: license.dat. Go to Help->Register to register your copy.", Logger::WARNING);
