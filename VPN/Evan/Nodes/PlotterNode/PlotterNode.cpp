@@ -1480,6 +1480,12 @@ void PlotterNode::changeTitleColor()
 void PlotterNode::changeLabel(QTreeWidgetItem* item, int num)
 {
     MemberTreeItem* changedItem = dynamic_cast< MemberTreeItem* >( item );
+
+    if ( changedItem == NULL ) {
+        //typeid( *item ).name();
+        return;
+    }
+
     if(m_selectedMarkers.count() > 0)
     {
         QwtPlotMarker* marker = m_selectedMarkers[0];
