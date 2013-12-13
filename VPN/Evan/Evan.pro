@@ -54,8 +54,8 @@ CONFIG(debug, debug|release) {
     # debug stuff
 	## LIBS += -lewd
 	
-	#LIBS += -lqwtd5 -lqwtplot3dd
-	LIBS += -lqwt5 -lqwtplot3d
+	LIBS += -lqwtd5 -lqwtplot3d_d
+	#LIBS += -lqwt5 -lqwtplot3d
 	
 	QMAKE_CXXFLAGS += -Wall
 	# -pedantic
