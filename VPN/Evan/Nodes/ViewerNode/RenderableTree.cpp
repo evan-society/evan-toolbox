@@ -293,7 +293,7 @@ void RenderableTree::createContextMenu()
     QAction* focus = new QAction("Focus Camera", contextMenu);
     focus->setObjectName(QString::fromUtf8("camera"));
     contextMenu->addAction(focus);
-    connect(focus, SIGNAL(triggered()), this, SLOT(slotCameraFocus()));
+    connect(focus, SIGNAL(triggered()), this, SLOT(slotTreeFocus()));
 
     QAction* focusObject = new QAction("Focus Camera on Object", contextMenu);
     focusObject->setObjectName(QString::fromUtf8("cameraObjectFocus"));
@@ -433,7 +433,7 @@ static int enumTreeItems( QTreeWidgetItem *item, int cnt )
                    // Logger::getInstance()->log( "could retrieve renderable tree item" );
                 } else { // will at least be a QTreeWidgetItem
                     Logger::getInstance()->log( "could not retrieve renderable tree item", Logger::WARNING );
-                    Logger::getInstance()->log( QString( "   actually it is" ) +
+                    Logger::getInstance()->log( QString( "   actually it is of type: " ) +
                                                typeid( *item ).name(), Logger::WARNING );
                     //ti->m_itemPtr
                 }
@@ -448,7 +448,7 @@ static int enumTreeItems( QTreeWidgetItem *item, int cnt )
 }
 
 
-void RenderableTree::slotCameraFocus()
+void RenderableTree::slotTreeFocus()
 {
     //RenderableTreeItem *root = dynamic_cast<RenderableTreeItem* >( this->invisibleRootItem() );
     QTreeWidgetItem *root = this->invisibleRootItem();
@@ -465,11 +465,13 @@ void RenderableTree::slotCameraFocus()
         Logger::getInstance()->log( "[RenderableTree] root is null", Logger::INFO );
     }
 
+    Logger::getInstance()->log( QString("[RenderableTree] top level items: ") + QString::number( root->childCount() ) );
+
     //QList< QTreeWidgetItem* > sitems = selectedItems();
     QList<QTreeWidgetItem*> sitems = findItems( "*", Qt::MatchWildcard | Qt::MatchRecursive );
 
 //    if( sitems == NULL ) {
-//        Logger::getInstance()->log( "[RenderableTree]::slotCameraFocus failed", Logger::WARNING );
+//        Logger::getInstance()->log( "[RenderableTree]::slotTreeFocus failed", Logger::WARNING );
 //        return;
 //    }
     if( sitems.isEmpty() ) {
@@ -482,6 +484,15 @@ void RenderableTree::slotCameraFocus()
         QString lenStr( "[RenderableTree] selected through wildcard match: " );
         lenStr.append( QString::number( sitems.size() ) );
         Logger::getInstance()->log( lenStr );
+
+        int cntChecked = 0;
+        for( int i = 0; i < sitems.size(); ++i ) {
+            if ( sitems[i]->checkState( 0 ) != Qt::Unchecked ) {
+                ++cntChecked;
+            }
+        }
+        Logger::getInstance()->log( QString( "[RenderableTree] selected through wildcard match checked: " ) + QString::number( cntChecked ) );
+
     }
 
 {
@@ -495,10 +506,10 @@ void RenderableTree::slotCameraFocus()
     //RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( sitems.front() );
     RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     if( selected == NULL ) {
-        Logger::getInstance()->log( "[RenderableTree] slotCameraFocus failed", Logger::WARNING );
+        Logger::getInstance()->log( "[RenderableTree] slotTreeFocus failed", Logger::WARNING );
         return;
     } else {
-        Logger::getInstance()->log( "[RenderableTree] slotCameraFocus worked", Logger::INFO );
+        Logger::getInstance()->log( "[RenderableTree] slotTreeFocus worked", Logger::INFO );
     }
     if( selected->checkState(0) != Qt::Unchecked ){
         AbstractWarpGrid* warpg = dynamic_cast<AbstractWarpGrid *>( selected->getItemRenderable() );
@@ -516,8 +527,16 @@ void RenderableTree::slotCameraFocus()
             Logger::getInstance()->log( str, Logger::INFO );
             //std::cout << "radius = " << radius << std::endl;
             emit signalFocusCamera( center, radius, mat );
+        } else if ( renderableItem != NULL ) {
+
+            osg::BoundingSphere bound = renderableItem->getItemPtr()->getBound();
+            float r = bound.radius();
+            osg::Vec3 c = bound.center();
+            Logger::getInstance()->log( QString( "[RenderableTree] focus scene to center " ) +
+                                        "( " + QString::number( c.x() ) + ", " + QString::number( c.y() ) + ", " + QString::number( c.z() ) + " )" +
+                                        "and radius " + QString::number( r ) );
         } else {
-            Logger::getInstance()->log( "[RenderableTree]failed to aquire abstract warp grid to focus camera", Logger::WARNING );
+            Logger::getInstance()->log( "[RenderableTree] failed to focus camera on scene", Logger::WARNING );
 
             // husky
             //osg::Matrixd mat = osg::Matrixd::identity();
@@ -553,7 +572,7 @@ void RenderableTree::slotCameraObjectFocus()
     QList<QTreeWidgetItem*> sitems = findItems( "*", Qt::MatchWildcard | Qt::MatchRecursive );
 
 //    if( sitems == NULL ) {
-//        Logger::getInstance()->log( "[RenderableTree]::slotCameraFocus failed", Logger::WARNING );
+//        Logger::getInstance()->log( "[RenderableTree]::slotTreeFocus failed", Logger::WARNING );
 //        return;
 //    }
     if( sitems.isEmpty() ) {
