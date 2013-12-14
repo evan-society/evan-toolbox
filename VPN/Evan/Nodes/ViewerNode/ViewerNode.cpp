@@ -34,7 +34,7 @@ ViewerMainWindow::ViewerMainWindow(ViewerNode* viewer): QMainWindow(), m_viewer(
 // husky
     QAction* focusAction = new QAction("Focus Scene", viewMenu);
     viewMenu->addAction( focusAction );
-    connect( focusAction, SIGNAL(triggered()), this, SLOT( focusCameraSlot() ) );
+    connect( focusAction, SIGNAL(triggered()), this, SLOT( focusSceneSlot() ) );
 
 
     QAction* bckgnd = new QAction("Background Colour", viewMenu);
@@ -217,10 +217,10 @@ void ViewerMainWindow::stereoAction(QAction* clickedItem)
     m_viewer->setStereo(toggled, mode);
 }
 
-void ViewerMainWindow::focusCameraSlot()
+void ViewerMainWindow::focusSceneSlot()
 {
     if ( m_renderTable != NULL ) {
-        m_renderTable->slotCameraFocus();
+        m_renderTable->slotTreeFocus();
     } else {
         Logger::getInstance()->log( "[ViewerMainWindow] failed to focus", Logger::INFO );
     }
@@ -424,6 +424,8 @@ void ViewerNode::loadSavedRenderable(IRenderable* renderable, const RenderableIn
     }
 }
 
+
+
 void ViewerNode::process()
 {
     Logger::getInstance()->log( "[ViewerNode] process" ); //husky
@@ -529,18 +531,142 @@ void ViewerNode::process()
             m_cameraManipulator->setByMatrix(m_loadedViewMatrix);
             m_loadedViewMatrix.makeIdentity();
 
-            //husky
-            int i=0;
-            IRenderable* renderable = m_renderInput->getRenderable(i);
-            if ( renderable != NULL ) {
-                    Logger::getInstance()->log( "[ViewerNode] process, can position manipulators" );
-                positionManipulators( renderable->getOsgNode() ); //husky
-            } else {
-                Logger::getInstance()->log( "[ViewerNode] process, can NOT position manipulators" );
-            }
+//            //husky
+//            int i=0;
+//            IRenderable* renderable = m_renderInput->getRenderable(i);
+//            if ( renderable != NULL ) {
+//                    Logger::getInstance()->log( "[ViewerNode] process, can position manipulators" );
+//                positionManipulators( renderable->getOsgNode() ); //husky
+//            } else {
+//                Logger::getInstance()->log( "[ViewerNode] process, can NOT position manipulators" );
+//            }
 
         }
     }
+
+
+    osg::Vec3 minAABB( +FLT_MAX, +FLT_MAX, +FLT_MAX );
+    osg::Vec3 maxAABB( -FLT_MAX, -FLT_MAX, -FLT_MAX );
+    QMap< IRenderable*, osg::Node* >::const_iterator it;
+    QMap< IRenderable*, osg::Node* >::const_iterator itEnd = m_currentScene.end();
+
+    // manually determine AABB
+    for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
+        float r = it.value()->getBound().radius();
+        osg::Vec3 rVec = osg::Vec3( r, r, r );
+        osg::Vec3 c = it.value()->getBound().center();
+        osg::Vec3 minC = c - rVec;
+        osg::Vec3 maxC = c + rVec;
+
+        if ( minC.x() < minAABB.x() ) {
+            minAABB.x() = minC.x();
+        }
+        if ( minC.y() < minAABB.y() ) {
+            minAABB.y() = minC.y();
+        }
+        if ( minC.z() < minAABB.z() ) {
+            minAABB.z() = minC.z();
+        }
+
+        if ( maxC.x() > maxAABB.x() ) {
+            maxAABB.x() = maxC.x();
+        }
+        if ( maxC.y() > maxAABB.y() ) {
+            maxAABB.y() = maxC.y();
+        }
+        if ( maxC.z() > maxAABB.z() ) {
+            maxAABB.z() = maxC.z();
+        }
+    }
+    Logger::getInstance()->log(     QString( "[ViewerNode] process() AABB manually: " ) +
+                                    QString( "( " ) +   QString::number( minAABB.x() ) + QString( ", " ) +
+                                                        QString::number( minAABB.y() ) + QString( ", " ) +
+                                                        QString::number( minAABB.z() ) + QString( " ), " ) +
+                                    QString( "( " ) +   QString::number( maxAABB.x() ) + QString( ", " ) +
+                                                        QString::number( maxAABB.y() ) + QString( ", " ) +
+                                                        QString::number( maxAABB.z() ) + QString( " )" )  );
+
+
+    // let OSG perform the heavy lifting
+    osg::Group *groupRootAABB = new osg::Group();
+    //int idx = 0;
+    for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
+            //groupRootAABB->insertChild( idx++, it.value() );
+            groupRootAABB->addChild( it.value() );
+    }
+    osg::Vec3 groupC = groupRootAABB->getBound().center();
+    float groupR = groupRootAABB->getBound().radius();
+    Logger::getInstance()->log(     QString( "[ViewerNode] process() AABB osg: " ) +
+                                    QString( "( " ) +   QString::number( groupC.x() ) + QString( ", " ) +
+                                                        QString::number( groupC.y() ) + QString( ", " ) +
+                                                        QString::number( groupC.z() ) + QString( " ), " ) +
+                                    QString( "radius = " ) + QString::number( groupR ) );
+
+
+    //delete groupRootAABB;
+    // delete does not work => ref counted
+    for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
+            //groupRootAABB->insertChild( idx++, it.value() );
+            groupRootAABB->removeChild( it.value() );
+    }
+    groupRootAABB->unref();
+
+
+    // now set viewer matrix
+    osg::Matrixd Vmat = m_loadedViewMatrix;
+    // osg::Matrix::operator() ( int row, int column )
+    osg::Vec3 viewDir = osg::Vec3( Vmat( 2, 0 ), Vmat( 2, 1 ), Vmat( 2, 2 ) );
+    osg::Vec3 translation = osg::Vec3( Vmat( 0, 3 ), Vmat( 1, 3 ), Vmat( 2, 3 ) );
+    float distance = groupR * 2.0f;
+    translation += viewDir * distance + groupC;
+    //osg::Matrixd Tmat;
+    //Tmat.makeTranslate( translation );
+    //! m_loadedViewMatrix.preMultTranslate( translation );
+
+    //m_cameraManipulator->setCenter( groupC );
+
+    Logger::getInstance()->log(     QString( "[ViewerNode] process() viewDir: " ) +
+                                    QString( "( " ) +   QString::number( viewDir.x() ) + QString( ", " ) +
+                                                        QString::number( viewDir.y() ) + QString( ", " ) +
+                                                        QString::number( viewDir.z() ) + QString( " ), " ) );
+
+    //m_cameraManipulator->setDistance( distance + groupC.length() );
+    //m_cameraManipulator->setDistance( distance );
+    m_loadedCameraDist = distance;
+    //m_loadedCameraDist = 1.0;
+
+    update();
+
+    m_cameraManipulator->setTransformation ( viewDir * distance + groupC, groupC, osg::Vec3d( 0.0, 1.0, 0.0 ) );
+
+    m_loadedViewMatrix = m_cameraManipulator->getMatrix();
+    //m_loadedViewMatrix.makeIdentity();
+    //m_cameraManipulator->update();
+//    getCamera()->setViewMatrix( m_loadedViewMatrix );
+
+//setViewMatrix( m_loadedViewMatrix );
+//setByMatrix( m_loadedViewMatrix );
+
+    //m_cameraManipulator->setByMatrix(m_loadedViewMatrix);
+    //m_loadedViewMatrix.makeIdentity();
+
+    // force viewer refresh...
+    //m_cameraManipulator->updateCamera( *getCamera() );
+    //updateGL();
+    //m_root->dirtyBound();
+    //dirtyBound();
+    //m_renderInput->update();
+    //sync();
+
+
+double left=0, right=0, bottom=0, up=0, zNear=0, zFar=0;
+            getCamera()->getProjectionMatrixAsOrtho(left, right, bottom, up, zNear, zFar);
+            double aspectRatio = up ? right/up : 0;
+            m_cameraManipulator->setDistance(m_loadedCameraDist);
+    m_cameraManipulator->applyOrtho(aspectRatio,m_loadedZNear,m_loadedZFar);
+    m_cameraManipulator->setByMatrix(m_loadedViewMatrix);
+
+    frame();
 }
 
 void ViewerNode::removeFromParents(osg::Node* node)

@@ -191,7 +191,7 @@ public slots:
 
     void toggleTexture();
     void changeLineThickness();
-    void slotCameraFocus();
+    void slotTreeFocus();
     void slotCameraObjectFocus();
     void clipGrid(bool);
     void flipClipGrid();

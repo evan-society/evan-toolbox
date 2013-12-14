@@ -30,6 +30,7 @@ private:
 
 protected:
     virtual void enterEvent(QEvent* event);
+    //void calculateSceneBound();
 
 public:
     ViewerMainWindow(ViewerNode* viewer);
@@ -43,7 +44,7 @@ public slots:
     void captureScreen();
     void show();
     void close();
-    void focusCameraSlot(); //husky
+    void focusSceneSlot(); //husky
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
