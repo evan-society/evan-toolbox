@@ -43,9 +43,10 @@ ViewerMainWindow::ViewerMainWindow(ViewerNode* viewer): QMainWindow(), m_viewer(
 
     QAction* orhtoAction = new QAction("Orthographic Projection", viewMenu);
     orhtoAction->setCheckable(true);
-    orhtoAction->setChecked(true);
+    orhtoAction->setChecked(true); // sync projection state menu/viewer
     viewMenu->addAction(orhtoAction);
     connect(orhtoAction, SIGNAL(toggled(bool)), m_viewer, SLOT(toggleProjection(bool)));
+    m_viewer->toggleProjection( true ); // sync projection state menu/viewer
 
     QAction* lightingAction = new QAction("Lights On/Off", viewMenu);
     lightingAction->setCheckable(true);
@@ -545,46 +546,48 @@ void ViewerNode::process()
     }
 
 
-    osg::Vec3 minAABB( +FLT_MAX, +FLT_MAX, +FLT_MAX );
-    osg::Vec3 maxAABB( -FLT_MAX, -FLT_MAX, -FLT_MAX );
+
     QMap< IRenderable*, osg::Node* >::const_iterator it;
     QMap< IRenderable*, osg::Node* >::const_iterator itEnd = m_currentScene.end();
 
-    // manually determine AABB
-    for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
-        float r = it.value()->getBound().radius();
-        osg::Vec3 rVec = osg::Vec3( r, r, r );
-        osg::Vec3 c = it.value()->getBound().center();
-        osg::Vec3 minC = c - rVec;
-        osg::Vec3 maxC = c + rVec;
-
-        if ( minC.x() < minAABB.x() ) {
-            minAABB.x() = minC.x();
-        }
-        if ( minC.y() < minAABB.y() ) {
-            minAABB.y() = minC.y();
-        }
-        if ( minC.z() < minAABB.z() ) {
-            minAABB.z() = minC.z();
-        }
-
-        if ( maxC.x() > maxAABB.x() ) {
-            maxAABB.x() = maxC.x();
-        }
-        if ( maxC.y() > maxAABB.y() ) {
-            maxAABB.y() = maxC.y();
-        }
-        if ( maxC.z() > maxAABB.z() ) {
-            maxAABB.z() = maxC.z();
-        }
-    }
-    Logger::getInstance()->log(     QString( "[ViewerNode] process() AABB manually: " ) +
-                                    QString( "( " ) +   QString::number( minAABB.x() ) + QString( ", " ) +
-                                                        QString::number( minAABB.y() ) + QString( ", " ) +
-                                                        QString::number( minAABB.z() ) + QString( " ), " ) +
-                                    QString( "( " ) +   QString::number( maxAABB.x() ) + QString( ", " ) +
-                                                        QString::number( maxAABB.y() ) + QString( ", " ) +
-                                                        QString::number( maxAABB.z() ) + QString( " )" )  );
+//    osg::Vec3 minAABB( +FLT_MAX, +FLT_MAX, +FLT_MAX );
+//    osg::Vec3 maxAABB( -FLT_MAX, -FLT_MAX, -FLT_MAX );
+//
+//    // manually determine AABB
+//    for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
+//        float r = it.value()->getBound().radius();
+//        osg::Vec3 rVec = osg::Vec3( r, r, r );
+//        osg::Vec3 c = it.value()->getBound().center();
+//        osg::Vec3 minC = c - rVec;
+//        osg::Vec3 maxC = c + rVec;
+//
+//        if ( minC.x() < minAABB.x() ) {
+//            minAABB.x() = minC.x();
+//        }
+//        if ( minC.y() < minAABB.y() ) {
+//            minAABB.y() = minC.y();
+//        }
+//        if ( minC.z() < minAABB.z() ) {
+//            minAABB.z() = minC.z();
+//        }
+//
+//        if ( maxC.x() > maxAABB.x() ) {
+//            maxAABB.x() = maxC.x();
+//        }
+//        if ( maxC.y() > maxAABB.y() ) {
+//            maxAABB.y() = maxC.y();
+//        }
+//        if ( maxC.z() > maxAABB.z() ) {
+//            maxAABB.z() = maxC.z();
+//        }
+//    }
+//    Logger::getInstance()->log(     QString( "[ViewerNode] process() AABB manually: " ) +
+//                                    QString( "( " ) +   QString::number( minAABB.x() ) + QString( ", " ) +
+//                                                        QString::number( minAABB.y() ) + QString( ", " ) +
+//                                                        QString::number( minAABB.z() ) + QString( " ), " ) +
+//                                    QString( "( " ) +   QString::number( maxAABB.x() ) + QString( ", " ) +
+//                                                        QString::number( maxAABB.y() ) + QString( ", " ) +
+//                                                        QString::number( maxAABB.z() ) + QString( " )" )  );
 
 
     // let OSG perform the heavy lifting
@@ -658,12 +661,18 @@ void ViewerNode::process()
     //m_renderInput->update();
     //sync();
 
-
+/**
 double left=0, right=0, bottom=0, up=0, zNear=0, zFar=0;
             getCamera()->getProjectionMatrixAsOrtho(left, right, bottom, up, zNear, zFar);
             double aspectRatio = up ? right/up : 0;
             m_cameraManipulator->setDistance(m_loadedCameraDist);
     m_cameraManipulator->applyOrtho(aspectRatio,m_loadedZNear,m_loadedZFar);
+    **/
+
+    m_cameraManipulator->setDistance(m_loadedCameraDist);
+
+    toggleProjection( m_projectionMode );
+
     m_cameraManipulator->setByMatrix(m_loadedViewMatrix);
 
     frame();
@@ -941,6 +950,8 @@ void ViewerNode::assignManipulators(RenderableTreeItem* currentItem, RenderableT
 
 void ViewerNode::toggleProjection(bool on)
 {
+    m_projectionMode = on;
+
     m_cameraManipulator->setOrtho(on);
     double aspectRatio = double(width())/double(height());
     if(on)

@@ -87,6 +87,7 @@ private:
     double m_loadedCameraDist;
     double m_loadedZNear;
     double m_loadedZFar;
+    bool m_projectionMode;
 
     void fillRInfo(const QString&, RenderableInfo*);
     void loadSavedRenderable(IRenderable*, const RenderableInfo&, const QColor&);
