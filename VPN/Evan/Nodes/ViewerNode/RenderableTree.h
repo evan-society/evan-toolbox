@@ -179,13 +179,11 @@ public slots:
     void onItemClick(QTreeWidgetItem* item, int column)
     {
         RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( item ) );
-        Logger::getInstance()->log( "[RenderableTree] onItemClick", Logger::INFO ); //husky
         emit renderableToggled(selected->checkState(0)!=Qt::Unchecked, selected->getItemPtr());
     }
 
     void onItemChange(QTreeWidgetItem* current, QTreeWidgetItem* previous)
     {
-        Logger::getInstance()->log( "[RenderableTree] onItemChange", Logger::INFO ); //husky
         emit renderableChanged( ( dynamic_cast< RenderableTreeItem* >( current ) ),( dynamic_cast< RenderableTreeItem* >( previous ) ) );
     }
 
