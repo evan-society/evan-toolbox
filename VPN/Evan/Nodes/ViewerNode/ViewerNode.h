@@ -129,7 +129,7 @@ public:
     QString toString() const;
     void stopTimer()   {if (m_refreshTimer.isActive()) m_refreshTimer.stop();}
     void startTimer()  {if (!m_refreshTimer.isActive()) m_refreshTimer.start(10);}
-
+    void focusScene();
 
 public slots:
     void setStereo(bool on, osg::DisplaySettings::StereoMode mode)
