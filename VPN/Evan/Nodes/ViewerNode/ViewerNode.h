@@ -44,7 +44,7 @@ public slots:
     void captureScreen();
     void show();
     void close();
-    void focusSceneSlot(); //husky
+    void focusSceneSlot();
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,7 +153,7 @@ public slots:
     void assignManipulators(RenderableTreeItem*,RenderableTreeItem*);
     void toggleProjection(bool);
     void toggleLighting(bool);
-    void focusCamera(osg::Vec3,float,osg::Matrixd); // the old one - seems to focus only on Warpgrid
+//    void focusCamera(osg::Vec3,float,osg::Matrixd); // the old one - seems to focus only on Warpgrid(s)?
     void focusObjectCamera( const osg::Vec3 &center, const float distance, const osg::Matrixd *const transfo = NULL );
     void addClipPlane(osg::ClipPlane*,bool);
     void clipXYplane();

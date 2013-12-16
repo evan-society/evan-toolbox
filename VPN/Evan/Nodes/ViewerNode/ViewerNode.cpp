@@ -31,11 +31,9 @@ ViewerMainWindow::ViewerMainWindow(ViewerNode* viewer): QMainWindow(), m_viewer(
     viewMenu->addAction(axesAction);
     connect(axesAction, SIGNAL(toggled(bool)), m_viewer, SLOT(toggleAxes(bool)));
 
-// husky
     QAction* focusAction = new QAction("Focus Scene", viewMenu);
     viewMenu->addAction( focusAction );
     connect( focusAction, SIGNAL(triggered()), this, SLOT( focusSceneSlot() ) );
-
 
     QAction* bckgnd = new QAction("Background Colour", viewMenu);
     viewMenu->addAction(bckgnd);
@@ -156,8 +154,8 @@ ViewerMainWindow::ViewerMainWindow(ViewerNode* viewer): QMainWindow(), m_viewer(
             m_viewer, SLOT(toggleScaleManip(osg::ref_ptr<osg::Node>)));
     connect(m_renderTable, SIGNAL(renderableChanged(RenderableTreeItem*,RenderableTreeItem*)),
             m_viewer, SLOT(assignManipulators(RenderableTreeItem*,RenderableTreeItem*)));
-    connect(m_renderTable, SIGNAL(signalFocusCamera(osg::Vec3,float,osg::Matrixd)),
-            m_viewer, SLOT(focusCamera(osg::Vec3,float,osg::Matrixd)));
+//    connect(m_renderTable, SIGNAL(signalFocusCamera(osg::Vec3,float,osg::Matrixd)),
+//            m_viewer, SLOT(focusCamera(osg::Vec3,float,osg::Matrixd)));
     connect(m_renderTable, SIGNAL(signalFocusObjectCamera( const osg::Vec3 &, const float, const osg::Matrixd *const )),
             m_viewer, SLOT(focusObjectCamera( const osg::Vec3 &, const float, const osg::Matrixd *const )));
     connect(m_renderTable, SIGNAL(addClipPlane(osg::ClipPlane*,bool)),m_viewer,SLOT(addClipPlane(osg::ClipPlane*,bool)));
@@ -220,28 +218,8 @@ void ViewerMainWindow::stereoAction(QAction* clickedItem)
 
 void ViewerMainWindow::focusSceneSlot()
 {
-    /*
-    if ( m_renderTable != NULL ) {
-        m_renderTable->slotTreeFocus();
-    } else {
-        Logger::getInstance()->log( "[ViewerMainWindow] failed to focus", Logger::INFO );
-    }
-*/
     m_viewer->focusScene();
-//    m_viewer->focusCamera(v3, float, matrix);
 }
-/*
-void ViewerMainWindow::focusCameraObjectSlot()
-{
-    if ( m_renderTable != NULL ) {
-        m_renderTable->slotCameraObjectFocus();
-    } else {
-        Logger::getInstance()->log( "[ViewerMainWindow] failed to focus", Logger::INFO );
-    }
-
-//    m_viewer->focusCamera(v3, float, matrix);
-}
-*/
 
 void ViewerMainWindow::changeClearColour()
 {
@@ -544,11 +522,9 @@ void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, 
        Vmat = osg::Matrixd();
    }
 
-
     // osg::Matrix::operator() ( int row, int column )
     osg::Vec3 upDir = osg::Vec3( Vmat( 1, 0 ), Vmat( 1, 1 ), Vmat( 1, 2 ) );
     osg::Vec3 viewDir = osg::Vec3( Vmat( 2, 0 ), Vmat( 2, 1 ), Vmat( 2, 2 ) );
-    //osg::Vec3 translation = osg::Vec3( Vmat( 0, 3 ), Vmat( 1, 3 ), Vmat( 2, 3 ) );
 
     float distance = radius * 2.0f;
 
@@ -558,9 +534,8 @@ void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, 
 //                                                        QString::number( viewDir.y() ) + QString( ", " ) +
 //                                                        QString::number( viewDir.z() ) + QString( " ), " ) );
 
-    //! m_loadedCameraDist = distance;
+    m_loadedCameraDist = distance; // seems to not be necessary
 
-    //m_cameraManipulator->setTransformation ( viewDir * distance + groupC, groupC, osg::Vec3d( 0.0, 1.0, 0.0 ) );
     m_cameraManipulator->setTransformation ( viewDir * distance + center, center, upDir );
 
     m_loadedViewMatrix = m_cameraManipulator->getMatrix();
@@ -618,13 +593,13 @@ void ViewerNode::focusScene()
 
     // let OSG perform the heavy lifting
     osg::Group *groupRootAABB = new osg::Group();
-    //int idx = 0;
+
     for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
-            //groupRootAABB->insertChild( idx++, it.value() );
             groupRootAABB->addChild( it.value() );
     }
     osg::Vec3 groupC = groupRootAABB->getBound().center();
     float groupR = groupRootAABB->getBound().radius();
+
 //    Logger::getInstance()->log(     QString( "[ViewerNode] process() AABB osg: " ) +
 //                                    QString( "( " ) +   QString::number( groupC.x() ) + QString( ", " ) +
 //                                                        QString::number( groupC.y() ) + QString( ", " ) +
@@ -635,11 +610,9 @@ void ViewerNode::focusScene()
     //delete groupRootAABB;
     // delete does not work => ref counted
     for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
-            //groupRootAABB->insertChild( idx++, it.value() );
             groupRootAABB->removeChild( it.value() );
     }
     groupRootAABB->unref();
-
 
     focusSceneObject( groupC, groupR, &m_loadedViewMatrix );
 }
@@ -936,26 +909,23 @@ void ViewerNode::toggleLighting(bool on)
 }
 
 
-void ViewerNode::focusCamera(osg::Vec3 center ,float distance,osg::Matrixd transfo)
-{
-    Logger::getInstance()->log( "[ViewerNode] focusCamera" );
-    //!
-    m_cameraManipulator->setRotation(transfo.getRotate());
-
-    //osg::Quat q;
-    //q.set( transfo.getRotate() );
-    //m_cameraManipulator->setRotation( q );
-
-    m_cameraManipulator->setCenter(center);
-   // m_cameraManipulator->setDistance( distance ); //husky
-}
+//void ViewerNode::focusCamera(osg::Vec3 center ,float distance,osg::Matrixd transfo)
+//{
+//    Logger::getInstance()->log( "[ViewerNode] focusCamera" );
+//    //!
+//    m_cameraManipulator->setRotation(transfo.getRotate());
+//
+//    //osg::Quat q;
+//    //q.set( transfo.getRotate() );
+//    //m_cameraManipulator->setRotation( q );
+//
+//    m_cameraManipulator->setCenter(center);
+//   // m_cameraManipulator->setDistance( distance ); //husky
+//}
 
 void ViewerNode::focusObjectCamera( const osg::Vec3 &center, const float distance, const osg::Matrixd *const transfo )
 {
-    Logger::getInstance()->log( "[ViewerNode] focusObjectCamera" );
-
     focusSceneObject( center, distance, transfo );
-
 }
 
 QString ViewerNode::toString() const
