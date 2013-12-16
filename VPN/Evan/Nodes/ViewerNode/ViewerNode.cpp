@@ -551,14 +551,14 @@ void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, 
 //                                                        QString::number( viewDir.y() ) + QString( ", " ) +
 //                                                        QString::number( viewDir.z() ) + QString( " ), " ) );
 
-    m_loadedCameraDist = distance;
+    //! m_loadedCameraDist = distance;
 
     //m_cameraManipulator->setTransformation ( viewDir * distance + groupC, groupC, osg::Vec3d( 0.0, 1.0, 0.0 ) );
     m_cameraManipulator->setTransformation ( viewDir * distance + center, center, upDir );
 
     m_loadedViewMatrix = m_cameraManipulator->getMatrix();
 
-    m_cameraManipulator->setDistance(m_loadedCameraDist);
+    m_cameraManipulator->setDistance( distance );
 
     toggleProjection( m_projectionMode );
 
