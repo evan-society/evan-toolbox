@@ -534,6 +534,36 @@ void ViewerNode::process()
     focusScene();
 }
 
+void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, const osg::Matrixd &matrix )
+{
+   // now set viewer matrix
+    osg::Matrixd Vmat = matrix;
+    // osg::Matrix::operator() ( int row, int column )
+    osg::Vec3 upDir = osg::Vec3( Vmat( 1, 0 ), Vmat( 1, 1 ), Vmat( 1, 2 ) );
+    osg::Vec3 viewDir = osg::Vec3( Vmat( 2, 0 ), Vmat( 2, 1 ), Vmat( 2, 2 ) );
+    //osg::Vec3 translation = osg::Vec3( Vmat( 0, 3 ), Vmat( 1, 3 ), Vmat( 2, 3 ) );
+
+    float distance = radius * 2.0f;
+
+
+//    Logger::getInstance()->log(     QString( "[ViewerNode] process() viewDir: " ) +
+//                                    QString( "( " ) +   QString::number( viewDir.x() ) + QString( ", " ) +
+//                                                        QString::number( viewDir.y() ) + QString( ", " ) +
+//                                                        QString::number( viewDir.z() ) + QString( " ), " ) );
+
+    m_loadedCameraDist = distance;
+
+    //m_cameraManipulator->setTransformation ( viewDir * distance + groupC, groupC, osg::Vec3d( 0.0, 1.0, 0.0 ) );
+    m_cameraManipulator->setTransformation ( viewDir * distance + center, center, upDir );
+
+    m_loadedViewMatrix = m_cameraManipulator->getMatrix();
+
+    m_cameraManipulator->setDistance(m_loadedCameraDist);
+
+    toggleProjection( m_projectionMode );
+
+}
+
 void ViewerNode::focusScene()
 {
     QMap< IRenderable*, osg::Node* >::const_iterator it;
@@ -604,29 +634,7 @@ void ViewerNode::focusScene()
     groupRootAABB->unref();
 
 
-    // now set viewer matrix
-    osg::Matrixd Vmat = m_loadedViewMatrix;
-    // osg::Matrix::operator() ( int row, int column )
-    osg::Vec3 viewDir = osg::Vec3( Vmat( 2, 0 ), Vmat( 2, 1 ), Vmat( 2, 2 ) );
-    osg::Vec3 translation = osg::Vec3( Vmat( 0, 3 ), Vmat( 1, 3 ), Vmat( 2, 3 ) );
-    float distance = groupR * 2.0f;
-    translation += viewDir * distance + groupC;
-
-//    Logger::getInstance()->log(     QString( "[ViewerNode] process() viewDir: " ) +
-//                                    QString( "( " ) +   QString::number( viewDir.x() ) + QString( ", " ) +
-//                                                        QString::number( viewDir.y() ) + QString( ", " ) +
-//                                                        QString::number( viewDir.z() ) + QString( " ), " ) );
-
-    m_loadedCameraDist = distance;
-
-    m_cameraManipulator->setTransformation ( viewDir * distance + groupC, groupC, osg::Vec3d( 0.0, 1.0, 0.0 ) );
-
-    m_loadedViewMatrix = m_cameraManipulator->getMatrix();
-
-    m_cameraManipulator->setDistance(m_loadedCameraDist);
-
-    toggleProjection( m_projectionMode );
-
+    focusSceneObject( groupC, groupR, m_loadedViewMatrix );
 }
 
 void ViewerNode::removeFromParents(osg::Node* node)
@@ -935,27 +943,12 @@ void ViewerNode::focusCamera(osg::Vec3 center ,float distance,osg::Matrixd trans
    // m_cameraManipulator->setDistance( distance ); //husky
 }
 
-void ViewerNode::focusObjectCamera(osg::Vec3 center ,float distance,osg::Matrixd transfo)
+void ViewerNode::focusObjectCamera( const osg::Vec3 &center, const float distance, const osg::Matrixd &transfo )
 {
     Logger::getInstance()->log( "[ViewerNode] focusObjectCamera" );
-    //!    m_cameraManipulator->setRotation(transfo.getRotate());
 
+    focusSceneObject( center, distance, transfo );
 
-
-    //osg::Quat q;
-    //q.set( transfo.getRotate() );
-    //m_cameraManipulator->setRotation( q );
-
-    m_cameraManipulator->setCenter(center);
-
-    distance *= 2.0f;
-
-   //m_cameraManipulator->setDistance( distance ); //husky
-/*
-   osg::Vec3 up( 0.0, 1.0, 0.0 );
-   osg::Vec3 eye( center.x(), center.y(), center.z() + distance );
-   m_cameraManipulator->setTransformation( eye, center, up );
-*/
 }
 
 QString ViewerNode::toString() const

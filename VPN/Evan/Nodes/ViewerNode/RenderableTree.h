@@ -189,8 +189,6 @@ public slots:
 
     void toggleTexture();
     void changeLineThickness();
-    void slotTreeFocus();
-    void slotCameraObjectFocus();
     void clipGrid(bool);
     void flipClipGrid();
     void deleteClipGrid();
@@ -198,6 +196,10 @@ public slots:
     void checkName(QTreeWidgetItem*, int);
     void updateName();
     void changeAlphaValue();
+
+    //void slotTreeFocus();
+    void slotCameraObjectFocus();
+
 
 signals:
     void renderableReset(IRenderable*);
