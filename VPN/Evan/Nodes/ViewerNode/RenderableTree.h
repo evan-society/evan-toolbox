@@ -209,7 +209,7 @@ signals:
     void rotateManipClicked(osg::ref_ptr<osg::Node>);
     void scaleManipClicked(osg::ref_ptr<osg::Node>);
     void signalFocusCamera(osg::Vec3,float,osg::Matrixd);
-    void signalFocusObjectCamera(osg::Vec3,float,osg::Matrixd);
+    void signalFocusObjectCamera( const osg::Vec3 &center, const float radius, const osg::Matrixd *const matrix = NULL );
     void addClipPlane(osg::ClipPlane*,bool);
     void addMyClipPlane(MyClipPlane*);
     void removeClipPlane(MyClipPlane*);

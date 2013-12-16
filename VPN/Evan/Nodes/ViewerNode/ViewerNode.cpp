@@ -158,8 +158,8 @@ ViewerMainWindow::ViewerMainWindow(ViewerNode* viewer): QMainWindow(), m_viewer(
             m_viewer, SLOT(assignManipulators(RenderableTreeItem*,RenderableTreeItem*)));
     connect(m_renderTable, SIGNAL(signalFocusCamera(osg::Vec3,float,osg::Matrixd)),
             m_viewer, SLOT(focusCamera(osg::Vec3,float,osg::Matrixd)));
-    connect(m_renderTable, SIGNAL(signalFocusObjectCamera(osg::Vec3,float,osg::Matrixd)),
-            m_viewer, SLOT(focusObjectCamera(osg::Vec3,float,osg::Matrixd)));
+    connect(m_renderTable, SIGNAL(signalFocusObjectCamera( const osg::Vec3 &, const float, const osg::Matrixd *const )),
+            m_viewer, SLOT(focusObjectCamera( const osg::Vec3 &, const float, const osg::Matrixd *const )));
     connect(m_renderTable, SIGNAL(addClipPlane(osg::ClipPlane*,bool)),m_viewer,SLOT(addClipPlane(osg::ClipPlane*,bool)));
     connect(m_renderTable, SIGNAL(addMyClipPlane(MyClipPlane*)),m_viewer,SLOT(addMyClipPlane(MyClipPlane*)));
     connect(m_renderTable, SIGNAL(removeManipulator(RenderableTreeItem*)),m_viewer,SLOT(removeManipulator(RenderableTreeItem*)));
@@ -534,10 +534,17 @@ void ViewerNode::process()
     focusScene();
 }
 
-void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, const osg::Matrixd &matrix )
+void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, const osg::Matrixd *const matrix )
 {
    // now set viewer matrix
-    osg::Matrixd Vmat = matrix;
+   osg::Matrixd Vmat;
+   if ( matrix != NULL ) {
+       Vmat = *matrix;
+   } else {
+       Vmat = osg::Matrixd();
+   }
+
+
     // osg::Matrix::operator() ( int row, int column )
     osg::Vec3 upDir = osg::Vec3( Vmat( 1, 0 ), Vmat( 1, 1 ), Vmat( 1, 2 ) );
     osg::Vec3 viewDir = osg::Vec3( Vmat( 2, 0 ), Vmat( 2, 1 ), Vmat( 2, 2 ) );
@@ -634,7 +641,7 @@ void ViewerNode::focusScene()
     groupRootAABB->unref();
 
 
-    focusSceneObject( groupC, groupR, m_loadedViewMatrix );
+    focusSceneObject( groupC, groupR, &m_loadedViewMatrix );
 }
 
 void ViewerNode::removeFromParents(osg::Node* node)
@@ -943,7 +950,7 @@ void ViewerNode::focusCamera(osg::Vec3 center ,float distance,osg::Matrixd trans
    // m_cameraManipulator->setDistance( distance ); //husky
 }
 
-void ViewerNode::focusObjectCamera( const osg::Vec3 &center, const float distance, const osg::Matrixd &transfo )
+void ViewerNode::focusObjectCamera( const osg::Vec3 &center, const float distance, const osg::Matrixd *const transfo )
 {
     Logger::getInstance()->log( "[ViewerNode] focusObjectCamera" );
 

@@ -788,101 +788,12 @@ void RenderableTree::slotCameraObjectFocus()
 
             //m_viewer->focusSceneObject( c, r, const osg::Matrixd &matrix );
             //m_viewer->focusSceneObject( c, r, m_viewerCamera->getViewMatrix() );
-            emit signalFocusObjectCamera( c, r, osg::Matrix() );
+            emit signalFocusObjectCamera( c, r );
 
         Logger::getInstance()->log( " ----- [RenderableTree] slotCameraObjectFocus END ---- " );
 
 }
 
-#if 0
-void RenderableTree::slotCameraObjectFocus()
-{
-    //RenderableTreeItem *root = dynamic_cast<RenderableTreeItem* >( this->invisibleRootItem() );
-    QTreeWidgetItem *root = this->invisibleRootItem();
-    if ( root != NULL ) {
-        Logger::getInstance()->log( "[RenderableTree] counting elements in renderable tree", Logger::INFO );
-
-        int elements = enumTreeItems( root, 0 );
-        QString elementCntStr( "[RenderableTree] selected item count " );
-        elementCntStr.append( QString::number( elements ) );
-        Logger::getInstance()->log( elementCntStr, Logger::INFO );
-        Logger::getInstance()->log( "[RenderableTree] done counting", Logger::INFO );
-        //Logger::getInstance()->log( "[RenderableTree] counting elements in renderable tree", Logger::INFO );
-    } else {
-        Logger::getInstance()->log( "[RenderableTree] root is null", Logger::INFO );
-    }
-
-    //QList< QTreeWidgetItem* > sitems = selectedItems();
-    QList<QTreeWidgetItem*> sitems = findItems( "*", Qt::MatchWildcard | Qt::MatchRecursive );
-
-//    if( sitems == NULL ) {
-//        Logger::getInstance()->log( "[RenderableTree]::slotTreeFocus failed", Logger::WARNING );
-//        return;
-//    }
-    if( sitems.isEmpty() ) {
-        Logger::getInstance()->log( "[RenderableTree] no renderables selected", Logger::WARNING );
-        QString lenStr( "[RenderableTree] selected: " );
-        lenStr.append( QString::number( sitems.size() ) );
-        Logger::getInstance()->log( lenStr, Logger::WARNING );
-        return;
-    } else {
-        QString lenStr( "[RenderableTree] selected through wildcard match: " );
-        lenStr.append( QString::number( sitems.size() ) );
-        Logger::getInstance()->log( lenStr );
-    }
-
-{
-        QString lenStr( "[RenderableTree] 'selected' (not 'checked') items: " );
-        lenStr.append( QString::number( selectedItems().size() ) );
-        Logger::getInstance()->log( lenStr );
-
-}
-
-    //osg::ref_ptr<osg::Node> getItemPtr()    const {return m_itemPtr;}
-    //IRenderable* getItemRenderable()        const {return m_itemRenderable;}
-
-    //RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( sitems.front() );
-    RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
-    if( selected == NULL ) {
-        Logger::getInstance()->log( "[RenderableTree] slotCameraObjectFocus failed", Logger::WARNING );
-        return;
-    } else {
-        Logger::getInstance()->log( "[RenderableTree] slotCameraObjectFocus worked", Logger::INFO );
-    }
-
-
-    if( selected->checkState(0) != Qt::Unchecked ){
-
-        IRenderable *renderableItem = dynamic_cast< IRenderable* >( selected->getItemRenderable() );
-
-        if ( renderableItem != NULL ) { // for all nodes
-
-            osg::Vec3 center;
-            osg::Matrixd mat = renderableItem->getOsgTransform()->getMatrix();
-            center.x()=mat(3,0);
-            center.y()=mat(3,1);
-            center.z()=mat(3,2);
-            float radius = renderableItem->getOsgGeometry()->getBound().radius();
-            QString str( "[RenderableTree] slotCameraObjectFocus  radius = " );
-            str.append( QString::number( radius ) );
-            Logger::getInstance()->log( str, Logger::INFO );
-            //std::cout << "radius = " << radius << std::endl;
-            emit signalFocusObjectCamera( renderableItem->getOsgGeometry()->getBound().center(),
-                                   renderableItem->getOsgGeometry()->getBound().radius(), mat );
-        } else {
-            Logger::getInstance()->log( "[RenderableTree]failed to aquire RenderableTreeItem to focus camera", Logger::WARNING );
-
-            // husky
-            //osg::Matrixd mat = osg::Matrixd::identity();
-            //emit signalFocusCamera( osg::Vec3( 0.01f, 0.01f, 0.01f ), 0.01, mat );
-            //std::cerr << "!dynamic cast failed!" << std::endl;
-
-        }
-    } else {
-        Logger::getInstance()->log( "[RenderableTree] checkState", Logger::INFO );
-    }
-}
-#endif
 
 
 RenderableTreeItem* RenderableTree::getItem(const osg::Node* n)
