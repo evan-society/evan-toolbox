@@ -10,8 +10,6 @@
 #include <osg/ClipPlane>
 #include "DataTypes/Volume.h"
 
-#include "../../Utilities/Logger.h" //husky
-
 
 class IRenderable;
 
@@ -196,8 +194,6 @@ public slots:
     void checkName(QTreeWidgetItem*, int);
     void updateName();
     void changeAlphaValue();
-
-    //void slotTreeFocus();
     void slotCameraObjectFocus();
 
 
@@ -208,7 +204,7 @@ signals:
     void transManipClicked(osg::ref_ptr<osg::Node>);
     void rotateManipClicked(osg::ref_ptr<osg::Node>);
     void scaleManipClicked(osg::ref_ptr<osg::Node>);
-    void signalFocusCamera(osg::Vec3,float,osg::Matrixd);
+//    void signalFocusCamera(osg::Vec3,float,osg::Matrixd);
     void signalFocusObjectCamera( const osg::Vec3 &center, const float radius, const osg::Matrixd *const matrix = NULL );
     void addClipPlane(osg::ClipPlane*,bool);
     void addMyClipPlane(MyClipPlane*);
