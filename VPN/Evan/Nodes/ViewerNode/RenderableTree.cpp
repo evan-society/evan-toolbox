@@ -42,7 +42,10 @@ void RenderableTree::contextMenuEvent(QContextMenuEvent* event)
         QAction* hideAll = getContextMenu()->findChild<QAction *>("hideAll");
         QAction* tex = getContextMenu()->findChild<QAction *>("texture");
         QAction* thick = getContextMenu()->findChild<QAction *>("thickness");
-        QAction* focus = getContextMenu()->findChild<QAction *>("camera");
+
+        //! QAction* focus = getContextMenu()->findChild<QAction *>("camera");
+        QAction* focus = getContextMenu()->findChild<QAction *>("cameraObjectFocus");
+
         QAction* focusObject = getContextMenu()->findChild<QAction *>("cameraObjectFocus");
         QAction* clip = getContextMenu()->findChild<QAction *>("clip");
         QAction* flip = getContextMenu()->findChild<QAction *>("flip");
@@ -290,10 +293,12 @@ void RenderableTree::createContextMenu()
     contextMenu->addAction(lineThickness);
     connect(lineThickness, SIGNAL(triggered()), this, SLOT(changeLineThickness()));
 
+/**
     QAction* focus = new QAction("Focus Camera", contextMenu);
     focus->setObjectName(QString::fromUtf8("camera"));
     contextMenu->addAction(focus);
     connect(focus, SIGNAL(triggered()), this, SLOT(slotTreeFocus()));
+**/
 
     QAction* focusObject = new QAction("Focus Camera on Object", contextMenu);
     focusObject->setObjectName(QString::fromUtf8("cameraObjectFocus"));
@@ -392,11 +397,34 @@ static int enumTreeItemsCheckedTest( QTreeWidgetItem *item, int cnt )
 
 }
 
+
+static int enumTreeItems( QTreeWidgetItem *item, int cnt, QList< QTreeWidgetItem* > *qList = NULL )
+{
+
+    // append to list even if not checked
+    if ( qList != NULL ) {
+        qList->push_back( item );
+    }
+
+    for( int i = 0; i < item->childCount(); ++i ) {
+        cnt = enumTreeItems( item->child( i ), cnt+1, qList );
+    }
+
+    return cnt;
+}
+
 // count checked items only which are under a checked top-level item
 // i.e. checked sub-level items count iff their respecitve top-level
 // item is checked, too
-static int enumTreeItems( QTreeWidgetItem *item, int cnt )
+static int enumCheckedTreeItems( QTreeWidgetItem *item, int cnt, QList< QTreeWidgetItem* > *qList = NULL )
 {
+
+    // append to list even if not checked
+    if ( qList != NULL ) {
+        qList->push_back( item );
+    }
+
+
     for( int i = 0; i < item->childCount(); ++i ) {
 //        if ( item->child( i )->parent() == NULL ) { // top-level item
 //            Logger::getInstance()->log( "enumTreeItems found a top-level item!" );
@@ -415,9 +443,9 @@ static int enumTreeItems( QTreeWidgetItem *item, int cnt )
 
 // count any selected nodes which have all their parents checked up to the root
 //        if ( item->child( i )->checkState( 0 ) != Qt::Unchecked ) {
-//            cnt = enumTreeItems( item->child( i ), cnt+1 );
+//            cnt = enumTreeItems( item->child( i ), cnt+1, qList );
 //        } else { // can nodes not be selected while their children potentially are selected?
-//            cnt = enumTreeItems( item->child( i ), cnt );
+//            cnt = enumTreeItems( item->child( i ), cnt, qList );
 //        }
 
 // NOTE: non-leaf nodes (e.g. 'Ungrouped' in the GPA sample) may also contain renderable data!
@@ -425,9 +453,9 @@ static int enumTreeItems( QTreeWidgetItem *item, int cnt )
 // count selected leaf nodes which have all their parents checked up to the root
         if ( item->child( i )->checkState( 0 ) != Qt::Unchecked ) {
             if ( item->child( i )->childCount() != 0 ) { // 'item' is not a leaf item
-                cnt = enumTreeItems( item->child( i ), cnt );
+                cnt = enumTreeItems( item->child( i ), cnt, qList );
             } else { // a leaf node
-                cnt = enumTreeItems( item->child( i ), cnt+1 );
+                cnt = enumTreeItems( item->child( i ), cnt+1, qList );
                 RenderableTreeItem *ti = dynamic_cast< RenderableTreeItem* >(item);
                 if ( ti != NULL ) {
                    // Logger::getInstance()->log( "could retrieve renderable tree item" );
@@ -439,7 +467,7 @@ static int enumTreeItems( QTreeWidgetItem *item, int cnt )
                 }
             }
         } else { // can nodes not be selected while their children potentially are selected?
-            cnt = enumTreeItems( item->child( i ), cnt );
+            cnt = enumTreeItems( item->child( i ), cnt, qList );
         }
 
     }
@@ -447,7 +475,7 @@ static int enumTreeItems( QTreeWidgetItem *item, int cnt )
 
 }
 
-
+#if 0
 void RenderableTree::slotTreeFocus()
 {
     //RenderableTreeItem *root = dynamic_cast<RenderableTreeItem* >( this->invisibleRootItem() );
@@ -503,6 +531,7 @@ void RenderableTree::slotTreeFocus()
 }
 
 
+#if 0
     //RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( sitems.front() );
     RenderableTreeItem* selected = dynamic_cast< RenderableTreeItem* >( selectedItems().front() );
     if( selected == NULL ) {
@@ -511,6 +540,7 @@ void RenderableTree::slotTreeFocus()
     } else {
         Logger::getInstance()->log( "[RenderableTree] slotTreeFocus worked", Logger::INFO );
     }
+
     if( selected->checkState(0) != Qt::Unchecked ){
         AbstractWarpGrid* warpg = dynamic_cast<AbstractWarpGrid *>( selected->getItemRenderable() );
         RenderableTreeItem *renderableItem = dynamic_cast< RenderableTreeItem* >( selected->getItemRenderable() );
@@ -547,10 +577,115 @@ void RenderableTree::slotTreeFocus()
     } else {
         Logger::getInstance()->log( "[RenderableTree] checkState", Logger::INFO );
     }
+#endif
+
+    {
+        RenderableTreeItem* selected = ( dynamic_cast< RenderableTreeItem* >( selectedItems().front() ) );
+        //selected->getItemPtr()->getNode();
+        //selected->getItemRenderable()->getOsgNode()
+        Logger::getInstance()->log( " ----- [RenderableTree] slotTreeFocus START ---- " );
+        Logger::getInstance()->log( QString( "[RenderableTree] slotTreeFocus " ) + selected->getItemRenderable()->getRenderableName() ); //husky
+
+
+
+        for(int i=0; i<selected->childCount(); ++i)
+        {
+            Logger::getInstance()->log( QString( "[RenderableTree] slotTreeFocus " ) + dynamic_cast< RenderableTreeItem* >( selected->child(i) )->getItemRenderable()->getRenderableName() ); //husky
+
+//            selected->child(i)->setSelected(true);
+//            onShowAction();
+//            selected->child(i)->setCheckState(0, Qt::Checked);
+//            selected->child(i)->setSelected(false);
+        }
+
+        Logger::getInstance()->log( " ----- [RenderableTree] slotTreeFocus END ---- " );
+
+    }
+    //this->currentItem();
+
+}
+#endif
+
+
+void RenderableTree::slotCameraObjectFocus()
+{
+        QTreeWidgetItem *qItem = this->currentItem();
+        if ( qItem == NULL ) {
+            return;
+        }
+
+        RenderableTreeItem *rItem = dynamic_cast< RenderableTreeItem* >( qItem );
+        VolumeRenderableTreeItem *vItem = dynamic_cast< VolumeRenderableTreeItem* >( qItem );
+        if ( ( rItem == NULL ) && ( vItem == NULL ) ) {
+                return;
+        }
+
+        Logger::getInstance()->log( " ----- [RenderableTree] slotCameraObjectFocus START ---- " );
+        /*
+        QString renderableName( "?Unknown Renderable Name?" );
+        if ( rItem != NULL ) {
+            renderableName = rItem->getItemRenderable()->getRenderableName();
+        } else if ( vItem != NULL ) {
+            renderableName = vItem->getVolumeRenderable()->getRenderableName();
+        }
+        Logger::getInstance()->log( QString( "[RenderableTree] slotCameraObjectFocus - " ) + renderableName );
+*/
+
+
+
+        QList< QTreeWidgetItem* > qItemList;
+        int subTreeItemCnt = enumTreeItems( qItem, 1, &qItemList);
+        Logger::getInstance()->log( QString( "Subtree Item Count: " ) + QString::number( subTreeItemCnt ) );
+        /**
+        QTreeWidgetItem *qTempItem = NULL;
+        int childCount = qItem->childCount();
+        for ( int i = 0; i < childCount; ++i ) {
+
+            qTempItem = qItem->child( i );
+            RenderableTreeItem *rTempItem = dynamic_cast< RenderableTreeItem* >( qTempItem );
+            VolumeRenderableTreeItem *vTempItem = dynamic_cast< VolumeRenderableTreeItem* >( qTempItem );
+
+            Logger::getInstance()->log( QString( "  [RenderableTree] slotCameraObjectFocus - " ) +
+                                        ( ( rTempItem != NULL ) ?
+                                        rTempItem->getItemRenderable()->getRenderableName() :
+                                        vTempItem->getVolumeRenderable()->getRenderableName() ) );
+
+        }
+**/
+        QList< QTreeWidgetItem* >::iterator endIt = qItemList.end();
+        for ( QList< QTreeWidgetItem* >::iterator it = qItemList.begin(); it != endIt; ++it ) {
+
+            RenderableTreeItem *rTempItem = dynamic_cast< RenderableTreeItem* >( *it );
+            VolumeRenderableTreeItem *vTempItem = dynamic_cast< VolumeRenderableTreeItem* >( *it );
+
+            Logger::getInstance()->log( QString( "  [RenderableTree] slotCameraObjectFocus - " ) +
+                                        ( ( rTempItem != NULL ) ?
+                                        rTempItem->getItemRenderable()->getRenderableName() :
+                                        vTempItem->getVolumeRenderable()->getRenderableName() ) );
+        }
+
+        Logger::getInstance()->log( " ----- [RenderableTree] slotCameraObjectFocus END ---- " );
+
+
+/*
+        if ( renderItem != NULL ) {
+                // is a render item
+                renderItem->getItemRenderable()->getRenderableName()
+        } else {
+            VolumeRenderableTreeItem *volumeItem = dynamic_cast< VolumeRenderableTreeItem* >( qItem );
+
+            if ( volumeItem != NULL ) {
+                    // is a volume item
+
+            } else {
+                // neither RenderableTreeItem nor VolumeRenderableTreeItem
+                return;
+            }
+        }
+*/
 }
 
-
-
+#if 0
 void RenderableTree::slotCameraObjectFocus()
 {
     //RenderableTreeItem *root = dynamic_cast<RenderableTreeItem* >( this->invisibleRootItem() );
@@ -619,7 +754,7 @@ void RenderableTree::slotCameraObjectFocus()
             center.y()=mat(3,1);
             center.z()=mat(3,2);
             float radius = renderableItem->getOsgGeometry()->getBound().radius();
-            QString str( "  radius = " );
+            QString str( "[RenderableTree] slotCameraObjectFocus  radius = " );
             str.append( QString::number( radius ) );
             Logger::getInstance()->log( str, Logger::INFO );
             //std::cout << "radius = " << radius << std::endl;
@@ -638,7 +773,7 @@ void RenderableTree::slotCameraObjectFocus()
         Logger::getInstance()->log( "[RenderableTree] checkState", Logger::INFO );
     }
 }
-
+#endif
 
 
 RenderableTreeItem* RenderableTree::getItem(const osg::Node* n)
