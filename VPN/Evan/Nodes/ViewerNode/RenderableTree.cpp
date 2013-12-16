@@ -375,6 +375,8 @@ void RenderableTree::changeLineThickness()
     }
 }
 
+
+
 static int enumTreeItemsCheckedTest( QTreeWidgetItem *item, int cnt )
 {
 
@@ -474,6 +476,114 @@ static int enumCheckedTreeItems( QTreeWidgetItem *item, int cnt, QList< QTreeWid
     return cnt;
 
 }
+
+
+static void determineBoundingSphere(    const QList< QTreeWidgetItem* > &items,
+                                        osg::BoundingSphere &bound )
+{
+    osg::Group *groupRootAABB = new osg::Group();
+
+    QList< QTreeWidgetItem* >::const_iterator endIt = items.end();
+    for ( QList< QTreeWidgetItem* >::const_iterator it = items.begin(); it != endIt; ++it ) {
+
+        RenderableTreeItem *rTempItem = dynamic_cast< RenderableTreeItem* >( *it );
+        VolumeRenderableTreeItem *vTempItem = dynamic_cast< VolumeRenderableTreeItem* >( *it );
+
+        if ( rTempItem != NULL ) {
+            groupRootAABB->addChild( rTempItem->getItemRenderable()->getOsgNode() );
+        } else if ( vTempItem != NULL ) {
+            groupRootAABB->addChild( vTempItem->getVolumeRenderable()->getOsgNode() );
+        } else {
+            continue;
+        }
+
+    }
+
+    bound = groupRootAABB->getBound();
+
+    //delete groupRootAABB;
+    // delete does not work => ref counted
+    for ( QList< QTreeWidgetItem* >::const_iterator it = items.begin(); it != endIt; ++it ) {
+        RenderableTreeItem *rTempItem = dynamic_cast< RenderableTreeItem* >( *it );
+        VolumeRenderableTreeItem *vTempItem = dynamic_cast< VolumeRenderableTreeItem* >( *it );
+
+        if ( rTempItem != NULL ) {
+            groupRootAABB->removeChild( rTempItem->getItemRenderable()->getOsgNode() );
+        } else if ( vTempItem != NULL ) {
+            groupRootAABB->removeChild( vTempItem->getVolumeRenderable()->getOsgNode() );
+        } else {
+            continue;
+        }
+    }
+
+    groupRootAABB->unref();
+}
+
+static void determineAABB(  const QList< QTreeWidgetItem* > &items,
+                            osg::Vec3 &minAABB,
+                            osg::Vec3 &maxAABB )
+{
+    minAABB = osg::Vec3( +FLT_MAX, +FLT_MAX, +FLT_MAX );
+    maxAABB = osg::Vec3( -FLT_MAX, -FLT_MAX, -FLT_MAX );
+
+    // manually determine AABB
+
+    QList< QTreeWidgetItem* >::const_iterator endIt = items.end();
+    for ( QList< QTreeWidgetItem* >::const_iterator it = items.begin(); it != endIt; ++it ) {
+    //for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
+
+        RenderableTreeItem *rTempItem = dynamic_cast< RenderableTreeItem* >( *it );
+        VolumeRenderableTreeItem *vTempItem = dynamic_cast< VolumeRenderableTreeItem* >( *it );
+
+        osg::BoundingSphere bound;
+
+        if ( rTempItem != NULL ) {
+                bound = rTempItem->getItemRenderable()->getOsgGeometry()->getBound();
+        } else if ( vTempItem != NULL ) {
+            bound = vTempItem->getVolumeRenderable()->getOsgGeometry()->getBound();
+        } else {
+            continue;
+        }
+
+        float r = bound.radius();
+        osg::Vec3 c = bound.center();
+
+        osg::Vec3 rVec = osg::Vec3( r, r, r );
+        osg::Vec3 minC = c - rVec;
+        osg::Vec3 maxC = c + rVec;
+
+        if ( minC.x() < minAABB.x() ) {
+            minAABB.x() = minC.x();
+        }
+        if ( minC.y() < minAABB.y() ) {
+            minAABB.y() = minC.y();
+        }
+        if ( minC.z() < minAABB.z() ) {
+            minAABB.z() = minC.z();
+        }
+
+        if ( maxC.x() > maxAABB.x() ) {
+            maxAABB.x() = maxC.x();
+        }
+        if ( maxC.y() > maxAABB.y() ) {
+            maxAABB.y() = maxC.y();
+        }
+        if ( maxC.z() > maxAABB.z() ) {
+            maxAABB.z() = maxC.z();
+        }
+    }
+
+//    Logger::getInstance()->log(     QString( "[RenderableTree] determineAABB: " ) +
+//                                    QString( "( " ) +   QString::number( minAABB.x() ) + QString( ", " ) +
+//                                                        QString::number( minAABB.y() ) + QString( ", " ) +
+//                                                        QString::number( minAABB.z() ) + QString( " ), " ) +
+//                                    QString( "( " ) +   QString::number( maxAABB.x() ) + QString( ", " ) +
+//                                                        QString::number( maxAABB.y() ) + QString( ", " ) +
+//                                                        QString::number( maxAABB.z() ) + QString( " )" )  );
+
+}
+
+
 
 #if 0
 void RenderableTree::slotTreeFocus()
@@ -621,68 +731,63 @@ void RenderableTree::slotCameraObjectFocus()
         }
 
         Logger::getInstance()->log( " ----- [RenderableTree] slotCameraObjectFocus START ---- " );
-        /*
-        QString renderableName( "?Unknown Renderable Name?" );
-        if ( rItem != NULL ) {
-            renderableName = rItem->getItemRenderable()->getRenderableName();
-        } else if ( vItem != NULL ) {
-            renderableName = vItem->getVolumeRenderable()->getRenderableName();
-        }
-        Logger::getInstance()->log( QString( "[RenderableTree] slotCameraObjectFocus - " ) + renderableName );
-*/
-
-
 
         QList< QTreeWidgetItem* > qItemList;
         int subTreeItemCnt = enumTreeItems( qItem, 1, &qItemList);
         Logger::getInstance()->log( QString( "Subtree Item Count: " ) + QString::number( subTreeItemCnt ) );
-        /**
-        QTreeWidgetItem *qTempItem = NULL;
-        int childCount = qItem->childCount();
-        for ( int i = 0; i < childCount; ++i ) {
 
-            qTempItem = qItem->child( i );
-            RenderableTreeItem *rTempItem = dynamic_cast< RenderableTreeItem* >( qTempItem );
-            VolumeRenderableTreeItem *vTempItem = dynamic_cast< VolumeRenderableTreeItem* >( qTempItem );
+        //osg::Vec3 minAABB, maxAABB;
+        //determineAABB( qItemList, minAABB, maxAABB );
+        osg::BoundingSphere itemBound;
+        determineBoundingSphere( qItemList, itemBound );
 
-            Logger::getInstance()->log( QString( "  [RenderableTree] slotCameraObjectFocus - " ) +
-                                        ( ( rTempItem != NULL ) ?
-                                        rTempItem->getItemRenderable()->getRenderableName() :
-                                        vTempItem->getVolumeRenderable()->getRenderableName() ) );
-
-        }
-**/
         QList< QTreeWidgetItem* >::iterator endIt = qItemList.end();
         for ( QList< QTreeWidgetItem* >::iterator it = qItemList.begin(); it != endIt; ++it ) {
 
             RenderableTreeItem *rTempItem = dynamic_cast< RenderableTreeItem* >( *it );
             VolumeRenderableTreeItem *vTempItem = dynamic_cast< VolumeRenderableTreeItem* >( *it );
 
-            Logger::getInstance()->log( QString( "  [RenderableTree] slotCameraObjectFocus - " ) +
-                                        ( ( rTempItem != NULL ) ?
-                                        rTempItem->getItemRenderable()->getRenderableName() :
-                                        vTempItem->getVolumeRenderable()->getRenderableName() ) );
+            osg::BoundingSphere bound;
+
+            if ( rTempItem != NULL ) {
+                    Logger::getInstance()->log( QString( "  [RenderableTree] slotCameraObjectFocus - " ) +
+                                                rTempItem->getItemRenderable()->getRenderableName() );
+
+                    //rTempItem->getItemPtr()
+                    //rTempItem->getItemRenderable()->getOsgNode()
+                    bound = rTempItem->getItemRenderable()->getOsgGeometry()->getBound();
+            } else if ( vTempItem != NULL ) {
+                    Logger::getInstance()->log( QString( "  [RenderableTree] slotCameraObjectFocus - " ) +
+                                                vTempItem->getVolumeRenderable()->getRenderableName() );
+
+                    //rTempItem->getItemPtr()
+                    //rTempItem->getItemRenderable()->getOsgNode()
+                    bound = vTempItem->getVolumeRenderable()->getOsgGeometry()->getBound();
+            } else {
+                continue;
+            }
+
+//            float r = bound.radius();
+//            osg::Vec3 c = bound.center();
+//
+//            Logger::getInstance()->log(     QString( "[RenderableTree] slotCameraObjectFocus() center: " ) +
+//                                            QString( "( " ) +   QString::number( c.x() ) + QString( ", " ) +
+//                                                                QString::number( c.y() ) + QString( ", " ) +
+//                                                                QString::number( c.z() ) + QString( " ), " ) +
+//                                            QString( "radius = " ) + QString::number( r ) );
+
         }
+
+            float r = itemBound.radius();
+            osg::Vec3 c = itemBound.center();
+            Logger::getInstance()->log(     QString( "[RenderableTree] slotCameraObjectFocus() center: " ) +
+                                            QString( "( " ) +   QString::number( c.x() ) + QString( ", " ) +
+                                                                QString::number( c.y() ) + QString( ", " ) +
+                                                                QString::number( c.z() ) + QString( " ), " ) +
+                                            QString( "radius = " ) + QString::number( r ) );
 
         Logger::getInstance()->log( " ----- [RenderableTree] slotCameraObjectFocus END ---- " );
 
-
-/*
-        if ( renderItem != NULL ) {
-                // is a render item
-                renderItem->getItemRenderable()->getRenderableName()
-        } else {
-            VolumeRenderableTreeItem *volumeItem = dynamic_cast< VolumeRenderableTreeItem* >( qItem );
-
-            if ( volumeItem != NULL ) {
-                    // is a volume item
-
-            } else {
-                // neither RenderableTreeItem nor VolumeRenderableTreeItem
-                return;
-            }
-        }
-*/
 }
 
 #if 0
