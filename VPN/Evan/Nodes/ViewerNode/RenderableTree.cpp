@@ -786,6 +786,10 @@ void RenderableTree::slotCameraObjectFocus()
                                                                 QString::number( c.z() ) + QString( " ), " ) +
                                             QString( "radius = " ) + QString::number( r ) );
 
+            //m_viewer->focusSceneObject( c, r, const osg::Matrixd &matrix );
+            //m_viewer->focusSceneObject( c, r, m_viewerCamera->getViewMatrix() );
+            emit signalFocusObjectCamera( c, r, osg::Matrix() );
+
         Logger::getInstance()->log( " ----- [RenderableTree] slotCameraObjectFocus END ---- " );
 
 }
