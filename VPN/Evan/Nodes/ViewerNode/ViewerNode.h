@@ -130,7 +130,7 @@ public:
     void stopTimer()   {if (m_refreshTimer.isActive()) m_refreshTimer.stop();}
     void startTimer()  {if (!m_refreshTimer.isActive()) m_refreshTimer.start(10);}
     void focusScene();
-    void focusSceneObject( const osg::Vec3 &center, const float radius, const osg::Matrixd &matrix );
+    void focusSceneObject( const osg::Vec3 &center, const float radius, const osg::Matrixd *const matrix = NULL );
 
 public slots:
     void setStereo(bool on, osg::DisplaySettings::StereoMode mode)
@@ -154,7 +154,7 @@ public slots:
     void toggleProjection(bool);
     void toggleLighting(bool);
     void focusCamera(osg::Vec3,float,osg::Matrixd); // the old one - seems to focus only on Warpgrid
-    void focusObjectCamera( const osg::Vec3 &center, const float radius, const osg::Matrixd &matrix );
+    void focusObjectCamera( const osg::Vec3 &center, const float distance, const osg::Matrixd *const transfo = NULL );
     void addClipPlane(osg::ClipPlane*,bool);
     void clipXYplane();
     void clipXZplane();
