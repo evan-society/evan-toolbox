@@ -870,7 +870,6 @@ void ImportNode::process()
         else if (lineEdit_6->text().right(4).toLower() == ".obj")
             loaded = importObj(lineEdit_6->text());
         else {
-            Logger::getInstance()->log("[Import Node] taking branch",Logger::INFO);
             loaded = m_surface->initialize("Imported Surface", lineEdit_6->text());
             if ( !loaded ) {
                 Logger::getInstance()->log("[Import Node] branch: failed to load surface",Logger::WARNING);
@@ -1813,7 +1812,7 @@ void ImportNode::importLmkTags()
             if (specimenCount && tagCount && lmkCount)
             {
 				int value = 0;
-				
+
                 Matrix<bool> tagValues(lmkCount,tagCount);
                 for (int i=0; i<specimenCount; ++i)
                 {
