@@ -551,6 +551,9 @@ void ViewerNode::focusScene()
     QMap< IRenderable*, osg::Node* >::const_iterator it;
     QMap< IRenderable*, osg::Node* >::const_iterator itEnd = m_currentScene.end();
 
+    QMap< Volumes*, osgVolume::Volume* >::const_iterator itVol;
+    QMap< Volumes*, osgVolume::Volume* >::const_iterator itVolEnd = m_currentVolumeScene.end();
+
 //    osg::Vec3 minAABB( +FLT_MAX, +FLT_MAX, +FLT_MAX );
 //    osg::Vec3 maxAABB( -FLT_MAX, -FLT_MAX, -FLT_MAX );
 //
@@ -597,6 +600,10 @@ void ViewerNode::focusScene()
     for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
             groupRootAABB->addChild( it.value() );
     }
+    for ( itVol = m_currentVolumeScene.begin() ; itVol != itVolEnd; ++itVol ) {
+            groupRootAABB->addChild( itVol.value() );
+    }
+
     osg::Vec3 groupC = groupRootAABB->getBound().center();
     float groupR = groupRootAABB->getBound().radius();
 
@@ -612,6 +619,10 @@ void ViewerNode::focusScene()
     for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
             groupRootAABB->removeChild( it.value() );
     }
+    for ( itVol = m_currentVolumeScene.begin() ; itVol != itVolEnd; ++itVol ) {
+            groupRootAABB->removeChild( itVol.value() );
+    }
+
     groupRootAABB->unref();
 
     focusSceneObject( groupC, groupR, &m_loadedViewMatrix );
