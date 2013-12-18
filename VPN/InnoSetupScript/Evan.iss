@@ -2,7 +2,7 @@
 ;Source: ..\Evan\*.*; Excludes: "dEvan.exe,EvanDebug.exe,EvanQTC.exe,NodeWizard.exe,*.bat,*.qrc,*d4.dll,qwtd5.dll,qwtplot3dd.dll,*.h,*.cpp,Makefile*,*.ltb,*.dat,*.txt,.cproject,.project,Evan.cbp,Evan.depend,Evan.layout,Evan.pro*,Evan.rc,Evan.workspace,*.rar,object_script.*,package-osx"; DestDir: {app}\Evan\
 Source: ..\Evan\Evan.exe; DestDir: {app}\Evan\
 ;Source: ..\Evan\startEvan.bat; DestDir: {app}\Evan\
-Source: ..\Evan\*.dll; Excludes: "Qt*d4.dll,qjpegd4.dll,qwtd5.dll,qwtplot3dd.dll"; DestDir: {app}\Evan\
+Source: ..\Evan\*.dll; Excludes: "Qt*d4.dll,qwtd5.dll,qwtplot3dd.dll"; DestDir: {app}\Evan\
 ;Source: ..\Evan\Nodes\*.*; DestDir: {app}\Evan\Nodes\
 Source: ..\Evan\Nodes\Nodes.xml; DestDir: {app}\Evan\Nodes\
 Source: ..\Evan\Shaders\*.*; DestDir: {app}\Evan\Shaders\
@@ -10,7 +10,7 @@ Source: ..\Evan\Images\*.*; DestDir: {app}\Evan\Images\
 ;Source: ..\Evan\Examples\*.*; Excludes: "-*,Templand\-*,Templand\10LM&15sLMcurve"; DestDir: {app}\Evan\Examples\
 Source: ..\Evan\license\*.txt; DestDir: {app}\Evan\
 Source: ..\Evan\Manuals\*.*; DestDir: {app}\Evan\Manuals
-Source: ..\Evan\QtPlugins\*.*; DestDir: {app}\Evan\QtPlugins
+Source: ..\Evan\QtPlugins\*.*; Excludes: "*d4.dll"; DestDir: {app}\Evan\QtPlugins; Flags: recursesubdirs
 [Dirs]
 Name: {app}\Evan
 Name: {app}\Evan\Examples
