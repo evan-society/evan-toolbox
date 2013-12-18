@@ -123,6 +123,25 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), m_activeProject(NU
         updateRecentFileActions();
     }
 
+// add specific subfolder in which qt plugins shall be searched
+//    Logger::getInstance()->log( QCoreApplication::applicationDirPath() );
+//    Logger::getInstance()->log( QCoreApplication::applicationDirPath() + "/QtPlugins" );
+//    Logger::getInstance()->log( QCoreApplication::applicationDirPath() + "/../QtPlugins" );
+
+    QDir qd;
+//    Logger::getInstance()->log( qd.dirName() );
+//    Logger::getInstance()->log( qd.absolutePath() );
+//    Logger::getInstance()->log( qd.dirName() + "/QtPlugins" );
+//    Logger::getInstance()->log( qd.absolutePath() + "/QtPlugins" );
+
+// basically the first path should do, but it does not hurt to specify further (~identical) search pathes
+    QCoreApplication::addLibraryPath( qd.absolutePath() + "/QtPlugins" );
+    QCoreApplication::addLibraryPath( QCoreApplication::applicationDirPath() + "/QtPlugins" );
+    QCoreApplication::addLibraryPath( QCoreApplication::applicationDirPath() + "/../QtPlugins" ); // when launched from C::B the path is /debug or /release, so we have to '..' once
+    QCoreApplication::addLibraryPath( qd.dirName() + "/QtPlugins" );
+
+
+
     crashBugHack(); // only once at startup
 }
 
