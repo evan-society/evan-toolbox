@@ -534,8 +534,6 @@ int checkForLicense()
     if(qd.exists("license.dat"))
 #endif
     {
-        Logger::getInstance()->log( QString( "Opening " ) + qd.filePath( "license.dat" ) );
-
         QStringList keys;
         string str;
         ifstream infile;

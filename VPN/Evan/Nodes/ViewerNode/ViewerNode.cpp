@@ -519,8 +519,10 @@ void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, 
    if ( matrix != NULL ) {
        Vmat = *matrix;
    } else {
-       Vmat = osg::Matrixd();
+       // no matter which matrix is passed into this method, use the current camera manipulator matrix
+       Vmat = m_cameraManipulator->getMatrix();
    }
+
 
     // osg::Matrix::operator() ( int row, int column )
     osg::Vec3 upDir = osg::Vec3( Vmat( 1, 0 ), Vmat( 1, 1 ), Vmat( 1, 2 ) );
@@ -533,6 +535,8 @@ void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, 
 //                                    QString( "( " ) +   QString::number( viewDir.x() ) + QString( ", " ) +
 //                                                        QString::number( viewDir.y() ) + QString( ", " ) +
 //                                                        QString::number( viewDir.z() ) + QString( " ), " ) );
+
+//osg::Matrix::lookAt (const Vec3f &eye, const Vec3f &center, const Vec3f &up)
 
     m_loadedCameraDist = distance; // seems to not be necessary
 
