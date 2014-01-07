@@ -594,7 +594,12 @@
 		<Unit filename="Utilities/sha1.cpp" />
 		<Unit filename="Utilities/sha1.h" />
 		<Extensions>
-			<code_completion />
+			<code_completion>
+				<search_path add="..\..\external\qwtplot3d-0.2.7\include" />
+				<search_path add="..\..\external\qwt-5.2\include" />
+				<search_path add="..\..\external\OSG-3.0.1\include" />
+				<search_path add="$(#qt4.include)" />
+			</code_completion>
 			<debugger>
 				<search_path add="E:\TDM-GCC-32\bin" />
 			</debugger>
