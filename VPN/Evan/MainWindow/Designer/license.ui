@@ -19,15 +19,17 @@
       <bool>true</bool>
      </property>
      <property name="plainText" >
-      <string>Copyright © 2010
+      <string>Copyright © 2014
 
-The copyright of the EVAN Toolbox belongs to the University of Hull and the University of York.
-The copyright of the GMM Library belongs to the University of Hull and the University of York.
+The copyright of the EVAN Toolbox belongs to the University of Hull, the University of York
+and the University of Vienna.
+The copyright of the GMM Library belongs to the University of Hull, the University of York
+and the University of Vienna.
 The copyright of the Edgewarp Library belongs to William D K Green and the University of Vienna.
 
 All rights reserved.
 
-EVAN Toolbox, TempLand are trademarks of the EVAN Society.
+EVAN Toolbox, TempLand are trademarks of the EVAN Society (http://www.evan-society.org/)
 
 All other trademarks and trade names used here are acknowledged to belong to
 their respective owners.
@@ -36,7 +38,7 @@ The EVAN Toolbox is provided 'as-is', without any express or implied warranty.
 In no event will the authors of the software be held liable for any damages 
 arising from the use of this software.
 
-The EVAn Toolbox is provided here under the terms of the GNU Public License (version 2).
+The EVAN Toolbox is provided here under the terms of the GNU Public License (version 2).
 
 A copy of the GNU Public License is available from the license page of 
 the www.evan-society.org website.

@@ -1,10 +1,9 @@
 /********************************************************************************
-** Form generated from reading ui file 'license.ui'
+** Form generated from reading UI file 'license.ui'
 **
-** Created: Fri 2. Apr 21:22:28 2010
-**      by: Qt User Interface Compiler version 4.4.3
+** Created by: Qt User Interface Compiler version 4.8.5
 **
-** WARNING! All changes made in this file will be lost when recompiling ui file!
+** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
 #ifndef UI_LICENSE_H
@@ -16,6 +15,7 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDialog>
 #include <QtGui/QGridLayout>
+#include <QtGui/QHeaderView>
 #include <QtGui/QPlainTextEdit>
 
 QT_BEGIN_NAMESPACE
@@ -28,35 +28,37 @@ public:
 
     void setupUi(QDialog *LicenseDialog)
     {
-    if (LicenseDialog->objectName().isEmpty())
-        LicenseDialog->setObjectName(QString::fromUtf8("LicenseDialog"));
-    LicenseDialog->resize(518, 329);
-    gridLayout = new QGridLayout(LicenseDialog);
-    gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-    plainTextEdit = new QPlainTextEdit(LicenseDialog);
-    plainTextEdit->setObjectName(QString::fromUtf8("plainTextEdit"));
-    plainTextEdit->setReadOnly(true);
+        if (LicenseDialog->objectName().isEmpty())
+            LicenseDialog->setObjectName(QString::fromUtf8("LicenseDialog"));
+        LicenseDialog->resize(518, 329);
+        gridLayout = new QGridLayout(LicenseDialog);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        plainTextEdit = new QPlainTextEdit(LicenseDialog);
+        plainTextEdit->setObjectName(QString::fromUtf8("plainTextEdit"));
+        plainTextEdit->setReadOnly(true);
 
-    gridLayout->addWidget(plainTextEdit, 0, 0, 1, 1);
+        gridLayout->addWidget(plainTextEdit, 0, 0, 1, 1);
 
 
-    retranslateUi(LicenseDialog);
+        retranslateUi(LicenseDialog);
 
-    QMetaObject::connectSlotsByName(LicenseDialog);
+        QMetaObject::connectSlotsByName(LicenseDialog);
     } // setupUi
 
     void retranslateUi(QDialog *LicenseDialog)
     {
-    LicenseDialog->setWindowTitle(QApplication::translate("LicenseDialog", "EVAN Toolbox License", 0, QApplication::UnicodeUTF8));
-    plainTextEdit->setPlainText(QApplication::translate("LicenseDialog", "Copyright \302\251 2010\n"
+        LicenseDialog->setWindowTitle(QApplication::translate("LicenseDialog", "EVAN Toolbox License", 0, QApplication::UnicodeUTF8));
+        plainTextEdit->setPlainText(QApplication::translate("LicenseDialog", "Copyright \302\251 2014\n"
 "\n"
-"The copyright of the EVAN Toolbox belongs to the University of Hull and the University of York.\n"
-"The copyright of the GMM Library belongs to the University of Hull and the University of York.\n"
+"The copyright of the EVAN Toolbox belongs to the University of Hull, the University of York\n"
+"and the University of Vienna.\n"
+"The copyright of the GMM Library belongs to the University of Hull, the University of York\n"
+"and the University of Vienna.\n"
 "The copyright of the Edgewarp Library belongs to William D K Green and the University of Vienna.\n"
 "\n"
 "All rights reserved.\n"
 "\n"
-"EVAN Toolbox, TempLand are trademarks of the EVAN Society.\n"
+"EVAN Toolbox, TempLand are trademarks of the EVAN Society (http://www.evan-society.org/)\n"
 "\n"
 "All other trademarks and trade names used here are acknowledged to belong to\n"
 "their respective owners.\n"
@@ -65,13 +67,13 @@ public:
 "In no event will the authors of the software be held liable for any damages \n"
 "arising from the use of this software.\n"
 "\n"
-"The EVAn Toolbox is provided here under the terms of the GNU Public License (version 2).\n"
+"The EVAN Toolbox is provided here under the terms of the GNU Public License (version 2).\n"
 "\n"
 "A copy of the GNU Public License is available from the license page of \n"
-"the www.evan-society.org website.\n"
+""
+                        "the www.evan-society.org website.\n"
 "\n"
-"_____________________________________________"
-        "__________________________\n"
+"_______________________________________________________________________\n"
 "The EVAN Toolbox software uses the OpenGL \302\256 graphics library.\n"
 "\n"
 "_______________________________________________________________________\n"
@@ -89,9 +91,9 @@ public:
 "\n"
 "_______________________________________________________________________\n"
 "Qwt Copyright \302\251 \n"
-"The EVAN Toolbox is based in part on the work of the Qwt project (http://qwt.sf.net).\n"
-"Qwt. Qwt is provid"
-        "ed under the terms of the Qwt license which is based on the LGPL license.\n"
+"The EVAN Toolbox is "
+                        "based in part on the work of the Qwt project (http://qwt.sf.net).\n"
+"Qwt. Qwt is provided under the terms of the Qwt license which is based on the LGPL license.\n"
 "\n"
 "_______________________________________________________________________\n"
 "Qwtplot3d   Copyright \302\251  2003-2005 Michael Bieber\n"
@@ -109,10 +111,10 @@ public:
 "  freely, subject to the following restrictions:\n"
 "\n"
 "  1. The origin of this software must not be misrepresented; you must not\n"
-"     claim that you wrote the original software. If you use this software\n"
+"     claim that you wrote the original software. If you use this software"
+                        "\n"
 "     in a product, an acknowledgment in the product documentation would be\n"
-"    "
-        " appreciated but is not required.\n"
+"     appreciated but is not required.\n"
 "  2. Altered source versions must be plainly marked as such, and must not be\n"
 "     misrepresented as being the original software.\n"
 "  3. This notice may not be removed or altered from any source distribution.\n"
@@ -129,10 +131,10 @@ public:
 "in the Software without restriction, including without limitation the rights\n"
 "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n"
 "copies of the Software, and to permit persons to whom the Software is\n"
-"furnished to do so, subject to the following conditions:\n"
+"furnished to do so, subj"
+                        "ect to the following conditions:\n"
 "\n"
-"The above copyright notice and this permission"
-        " notice shall be included in\n"
+"The above copyright notice and this permission notice shall be included in\n"
 "all copies or substantial portions of the Software.\n"
 "\n"
 "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n"
@@ -152,9 +154,9 @@ public:
 "The MIT License\n"
 "\n"
 "Permission is hereby granted, free of charge, to any person obtaining a copy\n"
-"of this software and associated documentation files (the \"Software\"), to deal\n"
-"in the Softw"
-        "are without restriction, including without limitation the rights\n"
+"of this "
+                        "software and associated documentation files (the \"Software\"), to deal\n"
+"in the Software without restriction, including without limitation the rights\n"
 "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n"
 "copies of the Software, and to permit persons to whom the Software is\n"
 "furnished to do so, subject to the following conditions:\n"
@@ -170,9 +172,9 @@ public:
 "OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n"
 "THE SOFTWARE.\n"
 "\n"
-"_______________________________________________________________________\n"
-"Lapack  Copyright \302\251"
-        " 1992-2008 The University of Tennessee.  All rights reserved.\n"
+"______________"
+                        "_________________________________________________________\n"
+"Lapack  Copyright \302\251 1992-2008 The University of Tennessee.  All rights reserved.\n"
 "\n"
 "The EVAN Toolbox uses Lapack which is provided under the terms of the license below. \n"
 "\n"
@@ -195,11 +197,11 @@ public:
 "  provided with the distribution.\n"
 "  \n"
 "- Neither the name of the copyright holders nor the names of its\n"
-"  contributors may be used to endorse or promote products derived from\n"
+"  contributors may be used to endorse or promote products d"
+                        "erived from\n"
 "  this software without specific prior written permission.\n"
 "  \n"
-"TH"
-        "IS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"
+"THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"
 "\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT  \n"
 "LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n"
 "A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT \n"
@@ -214,12 +216,12 @@ public:
 "_______________________________________________________________________\n"
 "gdtoa\n"
 "\n"
-"The EVAN Toolbox uses a modified version of the gdtoa libary. \n"
+"The EVAN Toolbox uses a modified ver"
+                        "sion of the gdtoa libary. \n"
 "\n"
 "Below is the copyright notice from gdtoa.tgz:\n"
 "\n"
-""
-        "/****************************************************************\n"
+"/****************************************************************\n"
 "Copyright \302\251 1997-2001 Lucent Technologies\n"
 "All Rights Reserved\n"
 "\n"
@@ -236,9 +238,9 @@ public:
 "LUCENT DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,\n"
 "INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.\n"
 "IN NO EVENT SHALL LUCENT OR ANY OF ITS ENTITIES BE LIABLE FOR ANY\n"
-"SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES\n"
-"WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER"
-        "\n"
+"SPECIAL, INDIRECT OR CONSEQUENTIAL"
+                        " DAMAGES OR ANY DAMAGES\n"
+"WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER\n"
 "IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,\n"
 "ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF\n"
 "THIS SOFTWARE.\n"
@@ -267,9 +269,9 @@ public:
 " *    D-26121 Oldenburg, Germany\n"
 " *\n"
 " *  THIS SOFTWARE IS MADE AVAILABLE,  AS IS,  AND OFFIS MAKES NO  WARRANTY\n"
-" *  REGARDING  THE  SOFTWARE,  ITS  PERFORMANCE,  ITS  MERCHANTABILITY  OR\n"
-" *  FITNESS"
-        " FOR ANY PARTICULAR USE, FREEDOM FROM ANY COMPUTER DISEASES  OR\n"
+""
+                        " *  REGARDING  THE  SOFTWARE,  ITS  PERFORMANCE,  ITS  MERCHANTABILITY  OR\n"
+" *  FITNESS FOR ANY PARTICULAR USE, FREEDOM FROM ANY COMPUTER DISEASES  OR\n"
 " *  ITS CONFORMITY TO ANY SPECIFICATION. THE ENTIRE RISK AS TO QUALITY AND\n"
 " *  PERFORMANCE OF THE SOFTWARE IS WITH THE USER.\n"
 " *\n"
@@ -288,9 +290,9 @@ public:
 "_______________________________________________________________________\n"
 "mexcel Copyright \302\251 Andrea Litvin\n"
 "\n"
-"The EVAN Toolbox uses code provided for saving Excel files. The web article\n"
-"has no explicit license"
-        " attached to it but may contain usage terms in the\n"
+"The EVAN Tool"
+                        "box uses code provided for saving Excel files. The web article\n"
+"has no explicit license attached to it but may contain usage terms in the\n"
 "article text or the download files themselves. If in doubt please contact \n"
 "the author via the discussion board available via the web article.\n"
 "\n"
@@ -298,7 +300,6 @@ public:
 "\n"
 "_______________________________________________________________________\n"
 "", 0, QApplication::UnicodeUTF8));
-    Q_UNUSED(LicenseDialog);
     } // retranslateUi
 
 };
