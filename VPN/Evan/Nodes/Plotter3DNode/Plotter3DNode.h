@@ -123,6 +123,7 @@ private:
 
     QFrame* m_plotFrame;
     GroupTreeWidget* m_groupsTree;
+    GroupTreeWidget* m_groupsColorTree;
 	Qwt3D::SurfacePlot* m_3dplotarea;
     QComboBox* m_xAxisCombo;
     QComboBox* m_yAxisCombo;
@@ -142,6 +143,11 @@ private:
     std::vector< Qwt3D::Enrichment* > m_dots;
     QMap<MemberTreeItem*, Qwt3D::Enrichment*> m_markerItems;
     QVector<Qwt3D::Enrichment*> m_selectedMarkers;
+
+    QVector< MemberTreeItem* > m_selectedMembers;
+    QVector< QPoint > m_selectedIndices;
+    void clearGroupsColorTree();
+
 
     void clearPlot();
     void clearSelectedMarkers();
@@ -197,6 +203,10 @@ public:
     }
     const QObject* getDialog() const {return this;}
 	bool isUpdated() const;
+
+	QString toString() const;
+	void fromString(const QString& params);
+
 signals:
 	void dataReady();
 };

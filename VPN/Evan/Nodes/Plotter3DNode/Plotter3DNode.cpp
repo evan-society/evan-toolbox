@@ -11,6 +11,11 @@
 
 Plotter3DNode::Plotter3DNode(QWidget* parent) : QMainWindow(parent),  INode()
 {
+    Logger::getInstance()->log( "Plotter3DNode::Plotter3DNode()" );
+
+    m_groupsColorTree = new GroupTreeWidget(this);
+    m_groupsColorTree->hide();
+
 	m_xAxisInput = NULL;
 	m_yAxisInput = NULL;
 	m_zAxisInput = NULL;
@@ -207,7 +212,13 @@ Plotter3DNode::Plotter3DNode(QWidget* parent) : QMainWindow(parent),  INode()
 }
 
 Plotter3DNode::~Plotter3DNode()
-{}
+{
+    m_selectedMarkers.clear();
+    m_selectedMembers.clear();
+    m_selectedIndices.clear();
+
+    clearGroupsColorTree();
+}
 
 void Plotter3DNode::majorLineCount()
 {
@@ -269,6 +280,8 @@ void Plotter3DNode::toggleLabelShow( bool show )
 
 void Plotter3DNode::labelColor()
 {
+    Logger::getInstance()->log( "Plotter3DNode::labelColor()" );
+
     QColor result = QColorDialog::getColor( QColor( 0, 0, 0, 255 ) );
     if(result.isValid())
     {
@@ -349,17 +362,22 @@ void Plotter3DNode::setGrid( Qwt3D::SIDE side, bool show )
 
 void Plotter3DNode::highlightMember(MemberTreeItem* memberItem)
 {
+    Logger::getInstance()->log( "Plotter3DNode::highlightMember()" );
+
     if(m_markerItems.contains(memberItem))
     {
         Qwt3D::Enrichment* marker = m_markerItems.value(memberItem);
         CustomDot* cd = dynamic_cast<CustomDot*>(marker);
         cd->selected( true );
         m_selectedMarkers.push_back(marker);
+        m_selectedMembers.push_back(memberItem);
     }
 }
 
 void Plotter3DNode::clearSelectedMarkers()
 {
+    //Logger::getInstance()->log( "Plotter3DNode::clearSelectedMarkers()" );
+
     for( int i = 0; i < m_selectedMarkers.size(); ++i )
     {
         Qwt3D::Enrichment* marker = m_selectedMarkers[i];
@@ -367,10 +385,14 @@ void Plotter3DNode::clearSelectedMarkers()
         cd->selected( false );
     }
     m_selectedMarkers.clear();
+    m_selectedMembers.clear();
+    m_selectedIndices.clear();
 }
 
 void Plotter3DNode::selectMarkers()
 {
+    Logger::getInstance()->log( "Plotter3DNode::selectMarkers()" );
+
     if( !m_groupsTree->selectedItems().count() )
         return;
     //Clear Highlighted markes
@@ -384,31 +406,112 @@ void Plotter3DNode::selectMarkers()
     MemberTreeItem* memberItem = dynamic_cast<MemberTreeItem*>(selected);
     if(groupItem)
     {
+        int groupIdx = m_groupsTree->indexOfTopLevelItem( groupItem );
+
         for(int i=0; i<groupItem->childCount(); ++i)
         {
             MemberTreeItem* mItem = dynamic_cast< MemberTreeItem* >( groupItem->child(i) );
             highlightMember(mItem);
+
+            int childIdx = groupItem->indexOfChild( mItem );
+            m_selectedIndices.push_back( QPoint( groupIdx, childIdx ) );
         }
     }
-    else if(memberItem)
+    else if(memberItem) {
         highlightMember(memberItem);
+
+        int groupIdx = -1;
+        int childIdx = -1;
+        for( int i = 0; i < m_groupsTree->topLevelItemCount(); ++i ) {
+            QTreeWidgetItem *ti = m_groupsTree->topLevelItem( i );
+            for( int j = 0; j < ti->childCount(); ++j ) {
+                if ( memberItem == ti->child( j ) ) {
+                    groupIdx = i;
+                    childIdx = j;
+                    Logger::getInstance()->log( "Found member item!!!" );
+                    // skip both loops
+                    i = m_groupsTree->topLevelItemCount();
+                    break;
+                }
+            }
+        }
+        m_selectedIndices.push_back( QPoint( groupIdx, childIdx ) );
+    }
 
     m_3dplotarea->updateData();
     m_3dplotarea->updateGL();
 }
 
+
 void Plotter3DNode::markerInColor(QColor col)
 {
+    Logger::getInstance()->log( "Plotter3DNode::markerInColor()" );
+
     if(col.isValid())
     {
         for (int i = 0; i<m_selectedMarkers.size(); ++i)
         {
+            Logger::getInstance()->log( QString( "i=" ) + QString::number( i ) );
+
             Qwt3D::Enrichment* selected = m_selectedMarkers[i];
             CustomDot* memberItem = dynamic_cast<CustomDot*>(selected);
             memberItem->p.color.r = col.redF();
             memberItem->p.color.g = col.greenF();
             memberItem->p.color.b = col.blueF();
             memberItem->p.color.a = col.alphaF();
+/*
+            // m_loadedGroupItems - hack (adapted 2D plotter)
+            m_selectedMembers[ i ]->setColor( col );
+            Logger::getInstance()->log( QString( "addr = " ) +
+                                       QString::number( (unsigned int)m_selectedMembers[ i ] ) +
+                                    QString( " text = " ) +
+                                       m_selectedMembers[ i ]->text(0) );
+            for ( int j = 0; j < m_loadedGroupItems.size(); ++j ) {
+                GroupTreeItem *gi = m_loadedGroupItems[ j ];
+            for ( int k = 0; k < gi->childCount(); ++k ) {
+                MemberTreeItem *mi = dynamic_cast< MemberTreeItem* >( gi->child( k ) );
+                if ( mi == NULL ) {
+                    Logger::getInstance()->log( "failed cast!" );
+                    continue;
+                }
+                if ( mi->text(0) == m_selectedMembers[ i ]->text(0) ) {
+                    Logger::getInstance()->log( "found match!" );
+                    mi->setColor( m_selectedMembers[ i ]->getColor() );
+                }
+            }
+            }
+*/
+
+//            {
+//            int topLevelIndex = m_groupsTree->indexOfTopLevelItem( m_selectedMembers[ i ] );
+//            int childIndex = -1;
+//            if ( topLevelIndex >= 0 ) {
+//                MemberTreeItem* memberItem = dynamic_cast<MemberTreeItem*>( m_groupsTree->topLevelItem( topLevelIndex ) );
+//                childIndex = memberItem->indexOfChild( m_selectedMembers[ i ] );
+//            } else {
+//            }
+//
+//            Logger::getInstance()->log( QString( "current marker node = " ) +
+//                                        QString::number( topLevelIndex ) +
+//                                        QString( ", " ) +
+//                                        QString::number( childIndex ) );
+//            }
+
+
+            // markup in our duplicate tree which stores color permanently
+            {
+                int groupIdx = m_selectedIndices[ i ].x();
+                int childIdx = m_selectedIndices[ i ].y();
+                Logger::getInstance()->log( QString( "current marker node = " ) +
+                                            QString::number( groupIdx ) +
+                                            QString( ", " ) +
+                                            QString::number( childIdx ) );
+
+                MemberTreeItem* mItem = dynamic_cast< MemberTreeItem* >( m_groupsColorTree->topLevelItem( groupIdx )->child( childIdx ) );
+                mItem->setColor( col );
+            }
+
+
         }
     }
     m_3dplotarea->updateData();
@@ -696,6 +799,8 @@ bool Plotter3DNode::inputChanged( int port )
 
 bool Plotter3DNode::plot()
 {
+    Logger::getInstance()->log( "Plotter3DNode::plot()" );
+
     m_xAxisInput = getInputPortData0();
     m_yAxisInput = getInputPortData1();
     m_zAxisInput = getInputPortData2();
@@ -736,6 +841,8 @@ bool Plotter3DNode::plot()
     {
         m_markerItems.clear();
         m_selectedMarkers.clear();
+        m_selectedMembers.clear();
+        m_selectedIndices.clear();
         m_groupsTree->clear();
 
         //Fill groups tree
@@ -798,7 +905,10 @@ bool Plotter3DNode::plot()
     {
         m_markerItems.clear();
         m_selectedMarkers.clear();
+        m_selectedMembers.clear();
+        m_selectedIndices.clear();
         m_groupsTree->clear();
+
 
         bool ungroupedTreeLoaded = false;
         for( unsigned int i = 0; i < m_xAxisInput->getSpecimenGroupNumber(); ++i )
@@ -812,8 +922,12 @@ bool Plotter3DNode::plot()
             {
                 ungroupedTreeLoaded = true;
             }
+
             //Fill groups tree
             SpecimenGroup* sg = m_xAxisInput->getSpecimenGroup(i);
+
+            bool resetThisGroupsColors = false;
+
             GroupTreeItem* groupItem = new GroupTreeItem(m_groupsTree);
             groupItem->setText(0, m_xAxisInput->getSpecimenGroupName(i));
             groupItem->setData(0, Qt::DecorationRole, sg->getGroupColor());
@@ -823,8 +937,29 @@ bool Plotter3DNode::plot()
             PlotSymbolCombo* groupPlotSym = new PlotSymbolCombo(m_groupsTree, groupItem);
             groupPlotSym->setCurrentIndex(sg->getGroupPlotSymbol());
             m_groupsTree->setItemWidget(groupItem, 2, groupPlotSym);
+
+                if ( m_groupsColorTree->topLevelItemCount() <= i ) {
+                    //GroupTreeItem* groupColorItem = new GroupTreeItem( m_groupsColorTree );
+                    GroupTreeItem* groupColorItem = new GroupTreeItem( );
+                    groupColorItem->setText(0, m_xAxisInput->getSpecimenGroupName(i));
+                    groupColorItem->setData(0, Qt::DecorationRole, sg->getGroupColor());
+                    groupColorItem->setText(1, QString().setNum(sg->getGroupLMKSize()));
+                    groupColorItem->setTextAlignment(1, Qt::AlignCenter);
+                    m_groupsColorTree->addTopLevelItem( groupColorItem );
+                    resetThisGroupsColors = true;
+                }
+
+
+            //GroupTreeItem* groupItem = dynamic_cast< GroupTreeItem* >( m_groupsTree->topLevelItem(i) );
+
+
             //connect(groupPlotSym, SIGNAL(symbolChanged(int,int,QTreeWidgetItem*)), m_groupsTree, SLOT(changeGroupPSymbol(int,int,QTreeWidgetItem*)));
             //
+
+//Logger::getInstance()->log( QString( "Plotter3DNode::plot() sg->getSize() = " ) +
+//                            QString::number( sg->getSize() ) +
+//                           QString( " i = " ) +
+//                           QString::number( i ) );
 
             for( unsigned int j = 0; j < sg->getSize(); ++j )
             {
@@ -835,8 +970,73 @@ bool Plotter3DNode::plot()
                 double yVal = m_yAxisInput->get(rowIndex, m_yAxisCombo->currentIndex());
                 double zVal = m_zAxisInput->get(rowIndex, m_zAxisCombo->currentIndex());
 
-                //m_plotSymbol.setSize((int)(sg->getMemberViewerSize(j)*2.5));
-                QColor memberColor = sg->getMemberColor(j)==Qt::transparent? sg->getGroupColor():sg->getMemberColor(j);
+                //!!! QColor memberColor = sg->getMemberColor(j)==Qt::transparent? sg->getGroupColor():sg->getMemberColor(j);
+                QColor memberColor;
+                if ( resetThisGroupsColors ) {
+                    memberColor = sg->getMemberColor(j)==Qt::transparent? sg->getGroupColor():sg->getMemberColor(j);
+//
+                    GroupTreeItem* groupColorItem = dynamic_cast< GroupTreeItem* >( m_groupsColorTree->topLevelItem( i ) );
+//                    groupColorItem->setData( 0, Qt::DecorationRole, sg->getGroupColor() );
+                    MemberTreeItem* memberColorItem = dynamic_cast< MemberTreeItem* >( groupColorItem->child( j ) );
+                    if ( memberColorItem != NULL ) {
+                        // assign member color
+                        memberColorItem->setData( 0, Qt::DecorationRole, sg->getMemberColor( j ) );
+                    } else {
+                        if ( groupColorItem->childCount() <= j ) {
+                                Logger::getInstance()->log( " # first time fill!" );
+                                MemberTreeItem* newMemberItem = new MemberTreeItem( groupColorItem );
+                                newMemberItem->setData( 0, Qt::DecorationRole, sg->getMemberColor( j ) );
+                        } else {
+                            Logger::getInstance()->log( " # NOT first time fill!" );
+                            // assign group color
+                            groupColorItem->setData( 0, Qt::DecorationRole, sg->getGroupColor() );
+                        }
+                    }
+
+                } else {
+                    GroupTreeItem* groupColorItem = dynamic_cast< GroupTreeItem* >( m_groupsColorTree->topLevelItem( i ) );
+                    QColor groupColor = groupColorItem->data(0, Qt::DecorationRole).value<QColor>();
+
+                    MemberTreeItem* groupMemberColorItem = dynamic_cast< MemberTreeItem* >( groupColorItem->child( j ) );
+
+                    memberColor = ( groupMemberColorItem->getColor() == Qt::transparent ) ?
+                                    groupColor :
+                                    groupMemberColorItem->getColor();
+                }
+
+/**
+                if ( i < m_loadedGroupItems.size() ) {
+                GroupTreeItem* gti = dynamic_cast< GroupTreeItem* >( m_loadedGroupItems[ i ] );
+                if ( gti == NULL ) {
+                    Logger::getInstance()->log( QString( "Plotter3DNode::plot() failed group tree item cast" ) );
+                } else {
+                    int childCnt = gti->childCount();
+                    if ( j < childCnt )
+                    {
+                        MemberTreeItem* mti = dynamic_cast< MemberTreeItem* >( gti->child(j) );
+                        if ( mti == NULL )
+                        {
+                            Logger::getInstance()->log( QString( "Plotter3DNode::plot() failed member tree item cast" ) );
+                            Logger::getInstance()->log( QString( "Plotter3DNode::plot() is of type " ) +
+                            QString( typeid(*(gti->child(j))).name() ) );
+                        }
+                        else
+                        {
+                            memberColor = mti->getColor();
+                            Logger::getInstance()->log( QString( "addr mti = " ) + QString::number( (unsigned int)mti ) );
+                            Logger::getInstance()->log( QString( "addr gti = " ) + QString::number( (unsigned int)gti ) );
+                        }
+                    }
+                }
+                }
+**/
+
+
+//            Qwt3D::Enrichment* selected = m_selectedMarkers[i];
+//            CustomDot* memberItem = dynamic_cast<CustomDot*>(selected);
+//            memberItem->p.color
+
+
                 //m_plotSymbol.setBrush(QBrush(memberColor));
                 //m_plotSymbol.setPen(QPen(memberColor));
                 //m_plotSymbol.setStyle(getSymbolFromIndex(sg->getMemberPlotSymbol(j)));
@@ -848,10 +1048,18 @@ bool Plotter3DNode::plot()
                 ct.p.x = xVal;
                 ct.p.y = yVal;
                 ct.p.z = zVal;
-                ct.p.color.r = memberColor.redF(); ct.p.color.g = memberColor.greenF(); ct.p.color.b = memberColor.blueF(); ct.p.color.a = 1.0;
+                ct.p.color.r = memberColor.redF();
+                ct.p.color.g = memberColor.greenF();
+                ct.p.color.b = memberColor.blueF();
+                //!!! color of actually plotted data points in the plot area
+//                ct.p.color.r = 1.0f;
+//                ct.p.color.g = 0.0f;
+//                ct.p.color.b = 0.0f;
+                ct.p.color.a = 1.0;
 
                 ct.p.label.setPosition( Qwt3D::Triple( ct.p.x, ct.p.y, ct.p.z ) );
-                ct.p.label.setColor( 0, 0, 0 );
+                ct.p.label.setColor( 0.0, 0.0, 0.0 );
+                //ct.p.label.setColor( 1.0, 0.0, 0.0 ); //!!! text/label color in the plot area, not the data-dot's color
                 ct.p.label.setString( m_xAxisInput->getRowLabel(rowIndex) );
                 m_labels.push_back( ct.p.label );
 
@@ -863,10 +1071,13 @@ bool Plotter3DNode::plot()
                 MemberTreeItem* memberItem = new MemberTreeItem(groupItem);
                 memberItem->setText(0, sg->getMemberID(j));
                 memberItem->setData(0, Qt::DecorationRole, memberColor);
+                //memberItem->setData(0, Qt::DecorationRole, QColor( 255, 0, 0 ) ); //!!! color that is displayed in the group widget on the right
                 memberItem->setText(1, QString().setNum(sg->getMemberViewerSize(j)));
                 memberItem->setTextAlignment(1, Qt::AlignCenter);
                 memberItem->setColor(sg->getMemberColor(j));
                 memberItem->setSpecimenIndex(rowIndex);
+
+   //             MemberTreeItem *memberItem = dynamic_cast< MemberTreeItem * >( m_loadedGroupItems.at( i )->child( j ) );
 
                 PlotSymbolCombo* memberPlotSym = new PlotSymbolCombo(m_groupsTree,memberItem);
                 memberPlotSym->setCurrentIndex(sg->getMemberPlotSymbol(j));
@@ -875,8 +1086,8 @@ bool Plotter3DNode::plot()
                 //
                 m_markerItems.insert(memberItem, e);
             }
-
             groupItem->setExpanded(true);
+
         }
 
         m_groupsTree->resizeColumnToContents(0);
@@ -996,4 +1207,230 @@ void Plotter3DNode::keyPressEvent(QKeyEvent *event)
 
 void Plotter3DNode::refreshMarkers()
 {
+}
+
+QString Plotter3DNode::toString() const
+{
+    Logger::getInstance()->log( "Plotter3DNode::toString" );
+
+    QString result = "";
+
+
+    result +=   QString().setNum(m_3dplotarea->backgroundRGBAColor().r)  +"|"+
+                QString().setNum(m_3dplotarea->backgroundRGBAColor().g)+"|"+
+                QString().setNum(m_3dplotarea->backgroundRGBAColor().b) ;//+"|";
+/*
+    result +=   QString().setNum(m_plotGrid->isVisible())  +"|"+
+                QString().setNum(m_xAxisScale->isVisible())  +"|"+
+                QString().setNum(m_fitPlot)  +"|"+
+                QString().setNum(m_showLabels)  +"|"+
+                QString().setNum(m_hideCoordinates)  +"|"+
+                QString().setNum(m_mouseCoordinates)  +"|"+
+                QString().setNum(m_axesScaleFactor)  +"$";
+                */
+    result +=  "$";
+
+
+    for(int i=0; i<m_groupsTree->topLevelItemCount(); ++i)
+    {
+        GroupTreeItem* groupItem = dynamic_cast< GroupTreeItem* >( m_groupsTree->topLevelItem(i) );
+        QColor groupColor = groupItem->data(0, Qt::DecorationRole).value<QColor>();
+        result += groupItem->text(0)+":";
+        result += groupItem->text(1)+":";
+        result +=   QString().setNum(groupColor.red())  +"|"+
+                    QString().setNum(groupColor.green())+"|"+
+                    QString().setNum(groupColor.blue())+":";
+        result += QString().setNum( dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(groupItem, 2) )->currentIndex() )+":";
+
+        for(int j=0; j<groupItem->childCount(); ++j)
+        {
+            MemberTreeItem* groupMemberItem = dynamic_cast< MemberTreeItem* >( groupItem->child(j) );
+            result +=   groupMemberItem->text(0) + "^";
+            result +=   groupMemberItem->text(1) + "^";
+            result +=   QString().setNum(groupMemberItem->getSpecimenIndex()) + "^";
+            result +=   QString().setNum(groupMemberItem->getColor().red())  +"|"+
+                        QString().setNum(groupMemberItem->getColor().green())+"|"+
+                        QString().setNum(groupMemberItem->getColor().blue())+"|"+
+                        QString().setNum(groupMemberItem->getColor().alpha())+"^";
+            //result += QString().setNum(((PlotSymbolCombo*)m_groupsTree->itemWidget(groupMemberItem, 2))->currentIndex())+"/";
+			result += QString().setNum( dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(groupMemberItem, 2) )->currentIndex() )+"/";
+        }
+
+        result += ",";
+    }
+
+    return result;
+}
+
+void Plotter3DNode::fromString(const QString& params)
+{
+    Logger::getInstance()->log( "Plotter3DNode::fromString()" );
+
+    //m_groupsColorTree->clear();
+
+    QStringList plotterData = params.split("$");
+
+    if ( plotterData.isEmpty() || ( plotterData.size() != 2 ) ) {
+        Logger::getInstance()->log( "one of many bailouts fromString" );
+        return;
+    }
+
+    QStringList plotterAttribs = plotterData[0].split("|");
+
+    if ( plotterAttribs.isEmpty() || ( plotterAttribs.size() != 3 ) ) {
+        return;
+    }
+
+
+// plotterAttribs contains background color
+    double red = plotterAttribs[ 0 ].toDouble();
+    double green = plotterAttribs[ 1 ].toDouble();
+    double blue = plotterAttribs[ 2 ].toDouble();
+    Qwt3D::RGBA bgColor( red, green, blue );
+    m_3dplotarea->setBackgroundColor( bgColor );
+
+
+    /*
+    QStringList plotterData = params.split("$");
+    if(plotterData.count() != 2)
+        return;
+    QStringList plotterAttribs = plotterData[0].split("|");
+    if(plotterAttribs.count() == 11)
+    {
+        m_cachedBGColor = QColor( plotterAttribs[0].toInt(),
+                                plotterAttribs[1].toInt(),
+                                plotterAttribs[2].toInt());
+        QTimer::singleShot(200, this, SLOT(bkgndColor()));
+        QAction* menuAction;
+
+        toggleGrid(plotterAttribs[3].toInt());
+        menuAction = viewMenu->findChild<QAction *>("GridAction");
+        menuAction->setChecked(plotterAttribs[3].toInt());
+
+        toggleCartesian(plotterAttribs[4].toInt());
+        menuAction = viewMenu->findChild<QAction *>("CartesianAction");
+        menuAction->setChecked(plotterAttribs[4].toInt());
+
+        m_fitPlot = plotterAttribs[5].toInt();
+
+        menuAction = viewMenu->findChild<QAction *>("FitAction");
+        menuAction->setChecked(m_fitPlot);
+
+        m_showLabels = plotterAttribs[6].toInt();
+        menuAction = m_labelMenu->findChild<QAction *>("LabelAction");
+        menuAction->setChecked(m_showLabels);
+
+        m_hideCoordinates = !plotterAttribs[8].toInt();
+        hideCoord();
+        m_mouseCoordinates = !plotterAttribs[9].toInt();
+        disableMouse();
+        m_axesScaleFactor = plotterAttribs[10].toDouble();
+    }
+*/
+    QStringList groupsData = plotterData[1].split(",");
+    foreach(QString groupData, groupsData)
+    {
+        QStringList groupParams = groupData.split(":");
+
+        if(groupParams.count() != 5)
+            continue;
+
+        if(groupParams[4] == "" || groupParams[4].isEmpty())
+            continue;
+
+        QStringList groupColors = groupParams[2].split("|");
+        if(groupColors.count() != 3)
+            continue;
+
+        GroupTreeItem* groupItem = new GroupTreeItem();
+        groupItem->setText(0, groupParams[0]);
+        groupItem->setText(1, groupParams[1]);
+        groupItem->setTextAlignment(1, Qt::AlignCenter);
+        QColor groupColor = QColor( groupColors[0].toInt(),
+                                    groupColors[1].toInt(),
+                                    groupColors[2].toInt());
+        groupItem->setData(0, Qt::DecorationRole, groupColor);
+        groupItem->setText(2, groupParams[3]);
+
+
+        // persistent color hack
+        GroupTreeItem* groupColorItem = new GroupTreeItem();
+        groupColorItem->setText(0, groupParams[0]);
+        groupColorItem->setText(1, groupParams[1]);
+        groupColorItem->setTextAlignment(1, Qt::AlignCenter);
+//        QColor groupColor = QColor( groupColors[0].toInt(),
+//                                    groupColors[1].toInt(),
+//                                    groupColors[2].toInt());
+        groupColorItem->setData(0, Qt::DecorationRole, groupColor);
+        groupColorItem->setText(2, groupParams[3]);
+
+        m_groupsColorTree->addTopLevelItem( groupColorItem );
+
+
+
+        QStringList membersData = groupParams[4].split("/");
+
+        foreach(QString memberData, membersData)
+        {
+            QStringList memberParams = memberData.split("^");
+            if(memberParams.count() != 5)
+                continue;
+            QStringList memberColors = memberParams[3].split("|");
+            if(memberColors.count() != 4)
+                continue;
+
+            MemberTreeItem* memberItem = new MemberTreeItem(groupItem);
+            memberItem->setText(0, memberParams[0]);
+            memberItem->setText(1, memberParams[1]);
+            memberItem->setTextAlignment(1, Qt::AlignCenter);
+            memberItem->setSpecimenIndex(memberParams[2].toInt());
+            QColor memberColor = QColor( memberColors[0].toInt(),
+                                         memberColors[1].toInt(),
+                                         memberColors[2].toInt(),
+                                         memberColors[3].toInt() );
+//            if( memberColor == Qt::transparent ) {
+//                memberColor = groupColor;
+//            }
+            memberItem->setData(0, Qt::DecorationRole, memberColor==Qt::transparent? groupColor: memberColor);
+            memberItem->setColor(memberColor);
+            memberItem->setText(2, memberParams[4]);
+
+
+            // persistent color hack
+            MemberTreeItem* memberColorItem = new MemberTreeItem( groupColorItem );
+            memberColorItem->setText(0, memberParams[0]);
+            memberColorItem->setText(1, memberParams[1]);
+            memberColorItem->setTextAlignment(1, Qt::AlignCenter);
+            memberColorItem->setSpecimenIndex(memberParams[2].toInt());
+//            QColor memberColor = QColor( memberColors[0].toInt(),
+//                                         memberColors[1].toInt(),
+//                                         memberColors[2].toInt(),
+//                                         memberColors[3].toInt() );
+            memberColorItem->setData(0, Qt::DecorationRole, memberColor==Qt::transparent? groupColor: memberColor);
+            memberColorItem->setColor(memberColor);
+            memberColorItem->setText(2, memberParams[4]);
+
+            Logger::getInstance()->log( "member color = " + memberParams[3] );
+
+        }
+//        Logger::getInstance()->log( QString( "group item childcount = " ) +
+//                                    QString::number( groupItem->childCount() ) );
+
+    }
+
+}
+
+
+void Plotter3DNode::clearGroupsColorTree()
+{
+    m_groupsColorTree->clear();
+    delete m_groupsColorTree;
+
+//    foreach(GroupTreeItem* groupItem, m_loadedGroupItems)
+//    {
+//        for(int i=0; i<groupItem->childCount(); ++i)
+//            delete groupItem->child(i);
+//        delete groupItem;
+//    }
+//    m_loadedGroupItems.clear();
 }
