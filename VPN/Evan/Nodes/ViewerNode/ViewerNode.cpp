@@ -629,7 +629,8 @@ void ViewerNode::focusScene()
 
     groupRootAABB->unref();
 
-    focusSceneObject( groupC, groupR, &m_loadedViewMatrix );
+    //focusSceneObject( groupC, groupR, &m_loadedViewMatrix );
+    focusSceneObject( groupC, groupR );
 }
 
 void ViewerNode::removeFromParents(osg::Node* node)
