@@ -488,13 +488,13 @@ int parseLicense( const QStringList &keysIn, QStringList &validKeys, QString &ti
                     if ( isValid ) {
 
                         if ( isTrialLicense ) {
-                            Logger::getInstance()->log( "Trial License Key - " +
+                            Logger::getInstance()->log( "Trial License Key: " +
                                                         daysLeft +
                                                         " day" + ( ( date.currentDate().daysTo(date) > 1 ) ? "s" : "" ) +
                                                         " remaining.",
                                                         Logger::INFO );
                         } else {
-                            Logger::getInstance()->log( "Valid License Key - " +
+                            Logger::getInstance()->log( "Valid License Key: " +
                                                         daysLeft +
                                                         " day" + ( ( date.currentDate().daysTo(date) > 1 ) ? "s" : "" ) +
                                                         " remaining.",

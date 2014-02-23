@@ -9,7 +9,7 @@ Source: ..\Evan\Shaders\*.*; DestDir: {app}\Evan\Shaders\
 Source: ..\Evan\Images\*.*; DestDir: {app}\Evan\Images\
 ;Source: ..\Evan\Examples\*.*; Excludes: "-*,Templand\-*,Templand\10LM&15sLMcurve"; DestDir: {app}\Evan\Examples\
 Source: ..\Evan\license\*.txt; DestDir: {app}\Evan\
-Source: ..\Evan\Manuals\*.*; DestDir: {app}\Evan\Manuals
+;Source: ..\Evan\Manuals\*.*; DestDir: {app}\Evan\Manuals
 Source: ..\Evan\QtPlugins\*.*; Excludes: "*d4.dll"; DestDir: {app}\Evan\QtPlugins; Flags: recursesubdirs
 [Dirs]
 Name: {app}\Evan
@@ -17,7 +17,7 @@ Name: {app}\Evan\Examples
 Name: {app}\Evan\Shaders
 Name: {app}\Evan\Nodes
 Name: {app}\Evan\Images
-Name: {app}\Evan\Manuals
+;Name: {app}\Evan\Manuals
 Name: {app}\Evan\QtPlugins
 [Setup]
 ;AppName=Evan Toolbox
