@@ -43,28 +43,28 @@ The EVAN Toolbox is provided here under the terms of the GNU Public License (ver
 A copy of the GNU Public License is available from the license page of 
 the www.evan-society.org website.
 
-_______________________________________________________________________
+_________________________________________________________________
 The EVAN Toolbox software uses the OpenGL ® graphics library.
 
-_______________________________________________________________________
+_________________________________________________________________
 OpenSceneGraph Copyright © 2002 Robert Osfield.
 This software uses OpenSceneGraph. OpenScenGraph is provided here under the 
 terms of the OpenSceneGraph Public License.
 A copy of this license is available from the license page of www.evan-society.org
 http://www.openscenegraph.org/
 
-_______________________________________________________________________
+_________________________________________________________________
 R Copyright © 
 The EVAN Toolbox uses R. R is provided here under the terms of the GNU Public license.
 A copy of this license is available from the license page of www.evan-society.org
 http://www.r-project.org/
 
-_______________________________________________________________________
+_________________________________________________________________
 Qwt Copyright © 
 The EVAN Toolbox is based in part on the work of the Qwt project (http://qwt.sf.net).
 Qwt. Qwt is provided under the terms of the Qwt license which is based on the LGPL license.
 
-_______________________________________________________________________
+_________________________________________________________________
 Qwtplot3d   Copyright ©  2003-2005 Michael Bieber
 
 The EVAN Toolbox uses Qwtplot3d which is provided under the terms of the zlib license below. 
@@ -87,7 +87,7 @@ The EVAN Toolbox uses Qwtplot3d which is provided under the terms of the zlib li
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 
-_______________________________________________________________________
+_________________________________________________________________
 rply Copyright © 2003-2005 Diego Nehab.
 
 The EVAN Toolbox uses rply which is provided under the terms of the MIT license below. 
@@ -112,7 +112,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-_______________________________________________________________________
+_________________________________________________________________
 
 libxml2 Copyright © Daniel Veillard
 
@@ -138,7 +138,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-_______________________________________________________________________
+_________________________________________________________________
 Lapack  Copyright © 1992-2008 The University of Tennessee.  All rights reserved.
 
 The EVAN Toolbox uses Lapack which is provided under the terms of the license below. 
@@ -177,7 +177,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
 
-_______________________________________________________________________
+_________________________________________________________________
 gdtoa
 
 The EVAN Toolbox uses a modified version of the gdtoa libary. 
@@ -210,7 +210,7 @@ THIS SOFTWARE.
 
 http://cvsweb.netbsd.org/bsdweb.cgi/src/lib/libc/gdtoa/
 
-_______________________________________________________________________
+_________________________________________________________________
 DCMTK
 
 The EVAN Toolbox uses the DCMTK software package. 
@@ -248,7 +248,7 @@ following copyright:
 
 http://dicom.offis.de/dcmtk.php.en
 
-_______________________________________________________________________
+_________________________________________________________________
 mexcel Copyright © Andrea Litvin
 
 The EVAN Toolbox uses code provided for saving Excel files. The web article
@@ -258,7 +258,7 @@ the author via the discussion board available via the web article.
 
 http://www.codeproject.com/KB/cpp/miniexcel.aspx
 
-_______________________________________________________________________
+_________________________________________________________________
 </string>
      </property>
     </widget>
