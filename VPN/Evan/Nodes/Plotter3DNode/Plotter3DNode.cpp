@@ -1157,6 +1157,10 @@ QString Plotter3DNode::toString() const
                 */
     result +=  "$";
 
+Logger::getInstance()->log( QString( "m_groupsColorTree->topLevelItemCount() = " ) +
+                            QString::number( m_groupsColorTree->topLevelItemCount() ) );
+Logger::getInstance()->log( QString( "m_groupsTree->topLevelItemCount() = " ) +
+                            QString::number( m_groupsTree->topLevelItemCount() ) );
 
     for(int i=0; i<m_groupsColorTree->topLevelItemCount(); ++i)
     {
@@ -1167,19 +1171,33 @@ QString Plotter3DNode::toString() const
         result +=   QString().setNum(groupColor.red())  +"|"+
                     QString().setNum(groupColor.green())+"|"+
                     QString().setNum(groupColor.blue())+":";
-        result += QString().setNum( dynamic_cast< PlotSymbolCombo* >( m_groupsColorTree->itemWidget(groupColorItem, 2) )->currentIndex() )+":";
+        // item widgets have been added to the 'real' m_groupsTree only, not to the mirrored color-only m_groupsColorTree
+        // [ see Plotter3DNode::plot() ==> m_groupsTree->setItemWidget(groupItem, 2, groupPlotSym); ]
+        // so look up these values in the correct tree
+        GroupTreeItem* groupItem = dynamic_cast< GroupTreeItem* >( m_groupsTree->topLevelItem(i) );
+        PlotSymbolCombo *pCombo = dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget( groupItem, 2 ) );
+        if ( pCombo == NULL ) {
+//                if ( m_groupsTree->itemWidget( groupItem, 2 ) == NULL ) {
+//                    Logger::getInstance()->log( "pCombo cast failed - not a type problem, but ptr itself is NULL!" );
+//                }
+//                Logger::getInstance()->log( "pCombo cast failed!" );
+            continue;
+        }
+        result += QString().setNum( pCombo->currentIndex() )+":";
 
         for(int j=0; j<groupColorItem->childCount(); ++j)
         {
-            MemberTreeItem* groupMemberItem = dynamic_cast< MemberTreeItem* >( groupColorItem->child(j) );
-            result +=   groupMemberItem->text(0) + "^";
-            result +=   groupMemberItem->text(1) + "^";
-            result +=   QString().setNum(groupMemberItem->getSpecimenIndex()) + "^";
-            result +=   QString().setNum(groupMemberItem->getColor().red())  +"|"+
-                        QString().setNum(groupMemberItem->getColor().green())+"|"+
-                        QString().setNum(groupMemberItem->getColor().blue())+"|"+
-                        QString().setNum(groupMemberItem->getColor().alpha())+"^";
-			result += QString().setNum( dynamic_cast< PlotSymbolCombo* >( m_groupsColorTree->itemWidget(groupMemberItem, 2) )->currentIndex() )+"/";
+            MemberTreeItem* groupColorMemberItem = dynamic_cast< MemberTreeItem* >( groupColorItem->child(j) );
+            result +=   groupColorMemberItem->text(0) + "^";
+            result +=   groupColorMemberItem->text(1) + "^";
+            result +=   QString().setNum(groupColorMemberItem->getSpecimenIndex()) + "^";
+            result +=   QString().setNum(groupColorMemberItem->getColor().red())  +"|"+
+                        QString().setNum(groupColorMemberItem->getColor().green())+"|"+
+                        QString().setNum(groupColorMemberItem->getColor().blue())+"|"+
+                        QString().setNum(groupColorMemberItem->getColor().alpha())+"^";
+			//result += QString().setNum( dynamic_cast< PlotSymbolCombo* >( m_groupsColorTree->itemWidget(groupMemberItem, 2) )->currentIndex() )+"/";
+			MemberTreeItem* groupMemberItem = dynamic_cast< MemberTreeItem* >( groupItem->child(j) );
+            result += QString().setNum( dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(groupMemberItem, 2) )->currentIndex() )+"/";
         }
 
         result += ",";
