@@ -461,11 +461,8 @@ void ViewerNode::process()
 
             //positionManipulators( renderable->getOsgNode() ); //husky
         }
-        else if(m_currentScene.value(renderable) != renderable->getOsgNode().get()) {
+        else if(m_currentScene.value(renderable) != renderable->getOsgNode().get())
             updateOsgNode(renderable, m_currentScene.value(renderable));
-
-            //positionManipulators( renderable->getOsgNode() ); //husky
-        }
 	}
 
     if(newRenderable)
@@ -509,7 +506,7 @@ void ViewerNode::process()
         }
     }
 
-    focusScene();
+//    focusScene();
 }
 
 void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, const osg::Matrixd *const matrix )
@@ -558,45 +555,59 @@ void ViewerNode::focusScene()
     QMap< Volumes*, osgVolume::Volume* >::const_iterator itVol;
     QMap< Volumes*, osgVolume::Volume* >::const_iterator itVolEnd = m_currentVolumeScene.end();
 
-//    osg::Vec3 minAABB( +FLT_MAX, +FLT_MAX, +FLT_MAX );
-//    osg::Vec3 maxAABB( -FLT_MAX, -FLT_MAX, -FLT_MAX );
-//
-//    // manually determine AABB
-//    for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
-//        float r = it.value()->getBound().radius();
-//        osg::Vec3 rVec = osg::Vec3( r, r, r );
-//        osg::Vec3 c = it.value()->getBound().center();
-//        osg::Vec3 minC = c - rVec;
-//        osg::Vec3 maxC = c + rVec;
-//
-//        if ( minC.x() < minAABB.x() ) {
-//            minAABB.x() = minC.x();
-//        }
-//        if ( minC.y() < minAABB.y() ) {
-//            minAABB.y() = minC.y();
-//        }
-//        if ( minC.z() < minAABB.z() ) {
-//            minAABB.z() = minC.z();
-//        }
-//
-//        if ( maxC.x() > maxAABB.x() ) {
-//            maxAABB.x() = maxC.x();
-//        }
-//        if ( maxC.y() > maxAABB.y() ) {
-//            maxAABB.y() = maxC.y();
-//        }
-//        if ( maxC.z() > maxAABB.z() ) {
-//            maxAABB.z() = maxC.z();
-//        }
-//    }
-//    Logger::getInstance()->log(     QString( "[ViewerNode] process() AABB manually: " ) +
-//                                    QString( "( " ) +   QString::number( minAABB.x() ) + QString( ", " ) +
-//                                                        QString::number( minAABB.y() ) + QString( ", " ) +
-//                                                        QString::number( minAABB.z() ) + QString( " ), " ) +
-//                                    QString( "( " ) +   QString::number( maxAABB.x() ) + QString( ", " ) +
-//                                                        QString::number( maxAABB.y() ) + QString( ", " ) +
-//                                                        QString::number( maxAABB.z() ) + QString( " )" )  );
+#define MANUAL_AABB_CALCULATION
 
+
+#if defined(MANUAL_AABB_CALCULATION)
+    osg::Vec3 minAABB( +FLT_MAX, +FLT_MAX, +FLT_MAX );
+    osg::Vec3 maxAABB( -FLT_MAX, -FLT_MAX, -FLT_MAX );
+
+    // manually determine AABB
+    for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
+            static int itCnt = 0;   fprintf( stderr, "iteration %d\n", itCnt );   ++itCnt;
+
+        float r = it.value()->getBound().radius();
+        osg::Vec3 rVec = osg::Vec3( r, r, r );
+        osg::Vec3 c = it.value()->getBound().center();
+        osg::Vec3 minC = c - rVec;
+        osg::Vec3 maxC = c + rVec;
+
+        if ( minC.x() < minAABB.x() ) {
+            minAABB.x() = minC.x();
+        }
+        if ( minC.y() < minAABB.y() ) {
+            minAABB.y() = minC.y();
+        }
+        if ( minC.z() < minAABB.z() ) {
+            minAABB.z() = minC.z();
+        }
+
+        if ( maxC.x() > maxAABB.x() ) {
+            maxAABB.x() = maxC.x();
+        }
+        if ( maxC.y() > maxAABB.y() ) {
+            maxAABB.y() = maxC.y();
+        }
+        if ( maxC.z() > maxAABB.z() ) {
+            maxAABB.z() = maxC.z();
+        }
+    }
+
+    osg::Vec3 halfAABB = ( maxAABB - minAABB ) * 0.5f;
+    osg::Vec3 groupC = minAABB + halfAABB;
+    float groupR = halfAABB.length();
+
+    #if !defined(NDEBUG)
+    Logger::getInstance()->log(     QString( "[ViewerNode] process() AABB manually: " ) +
+                                    QString( "( " ) +   QString::number( minAABB.x() ) + QString( ", " ) +
+                                                        QString::number( minAABB.y() ) + QString( ", " ) +
+                                                        QString::number( minAABB.z() ) + QString( " ), " ) +
+                                    QString( "( " ) +   QString::number( maxAABB.x() ) + QString( ", " ) +
+                                                        QString::number( maxAABB.y() ) + QString( ", " ) +
+                                                        QString::number( maxAABB.z() ) + QString( " )" )  );
+    #endif
+
+#else
 
     // let OSG perform the heavy lifting
     osg::Group *groupRootAABB = new osg::Group();
@@ -628,6 +639,7 @@ void ViewerNode::focusScene()
     }
 
     groupRootAABB->unref();
+#endif
 
     //focusSceneObject( groupC, groupR, &m_loadedViewMatrix );
     focusSceneObject( groupC, groupR );
