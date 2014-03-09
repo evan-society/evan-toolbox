@@ -67,15 +67,23 @@ namespace ew {
     void move_item(ew::View3Item *it, int i);
     inline ew::View3Item *const *get_items() const;
     inline int get_n_items() const;
+
     bool pick(double x, double y, double sz, double burrow,
      ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
      ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim,
      double *pick_z);
-    bool MODIFIED_TEST_pick(double x, double y, double sz, double burrow,
+     // the original pick code uses gl select
+    bool pick_gl_select(double x, double y, double sz, double burrow,
+     ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
+     ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim,
+     double *pick_z);
+    bool pick_read_depthbuffer(double x, double y, double sz, double burrow,
      ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
      ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z);
+
     void pickv(std::vector<ew::View3Pick> &outp, double x, double y,
      double sz);
+
 // private to the library
     ew::FriendVariable<int, ew::View3Item> dbg_last_item_n;
     ew::DataflowNetwork *const network;

@@ -27,6 +27,8 @@
 #include "ew/View3Widget.h"
 #include "AutoArray.h"
 
+#include <cstdio> // for fwrite etc.
+
 namespace {
   const char ClassName[] = "ew::View3Widget";
 
@@ -270,6 +272,29 @@ ew::View3Widget::dataflow_check()
 bool ew::View3Widget::pick(double x, double y, double sz, double burrow,
  ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
  ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z)
+ {
+     //const bool original_pick_function = true;
+     //const bool original_pick_function = false;
+
+     //volatile bool original_pick_function = false;
+     //volatile bool original_pick_function = true;
+
+     //if ( original_pick_function ) {
+     if ( pick_z == 0 ) {
+         return pick_gl_select( x, y, sz, burrow,
+                                constrain_it, constrain_cmpt, constrain_dim,
+                                pick_it, pick_cmpt, pick_dim, pick_z );
+     } else {
+         return pick_read_depthbuffer( x, y, sz, burrow,
+                                constrain_it, constrain_cmpt, constrain_dim,
+                                pick_it, pick_cmpt, pick_dim, pick_z );
+     }
+ }
+
+
+bool ew::View3Widget::pick_gl_select(double x, double y, double sz, double burrow,
+ ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
+ ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z)
 {
   // THE ORIGINAL EW PICKING CODE - based on OpenGL's select buffers
 
@@ -346,13 +371,38 @@ bool ew::View3Widget::pick(double x, double y, double sz, double burrow,
       }
     }
     glPopName();
-    
+
     //husky - maybe picking-related bugs are due to incorrect CPU/GPU sync
     glFlush();
     glFinish();
-    
+
     hits = glRenderMode(GL_RENDER);
     if (hits >= 0) {
+
+            // bug?
+            if ( hits == 0 )
+            {
+                printf( "another selection - bug fix?\n" );
+                glRenderMode( GL_SELECT );
+                glInitNames();
+                glPushName(0);
+                for (unsigned int u = 0; u < items.size(); u += 1)
+                {
+                    ew::View3Item *it = items[u];
+                    if (it->get_state())
+                    {
+                        dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick",
+                        it->dbg.in);
+                        glLoadName(u);
+                        glPushName(0);
+                        it->render();
+                        glPopName();
+                    }
+                }
+                glPopName();
+                hits = glRenderMode(GL_RENDER);
+            }
+
       break;
     }
     bufn *= 2;
@@ -380,6 +430,9 @@ bool ew::View3Widget::pick(double x, double y, double sz, double burrow,
     int it = buf[5 * i + 3];
     double z = -(1.0 - buf[5 * i + 1] * 2.0 / 0xffffffffU) *
      window_mapping.scale;
+
+     printf( "original picking: z before mapping = %d, and after = %f, scale = %f\n", buf[5 * i + 1], z, window_mapping.scale );
+
     int cmpt = (buf[5 * i + 4] >> 2);
     dbg.on && dbg.dprintf(
      "%s::%s   pick-hit=%d z=%g dim=%d it=%d cmpt=%d zfar=%g", dbg.fn, "pick",
@@ -456,18 +509,36 @@ bool ew::View3Widget::pick(double x, double y, double sz, double burrow,
   dbg.on && dbg.dprintf("%s::%s } (%s)", dbg.fn, "pick",
    ew::Debug::to_str(pi >= 0));
 
-  return true; //!?
+  //return true; //!?
+  return ( hits > 0 );
 }
 
-bool
-ew::View3Widget::MODIFIED_TEST_pick(double x, double y, double sz, double burrow,
- ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
- ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z)
+bool ew::View3Widget::pick_read_depthbuffer(    double x,
+                                                double y,
+                                                double sz,
+                                                double burrow,
+                                                ew::View3Item *constrain_it,
+                                                int constrain_cmpt,
+                                                int constrain_dim,
+                                                ew::View3Item **pick_it,
+                                                int *pick_cmpt,
+                                                int *pick_dim,
+                                                double *pick_z  )
 {
   // THE MODIFIED EW PICKING CODE - based on reading the depth buffer
 
+    glClear(GL_DEPTH_BUFFER_BIT);
   glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
-  glClear(GL_DEPTH_BUFFER_BIT);
+
+
+    glViewport(0, 0, winw, winh);
+
+  if (dataflow_check_cycle < network->get_cycle()) {
+    dataflow_check();
+  }
+  if (glGetError() != 0) {
+    throw ew::ErrorLogic(__FILE__, __LINE__);
+  }
 
   double cr = clip_ratio;
   if (cr < 0.001) {
@@ -498,20 +569,58 @@ ew::View3Widget::MODIFIED_TEST_pick(double x, double y, double sz, double burrow
   for (int n = 0; n < VectorSize(items); n += 1) {
     ew::View3Item *it = items[n];
     if (it->get_state() && !it->get_prepared()) {
-      dbg.on && dbg.dprintf("%s::%s   prepare(%s)", dbg.fn, "pick",
-       it->dbg.in);
+      dbg.on && dbg.dprintf("%s::%s   prepare(%s)", dbg.fn, "pick", it->dbg.in);
+    printf("%s::%s   prepare(%s)", dbg.fn, "pick", it->dbg.in);
+
       it->prepare();
-      it->render();
+      //it->render();
     }
   }
 
+  for (unsigned int u = 0; u < items.size(); u += 1) {
+      ew::View3Item *it = items[u];
+      if (it->get_state()) {
+        dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick", it->dbg.in);
+        printf("%s::%s   render(%s)\n", dbg.fn, "pick", it->dbg.in);
+
+        it->render();
+      }
+    }
+
+    glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
+
   GLfloat depth;
-  glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+  glReadPixels(x, winh - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+  // => selection buffer mapping was: GLfloat depthMapped = -(1.0 - depth * 2.0 / 0xffffffffU) * window_mapping.scale;
+  // bring depth from [0;1] to CS, i.e. [-1;+1], then multiply with app-specific depth scale factor
+  double depthMapped = ( depth - 0.5 ) * 2.0 * window_mapping.scale;
+  //glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+  printf( "depth at ( %f | %f ) = %f, mappedd = %f\n",
+         (float)x, (float)y, depth, depthMapped );
 
-  glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
-  *pick_z = depth;
+//    printf( "win dims: %d x %d \n", winw, winh );
+//    GLfloat *depthBuffer = new GLfloat[ winw * winh ];
+//    glReadPixels( 0, 0, winw, winh, GL_DEPTH_COMPONENT, GL_FLOAT, &depthBuffer[ 0 ] );
+//    FILE *fp = fopen( "depthBuffer.raw", "w" );
+//    fwrite( &winw, sizeof( winw ), 1, fp );
+//    fwrite( &winh, sizeof( winh ), 1, fp );
+//    fwrite( &depthBuffer[ 0 ], sizeof( depthBuffer[ 0 ] ), winw * winh, fp );
+//    fclose( fp );
+//    delete[] depthBuffer;
 
-  return true;
+
+
+
+
+  if ( pick_z != NULL ) {
+    // slight depth offset so that landmark is not z-fighting with the surface
+    //const double epsilon = 0.001 * window_mapping.scale;
+    //*pick_z = depthMapped - epsilon;
+    *pick_z = depthMapped;
+  }
+
+  //return true;
+  return ( depth < 1.0f );
 }
 
 /// Find all item fragment picks, in order of most prominent first.
