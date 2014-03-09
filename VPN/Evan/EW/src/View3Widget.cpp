@@ -382,7 +382,9 @@ bool ew::View3Widget::pick_gl_select(double x, double y, double sz, double burro
             // bug?
             if ( hits == 0 )
             {
-                printf( "another selection - bug fix?\n" );
+                #if !defined(NDEBUG)
+                    printf( "another selection - bug fix?\n" );
+                #endif
                 glRenderMode( GL_SELECT );
                 glInitNames();
                 glPushName(0);
@@ -431,7 +433,9 @@ bool ew::View3Widget::pick_gl_select(double x, double y, double sz, double burro
     double z = -(1.0 - buf[5 * i + 1] * 2.0 / 0xffffffffU) *
      window_mapping.scale;
 
-     printf( "original picking: z before mapping = %d, and after = %f, scale = %f\n", buf[5 * i + 1], z, window_mapping.scale );
+    #if !defined(NDEBUG)
+        printf( "original picking: z before mapping = %d, and after = %f, scale = %f\n", buf[5 * i + 1], z, window_mapping.scale );
+    #endif
 
     int cmpt = (buf[5 * i + 4] >> 2);
     dbg.on && dbg.dprintf(
@@ -570,10 +574,12 @@ bool ew::View3Widget::pick_read_depthbuffer(    double x,
     ew::View3Item *it = items[n];
     if (it->get_state() && !it->get_prepared()) {
       dbg.on && dbg.dprintf("%s::%s   prepare(%s)", dbg.fn, "pick", it->dbg.in);
-    printf("%s::%s   prepare(%s)", dbg.fn, "pick", it->dbg.in);
+
+        #if !defined(NDEBUG)
+            printf("%s::%s   prepare(%s)", dbg.fn, "pick", it->dbg.in);
+        #endif
 
       it->prepare();
-      //it->render();
     }
   }
 
@@ -581,7 +587,10 @@ bool ew::View3Widget::pick_read_depthbuffer(    double x,
       ew::View3Item *it = items[u];
       if (it->get_state()) {
         dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick", it->dbg.in);
-        printf("%s::%s   render(%s)\n", dbg.fn, "pick", it->dbg.in);
+
+        #if !defined(NDEBUG)
+            printf("%s::%s   render(%s)\n", dbg.fn, "pick", it->dbg.in);
+        #endif
 
         it->render();
       }
@@ -595,8 +604,11 @@ bool ew::View3Widget::pick_read_depthbuffer(    double x,
   // bring depth from [0;1] to CS, i.e. [-1;+1], then multiply with app-specific depth scale factor
   double depthMapped = ( depth - 0.5 ) * 2.0 * window_mapping.scale;
   //glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
-  printf( "depth at ( %f | %f ) = %f, mappedd = %f\n",
-         (float)x, (float)y, depth, depthMapped );
+
+    #if !defined(NDEBUG)
+        printf( "depth at ( %f | %f ) = %f, mappedd = %f\n",
+                (float)x, (float)y, depth, depthMapped );
+    #endif
 
 //    printf( "win dims: %d x %d \n", winw, winh );
 //    GLfloat *depthBuffer = new GLfloat[ winw * winh ];

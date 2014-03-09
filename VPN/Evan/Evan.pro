@@ -46,6 +46,8 @@ LIBS += -L"lib/ew"
 # unfortunately, this does not work on windows (to be able to move the dlls to a separate directory...)
 # QMAKE_LFLAGS = -Wl,-rpath,./:./dlls:./dlls/osgPlugins
  
+ # QMAKE_LFLAGS += -Wl,-rdynamic
+ QMAKE_CXXFLAGS += -Wl,-rdynamic
  
 # NOTE: 
 # it is important that -lopengl32 is specified AFTER -lew[d]
@@ -60,11 +62,15 @@ CONFIG(debug, debug|release) {
 	QMAKE_CXXFLAGS += -Wall
 	# -pedantic
 	# -Werror
+	
+	QMAKE_CXXFLAGS += -D_DEBUG
 }
 CONFIG(release, debug|release) {
 	# release stuff
 	## LIBS += -lew
 	LIBS += -lqwt5 -lqwtplot3d
+	
+	QMAKE_CXXFLAGS += -DNDEBUG
 }
 
 # LIBS +=  -llapack -lrefblas -ltmglib -lgfortran

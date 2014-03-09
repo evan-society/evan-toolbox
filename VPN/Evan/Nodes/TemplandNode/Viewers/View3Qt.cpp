@@ -100,8 +100,16 @@ void View3Qt::mouseDoubleClickEvent(QMouseEvent *ev)
 			{
 				double loc[3];
 				double x=(double)mapFromGlobal(QCursor::pos()).x(), y=(double)mapFromGlobal(QCursor::pos()).y(), z = 0.0;
-				if (get_use_depth())
+				if ( get_use_depth() ) {
+                        bool pickRet =
 					ew::View3Widget::pick(x, y, 0.00001, 0.0, 0, -1, 2, 0, 0, 0, &z);
+
+					#if !defined(NDEBUG)
+                        printf( " ET called EW pick1 - z = %f and returned %s \n", z, ( pickRet ) ? "true" : "false" );
+                    #endif
+				}
+
+
 
 				get_pointer_location(loc, x * 1.0, y * 1.0, z);
 				ew::Dig3Space *sp = dig3->get_spaces()[get_space()];
@@ -136,12 +144,20 @@ void View3Qt::mouseDoubleClickEvent(QMouseEvent *ev)
         try
         {
         double loc[3];
-        if(get_use_depth())
-            ew::View3Widget::pick(x, y, 0.00001, 0.0, 0, -1, 2, 0, 0, 0, &z);
-        get_pointer_location(loc, x * 1.0, y * 1.0, z);
-        placePoint( loc[0], loc[1], loc[2] );
+        bool pickRet = false;
+        if ( get_use_depth() ) {
+            pickRet = ew::View3Widget::pick(x, y, 0.00001, 0.0, 0, -1, 2, 0, 0, 0, &z);
+            #if !defined(NDEBUG)
+                printf( " ET called EW pick2 - z = %f and returned %s \n", z, ( pickRet ) ? "true" : "false" );
+            #endif
+        }
+        if ( pickRet ) {
+            get_pointer_location(loc, x * 1.0, y * 1.0, z);
+            placePoint( loc[0], loc[1], loc[2] );
 
-        emit adjustLandmarkState();
+            emit adjustLandmarkState();
+        }
+
         }
         catch(...)
         {
@@ -524,8 +540,13 @@ void View3Qt::applyTransform(QInputEvent *e)
             {
                 double loc[3];
                 double x=(double)mapFromGlobal(QCursor::pos()).x(), y=(double)mapFromGlobal(QCursor::pos()).y(), z = 0.0;
-                if (get_use_depth())
+                if ( get_use_depth() ) {
+                        bool pickRet =
                     ew::View3Widget::pick(x, y, 0.00001, 0.0, 0, -1, 2, 0, 0, 0, &z);
+                    #if !defined(NDEBUG)
+                        printf( " ET called EW pick3 - z = %f and returned %s \n", z, ( pickRet ) ? "true" : "false" );
+                    #endif
+                }
 
                 get_pointer_location(loc, x * 1.0, y * 1.0, z);
                 ew::Dig3Space *sp = dig3->get_spaces()[get_space()];
@@ -573,7 +594,13 @@ void View3Qt::mouseReleaseEvent(QMouseEvent *ev)
         int x = ev->x();
         int y = ev->y();
         int c = -1;
+        bool pickRet =
         ew::View3Widget::pick(x, y, 15.0, 7.5, get_landmarks_item(), -1, -1, 0, &c, 0, 0);
+
+        #if !defined(NDEBUG)
+            printf( " ET called EW pick4 - and returned %s \n", ( pickRet ) ? "true" : "false" );
+        #endif
+
         if(c >= 0)
         {
             // now notify the tab that we have selected a landmark

@@ -28,7 +28,10 @@ class View3Qt : public QGLWidget, public ew::Dig3View
 	Q_OBJECT
 public:
 	View3Qt(ew::DataflowNetwork *network, QWidget *parent, QGLWidget *share, QGLWidget* share2 = 0, ew::Dig3* dig3 = 0, int space = 0, int slicemode = 0);
-	~View3Qt();
+	//~View3Qt();
+	// [husky] has a virutal method, should have a virtual destructor, too!
+	virtual ~View3Qt();
+
 
 	//! Sets the type of pointset that the view should create.
 	/*!
