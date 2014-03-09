@@ -1,6 +1,7 @@
 [Files]
 ;Source: ..\Evan\*.*; Excludes: "dEvan.exe,EvanDebug.exe,EvanQTC.exe,NodeWizard.exe,*.bat,*.qrc,*d4.dll,qwtd5.dll,qwtplot3dd.dll,*.h,*.cpp,Makefile*,*.ltb,*.dat,*.txt,.cproject,.project,Evan.cbp,Evan.depend,Evan.layout,Evan.pro*,Evan.rc,Evan.workspace,*.rar,object_script.*,package-osx"; DestDir: {app}\Evan\
-Source: ..\Evan\Evan.exe; DestDir: {app}\Evan\
+;Source: ..\Evan\Evan.exe; DestDir: {app}\Evan\
+Source: ..\Evan\release\Evan.exe; DestDir: {app}\Evan\
 ;Source: ..\Evan\startEvan.bat; DestDir: {app}\Evan\
 Source: ..\Evan\*.dll; Excludes: "Qt*d4.dll,qwtd5.dll,qwtplot3dd.dll"; DestDir: {app}\Evan\
 ;Source: ..\Evan\Nodes\*.*; DestDir: {app}\Evan\Nodes\
