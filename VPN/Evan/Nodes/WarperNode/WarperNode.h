@@ -91,7 +91,9 @@ protected:
 
 public:
 	WarperNode(QWidget* parent=0);
-	~WarperNode();
+	//~WarperNode();
+	// [husky] has a virutal method, should have a virtual destructor, too!
+	virtual ~WarperNode();
 
 	void showGUI() {QTabWidget::activateWindow();QTabWidget::show();}
 	const QObject* getDialog() const {return this;}

@@ -9,6 +9,8 @@
 #include <QInputDialog>
 
 //#include <cassert> // for assert()
+#include <typeinfo> // for typeid()
+#include <cxxabi.h> // for human readable name of typeid
 
 class LandmarksTopItem;
 
@@ -173,7 +175,18 @@ public slots:
         if( pLti != NULL ) {
             pLti->assignLandmarksHere( tog ? this : 0 );
         } else {
-            Logger::getInstance()->log( "failed to cast type of parentForm to LandmarksTopItem*" );
+            #if !defined(NDEBUG)
+            Logger::getInstance()->log( "failed to cast type of parentForm to LandmarksTopItem* => falling back to original code..." );
+            Logger::getInstance()->log( QString( "actual type = " ) + QString( typeid(*m_parentForm).name() ) );
+
+            int status;
+            char *realname = abi::__cxa_demangle(typeid(*m_parentForm).name(), 0, 0, &status);
+            printf( "class name = %s\n", realname );
+            free(realname);
+            #endif
+            // [husky] that was the original code which did not check for any errors!
+			// better than nothing?
+			((LandmarksTopItem*)m_parentForm)->assignLandmarksHere( tog ? this : 0 );
         }
     }
 
