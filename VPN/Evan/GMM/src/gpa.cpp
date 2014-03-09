@@ -5,8 +5,8 @@
 #include <ew/Tps2.h>
 #include <ew/Tps3.h>
 
-static const double valueEPSILON() { return 1e-12; }
-static const double valueSQRT2() { return 1.414213562373095; }
+static double valueEPSILON() { return 1e-12; }
+static double valueSQRT2() { return 1.414213562373095; }
 
 const double GPA::EPSILON = valueEPSILON();// = 1e-12;            //!< A small number
 const double GPA::SQRT2 = valueSQRT2();// = 1.414213562373095;  //!< The square root of two
@@ -393,7 +393,7 @@ pcalign(Matrix<double>& x, Matrix<double>& rot)
         for (int k=0;k<100;k++)
         {
 			double err = 0.0;
-			
+
             evalf(x,th0,&f,&df);
             if (df>1.0e-12)
             {
@@ -431,7 +431,7 @@ pcalign(Matrix<double>& x, Matrix<double>& rot)
         for (int k=0;k<100;k++)
         {
 			double err = 0.0;
-			
+
             // find function values and jacobian matrix
             evalf3(x,th0,f,J);
 

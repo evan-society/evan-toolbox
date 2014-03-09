@@ -9,7 +9,7 @@
 
 #include <sstream>
 
-static const double valueEPSILON() { return 1e-12; }
+static double valueEPSILON() { return 1e-12; }
 
 const double MMR::EPSILON = valueEPSILON();// = 1e-12;      //!< A Small floating point number
 
