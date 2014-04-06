@@ -25,9 +25,14 @@
 #include "ew/View3Item.h"
 #include "ew/View3Pick.h"
 #include "ew/View3Widget.h"
+#include "ew/View3Landmarks.h"
 #include "AutoArray.h"
 
+
 #include <cstdio> // for fwrite etc.
+#include <typeinfo>
+//#include <QPixmap>
+//#include <QFile>
 
 namespace {
   const char ClassName[] = "ew::View3Widget";
@@ -280,7 +285,9 @@ bool ew::View3Widget::pick(double x, double y, double sz, double burrow,
      //volatile bool original_pick_function = true;
 
      //if ( original_pick_function ) {
-     if ( pick_z == 0 ) {
+     //if ( pick_z == 0 ) {
+     //if ( true ) {
+     if ( false ) {
          return pick_gl_select( x, y, sz, burrow,
                                 constrain_it, constrain_cmpt, constrain_dim,
                                 pick_it, pick_cmpt, pick_dim, pick_z );
@@ -296,7 +303,7 @@ bool ew::View3Widget::pick_gl_select(double x, double y, double sz, double burro
  ew::View3Item *constrain_it, int constrain_cmpt, int constrain_dim,
  ew::View3Item **pick_it, int *pick_cmpt, int *pick_dim, double *pick_z)
 {
-  // THE ORIGINAL EW PICKING CODE - based on OpenGL's select buffers
+  // THE ORIGINAL EW PICKING CODE - based on OpenGL's selection buffers
 
   if (dbg.on) {
     const char *constrain_it_str;
@@ -379,31 +386,31 @@ bool ew::View3Widget::pick_gl_select(double x, double y, double sz, double burro
     hits = glRenderMode(GL_RENDER);
     if (hits >= 0) {
 
-            // bug?
-            if ( hits == 0 )
-            {
-                #if !defined(NDEBUG)
-                    printf( "another selection - bug fix?\n" );
-                #endif
-                glRenderMode( GL_SELECT );
-                glInitNames();
-                glPushName(0);
-                for (unsigned int u = 0; u < items.size(); u += 1)
-                {
-                    ew::View3Item *it = items[u];
-                    if (it->get_state())
-                    {
-                        dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick",
-                        it->dbg.in);
-                        glLoadName(u);
-                        glPushName(0);
-                        it->render();
-                        glPopName();
-                    }
-                }
-                glPopName();
-                hits = glRenderMode(GL_RENDER);
-            }
+//            // bug?
+//            if ( hits == 0 )
+//            {
+//                #if !defined(NDEBUG)
+//                    printf( "another selection - bug fix?\n" );
+//                #endif
+//                glRenderMode( GL_SELECT );
+//                glInitNames();
+//                glPushName(0);
+//                for (unsigned int u = 0; u < items.size(); u += 1)
+//                {
+//                    ew::View3Item *it = items[u];
+//                    if (it->get_state())
+//                    {
+//                        dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick",
+//                        it->dbg.in);
+//                        glLoadName(u);
+//                        glPushName(0);
+//                        it->render();
+//                        glPopName();
+//                    }
+//                }
+//                glPopName();
+//                hits = glRenderMode(GL_RENDER);
+//            }
 
       break;
     }
@@ -434,12 +441,20 @@ bool ew::View3Widget::pick_gl_select(double x, double y, double sz, double burro
      window_mapping.scale;
 
     #if !defined(NDEBUG)
+    printf( "original picking: hit# %d, selectionbuffer: %u, %u, %u, %u, %u\n",
+           i,
+           buf[5 * i + 0],
+           buf[5 * i + 1],
+           buf[5 * i + 2],
+           buf[5 * i + 3],
+           buf[5 * i + 4] );
         printf( "original picking: z before mapping = %d, and after = %f, scale = %f\n", buf[5 * i + 1], z, window_mapping.scale );
     #endif
 
     int cmpt = (buf[5 * i + 4] >> 2);
-    dbg.on && dbg.dprintf(
-     "%s::%s   pick-hit=%d z=%g dim=%d it=%d cmpt=%d zfar=%g", dbg.fn, "pick",
+    //dbg.on && dbg.dprintf(
+    printf(
+     "%s::%s   pick-hit=%d z=%g dim=%d it=%d cmpt=%d zfar=%g\n", dbg.fn, "pick",
      buf[5 * i], z, dim, it, cmpt,
      -(1.0 - buf[5 * i + 2] * 2.0 / 0xffffffffU) * window_mapping.scale);
     if (dim == 2) {
@@ -528,87 +543,375 @@ bool ew::View3Widget::pick_read_depthbuffer(    double x,
                                                 int *pick_cmpt,
                                                 int *pick_dim,
                                                 double *pick_z  )
+
 {
-  // THE MODIFIED EW PICKING CODE - based on reading the depth buffer
-
-    glClear(GL_DEPTH_BUFFER_BIT);
-  glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
-
+    // THE MODIFIED EW PICKING CODE - based on reading the depth buffer
+    static unsigned int num = 0u;
+    printf( "%s,%d: x = %f, y = %f\n", __FUNCTION__, __LINE__, x, y );
 
     glViewport(0, 0, winw, winh);
 
-  if (dataflow_check_cycle < network->get_cycle()) {
-    dataflow_check();
-  }
-  if (glGetError() != 0) {
-    throw ew::ErrorLogic(__FILE__, __LINE__);
-  }
-
-  double cr = clip_ratio;
-  if (cr < 0.001) {
-    cr = 0.001;
-  }
-  if (cr > 1000.0) {
-    cr = 1000.0;
-  }
-// sz is in pixels.
-  int min = std::min(winw, winh);
-  double pixsz = 2.0 / min;
-  double projmatrixpick[16];
-  for (int i = 0; i < 15; i += 1) {
-    projmatrixpick[i] = 0.0;
-  }
-  projmatrixpick[0] = 2.0 / (sz * pixsz);
-  projmatrixpick[5] = 2.0 / (sz * pixsz);
-  projmatrixpick[10] = -1.0 / cr;
-  projmatrixpick[12] = -projmatrixpick[0] * (x - winw / 2.0) * pixsz;
-  projmatrixpick[13] = projmatrixpick[5] * (y - winh / 2.0) * pixsz;
-  projmatrixpick[15] = 1.0;
-  glMatrixMode(GL_PROJECTION);
-  glLoadMatrixd(projmatrixpick);
-  double mm[16];
-  view_mapping.get_matrix_gl(mm);
-  glMatrixMode(GL_MODELVIEW);
-  glLoadMatrixd(mm);
-  for (int n = 0; n < VectorSize(items); n += 1) {
-    ew::View3Item *it = items[n];
-    if (it->get_state() && !it->get_prepared()) {
-      dbg.on && dbg.dprintf("%s::%s   prepare(%s)", dbg.fn, "pick", it->dbg.in);
-
-        #if !defined(NDEBUG)
-            printf("%s::%s   prepare(%s)", dbg.fn, "pick", it->dbg.in);
-        #endif
-
-      it->prepare();
+    if (dataflow_check_cycle < network->get_cycle())
+    {
+        dataflow_check();
     }
-  }
-
-  for (unsigned int u = 0; u < items.size(); u += 1) {
-      ew::View3Item *it = items[u];
-      if (it->get_state()) {
-        dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick", it->dbg.in);
-
-        #if !defined(NDEBUG)
-            printf("%s::%s   render(%s)\n", dbg.fn, "pick", it->dbg.in);
-        #endif
-
-        it->render();
-      }
+    if (glGetError() != 0)
+    {
+        printf( " ==> glGetError reported an error!\n" );
+        throw ew::ErrorLogic(__FILE__, __LINE__);
     }
 
-    glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
+    double cr = clip_ratio;
+    if (cr < 0.001)
+    {
+        cr = 0.001;
+    }
+    if (cr > 1000.0)
+    {
+        cr = 1000.0;
+    }
 
-  GLfloat depth;
-  glReadPixels(x, winh - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
-  // => selection buffer mapping was: GLfloat depthMapped = -(1.0 - depth * 2.0 / 0xffffffffU) * window_mapping.scale;
-  // bring depth from [0;1] to CS, i.e. [-1;+1], then multiply with app-specific depth scale factor
-  double depthMapped = ( depth - 0.5 ) * 2.0 * window_mapping.scale;
-  //glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+//// sz is in pixels.
+//  int min = std::min(winw, winh);
+//  double pixsz = 2.0 / min;
+//  double projmatrixpick[16];
+//  for (int i = 0; i < 15; i += 1) {
+//    projmatrixpick[i] = 0.0;
+//  }
+//  projmatrixpick[0] = 2.0 / (sz * pixsz);
+//  projmatrixpick[5] = 2.0 / (sz * pixsz);
+//  projmatrixpick[10] = -1.0 / cr;
+//  projmatrixpick[12] = -projmatrixpick[0] * (x - winw / 2.0) * pixsz;
+//  projmatrixpick[13] = projmatrixpick[5] * (y - winh / 2.0) * pixsz;
+//  projmatrixpick[15] = 1.0;
+//  glMatrixMode(GL_PROJECTION);
+//  glLoadMatrixd(projmatrixpick);
 
-    #if !defined(NDEBUG)
+
+    glMatrixMode(GL_PROJECTION);
+    projmatrix[10] = -1.0 / cr;
+    glLoadMatrixd(projmatrix);
+
+
+    glMatrixMode(GL_MODELVIEW);
+    double mm[16];
+    view_mapping.get_matrix_gl(mm);
+    glLoadMatrixd(mm);
+
+//  if (has_double_buffer) {
+//    glDrawBuffer(GL_BACK);
+//  } else {
+//    glDrawBuffer(GL_FRONT);
+//  }
+
+    GLfloat depth = 1.0f;
+
+
+if ( pick_cmpt != 0 ) {
+
+    #define PICK_LM_WITH_GL 0
+
+        #if ( PICK_LM_WITH_GL == 0 )
+        GLdouble mvpMatrix[16];
+        glPushMatrix();
+        // https://www.opengl.org/sdk/docs/man2/xhtml/glMultMatrix.xml
+        glLoadIdentity(); // current matrix = I
+        glLoadMatrixd( projmatrix ); // current matrix = P
+        glMultMatrixd( mm ); // current matrix = P * M
+        glGetDoublev( GL_MODELVIEW_MATRIX, mvpMatrix ); // grab the composite model view projection matrix
+        glPopMatrix();
+
+        GLint currViewport[4];
+        glGetIntegerv( GL_VIEWPORT, currViewport );
+        printf( " currViewport origin: %d, %d, dim: %d, %d\n", currViewport[0], currViewport[1], currViewport[2], currViewport[3] );
+
+        // would read pixels at window coords: ( x, winh - y )
+        // transform them to NDC through the inverse viewport mapping
+        // https://www.opengl.org/sdk/docs/man2/xhtml/glViewport.xml
+        const int windowX = x;
+        const int windowY = winh - y;
+        const float vpX = currViewport[0];
+        const float vpY = currViewport[1];
+        const float vpW = currViewport[2];
+        const float vpH = currViewport[3];
+
+        // (2/w, 2/h) corresponds to 1 pixel
+        const float ndcOnePixelX = 2.0f / winw;
+        const float ndcOnePixelY = 2.0f / winh;
+        const float ndcToleranceX = 4.0f * ndcOnePixelX;
+        const float ndcToleranceY = 4.0f * ndcOnePixelY;
+
+        const float ndcX = ( windowX - vpX ) * ( 2.0f / vpW ) - 1.0f;
+        const float ndcY = ( windowY - vpY ) * ( 2.0f / vpH ) - 1.0f;
+        printf( " window coords %d %d map to NDC coords %f %f\n", windowX, windowY, ndcX, ndcY );
+
+        int lmId = -1;
+
+        for ( unsigned int u = 0; u < items.size(); ++u )
+        {
+            ew::View3Item *it = items[u];
+
+            //if (it->get_state() && !it->get_prepared()) {
+            if (it->get_state())   // should be enough
+            {
+                dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick_read_depthbuffer", it->dbg.in);
+
+                if ( constrain_it != 0 )
+                {
+                    printf( " render idx = %d, u = %d\n", constrain_it->get_index(), u );
+                    if ( constrain_it->get_index() != u )
+                    {
+                        printf( " skip rendering of unwanted items to pick: %s\n", it->dbg.in );
+                        continue; // skip rendering unwanted items!
+                    }
+                }
+
+#if !defined(NDEBUG)
+                printf("%s::%s   render(%s)\n", dbg.fn, "pick_read_depthbuffer", it->dbg.in);
+#endif
+
+                ew::View3Landmarks *lmIt = dynamic_cast< ew::View3Landmarks* >( it );
+                if ( lmIt != NULL )
+                {
+                    printf( "renderColorCoded!\n" );
+                    //lmIt->renderColorCoded();
+                    if ( lmIt->pick( mvpMatrix, ndcX, ndcY, ndcToleranceX, ndcToleranceY, lmId ) ) {
+                        *pick_cmpt = lmId;
+                        return true;
+                    }
+
+                }
+            }
+        }
+
+        return false;
+
+        #else
+// if ( pick_z == 0 ) { // landmark color code read only
+    //if ( ( pick_z == 0 ) && ( pick_cmpt != 0 ) ) {   // landmark color code read only
+ //if ( false ) {
+// if ( true ) {
+        printf( "       --- pick_cmpt != 0 --- " );
+        glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
+        //glClearColor( 0.0f, 0.4f, 0.0f, 0.0f ); // better for debugging, otherwise LMs appear nearly black on black BG
+       // glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+            glDepthMask( GL_FALSE );    glClear( GL_COLOR_BUFFER_BIT );
+        //glDisable( GL_DEPTH_TEST );
+        //glFlush();
+        //glFinish();
+
+        {
+        GLubyte tmpRGBA[4];
+        glReadPixels( winw/2, winh/2, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, &tmpRGBA[0] );
+        printf( "tmpRGBA after clear: [0]=%u, [1]=%u, [2]=%u, [3]=%u \n", tmpRGBA[0], tmpRGBA[1], tmpRGBA[2], tmpRGBA[3] );
+        }
+
+        for ( unsigned int u = 0; u < items.size(); ++u )
+        {
+            ew::View3Item *it = items[u];
+
+            //if (it->get_state() && !it->get_prepared()) {
+            if (it->get_state())   // should be enough
+            {
+                dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick_read_depthbuffer", it->dbg.in);
+
+                if ( constrain_it != 0 )
+                {
+                    printf( " render idx = %d, u = %d\n", constrain_it->get_index(), u );
+                    if ( constrain_it->get_index() != u )
+                    {
+                        printf( " skip rendering of unwanted items to pick: %s\n", it->dbg.in );
+                        continue; // skip rendering unwanted items!
+                    }
+                }
+
+#if !defined(NDEBUG)
+                printf("%s::%s   render(%s)\n", dbg.fn, "pick_read_depthbuffer", it->dbg.in);
+#endif
+
+                ew::View3Landmarks *lmIt = dynamic_cast< ew::View3Landmarks* >( it );
+                if ( lmIt != NULL )
+                {
+                    printf( "renderColorCoded!\n" );
+                    lmIt->renderColorCoded();
+//glFlush();
+//    glFinish();
+
+                    if ( true )
+                    {
+
+                        /**
+                            char fname[ 255u ];
+                            sprintf( fname, "colorBuffer%d.raw", num );
+                            ++num;
+
+                            printf( "   TAKING colorbuffer screenshot, file %s - only LMs\n", fname );
+
+                            glFlush();
+                            glFinish();
+
+                            typedef unsigned char u8;
+                            u8 *colorBuffer = new u8[ winw * winh * 4 ];
+                            glReadPixels( 0, 0, winw, winh, GL_RGBA, GL_UNSIGNED_BYTE, &colorBuffer[ 0 ] );
+                            //FILE *fp = fopen( "colorBuffer.raw", "w" );
+                            FILE *fp = fopen( fname, "w" );
+                            fwrite( &winw, sizeof( winw ), 1, fp );
+                            fwrite( &winh, sizeof( winh ), 1, fp );
+                            fwrite( &colorBuffer[ 0 ], sizeof( colorBuffer[ 0 ] ), winw * winh * 4, fp );
+                            fclose( fp );
+                            delete[] colorBuffer;
+                            **/
+                    }
+
+
+                }
+                else
+                {
+                    printf( "landmarks cast: %s\n", typeid( it ).name() );
+
+                    //( ( ew::View3Landmarks* ) it )->renderColorCoded();
+//    typedef unsigned char u8;
+//    u8 *colorBuffer = new u8[ winw * winh * 4 ];
+//    glReadPixels( 0, 0, winw, winh, GL_RGBA, GL_UNSIGNED_BYTE, &colorBuffer[ 0 ] );
+//    FILE *fp = fopen( "colorBuffer.raw", "w" );
+//    fwrite( &winw, sizeof( winw ), 1, fp );
+//    fwrite( &winh, sizeof( winh ), 1, fp );
+//    fwrite( &colorBuffer[ 0 ], sizeof( colorBuffer[ 0 ] ), winw * winh * 4, fp );
+//    fclose( fp );
+//    delete[] colorBuffer;
+
+                }
+
+                /*
+                            glMatrixMode( GL_PROJECTION );
+                            glPushMatrix();
+                            glLoadIdentity();
+                            glMatrixMode( GL_MODELVIEW );
+                            glPushMatrix();
+                            glLoadIdentity();
+                            glPointSize( 8.0f );
+                            glColor3f( 1.0f, 0.5f, 0.2f );
+                            glBegin( GL_POINTS );
+                            glVertex3f( 0.0f, 0.0f, 0.0f );
+                            glEnd();
+                            glPopMatrix();
+                            glMatrixMode( GL_PROJECTION );
+                            glPopMatrix();
+                            glMatrixMode( GL_MODELVIEW );
+                */
+            }
+        }
+    glDepthMask( GL_TRUE );
+
+#endif // PICK_LM_WITH_GL
+
+    } //else { // depth read only
+    if ( pick_z != 0 )   // depth read only
+    //else if ( pick_z != 0 )   // depth read only
+    {
+
+        printf( "       --- pick_z != 0 --- " );
+
+        // glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
+        // glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+        glClear(GL_DEPTH_BUFFER_BIT);
+        glColorMask( GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE );
+
+//        glClearColor( 0.5f, 0.1f, 0.65f, 0.5f );
+//        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+
+        for ( int n = 0; n < VectorSize( items ); ++n )
+        {
+            ew::View3Item *it = items[n];
+            if (it->get_state() && !it->get_prepared())
+            {
+                dbg.on && dbg.dprintf("%s::%s   prepare(%s)", dbg.fn, "pick", it->dbg.in);
+
+                //if ( constrain_it != 0 && constrain_it->get_index() != n )
+//    if ( constrain_it != 0 ) {
+//        printf( " DEPTH prepare idx = %d, n = %d\n", constrain_it->get_index(), n );
+//    }
+#if !defined(NDEBUG)
+                printf("%s::%s   prepare(%s)", dbg.fn, "pick", it->dbg.in);
+#endif
+
+                it->prepare();
+            }
+        }
+
+        for ( unsigned int u = 0; u < items.size(); ++u )
+        {
+            ew::View3Item *it = items[u];
+            if (it->get_state())
+            {
+                dbg.on && dbg.dprintf("%s::%s   render(%s)", dbg.fn, "pick", it->dbg.in);
+
+//    if ( constrain_it != 0 ) {
+//        printf( " DEPTH render idx = %d, u = %d\n", constrain_it->get_index(), u );
+//        if ( constrain_it->get_index() != u ) {
+//                printf( " DEPTH - skip rendering of unwanted items to pick: %s\n", it->dbg.in );
+//            continue; // skip rendering of unwanted items!
+//        }
+//    }
+
+#if !defined(NDEBUG)
+                printf("%s::%s   DEPTH render(%s)\n", dbg.fn, "pick", it->dbg.in);
+#endif
+
+                //!
+                it->render();
+                /**
+                ew::View3Landmarks *lmIt = dynamic_cast< ew::View3Landmarks* >( it );
+                    if ( lmIt != NULL ) {
+                            printf( "renderColorCoded!\n" );
+                        lmIt->renderColorCoded();
+                    } else {
+                        it->render();
+                    }
+                    **/
+
+            }
+        }
+
+        glColorMask( GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE );
+
+        glFlush();
+        glFinish();
+
+#define PICK_SINGLE_DEPTH_VALUE
+#if defined(PICK_SINGLE_DEPTH_VALUE)
+        glReadPixels(x, winh - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+#else // pick 9 values
+        GLfloat depthArray[ 9 ];
+        GLint sx = std::max< int >( x - 1, 0 );
+        GLint sy = std::max< int >( winh - y - 1, 0 );
+        glReadPixels( sx, sy, 3, 3, GL_DEPTH_COMPONENT, GL_FLOAT, &( depthArray[0] ) );
+        depth = depthArray[ 0 ];
+        for( int i = 1; i < 9; ++i )
+        {
+            if ( depthArray[ i ] < depth )
+            {
+                depth = depthArray[ i ];
+            }
+        }
+#endif
+
+
+        glFlush();
+        glFinish();
+
+
+        // => selection buffer mapping was: GLfloat depthMapped = -(1.0 - depth * 2.0 / 0xffffffffU) * window_mapping.scale;
+        // bring depth from [0;1] to CS, i.e. [-1;+1], then multiply with app-specific depth scale factor
+        double depthMapped = ( depth - 0.5 ) * 2.0 * window_mapping.scale;
+        //glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+
+#if !defined(NDEBUG)
         printf( "depth at ( %f | %f ) = %f, mappedd = %f\n",
                 (float)x, (float)y, depth, depthMapped );
-    #endif
+#endif
 
 //    printf( "win dims: %d x %d \n", winw, winh );
 //    GLfloat *depthBuffer = new GLfloat[ winw * winh ];
@@ -620,19 +923,99 @@ bool ew::View3Widget::pick_read_depthbuffer(    double x,
 //    fclose( fp );
 //    delete[] depthBuffer;
 
+        /*
+        for (int ps = 0; ps < VectorSize(data->pointsets); ps += 1) {
+              const ew::Form3PointSet *fps = &data->pointsets[ps];
+
+              fps->locations[i] // supposedly object space coords
+        */
+
+        if ( pick_z != 0 )
+        {
+            printf( " returning mapped depth: %f\n", depthMapped );
+            // slight depth offset so that landmark is not z-fighting with the surface
+            //const double epsilon = 0.001 * window_mapping.scale;
+            //*pick_z = depthMapped - epsilon;
+            *pick_z = depthMapped;
+        }
+
+
+    } // depth read only
+
+    glFlush();
+    glFinish();
 
 
 
 
-  if ( pick_z != NULL ) {
-    // slight depth offset so that landmark is not z-fighting with the surface
-    //const double epsilon = 0.001 * window_mapping.scale;
-    //*pick_z = depthMapped - epsilon;
-    *pick_z = depthMapped;
-  }
+    //if (pick_cmpt && pi >= 0) {
+    if ( pick_cmpt != 0 )
+    //if ( false )
+    {
+        GLuint colorCode = 0u;
+        //glReadPixels( x, winh - y, 1, 1, GL_RGB, GL_UNSIGNED_INT, &colorCode );
+        GLubyte tmpRGBA[4];
+        glReadPixels( x, winh - y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, &tmpRGBA[0] );
+        printf( "tmpRGBA: [0]=%u, [1]=%u, [2]=%u, [3]=%u \n", tmpRGBA[0], tmpRGBA[1], tmpRGBA[2], tmpRGBA[3] );
 
-  //return true;
-  return ( depth < 1.0f );
+        // TODO: test for alpha != 0 to get valid pick info
+
+        if ( tmpRGBA[3] < 255 )
+        {
+            colorCode = -1;
+        }
+        else
+        {
+            colorCode = ( ( tmpRGBA[2] << 16u ) | ( tmpRGBA[1] << 8u ) | tmpRGBA[0] );
+        }
+
+        //#if defined(PICK_SINGLE_DEPTH_VALUE)
+        //  glReadPixels(x, winh - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+        //#else // pick 9 values
+        //  GLfloat depthArray[ 9 ];
+        //  GLint sx = std::max< int >( x - 1, 0 );
+        //  GLint sy = std::max< int >( winh - y - 1, 0 );
+        //  glReadPixels( sx, sy, 3, 3, GL_DEPTH_COMPONENT, GL_FLOAT, &( depthArray[0] ) );
+        //  depth = depthArray[ 0 ];
+        //  for( int i = 1; i < 9; ++i ) {
+        //    if ( depthArray[ i ] < depth ) {
+        //        depth = depthArray[ i ];
+        //    }
+        //  }
+        //#endif
+
+        printf( "colorCode = %u, and again as int: %d\n", colorCode, static_cast< int >( colorCode ) );
+
+
+        //    QPixmap pixmap;
+        //    const uchar *buf = new uchar[ winw * winh * 3 ];
+        //    glReadPixels( 0, 0, winw, winh, GL_RGB, GL_UNSIGNED_BYTE, &buf );
+        //    pixmap.loadFromData( buf, winw * winh );
+        //    //pixmap.save( "colorCode.bmp", "BMP" );
+        //    QFile file("yourFile.png");
+        //    file.open(QIODevice::WriteOnly);
+        //    pixmap.save(&file, "PNG");
+        //    file.close();
+        //    delete[] buf;
+
+
+        //    typedef unsigned char u8;
+        //    u8 *colorBuffer = new u8[ winw * winh * 4 ];
+        //    glReadPixels( 0, 0, winw, winh, GL_RGBA, GL_UNSIGNED_BYTE, &colorBuffer[ 0 ] );
+        //    FILE *fp = fopen( "colorBuffer-1.raw", "w" );
+        //    fwrite( &winw, sizeof( winw ), 1, fp );
+        //    fwrite( &winh, sizeof( winh ), 1, fp );
+        //    fwrite( &colorBuffer[ 0 ], sizeof( colorBuffer[ 0 ] ), winw * winh * 4, fp );
+        //    fclose( fp );
+        //    delete[] colorBuffer;
+
+
+        *pick_cmpt = static_cast< int >( colorCode );
+    }
+
+
+    //return true;
+    return ( depth < 1.0f );
 }
 
 /// Find all item fragment picks, in order of most prominent first.

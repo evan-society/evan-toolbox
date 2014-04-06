@@ -194,6 +194,7 @@ ew::View3Landmarks::check_dataflow()
 void
 ew::View3Landmarks::prepare()
 {
+    #if 0
   if (dlist == 0) {
     dlist = glGenLists(1);
     if (dlist == 0) {
@@ -232,8 +233,17 @@ ew::View3Landmarks::prepare()
           }
           glLoadName(u << 2);
           glRasterPos3dv(&fps->locations[i]);
+          //printf( " %f %f %f\n", fps->locations[i], fps->locations[i+1], fps->locations[i+2] );
+          //NOPE! glVertex3dv( &fps->locations[i] ); // doesn't set the raster pos, which is used subsequently by glBitmap(); also don't forget glBegin/glEnd!
           glBitmap(MarkersN[sy], MarkersN[sy], MarkersO[sy], MarkersO[sy], 0.0,
            0.0, MarkersD[sy]);
+
+//           glColor3f( 0.9f, 0.9f, 0.9f );
+//           glPointSize( 8.0f );
+//           glBegin( GL_POINTS );
+//           glVertex3dv( &fps->locations[i] );
+//           glEnd();
+
           u += 1;
           if (ps == highlight_ps && i == highlight_i) {
             glColor3fv(c);
@@ -246,14 +256,300 @@ ew::View3Landmarks::prepare()
     glNewList(dlist, GL_COMPILE);
     glEndList();
   }
+  #endif
   ew::View3Item::prepared = true;
 }
+
+//void
+//ew::View3Landmarks::render()
+//{
+//  glCallList(dlist);
+//}
 
 void
 ew::View3Landmarks::render()
 {
-  glCallList(dlist);
+  if (form != 0 && form->ew::DataflowNode::get_valid()) {
+    glShadeModel(GL_FLAT);
+    const ew::Form3 *data = form->get_data();
+    GLfloat c[3];
+    c[0] = color[0] / 255.0;
+    c[1] = color[1] / 255.0;
+    c[2] = color[2] / 255.0;
+    int sy = symbol;
+    if (sy < 0 || sy > N_SYMBOLS) {
+      throw ew::ErrorLogic(__FILE__, __LINE__);
+    }
+    glColor3fv(c);
+    unsigned int u = 0;
+    for (int ps = 0; ps < VectorSize(data->pointsets); ps += 1) {
+      const ew::Form3PointSet *fps = &data->pointsets[ps];
+      if (fps->type == ew::Form3::TYPE_LANDMARK ||
+       fps->type == ew::Form3::TYPE_SEMI_LANDMARK) {
+        for (int i = 0; i < VectorSize(fps->locations); i += 3) {
+          if (ps == highlight_ps && i == highlight_i) {
+            const unsigned char *hc =
+             ew::View3Item::view->get_highlight_color();
+            GLfloat ch[3];
+            ch[0] = hc[0] / 255.0;
+            ch[1] = hc[1] / 255.0;
+            ch[2] = hc[2] / 255.0;
+            glColor3fv(ch);
+          }
+          glLoadName(u << 2);
+          glRasterPos3dv(&fps->locations[i]);
+          glBitmap(MarkersN[sy], MarkersN[sy], MarkersO[sy], MarkersO[sy], 0.0,
+           0.0, MarkersD[sy]);
+
+          u += 1;
+          if (ps == highlight_ps && i == highlight_i) {
+            glColor3fv(c);
+          }
+        }
+      }
+    }
+  }
 }
+
+//void
+//ew::View3Landmarks::render()
+//{
+//  if (form != 0 && form->ew::DataflowNode::get_valid()) {
+//     glShadeModel(GL_FLAT);
+//    const ew::Form3 *data = form->get_data();
+//    GLfloat c[3];
+//    c[0] = color[0] / 255.0;
+//    c[1] = color[1] / 255.0;
+//    c[2] = color[2] / 255.0;
+//    int sy = symbol;
+//    if (sy < 0 || sy > N_SYMBOLS) {
+//      throw ew::ErrorLogic(__FILE__, __LINE__);
+//    }
+//    glColor3fv(c);
+//    unsigned int u = 0;
+//    for (int ps = 0; ps < VectorSize(data->pointsets); ps += 1) {
+//      const ew::Form3PointSet *fps = &data->pointsets[ps];
+//      if (fps->type == ew::Form3::TYPE_LANDMARK ||
+//       fps->type == ew::Form3::TYPE_SEMI_LANDMARK) {
+//        for (int i = 0; i < VectorSize(fps->locations); i += 3) {
+//          if (ps == highlight_ps && i == highlight_i) {
+//            const unsigned char *hc =
+//             ew::View3Item::view->get_highlight_color();
+//            GLfloat ch[3];
+//            ch[0] = hc[0] / 255.0;
+//            ch[1] = hc[1] / 255.0;
+//            ch[2] = hc[2] / 255.0;
+//            glColor3fv(ch);
+//          }
+//          glLoadName(u << 2);
+//          glRasterPos3dv(&fps->locations[i]);
+//          //printf( " %f %f %f\n", fps->locations[i], fps->locations[i+1], fps->locations[i+2] );
+//          //NOPE! glVertex3dv( &fps->locations[i] ); // doesn't set the raster pos, which is used subsequently by glBitmap(); also don't forget glBegin/glEnd!
+//          glBitmap(MarkersN[sy], MarkersN[sy], MarkersO[sy], MarkersO[sy], 0.0,
+//           0.0, MarkersD[sy]);
+//
+////           glColor3f( 0.9f, 0.9f, 0.9f );
+////           glPointSize( 8.0f );
+////           glBegin( GL_POINTS );
+////           glVertex3dv( &fps->locations[i] );
+////           glEnd();
+//
+//          u += 1;
+//          if (ps == highlight_ps && i == highlight_i) {
+//            glColor3fv(c);
+//          }
+//        }
+//      }
+//    }
+//
+//  }
+//  ew::View3Item::prepared = true;
+//}
+
+void
+ew::View3Landmarks::renderColorCoded()
+{
+  if (form != 0 && form->ew::DataflowNode::get_valid()) {
+    glShadeModel(GL_FLAT);
+    const ew::Form3 *data = form->get_data();
+    GLfloat c[3];
+    c[0] = color[0] / 255.0;
+    c[1] = color[1] / 255.0;
+    c[2] = color[2] / 255.0;
+    int sy = symbol;
+    if (sy < 0 || sy > N_SYMBOLS) {
+      throw ew::ErrorLogic(__FILE__, __LINE__);
+    }
+    //glColor3fv(c);
+    GLfloat oldPointSize;
+    glGetFloatv( GL_POINT_SIZE, &oldPointSize );
+    printf( "oldPointSize = %f\n", oldPointSize );
+    //glPointSize( 8.0f );
+    //glBegin( GL_POINTS );
+    unsigned int u = 0;
+    for (int ps = 0; ps < VectorSize(data->pointsets); ps += 1) {
+      const ew::Form3PointSet *fps = &data->pointsets[ps];
+      if (fps->type == ew::Form3::TYPE_LANDMARK ||
+       fps->type == ew::Form3::TYPE_SEMI_LANDMARK) {
+        for (int i = 0; i < VectorSize(fps->locations); i += 3) {
+//          if (ps == highlight_ps && i == highlight_i) {
+//            const unsigned char *hc =
+//             ew::View3Item::view->get_highlight_color();
+//            GLfloat ch[3];
+//            ch[0] = hc[0] / 255.0;
+//            ch[1] = hc[1] / 255.0;
+//            ch[2] = hc[2] / 255.0;
+//            glColor3fv(ch);
+//          }
+
+          //glLoadName(u << 2);
+
+          GLubyte colorCode[3];
+          colorCode[0] = ( u & 0xff );
+          colorCode[1] = ( ( u & 0xff00 ) >> 8u );
+          colorCode[2] = ( ( u & 0xff0000 ) >> 16u );
+          //glColor3ubv( colorCode );
+          const GLfloat factor = 1.0f / 255.0f;
+          //const GLfloat factor = 8.0f / 255.0f; // better for debugging, otherwise LMs appear nearly black on black BG
+
+
+//          //! glColor3f( factor * colorCode[0], factor * colorCode[1], factor * colorCode[2] );
+//          glColor3f( 0.9f, 0.9f, 0.9f );
+//
+//            printf( "renderColorCoded: [0]=%u, [1]=%u, [2]=%u; as GLuint: %u\n", colorCode[0], colorCode[1], colorCode[2], u );
+//          glRasterPos3dv(&fps->locations[i]);
+//          //NOPE! glVertex3dv( &fps->locations[i] ); // doesn't set the raster pos, which however is used subsequently by glBitmap()
+//          glBitmap(MarkersN[sy], MarkersN[sy], MarkersO[sy], MarkersO[sy], 0.0,
+//           0.0, MarkersD[sy]);
+
+
+//           glColor3f( 0.9f, 0.9f, 0.9f );
+//           glVertex3dv( &fps->locations[i] );
+
+
+           //glColor3f( 0.9f, 0.9f, 0.9f );
+           glColor3f( factor * colorCode[0], factor * colorCode[1], factor * colorCode[2] );
+           glPointSize( 10.0f );
+           //printf( "u = %u\n", u );
+           //printf( " %f %f %f\n", fps->locations[i], fps->locations[i+1], fps->locations[i+2] );
+           glBegin( GL_POINTS );
+           //glVertex3dv( &fps->locations[i] );
+           glVertex3d( fps->locations[i], fps->locations[i + 1], fps->locations[i + 2] );
+           //glVertex3f( 0.5f, 0.5f, 0.5f );
+           glEnd();
+
+
+//            glMatrixMode( GL_PROJECTION );
+//            glPushMatrix();
+//            glLoadIdentity();
+//            glMatrixMode( GL_MODELVIEW );
+//            glPushMatrix();
+//            glLoadIdentity();
+//            glPointSize( 8.0f );
+//            glColor3f( 2.0f, 0.5f, 1.0f );
+//            glBegin( GL_POINTS );
+//            glVertex3f( 0.5f, 0.5f, 0.5f );
+//            glEnd();
+//            glPopMatrix();
+//            glMatrixMode( GL_PROJECTION );
+//            glPopMatrix();
+//            glMatrixMode( GL_MODELVIEW );
+
+
+          u += 1;
+//          if (ps == highlight_ps && i == highlight_i) {
+//            glColor3fv(c);
+//          }
+        }
+      }
+    }
+    //glEnd();
+    //glPointSize( oldPointSize );
+  }
+  //ew::View3Item::prepared = true;
+}
+
+
+bool ew::View3Landmarks::pick(  const double *const mvpMatrix,
+                                const float ndcX,
+                                const float ndcY,
+                                const float ndcToleranceX,
+                                const float ndcToleranceY,
+                                int &lmID ) const
+{
+
+  if (form != 0 && form->ew::DataflowNode::get_valid()) {
+
+    const ew::Form3 *data = form->get_data();
+
+    int sy = symbol;
+    if (sy < 0 || sy > N_SYMBOLS) {
+      throw ew::ErrorLogic(__FILE__, __LINE__);
+    }
+
+//    unsigned int u = 0;
+    int u = 0;
+    int bestU = -1;
+    double currDepth = 1.0; // acutally z in window coords in [0;1] and in ndc in [-1;1], thus max dist equals 1 in both cases
+
+    // left/right, bottom/top tolerance
+    float ndcNx = ndcX - ndcToleranceX;
+    float ndcPx = ndcX + ndcToleranceX;
+    float ndcNy = ndcY - ndcToleranceY;
+    float ndcPy = ndcY + ndcToleranceY;
+
+    for (int ps = 0; ps < VectorSize(data->pointsets); ps += 1) {
+      const ew::Form3PointSet *fps = &data->pointsets[ps];
+      if (fps->type == ew::Form3::TYPE_LANDMARK ||
+       fps->type == ew::Form3::TYPE_SEMI_LANDMARK) {
+        for (int i = 0; i < VectorSize(fps->locations); i += 3) {
+
+            //glVertex3d( fps->locations[i], fps->locations[i + 1], fps->locations[i + 2] );
+            // transform by matrix, then check if close enough to desired pos and closer than any eligible LM visited before
+            const double x = fps->locations[i];
+            const double y = fps->locations[i + 1];
+            const double z = fps->locations[i + 2];
+            double tx = mvpMatrix[0] * x + mvpMatrix[4] * y + mvpMatrix[ 8] * z + mvpMatrix[12];
+            double ty = mvpMatrix[1] * x + mvpMatrix[5] * y + mvpMatrix[ 9] * z + mvpMatrix[13];
+            double tz = mvpMatrix[2] * x + mvpMatrix[6] * y + mvpMatrix[10] * z + mvpMatrix[14];
+            double tw = mvpMatrix[3] * x + mvpMatrix[7] * y + mvpMatrix[11] * z + mvpMatrix[15];
+
+            // inside view frustum?
+            if (    ( -tw <= tx ) && ( tx <= tw ) &&
+                    ( -tw <= ty ) && ( ty <= tw ) &&
+                    ( -tw <= tz ) && ( tz <= tw ) ) {
+                // to NDC
+                tx /= tw;
+                ty /= tw;
+                tz /= tw;
+
+                // close enough to 2D pick pos?
+                if (    ( ndcNx <= tx ) && ( tx <= ndcPx ) &&
+                        ( ndcNy <= ty ) && ( ty <= ndcPy ) ) {
+                    if ( tz < currDepth ) {
+                        currDepth = tz;
+                        bestU = u;
+                    }
+                }
+            }
+
+            ++u;
+
+        }
+      }
+    }
+
+    if ( bestU >= 0 ) {
+        lmID = bestU;
+        return true;
+    }
+
+  }
+
+   lmID = -1;
+   return false;
+}
+
 
 /// @param ps
 ///   The pointset of the landmark to highlight.

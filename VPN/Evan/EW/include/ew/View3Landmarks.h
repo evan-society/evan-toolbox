@@ -36,6 +36,15 @@ namespace ew {
     void set_symbol(int sym);
     inline int get_symbol() const;
     const ew::DebugHelper dbg;
+
+    void renderColorCoded();
+    bool pick(  const double *const mvpMatrix,
+                const float ndcX,
+                const float ndcY,
+                const float ndcToleranceX,
+                const float ndcToleranceY,
+                int &lmID ) const;
+
   private:
     virtual ~View3Landmarks();
     virtual bool check_dataflow();

@@ -13,8 +13,12 @@
 #endif
 
 
-View3Qt::View3Qt(ew::DataflowNetwork *nw, QWidget *par, QGLWidget *share, QGLWidget *share2, ew::Dig3 *dig3, int space, int slicemode) : QGLWidget(par, share2 ? share2 : share ),ew::Dig3View(dig3,space,slicemode),
-                                                                            m_dig3Cursor(QBitmap(":Images/xhf.bmp"),QBitmap(":Images/xhbg.bmp")), m_lmkTopItem(0), m_tarLmkTopItem(0)
+View3Qt::View3Qt(ew::DataflowNetwork *nw, QWidget *par, QGLWidget *share, QGLWidget *share2, ew::Dig3 *dig3, int space, int slicemode) :
+    QGLWidget(par, share2 ? share2 : share ),
+    ew::Dig3View(dig3,space,slicemode),
+    m_dig3Cursor(QBitmap(":Images/xhf.bmp"), QBitmap(":Images/xhbg.bmp")),
+    m_lmkTopItem(0),
+    m_tarLmkTopItem(0)
 {
     m_isTemplate = false;
     m_semitype = -1;
@@ -596,9 +600,11 @@ void View3Qt::mouseReleaseEvent(QMouseEvent *ev)
         int c = -1;
         bool pickRet =
         ew::View3Widget::pick(x, y, 15.0, 7.5, get_landmarks_item(), -1, -1, 0, &c, 0, 0);
+        //false;
 
         #if !defined(NDEBUG)
             printf( " ET called EW pick4 - and returned %s \n", ( pickRet ) ? "true" : "false" );
+            printf( " constraint idx was %d, returned c = %d\n", get_landmarks_item()->get_index(), c );
         #endif
 
         if(c >= 0)
@@ -636,6 +642,16 @@ void View3Qt::mouseReleaseEvent(QMouseEvent *ev)
                 }
             }
             QString id = form->pointsets[ f_c ].id.c_str();
+
+        #if !defined(NDEBUG)
+            printf( " LANDMARK SELECTED!\n" );
+            Logger::getInstance()->log( QString( "LANDMARK SELECTED:" )
+                                        + QString( " id = " ) + id
+                                        + QString( " c = " ) + QString::number( c )
+                                        + QString( " f_c = " ) + QString::number( f_c )
+                                        + QString( " f_ci = " ) + QString::number( f_ci ) );
+		#endif
+
             emit landmarkSelected( id, f_c, f_ci, get_space() );
         }
     }
