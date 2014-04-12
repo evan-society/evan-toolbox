@@ -176,8 +176,8 @@ public slots:
             pLti->assignLandmarksHere( tog ? this : 0 );
         } else {
             #if !defined(NDEBUG)
-            Logger::getInstance()->log( "failed to cast type of parentForm to LandmarksTopItem* => falling back to original code..." );
-            Logger::getInstance()->log( QString( "actual type = " ) + QString( typeid(*m_parentForm).name() ) );
+            //Logger::getInstance()->log( "failed to cast type of parentForm to LandmarksTopItem* => falling back to original code..." );
+            //Logger::getInstance()->log( QString( "actual type = " ) + QString( typeid(*m_parentForm).name() ) );
 
             int status;
             char *realname = abi::__cxa_demangle(typeid(*m_parentForm).name(), 0, 0, &status);
