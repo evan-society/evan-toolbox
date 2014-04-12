@@ -506,7 +506,7 @@ void ViewerNode::process()
         }
     }
 
-//    focusScene();
+    focusScene(); // this causes problems in the GroupMeans.vpn after changing colors for male/female group
 }
 
 void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, const osg::Matrixd *const matrix )
