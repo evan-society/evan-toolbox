@@ -42,32 +42,28 @@ QString SemiLandmarksTopItem::createAlphaNumeric( unsigned int idnum )
 {
     QString num; num = num.setNum( idnum );
     QString base = "SM";
-    //if( idnum < 99999  && idnum <= 9999)
-	if( idnum < 99999  && idnum >= 10000 )
+    if( idnum < 99999  && idnum <= 9999)
         base += "0";
     else
     {
         base += num;
         return base;
     }
-    //if( idnum < 9999  && idnum <= 999)
-	if( idnum < 9999  && idnum >= 1000 )
+    if( idnum < 9999  && idnum <= 999)
         base += "0";
     else
     {
         base += num;
         return base;
     }
-    //if( idnum < 999  && idnum <= 99)
-	if( idnum < 999  && idnum >= 100 )
+    if( idnum < 999  && idnum <= 99)
         base += "0";
     else
     {
         base += num;
         return base;
     }
-    //if( idnum < 99  && idnum <= 9)
-	if( idnum < 99  && idnum >= 10 )
+    if( idnum < 99  && idnum <= 9)
         base += "0";
     else
     {
