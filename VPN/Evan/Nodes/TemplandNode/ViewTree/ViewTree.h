@@ -26,14 +26,7 @@ public slots:
     }
     void signalSelectionChange()
     {
-        //printf( "signalSelectionChange! selectedItems().count() = %d\n", selectedItems().count() );
-        for ( int i = selectedItems().count() - 1; i >= 0; --i ) {
-            if ( selectedItems().at( i )->isSelected() ) {
-                emit viewItemSelected( this, selectedItems().at( i ) );
-                break;
-            }
-        }
-
+    	if(selectedItems().count()) emit viewItemSelected(this, selectedItems().front());
     }
 
 signals:

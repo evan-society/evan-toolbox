@@ -287,7 +287,7 @@ bool ew::View3Widget::pick(double x, double y, double sz, double burrow,
      //if ( original_pick_function ) {
      //if ( pick_z == 0 ) {
      //if ( true ) {
-     if ( false ) {
+     if ( true ) {
          return pick_gl_select( x, y, sz, burrow,
                                 constrain_it, constrain_cmpt, constrain_dim,
                                 pick_it, pick_cmpt, pick_dim, pick_z );
