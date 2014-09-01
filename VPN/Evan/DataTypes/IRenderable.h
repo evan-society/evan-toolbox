@@ -11,6 +11,11 @@
 #include <cassert>
 #include <cstdio>
 
+// debug only
+#if !defined(NDEBUG)
+    #include <iostream>
+#endif
+
 class IRenderable : public IDataType
 {
 protected:
@@ -49,13 +54,24 @@ public:
     //QString getRenderableName() const { if ( m_osgNode == NULL ) { printf( "m_osgNode is NULL!\n" ); return QString(); } else { return QString( m_osgNode->getName().c_str() ); } }
     QString getRenderableName() const
     {
+        if ( !m_osgNode.valid() ) {
+            #if !defined(NDEBUG)
+                fprintf( stderr, "m_osgNode is not valid!\n" );
+            #endif
+                return QString( " " );
+        }
+
         if ( m_osgNode == NULL ) {
                 #if !defined(NDEBUG)
                     fprintf( stderr, "m_osgNode is NULL!\n" );
                 #endif
                 return QString( " " );
         } else {
-            return QString( m_osgNode->getName().c_str() );
+            std::string nodeName = m_osgNode->getName();
+#if !defined(NDEBUG)
+            std::cerr << " nodeName = " << nodeName << std::endl;
+#endif
+            return QString( nodeName.c_str() );
         }
     }
 

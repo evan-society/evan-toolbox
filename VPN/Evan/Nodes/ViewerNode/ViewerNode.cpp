@@ -269,6 +269,8 @@ ViewerNode::ViewerNode( QWidget * parent , const char * name ,
                                         const QGLWidget * shareWidget, WindowFlags f ) :
                                         AdapterWidget(parent, name, shareWidget, f), INode()
 {
+    std::cout << "ViewerNode::ViewerNode\n"; //husky debug
+
     m_renderInput = NULL;
 
     m_settings = new osg::DisplaySettings();
@@ -461,8 +463,18 @@ void ViewerNode::process()
 
             //positionManipulators( renderable->getOsgNode() ); //husky
         }
-        else if(m_currentScene.value(renderable) != renderable->getOsgNode().get())
-            updateOsgNode(renderable, m_currentScene.value(renderable));
+        //! else if(m_currentScene.value(renderable) != renderable->getOsgNode().get())
+        else {
+            bool newComparison = ( dynamic_cast< const void* >( m_currentScene.value(renderable) ) != dynamic_cast< const void* >( renderable->getOsgNode().get() ) );
+            bool oldComparison = ( m_currentScene.value(renderable) != renderable->getOsgNode().get() );
+            if( newComparison != oldComparison ) {
+                std::cerr << " ---- oldComparison != newComparison ---- ";
+            }
+
+            if ( newComparison ) {
+                updateOsgNode(renderable, m_currentScene.value(renderable));
+            }
+        }
 	}
 
     if(newRenderable)
@@ -504,9 +516,8 @@ void ViewerNode::process()
             m_cameraManipulator->setByMatrix(m_loadedViewMatrix);
             m_loadedViewMatrix.makeIdentity();
         }
+        focusScene(); // here instead of as last statement in this function
     }
-
-    focusScene(); // this causes problems in the GroupMeans.vpn after changing colors for male/female group
 }
 
 void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, const osg::Matrixd *const matrix )
@@ -550,10 +561,10 @@ void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, 
 void ViewerNode::focusScene()
 {
     QMap< IRenderable*, osg::Node* >::const_iterator it;
-    QMap< IRenderable*, osg::Node* >::const_iterator itEnd = m_currentScene.end();
+    const QMap< IRenderable*, osg::Node* >::const_iterator itEnd = m_currentScene.end();
 
     QMap< Volumes*, osgVolume::Volume* >::const_iterator itVol;
-    QMap< Volumes*, osgVolume::Volume* >::const_iterator itVolEnd = m_currentVolumeScene.end();
+    const QMap< Volumes*, osgVolume::Volume* >::const_iterator itVolEnd = m_currentVolumeScene.end();
 
 #define MANUAL_AABB_CALCULATION
 
@@ -564,7 +575,8 @@ void ViewerNode::focusScene()
 
     // manually determine AABB
     for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
-            static int itCnt = 0;   fprintf( stderr, "iteration %d\n", itCnt );   ++itCnt;
+
+        it.value()->dirtyBound(); // may not be necessary; causes re-evaluation of bounding sphere
 
         float r = it.value()->getBound().radius();
         osg::Vec3 rVec = osg::Vec3( r, r, r );
@@ -1036,11 +1048,13 @@ void ViewerNode::fromString(const QString& params)
                                                1.0));
         m_loadedCameraDist = viewerAttribs[3].toDouble();
         //m_loadedCameraDist = 10.0;
+
         m_loadedZNear = viewerAttribs[4].toDouble();
         m_loadedZFar = viewerAttribs[5].toDouble();
         m_loadedViewMatrix =osg::Matrix::rotate(osg::Quat(viewerAttribs[6].toDouble(), viewerAttribs[7].toDouble(), viewerAttribs[8].toDouble(), viewerAttribs[9].toDouble())) *
                             osg::Matrix::translate(viewerAttribs[10].toDouble(), viewerAttribs[11].toDouble(), viewerAttribs[12].toDouble());
         toggleAxes(viewerAttribs[13].toInt());
+
     }
 
     QStringList rParams = viewerParams[1].split("/");
