@@ -22,7 +22,7 @@ public:
     void setFloat(int i, Float* f)      {m_floats[i] = DataTypePtr(f);}
     void setFloat(int i, double f)      {m_floats[i] = DataTypePtr(new Float(f));}
 
-    double getFloat(int i)              const {return  dynamic_cast<Float *>( m_floats[i].getPtr() )->getData(); }
+    double getFloat(int i)              const {return ((Float*)m_floats[i].getPtr())->getData();}
 
     void clear()
     {

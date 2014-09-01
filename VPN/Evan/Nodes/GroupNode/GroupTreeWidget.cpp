@@ -78,6 +78,7 @@ void GroupTreeWidget::changeGroupPSymbol(int oldIndex, int index, QTreeWidgetIte
 
 void GroupTreeWidget::changeGroupColor()
 {
+
 	QTreeWidgetItem* groupItem = selectedItems().front();
     QColor result = groupItem->data(0, Qt::DecorationRole).value<QColor>();
 
@@ -102,15 +103,18 @@ void GroupTreeWidget::changeGroupColor()
         emit membersUpdated();
         emit colorChanged(result);
     }
+
 }
 
 void GroupTreeWidget::changeGroupSize(QTreeWidgetItem* item, float savedSize, float newSize, bool menu)
 {
+
     QTreeWidgetItem* groupItem = menu ? item : selectedItems().front();
     float oldSize = menu ? savedSize : groupItem->text(1).toFloat();
 
     bool ok = menu;
     float result = menu ? newSize : QInputDialog::getDouble(this,tr("Landmark Size"),
+
                                                             tr("Enter landmark size: "), oldSize, 0.001, 100, 2, &ok);
     if(ok && oldSize!=result)
     {
@@ -120,8 +124,11 @@ void GroupTreeWidget::changeGroupSize(QTreeWidgetItem* item, float savedSize, fl
             MemberTreeItem* memberItem = dynamic_cast<MemberTreeItem*>(groupItem->child(i));
             if(memberItem)
             {
-                if(memberItem->text(1).toFloat() == oldSize)
-                    memberItem->setText(1, QString().setNum(result));
+                if(memberItem->text(1).toFloat() == oldSize) {
+                    // memberItem->setText(1, QString().setNum(result));
+                    memberItem->setText(1, QString::number( result ) );
+
+                }
             }
         }
         emit membersUpdated();

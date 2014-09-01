@@ -22,18 +22,18 @@ Name: {app}\Evan\Images
 Name: {app}\Evan\QtPlugins
 [Setup]
 ;AppName=Evan Toolbox
-AppName=Evan Toolbox 1.70
+AppName=Evan Toolbox 1.71
 ;AppVerName=Evan Toolbox 1.64 (revision 1664)
 ;AppVerName=Evan Toolbox 1.64; (git revision 38)
-AppVerName=Evan Toolbox 1.70
+AppVerName=Evan Toolbox 1.71
 AppPublisher=EVAN (European Virtual Anthropology Network)
 AppPublisherURL=http://www.evan.at/
 AppUpdatesURL=http://www.evan-society.org/
 ;DefaultDirName={pf}\Evan Toolbox
-DefaultDirName={pf}\Evan Toolbox 1.70
+DefaultDirName={pf}\Evan Toolbox 1.71
 OutputBaseFilename=EvanToolboxSetup
 ;DefaultGroupName=Evan Toolbox
-DefaultGroupName=Evan Toolbox 1.70
+DefaultGroupName=Evan Toolbox 1.71
 LicenseFile=..\Evan\license\evantoolbox_public_license.txt
 [Run]
 Filename: "{app}\Evan\Evan.exe"; Description: "{cm:LaunchProgram,Evan Toolkit}"; Flags: nowait postinstall skipifsilent

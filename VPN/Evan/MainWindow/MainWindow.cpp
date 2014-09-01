@@ -356,6 +356,7 @@ void MainWindow::saveNetworkWithoutStates()
 
 void MainWindow::crashBugHack()
 {
+
     //### ugly fix for initial crash bug ###//
     // simply create a minimal new project with a single viewer node in it
     {
