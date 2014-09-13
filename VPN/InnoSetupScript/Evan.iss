@@ -3,7 +3,7 @@
 ;Source: ..\Evan\Evan.exe; DestDir: {app}\Evan\
 Source: ..\Evan\release\Evan.exe; DestDir: {app}\Evan\
 ;Source: ..\Evan\startEvan.bat; DestDir: {app}\Evan\
-Source: ..\Evan\*.dll; Excludes: "Qt*d4.dll,qwtd5.dll,qwtplot3dd.dll"; DestDir: {app}\Evan\
+Source: ..\Evan\*.dll; Excludes: "Qt*d4.dll,qwtd5.dll,qwtplot3d_d.dll"; DestDir: {app}\Evan\
 ;Source: ..\Evan\Nodes\*.*; DestDir: {app}\Evan\Nodes\
 Source: ..\Evan\Nodes\Nodes.xml; DestDir: {app}\Evan\Nodes\
 Source: ..\Evan\Shaders\*.*; DestDir: {app}\Evan\Shaders\
