@@ -1,0 +1,3 @@
+This folder contains lots of information regarding the rebuilding of the 3rd party libraries that ET depends on, as well as a short overview of how the libraries depend on each other. 
+
+The folder './EVAN-copyDLLs' contains the batch script 'copyDllsToEvan.bat', which copies all the third party library build outputs into the respective folders in which EVAN expects them. Just make sure to adjust the pathes at the top of the script to mirror your environment correctly. It may also be necessary to adjust '.\VPN\Evan\Evan.pro' after having made changes to any library version. For the changes to Evan.pro to take effect, you need to recreate the Makefiles - please refer to '.\README.txt' for more details.
