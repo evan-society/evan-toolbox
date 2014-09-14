@@ -1,0 +1,125 @@
+---------------
+QWT
+
+SVN check out
+svn://svn.code.sf.net/p/qwt/code/branches/qwt-5.2
+
+from the checkout dir, 'SVN export to' and select an appropriate folder; on my system, I chose
+E:\3rdParty\qwt-5.2
+(actually, create the qwt-5.2 folder, since export will otherwise fill up your 3rdParty folder with the individual files)
+
+open a Qt-enabled windows command shell and go to E:\3rdParty\qwt-5.2
+mine prints this initially:
+	E:\qt>C:\Windows\system32\cmd.exe /k qt-4.8.5-envvars.bat
+	Setting up a Qt environment...
+	-- QTDIR set to C:\Qt\4.8.5
+	-- Added C:\Qt\4.8.5\bin to PATH
+	-- QMAKESPEC set to "win32-g++"
+
+
+in the file qwtconfig.pri i edited:
+
+INSTALLBASE    = E:/3rdParty-build/qwt-5.2
+
+changed every occurrence of CONFIG to:
+CONFIG           += release 
+
+enabled, i.e. removed the prefixed '#' from the last line:
+CONFIG     += QwtExamples
+
+E:\3rdParty\qwt-5.2>qmake qwt.pro
+E:\3rdParty\qwt-5.2>mingw32-make
+E:\3rdParty\qwt-5.2>mingw32-make install
+
+------------------
+
+QwtPlot3D
+http://qwtplot3d.sourceforge.net/
+
+download
+http://sourceforge.net/projects/qwtplot3d/files/qwtplot3d/0.2.7/qwtplot3d-0.2.7.tgz/download
+
+
+from
+http://www.qtcentre.org/threads/42090-how-to-build-QwtPlot3d-examples-using-qt-creator
+in qwtplot3d.pro
+ change 
+ win32:TEMPLATE =vclib 
+ to
+ win32:TEMPLATE=lib
+ (NOTE: it should also be OK to simply remove the complete line)
+ 
+ change 
+ CONFIG+=qt warn_on opengl thread zlib debug 
+ to
+ CONFIG+=qt warn_on opengl thread zlib release
+
+ 
+ NOTE: if creating both debug and release versions, add a suffix to the debug version:
+CONFIG(debug, debug|release) {
+	TARGET            = qwtplot3d_d
+	OBJECTS_DIR       = tmp_d
+	MOC_DIR           = tmp_d
+} else {
+	TARGET            = qwtplot3d
+	OBJECTS_DIR       = tmp
+	MOC_DIR           = tmp
+}
+this hint is from 
+http://qt-project.org/doc/qt-4.8/qmake-common-projects.html#building-in-both-modes
+
+
+ 
+AND i changed
+(enable zlib):
+win32:CONFIG -= zlib
+to
+#win32:CONFIG -= zlib
+
+(set zlib include dir):
+INCLUDEPATH       = include
+to
+INCLUDEPATH       = include E:/3rdParty-build/zlib-1.2.8/include
+
+(point to zlib):
+win32:LIBS += zlib.lib
+to
+win32:LIBS += E:/3rdParty-build/zlib-1.2.8/lib/libz.dll.a 
+
+in E:\3rdParty\qwtplot3d-0.2.7\include\qwt3d_openglhelper.h
+change 
+// http://www.qtcentre.org/threads/52029-Qwt-3D
+#include "qglobal.h"
+#if QT_VERSION < 0x040000
+#include <qgl.h>
+#else
+#include <QtOpenGL/qgl.h>
+#include <GL/glu.h> // new
+#endif
+
+
+==> now compiling should work:
+
+E:\3rdParty\qwtplot3d-0.2.7>qmake qwtplot3d.pro
+E:\3rdParty\qwtplot3d-0.2.7>mingw32-make
+
+*) NOTE 1: from http://www.qtcentre.org/threads/52029-Qwt-3D
+did NOT need to do this:
+
+/*!
+  This should be the first call in your derived classes constructors.  
+*/
+#if QT_VERSION < 0x040000
+Plot3D::Plot3D( QWidget* parent, const char* name )
+    : QGLWidget( parent, name )
+#else
+Plot3D::Plot3D( QWidget * parent, const QGLWidget * shareWidget)
+    : QGLWidget( parent, shareWidget) 
+#endif
+
+
+*) NOTE 2: from http://www.qtcentre.org/threads/42090-how-to-build-QwtPlot3d-examples-using-qt-creator
+did NOT need to do this:
+
+add #include<stdio.h> in qwt3d_functions.cpp
+

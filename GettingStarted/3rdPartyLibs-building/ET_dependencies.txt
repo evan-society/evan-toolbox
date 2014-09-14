@@ -1,0 +1,87 @@
+------------
+CMake - needed for building most of the 3rd party libs
+http://www.cmake.org/cmake/help/runningcmake.html
+
+gcc for windows - used for building all libs and eventually ET
+http://www.drangon.org/mingw/
+https://code.google.com/p/mingw-w64-dgn/
+http://stackoverflow.com/questions/2520683/how-to-cope-with-intrin-h-no-such-file-or-directory
+------------
+
+
+------------
+OSG
+
+building OSG and several useful/needed libs:
+http://www.multigesture.net/articles/how-to-compile-openscenegraph-2-x-using-mingw/
+http://www.multigesture.net/articles/how-to-upgrade-your-mingw-with-commonly-used-libraries/
+(FFmpeg is listed there, but not needed for ET)
+
+
+http://trac.openscenegraph.org/projects/osg//wiki/Support/GettingStarted
+
+misc OSG:
+http://trac.openscenegraph.org/projects/osg/wiki/Support/ProgrammingGuides
+------------
+
+
+------------
+Qt
+http://qt-project.org/wiki/Building_Qt_Desktop_for_Windows_with_MinGW
+http://qt-project.org/doc/qt-4.8/configure-options.html
+http://qt-project.org/doc/qt-4.8/install-win.html
+
+To find out, which configure flags the precompiled binaries have:
+qt-project.org/forums/viewthread/215
+------------
+
+
+------------
+QWT
+http://qwt.sourceforge.net/
+http://qwt.sourceforge.net/qwtinstall.html
+------------
+
+
+------------
+Lapack
+http://geotecha.wordpress.com/2013/03/05/building-lapack-libraries-with-mingw-on-windows7/
+http://gcc.gnu.org/wiki/LAPACK%20on%20Windows
+
+http://gcc.gnu.org/wiki/GFortranBinaries#Windows
+http://www.netlib.org/lapack/
+http://www.netlib.org/lapack/faq.html#_how_do_i_interpret_lapack_testing_failures
+http://www.cs.colorado.edu/~jessup/lapack/packages.html
+
+
+CLapack (should not be needed for building ET)
+http://www.netlib.org/clapack/
+------------
+
+
+------------
+DCMTK
+http://support.dcmtk.org/docs/file_install.html
+ftp://dicom.offis.de/pub/dicom/offis/software/dcmtk/snapshot/old/
+http://forum.dcmtk.org/viewtopic.php?f=3&t=3765
+
+about the current 3.6.0 being "old":
+http://forum.dcmtk.org/viewtopic.php?f=3&t=3684
+
+the rand_r problem (may be encountered when rebuilding...) and a possible fix:
+#ifndef rand_r
+#define rand_r(__seed) (__seed == __seed ? rand () : rand ())
+#endif
+http://forum.dcmtk.org/viewtopic.php?f=1&t=3838
+
+http://forum.dcmtk.org/viewtopic.php?t=919
+http://public.kitware.com/pipermail/ctk-developers/2010-October/000399.html
+------------
+
+
+------------
+R (currently ET is built without R support!)
+http://cran.at.r-project.org/
+http://cran.r-project.org/doc/manuals/R-admin.html#Building-the-core-files
+http://statmath.wu-wien.ac.at/staff/dekic/Rwin/LinkedDocuments/Building%20R%20for%20Windows.htm#ldbug
+------------

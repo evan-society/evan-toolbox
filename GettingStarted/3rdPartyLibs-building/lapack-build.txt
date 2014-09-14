@@ -1,0 +1,32 @@
+
+instructions partly based on 
+http://geotecha.wordpress.com/2013/03/05/building-lapack-libraries-with-mingw-on-windows7/
+
+
+
+download
+http://www.netlib.org/lapack/lapack-3.4.2.tgz
+
+( http://www.netlib.org/lapack/lapack-3.4.0.tgz )
+
+extract to 
+E:\3rdParty\lapack-3.4.2
+
+on
+http://gcc.gnu.org/wiki/LAPACK%20on%20Windows
+download "LAPACK340_gfwin_13Apr2012.zip"
+http://gcc.gnu.org/wiki/LAPACK%20on%20Windows?action=AttachFile&do=get&target=LAPACK340_gfwin_13Apr2012.zip
+
+extract to the same folder
+E:\3rdParty\lapack-3.4.2
+
+
+E:\3rdParty\lapack-3.4.0>makelibs.bat
+had some errors at the beginning, but nevertheless, the libs were created
+liblapack.a
+librefblas.a
+as well as 6 libs (names ranging from cholrl.a to qrll.a) in SRC\VARIANTS\LIB
+
+E:\3rdParty\lapack-3.4.0>testlibs.bat
+ran without errors and generated
+libtmglib.a
