@@ -4,7 +4,7 @@
 #include <cstring>
 #include "ew/Form3.h"
 #include "ew/Version.h"
-#include "src/File.h"
+#include "../src/File.h"
 #include "FilterForm3.h"
 
 namespace {
