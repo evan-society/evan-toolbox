@@ -595,13 +595,18 @@
 		<Unit filename="Utilities/sha1.h" />
 		<Extensions>
 			<code_completion>
-				<search_path add="..\..\external\qwtplot3d-0.2.7\include" />
-				<search_path add="..\..\external\qwt-5.2\include" />
-				<search_path add="..\..\external\OSG-3.0.1\include" />
+				<search_path add="../../external/qwtplot3d-0.2.7/include" />
+				<search_path add="../../external/qwt-5.2/include" />
+				<search_path add="../../external/OSG-3.0.1/include" />
 				<search_path add="$(#qt4.include)" />
+				<search_path add="$(#qt4.include.QtOpenGL)" />
+				<search_path add="GMM/include" />
+				<search_path add="EW/include" />
+				<search_path add="../../external/libiconv-1.14/include" />
+				<search_path add="../../external/libxml2-2.9.1/include/libxml2" />
 			</code_completion>
 			<debugger>
-				<search_path add="E:\TDM-GCC-32\bin" />
+				<search_path add="C:\TDM-GCC\TDM-GCC-32\bin" />
 			</debugger>
 			<envvars />
 			<DoxyBlocks>
