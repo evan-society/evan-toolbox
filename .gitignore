@@ -38,3 +38,9 @@ VPN/InnoSetupScript/Output/
 VPN/StaticCodeAnalysis
 
 10LM&15sLMcurve
+
+/Debug/
+/bin/
+/build/
+/include/
+/lib/

@@ -5,7 +5,8 @@
 #include <QColorDialog>
 #include <QInputDialog>
 
-extern bool IsRunning;
+//extern bool IsRunning;
+#include "../../Utilities/Settings.h" //YN 9Nov2015:extern globals are not clean, and are generating link errors with cmake
 
 void GroupTreeWidget::addNewGroup()
 {
@@ -41,7 +42,7 @@ void GroupTreeWidget::contextMenuEvent(QContextMenuEvent* event)
             contextMenu->addAction(sizeGroup);
             connect(sizeGroup, SIGNAL(triggered()), this, SLOT(changeGroupSize()));
 
-            if(IsRunning)
+            if(Globals::getInstance()->isRunning())
             {
             	colorGroup->setEnabled(false);
             	sizeGroup->setEnabled(false);

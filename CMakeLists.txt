@@ -1,0 +1,25 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+PROJECT(ET)
+
+SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
+
+SET(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR})
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
+INCLUDE(ETInstallDirs)
+
+#OPTION(BUILD_EXAMPLES "Build Examples" ON)
+OPTION(BUILD_DOCS "Create ET Documentation" OFF)
+
+# Set a default build type if none was specified
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
+    # Set the possible values of build type for cmake-gui
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
+      "MinSizeRel" "RelWithDebInfo")
+endif()
+
+ADD_SUBDIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/VPN/Evan")
+INCLUDE(${CMAKE_MODULE_PATH}/Version.cmake)
+#IF(${BUILD_EXAMPLES})
+#    ADD_SUBDIRECTORY(examples)
+#ENDIF()

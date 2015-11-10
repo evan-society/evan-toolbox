@@ -17,9 +17,10 @@ extern QString libpath;
 extern QString licensepath;
 #endif
 
-extern int IsRegistered;
+/*extern int IsRegistered;
 extern bool IsRunning;
-extern QString workingDirectory;
+extern QString workingDirectory;*/
+#include "../Utilities/Settings.h" //YN 9Nov2015:extern globals are not clean, and are generating link errors with cmake
 
 QString getVersionString()
 {
@@ -93,11 +94,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), m_activeProject(NU
     }
     else
     {
-        IsRegistered = 1;
+    	Globals::getInstance()->setRegistered(true);
+        //IsRegistered = 1; //YN 9Nov2015:extern globals are not clean, and are generating link errors with cmake
     }
 #else
     menuAbout->removeAction(actionRegister);
-    IsRegistered = 1;
+    Globals::getInstance()->setRegistered(true);
+    //IsRegistered = 1; //YN 9Nov2015:extern globals are not clean, and are generating link errors with cmake
 #endif
 
 /*
@@ -115,10 +118,12 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), m_activeProject(NU
         IsRegistered = 1;
     }
 */
-    IsRunning = false;
-    workingDirectory = "";
 
-    if(IsRegistered)
+    /*IsRunning = false;
+
+    workingDirectory = "";*/ //YN 9Nov2015:extern globals are not clean, and are generating link errors with cmake
+
+    if(Globals::getInstance()->isRegistered())
     {
         updateRecentFileActions();
     }
@@ -210,18 +215,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::loadNodeBox()
 {
-#ifdef USE_UNIX_LOCATIONS
-    XMLParser nodeParser(libpath + "Nodes/Nodes.xml");
-#else
 
 #ifdef USE_R_
-    XMLParser nodeParser("Nodes/NodesR.xml");
+    XMLParser nodeParser(":Nodes/NodesR.xml");
 #else
-    XMLParser nodeParser("Nodes/Nodes.xml");
+    XMLParser nodeParser(":Nodes/Nodes.xml");
 #endif
-
-#endif
-
 
     if (nodeParser.gotoElement("DataTab"))
     {
@@ -277,7 +276,7 @@ VPNLayout* MainWindow::createNewProject()
 
 void MainWindow::saveNetwork()
 {
-    if(IsRegistered == 0)
+    if(!Globals::getInstance()->isRegistered())
     {
         Logger::getInstance()->log("Save option is only allowed for registered users.",Logger::WARNING);
         return;
@@ -300,7 +299,7 @@ void MainWindow::saveNetwork()
 
 void MainWindow::saveNetworkAs()
 {
-    if(IsRegistered == 0)
+    if(!Globals::getInstance()->isRegistered())
     {
         Logger::getInstance()->log("Save As option is only allowed for registered users.",Logger::WARNING);
         return;
@@ -320,7 +319,7 @@ void MainWindow::saveNetworkAs()
 
 void MainWindow::saveNetworkWithStates()
 {
-    if(IsRegistered == 0)
+    if(!Globals::getInstance()->isRegistered())
     {
         Logger::getInstance()->log("Save with states option is only allowed for registered users.",Logger::WARNING);
         return;
@@ -384,7 +383,7 @@ void MainWindow::crashBugHack()
 
 void MainWindow::loadNetworkFromFilename()
 {
-    if(IsRegistered == 0)
+    if(!Globals::getInstance()->isRegistered())
     {
         Logger::getInstance()->log("Open option is only allowed for registered users.",Logger::WARNING);
         return;
@@ -618,7 +617,8 @@ void MainWindow::linkCreateDone()
 
 void MainWindow::runNetwork(bool run)
 {
-	IsRunning = run;
+	//IsRunning = run;
+	Globals::getInstance()->setRunning(run);
 
     actionDeleteSelection->setEnabled(!run);
     action_New->setEnabled(!run);
@@ -886,7 +886,7 @@ void MainWindow::enterLicenseKey()
 bool MainWindow::validateLicenseKey()
 {
 #ifdef ENCRYPT_EVAN_LICENSE_
-    if(IsRegistered == 1)
+    if(Globals::getInstance()->isRegistered())
     {
         Logger::getInstance()->log("This copy is already registered.");
         return true;
@@ -896,9 +896,9 @@ bool MainWindow::validateLicenseKey()
 
     bool isTrialLicense;
     QStringList validKeys;
-    IsRegistered = parseLicense( keys, validKeys, timekey, isTrialLicense );
+    Globals::getInstance()->setRegistered( parseLicense( keys, validKeys, timekey, isTrialLicense ) );
 
-    if(IsRegistered == 1)
+    if(Globals::getInstance()->isRegistered())
     {
 #ifdef USE_UNIX_LOCATIONS
         ofstream licenseFile(licensepath.toUtf8().data());
