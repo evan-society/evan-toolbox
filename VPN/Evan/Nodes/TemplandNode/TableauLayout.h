@@ -9,10 +9,10 @@
 #include "ViewTree/LandmarkItem.h"
 #include "ew/Dig3Space.h"
 #include "ew/DataflowSpline3.h"
-#if TEMPLAND_TOOLKIT_BUILD
+//#if TEMPLAND_TOOLKIT_BUILD //YN 9Nov2015: It does not build if the EMPLAND_TOOLKIT_BUILD is undefined
 #include "tps.h"
 #include "../../DataTypes/MatrixD.h"
-#endif
+//#endif
 
 
 class CurvesTopItem;
@@ -228,11 +228,11 @@ private:
     FilmstripPlayerControls m_filmstrip;
 
 
-#if TEMPLAND_TOOLKIT_BUILD
+//#if TEMPLAND_TOOLKIT_BUILD //YN 9Nov2015: It does not build if the EMPLAND_TOOLKIT_BUILD is undefined
     TPS* m_tps;
     MatrixD* m_splineTemplateLmks;
     MatrixD* m_splineTargetLmks;
-#endif
+//#endif
 	ew::DataflowNetwork m_ewNetwork;
     ew::Dig3 m_dig3;
 

@@ -9,7 +9,8 @@
 
 #include "MainWindow.h"
 
-extern QString workingDirectory;
+//extern QString workingDirectory;
+#include "../Utilities/Settings.h" //YN 9Nov2015:extern globals are not clean, and are generating link errors with cmake
 
 /*
 class MyFileDialog : public QFileDialog
@@ -214,7 +215,8 @@ bool VPNLayout::save()
 
     setWindowTitle(m_filePath);
     m_bSaved = true;
-    workingDirectory = "";
+    //workingDirectory = "";
+    Globals::getInstance()->setWorkingDirectory("");
     return true;
 }
 

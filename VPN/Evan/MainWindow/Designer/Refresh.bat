@@ -5,4 +5,4 @@ REM however, the next line is needed in order for the license text to be updated
 REM itself and not just in the installer dialogue
 uic license.ui -o ui_license.h
 REM uic register.ui -o ui_register.h
-REM uic registerInstructions.ui -o ui_regInstruct.h
+REM uic regInstruct.ui -o ui_regInstruct.h

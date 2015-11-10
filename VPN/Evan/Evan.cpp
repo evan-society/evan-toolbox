@@ -9,9 +9,10 @@ using namespace std;
 
 // global variables
 ofstream dbgfile; //RP 29/12/08 Debug file for use throughout toolbox
-int IsRegistered;
-bool IsRunning;
-QString workingDirectory;
+/*extern int IsRegistered;
+extern bool IsRunning;
+extern QString workingDirectory;*/
+#include "Utilities/Settings.h" //YN 9Nov2015:extern globals are not clean, and are generating link errors with cmake
 
 // File locations for unix (wdkg).
 // Definition of USE_UNIX_LOCATIONS is not supported on Microsoft Windows, due

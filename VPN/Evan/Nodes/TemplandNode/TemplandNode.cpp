@@ -20,8 +20,8 @@
 
 #include <iostream>
 
-
-extern int IsRegistered;
+//extern int IsRegistered;
+#include "../../Utilities/Settings.h" //YN 9Nov2015:extern globals are not clean, and are generating link errors with cmake
 
 static const char *const help =
   "Left mouse button drag\t-> Tumble\n"
@@ -194,7 +194,7 @@ void TemplandNode::openTableau( const QString& cmd_filename )
     if( fileSettings.size() > 0 )
         fsLastDir = fileSettings[0];
 
-    if(IsRegistered==0)
+    if(!Globals::getInstance()->isRegistered())
     {
         QMessageBox::information( this, "Warning", QString("Open Tableau option is only allowed for registered users.") );
         return;
@@ -251,7 +251,7 @@ void TemplandNode::openTableau( const QString& cmd_filename )
 
 void TemplandNode::saveAsTableau()
 {
-    if(IsRegistered==0)
+    if(!Globals::getInstance()->isRegistered())
     {
         QMessageBox::information( this, "Warning", QString("Save As Tableau option is only allowed for registered users.") );
         return;
@@ -264,7 +264,7 @@ void TemplandNode::saveAsTableau()
 
 void TemplandNode::saveTableau()
 {
-    if(IsRegistered==0)
+    if(!Globals::getInstance()->isRegistered())
     {
         QMessageBox::information( this, "Warning", QString("Save Tableau option is only allowed for registered users.") );
         return;

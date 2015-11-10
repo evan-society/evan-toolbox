@@ -1,8 +1,0 @@
-Qt Creator:
-11:28:31: Running steps for project Evan...
-11:28:31: Starting: "C:\Qt\4.8.5\bin\qmake.exe" <PATH-TO-ET>\VPN\Evan\Evan.pro -r -spec win32-g++ "CONFIG+=declarative_debug"
-
-
-12:06:54: Running steps for project Evan...
-12:06:54: Starting: "C:\Qt\4.8.5\bin\qmake.exe" <PATH-TO-ET>\VPN\Evan\Evan.pro -r -spec win32-g++ "CONFIG+=release"
-

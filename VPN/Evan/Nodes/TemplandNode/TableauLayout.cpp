@@ -27,6 +27,7 @@
 #include "ew/DataflowCurve3E.h"
 
 #include <limits>
+#include <cmath>
 
 double project_point_to_line_segment(float *A, float *B, double *p, double *q)
 {
@@ -84,7 +85,7 @@ void projectOntoCurve(const ew::DataflowCurve3E * const * cur, int *edge, double
     std::vector<float> points = data->points;
     std::vector<int> edges = data->edges;
 
-    double mindist = numeric_limits<double>::infinity();
+    double mindist = std::numeric_limits<double>::infinity();
     for(unsigned int i=0;i<edges.size()/2;i++)
     {
         int e1 = edges[i*2];
