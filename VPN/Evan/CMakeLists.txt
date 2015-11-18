@@ -17,6 +17,7 @@ OPTION(BUILD_GMM "Build GMM Library" ON)
 #FILE(GLOB ET_resources "*.qrc")
 QT4_ADD_RESOURCES(ET_resources Resources.qrc)
 
+FILE(GLOB ET_shaders "Shaders/*.frag" "Shaders/*.vert")
 FILE(GLOB ET_sources "DataTypes/*.cpp" "MainWindow/*.cpp" "Nodes/*.cpp" "Scheduler/*.cpp" "Utilities/*.cpp" "Utilities/*.c" "DataTypes/*.h" "MainWindow/*.h" "Nodes/*.h" "Scheduler/*.h" "Utilities/*.h" "DataTypes/*.hpp" "MainWindow/*.hpp" "Nodes/*.hpp" "Scheduler/*.hpp" "Utilities/*.hpp")
 
 IF(${BUILD_GMM})
@@ -34,3 +35,4 @@ ADD_EXECUTABLE(ET Evan.cpp ${ET_sources} ${ET_headers} ${Node_sources} ${ET_reso
 TARGET_LINK_LIBRARIES(ET GMM ew Qt4::QtCore Qt4::QtGui Qt4::QtOpenGL Qt4::QtXml Qt4::QtSvg  ${OPENSCENEGRAPH_LIBRARIES} ${OSGVOLUME_LIBRARIES} ${LAPACK_LIBRARIES} ${OPENGL_LIBRARIES} ${QWT_LIBRARIES} ${QWT3D_LIBRARIES})
 SET_PROPERTY(TARGET ET PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 INSTALL(TARGETS ET RUNTIME DESTINATION ${ET_INSTALL_BIN_DIR})
+INSTALL(FILES ${ET_shaders} DESTINATION ${ET_INSTALL_BIN_DIR}/Shaders)
