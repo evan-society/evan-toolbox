@@ -2541,12 +2541,15 @@ bool TableauLayout::saveTableau()
         m_tableauFile = m_tableauFile.replace( '\\', '/' );
 #endif
 
+        m_savedAtleastOnce = true; //YN 20Nov2015 Fixing a bug when trying to save a tableau file with no appended forms
+        if(m_tableauList.size()==0)
+        	addTableau();
+
         ew::Dig3Tableau::write_file(m_tableauFile.toStdString().c_str(), false, &m_tableauList);
 
 
         setWindowTitle(QString("Templand - ") + m_tableauFile);
         m_tableauSaved = true;
-        m_savedAtleastOnce = true;
         emit status(QString("File %1 Saved").arg(m_tableauFile), 2000);
     }
     catch(ew::ErrorIO &ex)
