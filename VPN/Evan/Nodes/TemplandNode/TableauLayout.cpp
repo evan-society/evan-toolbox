@@ -4362,7 +4362,9 @@ void TableauLayout::lmkExportAll(FormItem* formTreeItem)
                     out << "'" << formFile << endl;
                     for (unsigned int j=0;j<lmks;j++)
                     {
-                        out<<rawdata[j][0] << " " << -rawdata[j][2] << " " << rawdata[j][1] << endl;
+                    	//YN: I do not know why the order for the lmk locations was x,-z,y, but Cinzia reported the bug (issue #5)
+                    	//out<<rawdata[j][0] << " " << -rawdata[j][2] << " " << rawdata[j][1] << endl;
+                    	out<<rawdata[j][0] << " " << rawdata[j][1] << " " << rawdata[j][2] << endl;
                     }
                 }
             }
