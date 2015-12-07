@@ -44,3 +44,4 @@ VPN/StaticCodeAnalysis
 /build/
 /include/
 /lib/
+/.project
