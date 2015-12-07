@@ -31,6 +31,8 @@ void SemiLandmarksTopItem::addSemiLandmarkItem()
         connect( lmkChild, SIGNAL(lmkDeleteAction(FormItem*, ViewTreeItem*, int)), this, SLOT(lmkDeletedChild(FormItem*, ViewTreeItem*, int)) );
         lmkChild->moveLmk();
         connect( lmkChild, SIGNAL(lmkMoveAction(FormItem*, ViewTreeItem*, int)), this, SLOT(lmkMovedChild(FormItem*, ViewTreeItem*, int)) );
+
+        emit lmkProject(m_parentForm, lmkChild, lmkChild->getLmkIndex());
     }
 
     setExpanded(true);

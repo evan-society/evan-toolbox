@@ -48,6 +48,8 @@ public:
     }
     QString getLmkLabel() {return m_lmkLabel;}
 
+    SemiLandmarksTopItem* getParent() const {return (SemiLandmarksTopItem*)m_parentForm;}
+
 public slots:
     void lmkDeleted()
     {

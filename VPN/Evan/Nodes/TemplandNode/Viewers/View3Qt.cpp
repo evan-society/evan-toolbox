@@ -141,32 +141,32 @@ void View3Qt::mouseDoubleClickEvent(QMouseEvent *ev)
 		else
 		{
 
-        int x = ev->x();
-        int y = ev->y();
-        double z = 0.0;
+			int x = ev->x();
+			int y = ev->y();
+			double z = 0.0;
 
-        try
-        {
-        double loc[3];
-        bool pickRet = false;
-        if ( get_use_depth() ) {
-            pickRet = ew::View3Widget::pick(x, y, 0.00001, 0.0, 0, -1, 2, 0, 0, 0, &z);
-            #if !defined(NDEBUG)
-                printf( " ET called EW pick2 - z = %f and returned %s \n", z, ( pickRet ) ? "true" : "false" );
-            #endif
-        }
-        if ( pickRet ) {
-            get_pointer_location(loc, x * 1.0, y * 1.0, z);
-            placePoint( loc[0], loc[1], loc[2] );
+			try
+			{
+				double loc[3];
+				bool pickRet = false;
+				if ( get_use_depth() ) {
+					pickRet = ew::View3Widget::pick(x, y, 0.00001, 0.0, 0, -1, 2, 0, 0, 0, &z);
+					#if !defined(NDEBUG)
+						printf( " ET called EW pick2 - z = %f and returned %s \n", z, ( pickRet ) ? "true" : "false" );
+					#endif
+				}
+				if ( pickRet ) {
+					get_pointer_location(loc, x * 1.0, y * 1.0, z);
+					placePoint( loc[0], loc[1], loc[2] );
 
-            emit adjustLandmarkState();
-        }
+					emit adjustLandmarkState();
+				}
 
-        }
-        catch(...)
-        {
-            QMessageBox::information( parentWidget(), "Error", "Failed placing landmark on surface." );
-        }
+			}
+			catch(...)
+			{
+				QMessageBox::information( parentWidget(), "Error", "Failed placing landmark on surface." );
+			}
 
 		}
     }

@@ -429,9 +429,6 @@ void TableauLayout::fillViewTrees(FormItem* formItem)
 
 void TableauLayout::lmkProject(FormItem* form, ViewTreeItem* item, int index)
 {
-    QString num;
-    num.setNum( index );
-
     if( form == m_templateFormItem )
         return;
 
@@ -445,9 +442,13 @@ void TableauLayout::lmkProject(FormItem* form, ViewTreeItem* item, int index)
     }
     else if( item->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
     {
-        projectSemiLmk( item, false );
+        projectSemiLmk( dynamic_cast< SemiLandmarksTopItem* >( item )->getLmkID(), false );
     }
-
+    else if( item->getType() == ViewTreeItem:: SEMILANDMARK_ITEM )
+    {
+    	SemiLandmarkItem* semilmk = dynamic_cast< SemiLandmarkItem* >( item );
+    	projectSemiLmk( semilmk->getParent()->getLmkID(), false, true, index);
+    }
     // add the landmark states
     updateTreeViewStates( 1 );
 
@@ -471,7 +472,7 @@ void TableauLayout::projectAll( bool checksurface )
         }
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
         {
-            if( projectSemiLmk( vti, checksurface, false ) == false )
+            if( projectSemiLmk( dynamic_cast< SemiLandmarksTopItem* >(vti)->getLmkID(), checksurface, false ) == false )
             {
                 ++notprojected;
             }
@@ -595,12 +596,12 @@ bool TableauLayout::projectLmkOntoCurve( ViewTreeItem* item, int index, bool che
 
                         const ew::DataflowCurve3E * const * cur = m_dig3.get_spaces()[1]->get_curve_nodes();
 
-                        int edge;
-                        double coeff[3];
-                        double normal[3];
-                        double proj[3];
+						int edge;
+						double coeff[3];
+						double normal[3];
+						double proj[3];
 
-                        projectOntoCurve(cur, &edge, coeff, normal, proj, p, 0);
+						projectOntoCurve(cur, &edge, coeff, normal, proj, p, 0);
 
                         ew::Form3PointSet ps = form->pointsets[j];
 
@@ -641,7 +642,106 @@ bool TableauLayout::projectLmkOntoCurve( ViewTreeItem* item, int index, bool che
     return false;
 }
 
-bool TableauLayout::projectSemiLmk( ViewTreeItem* item, bool checksurface, bool showstatus )
+bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string& semiLmkId,
+										int surface_index, int curve_index, int semiLmkIndex,
+										bool checksurface, bool showstatus)
+{
+	for(unsigned int j=0; j<form->pointsets.size(); ++j)
+		if(form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
+		{
+			if(form->pointsets[j].id == semiLmkId)
+			{
+				if( form->pointsets[j].state == ew::Form3::STATE_WARPED ||
+					form->pointsets[j].state == ew::Form3::STATE_OPTIMIZED ||
+					form->pointsets[j].state == ew::Form3::STATE_SET )
+				{
+					ew::Form3PointSet ps = form->pointsets[j];
+
+					int n = (semiLmkIndex<0)?form->pointsets[j].n:1; //either project all or one semilandmark
+					for(int i=0; i<n; ++i)
+					{
+						int pos = (semiLmkIndex<0)?i:semiLmkIndex;
+						pos*=3;
+
+						double p[3];
+						double coeff[3];
+						double normal[3];
+						double proj[3];
+
+						p[0] = form->pointsets[j].locations[pos];
+						p[1] = form->pointsets[j].locations[pos+1];
+						p[2] = form->pointsets[j].locations[pos+2];
+
+						if(surface_index>=0)
+						{
+							int face[3];
+							const ew::DataflowSurface3E * const * sur = m_dig3.get_spaces()[1]->get_surface_nodes();
+							sur = &sur[surface_index];
+							(*sur)->project(face, coeff, normal, proj, p);
+						}
+						else if(curve_index>=0)
+						{
+							int edge;
+							const ew::DataflowCurve3E * const * cur = m_dig3.get_spaces()[1]->get_curve_nodes();
+							projectOntoCurve(cur, &edge, coeff, normal, proj, p, curve_index);
+						}
+
+						ps.locations[pos] 	= proj[0];
+						ps.locations[pos+1] = proj[1];
+						ps.locations[pos+2] = proj[2];
+
+						if(ps.relax_params.size()>=pos+3)
+						{
+							ps.relax_params[pos] = normal[0];
+							ps.relax_params[pos+1] = normal[1];
+							ps.relax_params[pos+2] = normal[2];
+						}
+						else
+						{
+							ps.relax_params.push_back( normal[0] );
+							ps.relax_params.push_back( normal[1] );
+							ps.relax_params.push_back( normal[2] );
+						}
+					}
+
+					/*if(semiLmkIndex<0)
+						ps.state = ew::Form3::STATE_PROJECTED;*/
+
+					ew::Dig3Space *sp = m_dig3.get_spaces()[1];
+					bool b = false;
+					sp->set_form_pointset(&b, &ps);
+
+					// make sure to note form has been changed
+					m_targetSaved = false;
+
+					if( showstatus )
+					{
+						QString num; num.setNum( n );
+						QString msg;
+						msg = num;
+						msg += " SemiLandmarks in ";
+						msg += semiLmkId.c_str();
+						msg += " patch have been projected.";
+						Logger::getInstance()->log( msg, Logger::INFO );
+					}
+					return true;
+				}
+				else if( form->pointsets[j].state == ew::Form3::STATE_PROJECTED )
+				{
+					if( checksurface )
+						QMessageBox::critical( this, "Error", "Landmark already projected." );
+
+					QString msg; msg = semiLmkId.c_str(); msg += " has already been projected.";
+					Logger::getInstance()->log( msg, Logger::WARNING );
+
+					return false;
+				}
+			}
+		}
+	return true;
+}
+
+bool TableauLayout::projectSemiLmk(const QString& topId, bool checksurface, bool showstatus, int semiLmkIndex)
 {
     if( checksurface )
     {
@@ -652,7 +752,7 @@ bool TableauLayout::projectSemiLmk( ViewTreeItem* item, bool checksurface, bool 
         }
     }
 
-    std::string semiLmkId = dynamic_cast< SemiLandmarksTopItem* >( item )->getLmkID().toStdString();
+    std::string semiLmkId = topId.toStdString();
 
     const ew::Form3* form = m_dig3.get_spaces()[1]->get_form_data();
 
@@ -688,177 +788,24 @@ bool TableauLayout::projectSemiLmk( ViewTreeItem* item, bool checksurface, bool 
 		int curve_index = -1;
 	
 		for(unsigned int j=0; j<form->surfaces.size(); ++j)
-		{
 			if(form->surfaces[j].id == embeddedItemId)
 			{
 				surface_index = j;
 				break;
 			}
-		}
-		for(unsigned int j=0; j<form->curves.size(); ++j)
-		{
-			if(form->curves[j].id == embeddedItemId)
-			{
-				curve_index = j;
-				break;
-			}
-		}
 
-		if (surface_index != -1)
-		{
-	        for(unsigned int j=0; j<form->pointsets.size(); ++j)
-	        {
-                if( form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK  )
-	            {
-	                if( form->pointsets[j].id == semiLmkId )
-	                {
-	                    if( form->pointsets[j].state == ew::Form3::STATE_WARPED ||
-	                        form->pointsets[j].state == ew::Form3::STATE_OPTIMIZED ||
-	                        form->pointsets[j].state == ew::Form3::STATE_SET )
-	                    {
-	                        ew::Form3PointSet ps = form->pointsets[j];
-	                        ps.locations.clear();
-	                        ps.relax_params.clear();
-	                        int n = form->pointsets[j].n;
+		if(surface_index == -1)
+			for(unsigned int j=0; j<form->curves.size(); ++j)
+				if(form->curves[j].id == embeddedItemId)
+				{
+					curve_index = j;
+					break;
+				}
 
-							const ew::DataflowSurface3E * const * sur = m_dig3.get_spaces()[1]->get_surface_nodes();
-
-							sur = &sur[surface_index];
-
-							for( int i = 0; i < n; ++i )
-							{
-								double p[3];
-								int face[3];
-								double coeff[3];
-								double normal[3];
-								double proj[3];
-
-								p[0] = form->pointsets[j].locations[i * 3];
-								p[1] = form->pointsets[j].locations[i * 3 + 1];
-								p[2] = form->pointsets[j].locations[i * 3 + 2];
-
-	                        	(*sur)->project( face, coeff, normal, proj, p );
-
-								ps.locations.push_back( proj[0] );
-								ps.locations.push_back( proj[1] );
-								ps.locations.push_back( proj[2] );
-
-								ps.relax_params.push_back( normal[0] );
-								ps.relax_params.push_back( normal[1] );
-								ps.relax_params.push_back( normal[2] );
-	                        }
-
-	                        ps.state = ew::Form3::STATE_PROJECTED;
-
-	                        ew::Dig3Space *sp = m_dig3.get_spaces()[1];
-	                        bool b = false;
-	                        sp->set_form_pointset(&b, &ps);
-
-	                        // make sure to note form has been changed
-	                        m_targetSaved = false;
-
-#if TEMPLAND_TOOLKIT_BUILD
-	                        if( showstatus )
-	                        {
-	                            QString num; num.setNum( n );
-	                            QString msg;
-	                            msg = num;
-	                            msg += " SemiLandmarks in ";
-	                            msg += semiLmkId.c_str();
-	                            msg += " patch have been projected.";
-	                            Logger::getInstance()->log( msg, Logger::INFO );
-	                        }
-#endif
-	                        return true;
-	                    }
-	                    else if( form->pointsets[j].state == ew::Form3::STATE_PROJECTED )
-	                    {
-	                        if( checksurface )
-	                            QMessageBox::critical( this, "Error", "Landmark already projected." );
-#if TEMPLAND_TOOLKIT_BUILD
-    QString msg; msg = semiLmkId.c_str(); msg += " has already been projected.";
-    Logger::getInstance()->log( msg, Logger::WARNING );
-#endif
-	                        return false;
-	                    }
-	                }
-	            }
-	        }
-		}
-		else if (curve_index != -1)
-		{
-	        for(unsigned int j=0; j<form->pointsets.size(); ++j)
-	            if( form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK  )
-	            {
-	                if( form->pointsets[j].id == semiLmkId )
-	                {
-	                    if( form->pointsets[j].state == ew::Form3::STATE_WARPED ||
-	                        form->pointsets[j].state == ew::Form3::STATE_OPTIMIZED ||
-	                        form->pointsets[j].state == ew::Form3::STATE_SET )
-	                    {
-	                        ew::Form3PointSet ps = form->pointsets[j];
-	                        ps.locations.clear();
-	                        ps.relax_params.clear();
-	                        int n = form->pointsets[j].n;
-
-                            const ew::DataflowCurve3E * const * cur = m_dig3.get_spaces()[1]->get_curve_nodes();
-
-                            for( int i = 0; i < n; ++i )
-                            {
-                                double p[3];
-                                int edge;
-                                double coeff[3];
-                                double tangent[3];
-                                double proj[3];
-
-                                p[0] = form->pointsets[j].locations[i * 3];
-                                p[1] = form->pointsets[j].locations[i * 3 + 1];
-                                p[2] = form->pointsets[j].locations[i * 3 + 2];
-
-                                projectOntoCurve(cur, &edge, coeff, tangent, proj, p, curve_index);
-
-                                ps.locations.push_back( proj[0] );
-                                ps.locations.push_back( proj[1] );
-                                ps.locations.push_back( proj[2] );
-
-                                ps.relax_params.push_back( tangent[0] );
-                                ps.relax_params.push_back( tangent[1] );
-                                ps.relax_params.push_back( tangent[2] );
-                            }
-	                        ps.state = ew::Form3::STATE_PROJECTED;
-
-	                        ew::Dig3Space *sp = m_dig3.get_spaces()[1];
-	                        bool b = false;
-	                        sp->set_form_pointset(&b, &ps);
-
-	                        // make sure to note form has been changed
-	                        m_targetSaved = false;
-
-	                        if( showstatus )
-	                        {
-	                            QString num; num.setNum( n );
-	                            QString msg;
-	                            msg = num;
-	                            msg += " SemiLandmarks in ";
-	                            msg += semiLmkId.c_str();
-	                            msg += " patch have been projected.";
-	                            Logger::getInstance()->log( msg, Logger::INFO );
-	                        }
-	                        return true;
-	                    }
-	                    else if( form->pointsets[j].state == ew::Form3::STATE_PROJECTED )
-	                    {
-	                        if( checksurface )
-	                            QMessageBox::critical( this, "Error", "Landmark already projected." );
-
-                            QString msg; msg = semiLmkId.c_str(); msg += " has already been projected.";
-                            Logger::getInstance()->log( msg, Logger::WARNING );
-
-	                        return false;
-	                    }
-	                }
-	            }
-		}
+		if((surface_index==-1) && (curve_index==-1))
+			return false;
+		else
+			return projectToEmbedding(form, semiLmkId, surface_index, curve_index, semiLmkIndex, checksurface, showstatus);
     }
 
     return false;
