@@ -653,7 +653,8 @@ bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string&
 			{
 				if( form->pointsets[j].state == ew::Form3::STATE_WARPED ||
 					form->pointsets[j].state == ew::Form3::STATE_OPTIMIZED ||
-					form->pointsets[j].state == ew::Form3::STATE_SET )
+					form->pointsets[j].state == ew::Form3::STATE_SET ||
+					form->pointsets[j].state == ew::Form3::STATE_PROJECTED)
 				{
 					ew::Form3PointSet ps = form->pointsets[j];
 
@@ -698,14 +699,16 @@ bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string&
 						}
 						else
 						{
+							while(ps.relax_params.size()<pos)
+								ps.relax_params.push_back(0); //fill with zeros until reaching the right index
+
 							ps.relax_params.push_back( normal[0] );
 							ps.relax_params.push_back( normal[1] );
 							ps.relax_params.push_back( normal[2] );
 						}
 					}
 
-					/*if(semiLmkIndex<0)
-						ps.state = ew::Form3::STATE_PROJECTED;*/
+					ps.state = ew::Form3::STATE_PROJECTED;
 
 					ew::Dig3Space *sp = m_dig3.get_spaces()[1];
 					bool b = false;
@@ -726,7 +729,7 @@ bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string&
 					}
 					return true;
 				}
-				else if( form->pointsets[j].state == ew::Form3::STATE_PROJECTED )
+				/*else if( form->pointsets[j].state == ew::Form3::STATE_PROJECTED )
 				{
 					if( checksurface )
 						QMessageBox::critical( this, "Error", "Landmark already projected." );
@@ -735,7 +738,7 @@ bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string&
 					Logger::getInstance()->log( msg, Logger::WARNING );
 
 					return false;
-				}
+				}*/
 			}
 		}
 	return true;
