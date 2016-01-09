@@ -1,6 +1,7 @@
 
 #include "TableauLayout.h"
 #include "TableauDialog.h"
+#include "SlideDialog.h"
 
 #include "../../Utilities/Logger.h"
 
@@ -815,12 +816,13 @@ bool TableauLayout::projectSemiLmk(const QString& topId, bool checksurface, bool
 }
 
 
-void TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, bool slide)
+double TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, bool slide)
 {
+	double totalMovement = 0;
     if( m_dig3.get_spaces()[1]->get_form_data()->surfaces.size() == 0 && m_dig3.get_spaces()[1]->get_form_data()->curves.size() == 0 )
     {
         QMessageBox::information( this, "Error", "There is no surface or curve to slide the landmarks on. Please import a surface or a curve." );
-        return;
+        return -1;
     }
 
     std::string semiLmkId = dynamic_cast< SemiLandmarksTopItem* >( item )->getLmkID().toStdString();
@@ -876,133 +878,139 @@ void TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, boo
 
         if(surface_index != -1)
         {
-        if( frm != 0 )
-        for(unsigned int j=0; j<frm->pointsets.size(); ++j)
-            if( frm->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK  )
-            {
-                if( frm->pointsets[j].id == lmkId )
-                {
-                    if( frm->pointsets[j].state == ew::Form3::STATE_PROJECTED )
-                    {
-                        ew::Form3PointSet ps = frm->pointsets[j];
-                        for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
-                            ps.relax_dims[i] = slide ?  2 : 0;
-                        if( (int)ps.relax_dims.size() < ps.n )
-                            for( int i = (int)ps.relax_dims.size(); i < ps.n; ++i )
-                                ps.relax_dims.push_back( slide ?  2 : 0 );
-                        ew::Dig3Space *sp = m_dig3.get_spaces()[1];
+        	if( frm != 0 )
+        		for(unsigned int j=0; j<frm->pointsets.size(); ++j)
+					if( frm->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK  )
+					{
+						if( frm->pointsets[j].id == lmkId )
+						{
+							if( frm->pointsets[j].state == ew::Form3::STATE_PROJECTED )
+							{
+								ew::Form3PointSet ps = frm->pointsets[j];
+								for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
+									ps.relax_dims[i] = slide ?  2 : 0;
+								if( (int)ps.relax_dims.size() < ps.n )
+									for( int i = (int)ps.relax_dims.size(); i < ps.n; ++i )
+										ps.relax_dims.push_back( slide ?  2 : 0 );
+								ew::Dig3Space *sp = m_dig3.get_spaces()[1];
 
-                        bool b = false;
-                        sp->set_form_pointset(&b, &ps);
+								bool b = false;
+								sp->set_form_pointset(&b, &ps);
 
-                        int n = frm->pointsets[j].n;
+								int n = frm->pointsets[j].n;
 
-                        const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-                        try
-                        {
-                            const double* points = ds->get_optimized_lmk_images();
+								const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
+								try
+								{
+									const double* points = ds->get_optimized_lmk_images();
 
-                            if( points )
-                            {
-                                for( int i = 0; i < n; ++i )
-                                {
-                                    int index = ds->lmk_index( 1, j, i );
-                                    ps.locations[i * 3    ] = points[index * 3    ];
-                                    ps.locations[i * 3 + 1] = points[index * 3 + 1];
-                                    ps.locations[i * 3 + 2] = points[index * 3 + 2];
-                                }
+									if( points )
+									{
+										for( int i = 0; i < n; ++i )
+										{
+											int index = ds->lmk_index( 1, j, i );
+											totalMovement += abs(ps.locations[i*3]-points[index*3]);
+											totalMovement += abs(ps.locations[i*3+1]-points[index*3+1]);
+											totalMovement += abs(ps.locations[i*3+2]-points[index*3+2]);
 
-                                ps.state = ew::Form3::STATE_OPTIMIZED;
-                                b = false;
+											ps.locations[i * 3    ] = points[index * 3    ];
+											ps.locations[i * 3 + 1] = points[index * 3 + 1];
+											ps.locations[i * 3 + 2] = points[index * 3 + 2];
+										}
 
-                                sp->set_form_pointset(&b, &ps);
-                                // now update their state
-                                updateTreeViewStates( 1 );
+										totalMovement/=n;
+										ps.state = ew::Form3::STATE_OPTIMIZED;
+										b = false;
 
-                                return;
-                            }
-                        }
-                        catch( std::exception& ex )
-                        {
-                            QMessageBox::information( this, "Error", ex.what() );
-                        }
+										sp->set_form_pointset(&b, &ps);
+										// now update their state
+										updateTreeViewStates( 1 );
+									}
+								}
+								catch( std::exception& ex )
+								{
+									QMessageBox::information( this, "Error", ex.what() );
+								}
 
-                    } // end projected check
-                    else
-                    {
-                        QMessageBox::information( this, "Error", "Landmarks should be projected before slid." );
-                        return;
-                    }
-                }
-            }
+							} // end projected check
+							else
+							{
+								QMessageBox::information( this, "Error", "Landmarks should be projected before slid." );
+								return -1;
+							}
+						}
+					}
         }
 
         if(curve_index != -1)
         {
+        	if( frm != 0 )
+        		for(unsigned int j=0; j<frm->pointsets.size(); ++j)
+        			if( frm->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK  )
+					{
+						if( frm->pointsets[j].id == lmkId )
+						{
+							if( frm->pointsets[j].state == ew::Form3::STATE_PROJECTED )
+							{
+								ew::Form3PointSet ps = frm->pointsets[j];
 
-        if( frm != 0 )
-        for(unsigned int j=0; j<frm->pointsets.size(); ++j)
-            if( frm->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK  )
-            {
-                if( frm->pointsets[j].id == lmkId )
-                {
-                    if( frm->pointsets[j].state == ew::Form3::STATE_PROJECTED )
-                    {
-                        ew::Form3PointSet ps = frm->pointsets[j];
+								for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
+									ps.relax_dims[i] = slide ?  1 : 0;
+								if( (int)ps.relax_dims.size() < ps.n )
+									for( int i = (int)ps.relax_dims.size(); i < ps.n; ++i )
+										ps.relax_dims.push_back( slide ?  1 : 0 );
+								ew::Dig3Space *sp = m_dig3.get_spaces()[1];
 
-                        for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
-                            ps.relax_dims[i] = slide ?  1 : 0;
-                        if( (int)ps.relax_dims.size() < ps.n )
-                            for( int i = (int)ps.relax_dims.size(); i < ps.n; ++i )
-                                ps.relax_dims.push_back( slide ?  1 : 0 );
-                        ew::Dig3Space *sp = m_dig3.get_spaces()[1];
+								bool b = false;
+								sp->set_form_pointset(&b, &ps);
 
-                        bool b = false;
-                        sp->set_form_pointset(&b, &ps);
+								int n = frm->pointsets[j].n;
 
-                        int n = frm->pointsets[j].n;
+								const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
+								try
+								{
+									const double* points = ds->get_optimized_lmk_images();
 
-                        const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-                        try
-                        {
-                            const double* points = ds->get_optimized_lmk_images();
+									if( points )
+									{
+										for( int i = 0; i < n; ++i )
+										{
+											int index = ds->lmk_index( 1, j, i );
+											totalMovement += abs(ps.locations[i*3]-points[index*3]);
+											totalMovement += abs(ps.locations[i*3+1]-points[index*3+1]);
+											totalMovement += abs(ps.locations[i*3+2]-points[index*3+2]);
 
-                            if( points )
-                            {
-                                for( int i = 0; i < n; ++i )
-                                {
-                                    int index = ds->lmk_index( 1, j, i );
-                                    ps.locations[i * 3    ] = points[index * 3    ];
-                                    ps.locations[i * 3 + 1] = points[index * 3 + 1];
-                                    ps.locations[i * 3 + 2] = points[index * 3 + 2];
-                                }
+											ps.locations[i * 3    ] = points[index * 3    ];
+											ps.locations[i * 3 + 1] = points[index * 3 + 1];
+											ps.locations[i * 3 + 2] = points[index * 3 + 2];
+										}
 
-                                ps.state = ew::Form3::STATE_OPTIMIZED;
+										totalMovement/=n;
+										ps.state = ew::Form3::STATE_OPTIMIZED;
 
-                                b = false;
-                                sp->set_form_pointset(&b, &ps);
+										b = false;
+										sp->set_form_pointset(&b, &ps);
 
-                                // now update their state
-                                updateTreeViewStates( 1 );
+										// now update their state
+										updateTreeViewStates( 1 );
+									}
+								}
+								catch( std::exception& ex )
+								{
+									QMessageBox::information( this, "Error", ex.what() );
+								}
 
-                                return;
-                            }
-                        }
-                        catch( std::exception& ex )
-                        {
-                            QMessageBox::information( this, "Error", ex.what() );
-                        }
-
-                    } // end projected check
-                    else
-                    {
-                        QMessageBox::information( this, "Error", "Landmarks should be projected before slid." );
-                        return;
-                    }
-                }
-            }
+							} // end projected check
+							else
+							{
+								QMessageBox::information( this, "Error", "Landmarks should be projected before slid." );
+								return -1;
+							}
+						}
+					}
         }
     }
+    return totalMovement;
 }
 
 bool TableauLayout::isInTargetTreeView( const QString& id )
@@ -1029,22 +1037,201 @@ bool TableauLayout::isInTargetTreeView( const QString& id )
     return false;
 }
 
+bool TableauLayout::checkSpline()
+{
+	const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
+
+	if( ds->get_n_lmks() < 4 || ds->get_energy() == -1)
+	{
+	   QMessageBox::information(this, "Error", "Compute spline before warping Template landmarks to Specimen.");
+	   return false;
+	}
+
+	if( ds->get_nonsingular() == false )
+	{
+	   QMessageBox::information(this, "Error", "Spline is singular. Template landmarks can not be warped.");
+	   return false;
+	}
+	return true;
+}
+
+bool TableauLayout::warpLandmarkItem(LandmarkItem* lmi)
+{
+	std::string tt = lmi->getLmkID().toStdString();
+
+	double x = 0, y = 0, z = 0;
+	int index;
+	if(!getPointsetLocation( tt, 0, x, y, z, index ))
+		return false;
+
+	double pin[3];
+	double pout[3];
+	pin[0] = x;
+	pin[1] = y;
+	pin[2] = z;
+
+	const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
+	ds->warp_points( pout, pin, 1 );
+
+	m_targetTopLandmarks->assignLandmarksHere( 0 );
+	// is it already available in target
+	if( isInTargetTreeView( lmi->getLmkID() ) )
+	{
+		// update the existing point location
+		std::string str = lmi->getLmkID().toStdString();
+		const ew::Form3 * form = m_dig3.get_spaces()[1]->get_form_data();
+		for( unsigned int i = 0; i < form->pointsets.size(); ++i )
+		{
+			if( form->pointsets[i].id == str )
+			{
+				ew::Form3PointSet ps = form->pointsets[i];
+				ps.state = ew::Form3::STATE_WARPED;
+				bool r = false;
+				ps.locations[0] = pout[0];
+				ps.locations[1] = pout[1];
+				ps.locations[2] = pout[2];
+				m_dig3.get_spaces()[1]->set_form_pointset(&r, &ps);
+				break;
+			}
+		}
+	}
+	else
+	{
+		m_targetView->placePoint( pout[0], pout[1], pout[2], false, false, lmi->getLmkID(), ew::Form3::STATE_WARPED );
+	}
+
+	// add the landmark states
+	updateTreeViewStates( 1 );
+	return true;
+}
+
+bool TableauLayout::warpSemilandmarkItem(SemiLandmarksTopItem* lmi)
+{
+	std::string tt = lmi->getLmkID().toStdString();
+	double x, y, z;
+	int index2 = 0;
+	if(!getPointsetLocation( tt, 0, x, y, z, index2 ))
+		return false;
+	const ew::Form3 * form = m_dig3.get_spaces()[0]->get_form_data();
+	int numSemi = form->pointsets[ index2 ].n;
+	double* pin = new double[ 3 * numSemi ];
+	double* pout = new double[ 3 * numSemi ];
+	int count = 0;
+	for( int c = 0; c < numSemi * 3; c += 3 )
+	{
+		pin[count] = form->pointsets[ index2 ].locations[ c ];
+		pin[count+1] = form->pointsets[ index2 ].locations[ c + 1 ];
+		pin[count+2] = form->pointsets[ index2 ].locations[ c + 2 ];
+		pout[count] = 0.0;
+		pout[count+1] = 0.0;
+		pout[count+2] = 0.0;
+		count+=3;
+	}
+
+	const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
+	ds->warp_points( pout, pin, numSemi );
+
+	count = 0;
+	// is it already available in target
+	if( isInTargetTreeView( lmi->getLmkID() ) )
+	{
+		// update the existing point location
+		std::string str = lmi->getLmkID().toStdString();
+		const ew::Form3 * form = m_dig3.get_spaces()[1]->get_form_data();
+		for( unsigned int i = 0; i < form->pointsets.size(); ++i )
+		{
+			if( form->pointsets[i].id == str )
+			{
+				ew::Form3PointSet ps = form->pointsets[i];
+				ps.state = ew::Form3::STATE_WARPED;
+				bool r = false;
+				m_dig3.get_spaces()[1]->set_form_pointset(&r, &ps);
+				for( int c = 0; c < ps.n; ++c )
+				{
+					double ptemp[3];
+					ptemp[0] = pout[count];
+					ptemp[1] = pout[count+1];
+					ptemp[2] = pout[count+2];
+					m_dig3.get_spaces()[1]->set_form_pointset_location( i, c * 3, ptemp );
+
+					projectSemiLmk(lmi->getLmkID(), false, false, c);
+
+					count+=3;
+				}
+
+				if( ps.n < numSemi )
+				{
+					// activate the semilandmark patch
+					for( int c = 0; c < m_targetTopLandmarks->childCount(); ++c )
+					{
+						ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( c ) );
+						if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
+						{
+							if( dynamic_cast< LandmarkItem* >( vti )->getLmkID() == lmi->getLmkID() )
+							{
+								m_targetTopLandmarks->assignLandmarksHere( vti );
+								break;
+							}
+						}
+						else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
+						{
+							if( dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID() == lmi->getLmkID() )
+							{
+								m_targetTopLandmarks->assignLandmarksHere( vti );
+								break;
+							}
+						}
+					}
+					for( int i = ps.n; i < numSemi; ++i )
+					{
+						m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
+						count+=3;
+					}
+					m_targetTopLandmarks->assignLandmarksHere( 0 );
+				}
+			} // end if check id
+		} // for loop
+	}// end if existing semilandmark patch
+	else
+	{
+		m_targetTopLandmarks->addSemiLandmark( tt.c_str() );
+		//m_targetTopLandmarks->assignLandmarksHere( (ViewTreeItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) );
+		m_targetTopLandmarks->assignLandmarksHere( dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) ) );
+
+		std::string embeddedItemId = lmi->getEmbeddedItemID().toStdString();
+		if(embeddedItemId != "")
+		{
+			ew::Form3Embedding fe;
+			fe.subset_id = tt;
+			fe.superset_id = embeddedItemId;
+			bool b = false;
+			m_dig3.get_spaces()[1]->set_form_embedding( &b, &fe );
+
+			//((SemiLandmarksTopItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1))->setEmbeddedItemID(embeddedItemId.c_str());
+			dynamic_cast< SemiLandmarksTopItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1) )->setEmbeddedItemID(embeddedItemId.c_str());
+		}
+
+		for( int c = 0; c < numSemi; ++c )
+		{
+			m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
+			count += 3;
+		}
+		m_targetTopLandmarks->assignLandmarksHere( 0 );
+	}
+
+	delete [] pout; pout = 0;
+	delete [] pin; pin = 0;
+
+	// add the landmark states
+	updateTreeViewStates( 1 );
+
+	return true;
+}
+
 void TableauLayout::mapLmk(FormItem* item, int index)
 {
-    const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-
-    if( ds->get_n_lmks() < 4 || ds->get_energy() == -1)
-    {
-        QMessageBox::information(this, "Error", "Compute spline before warping Template landmarks to Specimen.");
-        return;
-    }
-
-    if( ds->get_nonsingular() == false )
-    {
-        QMessageBox::information(this, "Error", "Spline is singular. Template landmarks can not be warped.");
-        return;
-    }
-
+	if(!checkSpline())
+		return;
     try
     {
         // get the template landmark
@@ -1057,182 +1244,18 @@ void TableauLayout::mapLmk(FormItem* item, int index)
                 LandmarkItem* lmi = dynamic_cast< LandmarkItem* >( m_templateTopLandmarks->child( i ) );
                 if( lmi->getLmkIndex() == index )
                 {
-                    std::string tt = lmi->getLmkID().toStdString();
-
-                    double x = 0, y = 0, z = 0;
-                    int index;
-                    bool r1 = getPointsetLocation( tt, 0, x, y, z, index );
-
-                    if( !r1 )
-                        continue;
-
-                    double pin[3];
-                    double pout[3];
-                    pin[0] = x;
-                    pin[1] = y;
-                    pin[2] = z;
-
-                    ds->warp_points( pout, pin, 1 );
-
-                    m_targetTopLandmarks->assignLandmarksHere( 0 );
-                    // is it already available in target
-                    if( isInTargetTreeView( lmi->getLmkID() ) )
-                    {
-                        // update the existing point location
-                        std::string str = lmi->getLmkID().toStdString();
-                        const ew::Form3 * form = m_dig3.get_spaces()[1]->get_form_data();
-                        for( unsigned int i = 0; i < form->pointsets.size(); ++i )
-                        {
-                            if( form->pointsets[i].id == str )
-                            {
-                                ew::Form3PointSet ps = form->pointsets[i];
-                                ps.state = ew::Form3::STATE_WARPED;
-                                bool r = false;
-                                ps.locations[0] = pout[0];
-                                ps.locations[1] = pout[1];
-                                ps.locations[2] = pout[2];
-                                m_dig3.get_spaces()[1]->set_form_pointset(&r, &ps);
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        m_targetView->placePoint( pout[0], pout[1], pout[2], false, false, lmi->getLmkID(), ew::Form3::STATE_WARPED );
-                    }
-
-                    // add the landmark states
-                    updateTreeViewStates( 1 );
-
-                    return;
+                	if(warpLandmarkItem(lmi))
+                		break;
                 }
             }
             else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
             {
                 SemiLandmarksTopItem* lmi = dynamic_cast< SemiLandmarksTopItem* >( m_templateTopLandmarks->child( i ) );
-                if( lmi->getLmkIndex() != index )
-                    continue;
-
-                std::string tt = lmi->getLmkID().toStdString();
-                double x, y, z;
-                int index2 = 0;
-                bool r = getPointsetLocation( tt, 0, x, y, z, index2 );
-                if( r == false )
-                    continue;
-                const ew::Form3 * form = m_dig3.get_spaces()[0]->get_form_data();
-                int numSemi = form->pointsets[ index2 ].n;
-                double* pin = new double[ 3 * numSemi ];
-                double* pout = new double[ 3 * numSemi ];
-                int count = 0;
-                for( int c = 0; c < numSemi * 3; c += 3 )
+                if( lmi->getLmkIndex() == index )
                 {
-                    pin[count] = form->pointsets[ index2 ].locations[ c ];
-                    pin[count+1] = form->pointsets[ index2 ].locations[ c + 1 ];
-                    pin[count+2] = form->pointsets[ index2 ].locations[ c + 2 ];
-                    pout[count] = 0.0;
-                    pout[count+1] = 0.0;
-                    pout[count+2] = 0.0;
-                    count+=3;
+                	if(warpSemilandmarkItem(lmi))
+						break;
                 }
-
-                const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-
-                ds->warp_points( pout, pin, numSemi );
-
-                count = 0;
-                // is it already available in target
-                if( isInTargetTreeView( lmi->getLmkID() ) )
-                {
-                    // update the existing point location
-                    std::string str = lmi->getLmkID().toStdString();
-                    const ew::Form3 * form = m_dig3.get_spaces()[1]->get_form_data();
-                    for( unsigned int i = 0; i < form->pointsets.size(); ++i )
-                    {
-                        if( form->pointsets[i].id == str )
-                        {
-                            ew::Form3PointSet ps = form->pointsets[i];
-                            ps.state = ew::Form3::STATE_WARPED;
-                            bool r = false;
-                            m_dig3.get_spaces()[1]->set_form_pointset(&r, &ps);
-                            for( int c = 0; c < ps.n; ++c )
-                            {
-                                double ptemp[3];
-                                ptemp[0] = pout[count];
-                                ptemp[1] = pout[count+1];
-                                ptemp[2] = pout[count+2];
-                                m_dig3.get_spaces()[1]->set_form_pointset_location( i, c * 3, ptemp );
-
-                                count+=3;
-                            }
-
-
-                            if( ps.n <= numSemi )
-                            {
-                                // activate the semilandmark patch
-                                for( int c = 0; c < m_targetTopLandmarks->childCount(); ++c )
-                                {
-                                    ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( c ) );
-                                    if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-                                    {
-                                        if( dynamic_cast< LandmarkItem* >( vti )->getLmkID() == lmi->getLmkID() )
-                                        {
-                                            m_targetTopLandmarks->assignLandmarksHere( vti );
-                                            break;
-                                        }
-                                    }
-                                    else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-                                    {
-                                        if( dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID() == lmi->getLmkID() )
-                                        {
-                                            m_targetTopLandmarks->assignLandmarksHere( vti );
-                                            break;
-                                        }
-                                    }
-                                }
-                                for( int i = ps.n; i < numSemi; ++i )
-                                {
-                                    m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
-                                    count+=3;
-                                }
-                                m_targetTopLandmarks->assignLandmarksHere( 0 );
-                            }
-                        } // end if check id
-                    } // for loop
-                }// end if existing semilandmark patch
-                else
-                {
-                    m_targetTopLandmarks->addSemiLandmark( tt.c_str() );
-                    //m_targetTopLandmarks->assignLandmarksHere( (ViewTreeItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) );
-					m_targetTopLandmarks->assignLandmarksHere( dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) ) );
-                    for( int c = 0; c < numSemi; ++c )
-                    {
-                        m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
-                        count += 3;
-                    }
-                    m_targetTopLandmarks->assignLandmarksHere( 0 );
-
-                    std::string embeddedItemId = lmi->getEmbeddedItemID().toStdString();
-
-                    if(embeddedItemId != "")
-                    {
-                        ew::Form3Embedding fe;
-                        fe.subset_id = tt;
-                        fe.superset_id = embeddedItemId;
-                        bool b = false;
-                        m_dig3.get_spaces()[1]->set_form_embedding( &b, &fe );
-
-                        //((SemiLandmarksTopItem*)m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1))->setEmbeddedItemID(embeddedItemId.c_str());
-						dynamic_cast< SemiLandmarksTopItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1) )->setEmbeddedItemID(embeddedItemId.c_str());
-                    }
-                }
-
-                delete [] pout; pout = 0;
-                delete [] pin; pin = 0;
-
-                // add the landmark states
-                updateTreeViewStates( 1 );
-
-                return;
             }
         } // end for loop
     }
@@ -1243,258 +1266,58 @@ void TableauLayout::mapLmk(FormItem* item, int index)
 
 void TableauLayout::mapAllLmk(FormItem* item, int index)
 {
-    const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-
-    if( ds->get_nonsingular() == false )
-        return;
-
-    if( ds->get_n_lmks() < 4 || ds->get_energy() == -1)
-    {
-        QMessageBox::information(this, "Error", "Compute spline before warping Template landmarks to Specimen.");
-        return;
-    }
-
-    if( ds->get_nonsingular() == false )
-    {
-        QMessageBox::information(this, "Error", "Spline is singular. Template landmarks can not be warped.");
-        return;
-    }
-
+	if(!checkSpline())
+		return;
     try
     {
-        // get the template landmark
-        int size = m_templateTopLandmarks->childCount();
-        std::vector<int> indices;
-        std::vector<int> indiceslbl;
-        std::vector<int> semiindices;
-        for( int i = 0; i < size; ++i )
-        {
-            ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
-            if( vti->getType() != ViewTreeItem::LANDMARK_ITEM && vti->getType() != ViewTreeItem::SEMILANDMARKS_ITEM )
-                continue;
+    	SlideDialog* slideDialog = new SlideDialog(this);
+    	if(slideDialog->exec())
+    	{
+			// get the template landmark
+			int size = m_templateTopLandmarks->childCount();
+			for( int i = 0; i < size; ++i )
+			{
+				ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
+				if( vti->getType() != ViewTreeItem::LANDMARK_ITEM && vti->getType() != ViewTreeItem::SEMILANDMARKS_ITEM )
+					continue;
 
-            std::string tt;
-            if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-                tt = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
-            else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-                tt = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID().toStdString();
+				if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
+					warpLandmarkItem(dynamic_cast< LandmarkItem* >( vti ));
+				else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
+					warpSemilandmarkItem(dynamic_cast< SemiLandmarksTopItem* >( vti ));
+			}
+			emit status( "Warped all landmarks and semi-landmarks" );
 
-            double x, y, z;
-            int index = 0;
-            bool r = getPointsetLocation( tt, 0, x, y, z, index );
-            if( !r )
-                continue;
+			if(slideDialog->performSliding())
+			{
+				emit status("Sliding semi-landmarks, Please wait...");
 
-            int r1 = ds->lmk_index( 0, index, 0 );
-            if( r1 == -1 )
-            {
-                if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-                {
-                    indices.push_back( index );
-                    indiceslbl.push_back( i );
-                }
-                else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-                    semiindices.push_back( i );
-            }
-        }
+				int N = slideDialog->getIterations();
+				double E = slideDialog->getEpsilon();
+				QApplication::setOverrideCursor(Qt::WaitCursor);
+				for( int i = 0; i < size; ++i )
+				{
+					ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
+					if(vti->getType() != ViewTreeItem::SEMILANDMARKS_ITEM)
+						continue;
+					int nIterations = N>0?N:1;
+					double error = 0;
+					do
+					{
+						error = lmkSlide(item, vti, 0, true);
+						projectSemiLmk((dynamic_cast< SemiLandmarksTopItem* >( vti ))->getLmkID(), false, false);
 
-        if( indices.size() )
-        {
-            double* pin = new double[ 3 * indices.size() ];
-            double* pout = new double[ 3 * indices.size() ];
-            int count = 0;
+						if(N>0)
+							nIterations--;
+					}
+					while(nIterations>0 && error-E>0);
+				}
 
-            std::vector<QString> sl;
-            for( unsigned int i = 0; i < indices.size(); ++i )
-            {
-                const ew::Form3 * form = m_dig3.get_spaces()[0]->get_form_data();
-
-                sl.push_back( form->pointsets[ indices[i] ].id.c_str() );
-
-                pin[count] = form->pointsets[ indices[i] ].locations[0];
-                pin[count+1] = form->pointsets[ indices[i] ].locations[1];
-                pin[count+2] = form->pointsets[ indices[i] ].locations[2];
-                pout[count] = 0.0;
-                pout[count+1] = 0.0;
-                pout[count+2] = 0.0;
-                count+=3;
-            }
-
-            const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-
-            ds->warp_points( pout, pin, indices.size() );
-
-            count = 0;
-            for( unsigned int i = 0; i < indices.size(); ++i )
-            {
-                ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( indiceslbl[i] ) );
-
-                m_targetTopLandmarks->assignLandmarksHere( 0 );
-
-                // is it already available in target
-                if( isInTargetTreeView(  dynamic_cast< LandmarkItem* >( vti )->getLmkID() ) )
-                {
-                    // update the existing point location
-                    std::string str = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
-                    const ew::Form3 * form = m_dig3.get_spaces()[1]->get_form_data();
-                    for( unsigned int i = 0; i < form->pointsets.size(); ++i )
-                    {
-                        if( form->pointsets[i].id == str )
-                        {
-                            ew::Form3PointSet ps = form->pointsets[i];
-                            ps.state = ew::Form3::STATE_WARPED;
-                            bool r = false;
-                            m_dig3.get_spaces()[1]->set_form_pointset(&r, &ps);
-                            double ptemp[3];
-                            ptemp[0] = pout[count];
-                            ptemp[1] = pout[count+1];
-                            ptemp[2] = pout[count+2];
-                            m_dig3.get_spaces()[1]->set_form_pointset_location( i, 0, ptemp );
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, sl[i], ew::Form3::STATE_WARPED);
-                }
-                count+=3;
-            }
-
-            delete [] pout; pout = 0;
-            delete [] pin; pin = 0;
-
-            // mapped successfully
-            QString msg, num;
-            num.setNum( indices.size() );
-            msg = "Warped ";
-            msg += num;
-            msg += " landmarks. ";
-            emit status( msg );
-        }
-
-        for( unsigned int i = 0; i < semiindices.size(); ++i )
-        {
-            ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( semiindices[i] ) );
-            if( vti->getType() != ViewTreeItem::SEMILANDMARKS_ITEM )
-                continue;
-            std::string tt = dynamic_cast< SemiLandmarksTopItem* >( vti ) ->getLmkID().toStdString();
-
-            double x, y, z;
-            int index = 0;
-            bool r = getPointsetLocation( tt, 0, x, y, z, index );
-            if( r == false )
-                continue;
-            const ew::Form3 * form = m_dig3.get_spaces()[0]->get_form_data();
-            int numSemi = form->pointsets[ index ].n;
-            double* pin = new double[ 3 * numSemi ];
-            double* pout = new double[ 3 *numSemi ];
-            int count = 0;
-            int semiInd = 0;
-            for( int c = 0; c < numSemi * 3; c += 3 )
-            {
-                pin[count] = form->pointsets[ index ].locations[ c ];
-                pin[count+1] = form->pointsets[ index ].locations[ c + 1 ];
-                pin[count+2] = form->pointsets[ index ].locations[ c + 2 ];
-                pout[count] = 0.0;
-                pout[count+1] = 0.0;
-                pout[count+2] = 0.0;
-                count += 3;
-                ++semiInd;
-            }
-
-            const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-
-            ds->warp_points( pout, pin, numSemi );
-
-            count = 0;
-            // is it already available in target
-            if( isInTargetTreeView( dynamic_cast< SemiLandmarksTopItem* >(vti)->getLmkID() ) )
-            {
-                // update the existing point location
-                const ew::Form3 * form = m_dig3.get_spaces()[1]->get_form_data();
-                for( unsigned int i = 0; i < form->pointsets.size(); ++i )
-                {
-                    if( form->pointsets[i].id == tt )
-                    {
-                        ew::Form3PointSet ps = form->pointsets[i];
-                        ps.state = ew::Form3::STATE_WARPED;
-                        bool r = false;
-                        m_dig3.get_spaces()[1]->set_form_pointset(&r, &ps);
-                        for( int c = 0; c < ps.n; ++c )
-                        {
-                            double ptemp[3];
-                            ptemp[0] = pout[count];
-                            ptemp[1] = pout[count+1];
-                            ptemp[2] = pout[count+2];
-                            m_dig3.get_spaces()[1]->set_form_pointset_location( i, c * 3, ptemp );
-                            count+=3;
-                        }
-
-                        if( ps.n <= numSemi )
-                        {
-                            // activate the semilandmark patch
-                            for( int c = 0; c < m_targetTopLandmarks->childCount(); ++c )
-                            {
-                                ViewTreeItem* vti2 = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( c ) );
-                                if( vti2->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-                                {
-                                    if( dynamic_cast< SemiLandmarksTopItem* >( vti2 )->getLmkID() == 
-										dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID() )
-                                    {
-                                        m_targetTopLandmarks->assignLandmarksHere( vti2 );
-                                        break;
-                                    }
-                                }
-                            }
-                            for( int i = ps.n; i < numSemi; ++i )
-                            {
-                                m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
-                                count+=3;
-                            }
-                            m_targetTopLandmarks->assignLandmarksHere( 0 );
-                        }
-                    } // end if check id
-                } // for loop
-            }// end if existing semilandmark patch
-            else
-            {
-                m_targetTopLandmarks->addSemiLandmark( tt.c_str() );
-                m_targetTopLandmarks->assignLandmarksHere( dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1 ) ) );
-                for( int c = 0; c < numSemi; ++c )
-                {
-                    m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
-                    count+=3;
-                }
-                m_targetTopLandmarks->assignLandmarksHere( 0 );
-
-                std::string embeddedItemId = dynamic_cast< SemiLandmarksTopItem* >( vti )->getEmbeddedItemID().toStdString();
-                if(embeddedItemId != "")
-                {
-                    ew::Form3Embedding fe;
-                    fe.subset_id = tt;
-                    fe.superset_id = embeddedItemId;
-                    bool b = false;
-                    m_dig3.get_spaces()[1]->set_form_embedding( &b, &fe );
-
-                    dynamic_cast< SemiLandmarksTopItem* >( m_targetTopLandmarks->child( m_targetTopLandmarks->childCount() - 1) )->setEmbeddedItemID(embeddedItemId.c_str());
-                }
-            }
-
-            delete [] pout; pout = 0;
-            delete [] pin; pin = 0;
-
-            // mapped successfully
-            QString msg, num;
-            num.setNum( semiInd );
-            msg = "Warped ";
-            msg += num;
-            msg += " semilandmarks. ";
-            emit status( msg );
-        } //end semilandmarks
-
-        // add the landmark states
-        updateTreeViewStates( 1 );
+				emit status("Semi-landmarks sliding complete.");
+				QApplication::restoreOverrideCursor();
+			}
+    	}
+		delete slideDialog;
     }
     catch( ... )
     {

@@ -347,6 +347,12 @@ void LandmarksTopItem::addSemiLandmarkSet( int t, const QString& suggestedName )
         bool b = false;
         ew::Dig3Space *sp = m_dig3->get_spaces()[1];
         sp->set_form_embedding( &b, &fe );
+
+        //Add empty pointset with the right id
+        ew::Form3PointSet ps;
+        ps.type = ew::Form3::TYPE_SEMI_LANDMARK;
+        ps.id = id.toStdString();
+        sp->set_form_pointset(&b, &ps);
     }
 
     SemiLandmarksTopItem* sti = new SemiLandmarksTopItem(this);
