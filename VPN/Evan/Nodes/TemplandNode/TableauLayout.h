@@ -268,6 +268,9 @@ private:
     QString stateLabel( int state );
     void changeState( const std::string& id, int state );
 
+    int embeddedCurveIndex(const std::string& id, const ew::Form3* form);
+    int embeddedSurfaceIndex(const std::string& id, const ew::Form3* form);
+    void slideAll(int iterations, double eps);
     bool projectToEmbedding(const ew::Form3* form, const std::string& semiLmkId,
     						int surface_index, int curve_index, int semiLmkIndex=-1,
     						bool checksurface=true, bool showstatus=true);
