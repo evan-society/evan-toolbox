@@ -29,6 +29,9 @@
 
 #include <limits>
 #include <cmath>
+#include <map>
+
+using namespace std;
 
 double project_point_to_line_segment(float *A, float *B, double *p, double *q)
 {
@@ -745,6 +748,21 @@ bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string&
 	return true;
 }
 
+int TableauLayout::embeddedCurveIndex(const std::string& id, const ew::Form3* form)
+{
+	for(unsigned int j=0; j<form->surfaces.size(); ++j)
+		if(form->curves[j].id == id)
+			return j;
+	return -1;
+}
+int TableauLayout::embeddedSurfaceIndex(const std::string& id, const ew::Form3* form)
+{
+	for(unsigned int j=0; j<form->surfaces.size(); ++j)
+		if(form->surfaces[j].id == id)
+			return j;
+	return -1;
+}
+
 bool TableauLayout::projectSemiLmk(const QString& topId, bool checksurface, bool showstatus, int semiLmkIndex)
 {
     if( checksurface )
@@ -788,24 +806,8 @@ bool TableauLayout::projectSemiLmk(const QString& topId, bool checksurface, bool
 
     if( form != 0 )
     {
-		int surface_index = -1;
-		int curve_index = -1;
-	
-		for(unsigned int j=0; j<form->surfaces.size(); ++j)
-			if(form->surfaces[j].id == embeddedItemId)
-			{
-				surface_index = j;
-				break;
-			}
-
-		if(surface_index == -1)
-			for(unsigned int j=0; j<form->curves.size(); ++j)
-				if(form->curves[j].id == embeddedItemId)
-				{
-					curve_index = j;
-					break;
-				}
-
+		int surface_index = embeddedSurfaceIndex(embeddedItemId, form);
+		int curve_index = embeddedCurveIndex(embeddedItemId, form);
 		if((surface_index==-1) && (curve_index==-1))
 			return false;
 		else
@@ -853,22 +855,8 @@ double TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, b
 
     if( frm != 0 )
     {
-		for(unsigned int j=0; j<frm->surfaces.size(); ++j)
-		{
-			if(frm->surfaces[j].id == embeddedItemId)
-			{
-				surface_index = j;
-				break;
-			}
-		}
-		for(unsigned int j=0; j<frm->curves.size(); ++j)
-		{
-			if(frm->curves[j].id == embeddedItemId)
-			{
-				curve_index = j;
-				break;
-			}
-		}
+    	surface_index = embeddedSurfaceIndex(embeddedItemId, frm);
+    	curve_index = embeddedCurveIndex(embeddedItemId, frm);
     }
 
 
@@ -1264,6 +1252,105 @@ void TableauLayout::mapLmk(FormItem* item, int index)
     }
 }
 
+void TableauLayout::slideAll(int iterations, double eps)
+{
+	emit status("Sliding semi-landmarks, Please wait...");
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	int size = m_targetTopLandmarks->childCount();
+	int nIterations = iterations>0?iterations:1;
+	double error = 0;
+	while(true)
+	{
+		error = 0;
+		for( int i = 0; i < size; ++i )
+		{
+			ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
+			if(vti->getType() != ViewTreeItem::SEMILANDMARKS_ITEM)
+				continue;
+
+			SemiLandmarksTopItem* semilmkItem = dynamic_cast< SemiLandmarksTopItem* >( vti );
+			std::string semiLmkId = semilmkItem->getLmkID().toStdString();
+			ew::Dig3Space *sp = m_dig3.get_spaces()[1];
+			const ew::Form3* frm = sp->get_form_data();
+			const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
+
+			const char* found_embedding = m_dig3.get_spaces()[1]->get_form_data()->search_superset(semiLmkId.c_str());
+			std::string embeddedItemId = std::string(found_embedding);
+
+			if(embeddedItemId == "" || found_embedding == 0 || !frm)
+				continue;
+			bool curve = embeddedCurveIndex(embeddedItemId, frm)>=0;
+			map<int,int> slidLMKs;
+			for(unsigned int j=0; j<frm->pointsets.size(); ++j)
+				if( frm->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK &&
+					frm->pointsets[j].state == ew::Form3::STATE_PROJECTED &&
+					frm->pointsets[j].id == semiLmkId)
+				{
+					ew::Form3PointSet ps = frm->pointsets[j];
+					for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
+						ps.relax_dims[i] = curve ?  1 : 2;
+					if( (int)ps.relax_dims.size() < ps.n )
+						for( int i = (int)ps.relax_dims.size(); i < ps.n; ++i )
+							ps.relax_dims.push_back( curve ?  1 : 2 );
+
+					bool b = false;
+					sp->set_form_pointset(&b, &ps);
+
+					slidLMKs.insert(pair<int,int>(j,frm->pointsets[j].n));
+				}
+
+			try
+			{
+				const double* points = ds->get_optimized_lmk_images();
+
+				if( points )
+				{
+					for(map<int,int>::iterator it = slidLMKs.begin(); it!=slidLMKs.end(); ++it)
+					{
+						ew::Form3PointSet ps = frm->pointsets[it->first];
+						for(unsigned int i=0; i<it->second; ++i )
+						{
+							int index = ds->lmk_index( 1, it->first, i );
+							error += abs(ps.locations[i*3]-points[index*3]);
+							error += abs(ps.locations[i*3+1]-points[index*3+1]);
+							error += abs(ps.locations[i*3+2]-points[index*3+2]);
+
+							ps.locations[i * 3    ] = points[index * 3    ];
+							ps.locations[i * 3 + 1] = points[index * 3 + 1];
+							ps.locations[i * 3 + 2] = points[index * 3 + 2];
+						}
+
+						error/=it->second;
+						ps.state = ew::Form3::STATE_OPTIMIZED;
+						bool b = false;
+						sp->set_form_pointset(&b, &ps);
+					}
+					// now update their state
+					updateTreeViewStates( 1 );
+				}
+			}
+			catch( std::exception& ex )
+			{QMessageBox::information( this, "Error", ex.what() );}
+
+			int nIterations = iterations>0?iterations:1;
+			projectSemiLmk(semilmkItem->getLmkID(), false, false);
+		}
+
+		if(iterations>0)
+		{
+			nIterations--;
+			if(nIterations<=0)
+				break;
+		}
+		else if (error-eps<=0)
+			break;
+	}
+
+	emit status("Semi-landmarks sliding complete.");
+	QApplication::restoreOverrideCursor();
+}
+
 void TableauLayout::mapAllLmk(FormItem* item, int index)
 {
 	if(!checkSpline())
@@ -1289,33 +1376,7 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
 			emit status( "Warped all landmarks and semi-landmarks" );
 
 			if(slideDialog->performSliding())
-			{
-				emit status("Sliding semi-landmarks, Please wait...");
-
-				int N = slideDialog->getIterations();
-				double E = slideDialog->getEpsilon();
-				QApplication::setOverrideCursor(Qt::WaitCursor);
-				for( int i = 0; i < size; ++i )
-				{
-					ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
-					if(vti->getType() != ViewTreeItem::SEMILANDMARKS_ITEM)
-						continue;
-					int nIterations = N>0?N:1;
-					double error = 0;
-					do
-					{
-						error = lmkSlide(item, vti, 0, true);
-						projectSemiLmk((dynamic_cast< SemiLandmarksTopItem* >( vti ))->getLmkID(), false, false);
-
-						if(N>0)
-							nIterations--;
-					}
-					while(nIterations>0 && error-E>0);
-				}
-
-				emit status("Semi-landmarks sliding complete.");
-				QApplication::restoreOverrideCursor();
-			}
+				slideAll(slideDialog->getIterations(),slideDialog->getEpsilon());
     	}
 		delete slideDialog;
     }
