@@ -750,7 +750,7 @@ bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string&
 
 int TableauLayout::embeddedCurveIndex(const std::string& id, const ew::Form3* form)
 {
-	for(unsigned int j=0; j<form->surfaces.size(); ++j)
+	for(unsigned int j=0; j<form->curves.size(); ++j)
 		if(form->curves[j].id == id)
 			return j;
 	return -1;
@@ -877,9 +877,8 @@ double TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, b
 								ew::Form3PointSet ps = frm->pointsets[j];
 								for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
 									ps.relax_dims[i] = slide ?  2 : 0;
-								if( (int)ps.relax_dims.size() < ps.n )
-									for( int i = (int)ps.relax_dims.size(); i < ps.n; ++i )
-										ps.relax_dims.push_back( slide ?  2 : 0 );
+								while( (int)ps.relax_dims.size() < ps.n )
+									ps.relax_dims.push_back( slide ?  2 : 0 );
 								ew::Dig3Space *sp = m_dig3.get_spaces()[1];
 
 								bool b = false;
@@ -944,9 +943,8 @@ double TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, b
 
 								for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
 									ps.relax_dims[i] = slide ?  1 : 0;
-								if( (int)ps.relax_dims.size() < ps.n )
-									for( int i = (int)ps.relax_dims.size(); i < ps.n; ++i )
-										ps.relax_dims.push_back( slide ?  1 : 0 );
+								while( (int)ps.relax_dims.size() < ps.n )
+									ps.relax_dims.push_back( slide ?  1 : 0 );
 								ew::Dig3Space *sp = m_dig3.get_spaces()[1];
 
 								bool b = false;
@@ -1254,101 +1252,81 @@ void TableauLayout::mapLmk(FormItem* item, int index)
 
 void TableauLayout::slideAll(int iterations, double eps)
 {
-	emit status("Sliding semi-landmarks, Please wait...");
+	ew::Dig3Space* sp = m_dig3.get_spaces()[1];
+	const ew::Form3* frm = sp->get_form_data();
+	if(!checkSpline() || !frm)
+		return;
+	const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
+	int nIterations = 0;
 
+	emit status("Sliding semi-landmarks, Please wait...");
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	int size = m_targetTopLandmarks->childCount();
-	int nIterations = iterations>0?iterations:1;
-	double error = 0;
+
 	while(true)
 	{
-		error = 0;
-		for( int i = 0; i < size; ++i )
+		double error = 0;
+		map<int,int> slidLMKs;
+		for(unsigned int j=0; j<frm->pointsets.size(); ++j)
 		{
-			ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
-			if(vti->getType() != ViewTreeItem::SEMILANDMARKS_ITEM)
+			ew::Form3PointSet ps = frm->pointsets[j];
+			if( ps.type != ew::Form3::TYPE_SEMI_LANDMARK || ps.state != ew::Form3::STATE_PROJECTED)
 				continue;
-
-			SemiLandmarksTopItem* semilmkItem = dynamic_cast< SemiLandmarksTopItem* >( vti );
-			std::string semiLmkId = semilmkItem->getLmkID().toStdString();
-			ew::Dig3Space *sp = m_dig3.get_spaces()[1];
-			const ew::Form3* frm = sp->get_form_data();
-			const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-
-			const char* found_embedding = m_dig3.get_spaces()[1]->get_form_data()->search_superset(semiLmkId.c_str());
-			std::string embeddedItemId = std::string(found_embedding);
-
-			if(embeddedItemId == "" || found_embedding == 0 || !frm)
+			string embeddedItemId = frm->search_superset(ps.id.c_str());
+			if(embeddedItemId.empty())
 				continue;
-			bool curve = embeddedCurveIndex(embeddedItemId, frm)>=0;
-			map<int,int> slidLMKs;
-			for(unsigned int j=0; j<frm->pointsets.size(); ++j)
-				if( frm->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK &&
-					frm->pointsets[j].state == ew::Form3::STATE_PROJECTED &&
-					frm->pointsets[j].id == semiLmkId)
+			int relaxDims = embeddedCurveIndex(embeddedItemId, frm)>=0 ? 1:2;
+			for( size_t i = 0; i < ps.relax_dims.size(); ++i )
+				ps.relax_dims[i] = relaxDims;
+			while( (int)ps.relax_dims.size() < ps.n )
+				ps.relax_dims.push_back( relaxDims );
+			bool b = false;
+			sp->set_form_pointset(&b, &ps);
+			slidLMKs.insert(pair<int,int>(j,frm->pointsets[j].n));
+		}
+
+		try
+		{
+			const double* points = ds->get_optimized_lmk_images();
+			if( points )
+			{
+				for(map<int,int>::iterator it = slidLMKs.begin(); it!=slidLMKs.end(); ++it)
 				{
-					ew::Form3PointSet ps = frm->pointsets[j];
-					for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
-						ps.relax_dims[i] = curve ?  1 : 2;
-					if( (int)ps.relax_dims.size() < ps.n )
-						for( int i = (int)ps.relax_dims.size(); i < ps.n; ++i )
-							ps.relax_dims.push_back( curve ?  1 : 2 );
+					ew::Form3PointSet ps = frm->pointsets[it->first];
+					for(unsigned int i=0; i<it->second; ++i )
+					{
+						int index = ds->lmk_index( 1, it->first, i );
+						error += abs(ps.locations[i*3]-points[index*3]);
+						error += abs(ps.locations[i*3+1]-points[index*3+1]);
+						error += abs(ps.locations[i*3+2]-points[index*3+2]);
 
+						ps.locations[i * 3    ] = points[index * 3    ];
+						ps.locations[i * 3 + 1] = points[index * 3 + 1];
+						ps.locations[i * 3 + 2] = points[index * 3 + 2];
+					}
+
+					error/=it->second;
+					ps.state = ew::Form3::STATE_OPTIMIZED;
 					bool b = false;
 					sp->set_form_pointset(&b, &ps);
-
-					slidLMKs.insert(pair<int,int>(j,frm->pointsets[j].n));
-				}
-
-			try
-			{
-				const double* points = ds->get_optimized_lmk_images();
-
-				if( points )
-				{
-					for(map<int,int>::iterator it = slidLMKs.begin(); it!=slidLMKs.end(); ++it)
-					{
-						ew::Form3PointSet ps = frm->pointsets[it->first];
-						for(unsigned int i=0; i<it->second; ++i )
-						{
-							int index = ds->lmk_index( 1, it->first, i );
-							error += abs(ps.locations[i*3]-points[index*3]);
-							error += abs(ps.locations[i*3+1]-points[index*3+1]);
-							error += abs(ps.locations[i*3+2]-points[index*3+2]);
-
-							ps.locations[i * 3    ] = points[index * 3    ];
-							ps.locations[i * 3 + 1] = points[index * 3 + 1];
-							ps.locations[i * 3 + 2] = points[index * 3 + 2];
-						}
-
-						error/=it->second;
-						ps.state = ew::Form3::STATE_OPTIMIZED;
-						bool b = false;
-						sp->set_form_pointset(&b, &ps);
-					}
-					// now update their state
-					updateTreeViewStates( 1 );
+					projectSemiLmk(ps.id.c_str(), false, false);
 				}
 			}
-			catch( std::exception& ex )
-			{QMessageBox::information( this, "Error", ex.what() );}
-
-			int nIterations = iterations>0?iterations:1;
-			projectSemiLmk(semilmkItem->getLmkID(), false, false);
 		}
+		catch( std::exception& ex )
+		{QMessageBox::information( this, "Error", ex.what() );}
 
 		if(iterations>0)
 		{
-			nIterations--;
-			if(nIterations<=0)
+			if(++nIterations==iterations)
 				break;
 		}
 		else if (error-eps<=0)
 			break;
 	}
 
-	emit status("Semi-landmarks sliding complete.");
+	updateTreeViewStates( 1 );
 	QApplication::restoreOverrideCursor();
+	emit status("Semi-landmarks sliding complete.");
 }
 
 void TableauLayout::mapAllLmk(FormItem* item, int index)
