@@ -1086,6 +1086,7 @@ bool TableauLayout::warpLandmarkItem(LandmarkItem* lmi)
 		m_targetView->placePoint( pout[0], pout[1], pout[2], false, false, lmi->getLmkID(), ew::Form3::STATE_WARPED );
 	}
 
+	projectLmk(lmi, lmi->getLmkIndex(), false, false);
 	// add the landmark states
 	updateTreeViewStates( 1 );
 	return true;
@@ -1170,7 +1171,7 @@ bool TableauLayout::warpSemilandmarkItem(SemiLandmarksTopItem* lmi)
 					}
 					for( int i = ps.n; i < numSemi; ++i )
 					{
-						m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
+						m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, QString(ps.id.c_str())+i, ew::Form3::STATE_WARPED );
 						count+=3;
 					}
 					m_targetTopLandmarks->assignLandmarksHere( 0 );
@@ -1199,7 +1200,7 @@ bool TableauLayout::warpSemilandmarkItem(SemiLandmarksTopItem* lmi)
 
 		for( int c = 0; c < numSemi; ++c )
 		{
-			m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, "", ew::Form3::STATE_WARPED );
+			m_targetView->placePoint( pout[count], pout[count+1], pout[count+2], false, false, QString(tt.c_str())+c, ew::Form3::STATE_WARPED );
 			count += 3;
 		}
 		m_targetTopLandmarks->assignLandmarksHere( 0 );
