@@ -1,0 +1,96 @@
+.TH "ew::View3Surface" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::View3Surface \- 
+.PP
+Surface Item.  
+
+\fBew::View3Surface\fP is an \fBew::View3Widget\fP item to display a \fBew::DataflowSurface3\fP, a triangulated surface.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/View3Surface.h>\fP
+.PP
+Inherits \fBew::View3Item\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBView3Surface\fP (\fBew::View3Widget\fP *\fBview\fP, int i_type=0)"
+.br
+.ti -1c
+.RI "void \fBset_surface\fP (const \fBew::DataflowSurface3\fP *sur)"
+.br
+.ti -1c
+.RI "const \fBew::DataflowSurface3\fP * \fBget_surface\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_front_color\fP (const unsigned char *rgb)"
+.br
+.ti -1c
+.RI "const unsigned char * \fBget_front_color\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_back_color\fP (const unsigned char *rgb)"
+.br
+.ti -1c
+.RI "const unsigned char * \fBget_back_color\fP () const "
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::View3Surface\fP is a class without assignment or comparison. There are private member variables. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::View3Surface::View3Surface (\fBew::View3Widget\fP * v, int i_type = \fC0\fP)\fC [explicit]\fP"This creates an item. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIv\fP The view widget the item should belong to. 
+.br
+\fItype_i\fP The initializer for \fBew::View3Item::type\fP. 
+.RE
+.PP
+
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::View3Surface::set_surface (const \fBew::DataflowSurface3\fP * s)"\fBParameters:\fP
+.RS 4
+\fIs\fP A pointer to the new surface node to display, or 0. 
+.RE
+.PP
+
+.SS "const \fBew::DataflowSurface3\fP * ew::View3Surface::get_surface () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the current surface node being displayed, or 0. 
+.RE
+.PP
+
+.SS "void ew::View3Surface::set_front_color (const unsigned char * rgb)"\fBParameters:\fP
+.RS 4
+\fIrgb\fP This points to an array of size 3 containing the new colour for the front of the surface. 
+.RE
+.PP
+
+.SS "const unsigned char * ew::View3Surface::get_front_color () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the current colour for the front of the surface. 
+.RE
+.PP
+
+.SS "void ew::View3Surface::set_back_color (const unsigned char * rgb)"\fBParameters:\fP
+.RS 4
+\fIrgb\fP This points to an array of size 3 containing the new colour for the back of the surface. 
+.RE
+.PP
+
+.SS "const unsigned char * ew::View3Surface::get_back_color () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the current colour for the back of the surface. 
+.RE
+.PP
+
+

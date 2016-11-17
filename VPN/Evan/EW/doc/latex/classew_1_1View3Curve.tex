@@ -1,0 +1,108 @@
+\hypertarget{classew_1_1View3Curve}{
+\subsection{ew::View3Curve Class Reference}
+\label{classew_1_1View3Curve}\index{ew::View3Curve@{ew::View3Curve}}
+}
+
+
+Curve Item.  
+
+
+
+
+{\ttfamily \#include $<$ew/View3Curve.h$>$}
+
+
+
+Inheritance diagram for ew::View3Curve:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{classew_1_1View3Curve__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1View3Curve_a7c1a90f7ca7de52c42bff7f5b0cac0d9}{View3Curve} (\hyperlink{classew_1_1View3Widget}{ew::View3Widget} $\ast$\hyperlink{classew_1_1View3Item_a7d765842ec7b9e145cefa37e3dbae658}{view}, int i\_\-type=0)
+\item 
+void \hyperlink{classew_1_1View3Curve_a3a7ac177b754f5888d1db92af4d18cdb}{set\_\-curve} (const \hyperlink{classew_1_1DataflowCurve3}{ew::DataflowCurve3} $\ast$cur)
+\item 
+const \hyperlink{classew_1_1DataflowCurve3}{ew::DataflowCurve3} $\ast$ \hyperlink{classew_1_1View3Curve_a70dcbaad96d985a6ab000b9ee0018c6d}{get\_\-curve} () const 
+\item 
+void \hyperlink{classew_1_1View3Curve_a8b8e42671e07b55cff891847b93a2fe7}{set\_\-color} (const unsigned char $\ast$rgb)
+\item 
+const unsigned char $\ast$ \hyperlink{classew_1_1View3Curve_a4286dde821d57c24f54dad948f92a827}{get\_\-color} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1View3Curve}{ew::View3Curve} is an \hyperlink{classew_1_1View3Widget}{ew::View3Widget} item to display a \hyperlink{classew_1_1DataflowCurve3}{ew::DataflowCurve3}, a piecewise-\/linear curve.
+
+\hyperlink{classew_1_1View3Curve}{ew::View3Curve} is a class without assignment or comparison. There are private member variables. 
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1View3Curve_a7c1a90f7ca7de52c42bff7f5b0cac0d9}{
+\index{ew::View3Curve@{ew::View3Curve}!View3Curve@{View3Curve}}
+\index{View3Curve@{View3Curve}!ew::View3Curve@{ew::View3Curve}}
+\paragraph[{View3Curve}]{\setlength{\rightskip}{0pt plus 5cm}ew::View3Curve::View3Curve (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::View3Widget} $\ast$}]{ view, }
+\item[{int}]{ i\_\-type = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}\hfill}
+\label{classew_1_1View3Curve_a7c1a90f7ca7de52c42bff7f5b0cac0d9}
+This creates an item. 
+\begin{DoxyParams}{Parameters}
+\item[{\em view}]The view widget the item should belong to. \item[{\em i\_\-type}]The initializer for \hyperlink{classew_1_1View3Item_a7e21fcde8f082ba2409bcb2999a4b7fd}{ew::View3Item::type}. \end{DoxyParams}
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1View3Curve_a3a7ac177b754f5888d1db92af4d18cdb}{
+\index{ew::View3Curve@{ew::View3Curve}!set\_\-curve@{set\_\-curve}}
+\index{set\_\-curve@{set\_\-curve}!ew::View3Curve@{ew::View3Curve}}
+\paragraph[{set\_\-curve}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Curve::set\_\-curve (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::DataflowCurve3} $\ast$}]{ cur}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Curve_a3a7ac177b754f5888d1db92af4d18cdb}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em cur}]A pointer to the new curve node to display, or 0. \end{DoxyParams}
+\hypertarget{classew_1_1View3Curve_a70dcbaad96d985a6ab000b9ee0018c6d}{
+\index{ew::View3Curve@{ew::View3Curve}!get\_\-curve@{get\_\-curve}}
+\index{get\_\-curve@{get\_\-curve}!ew::View3Curve@{ew::View3Curve}}
+\paragraph[{get\_\-curve}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowCurve3} $\ast$ ew::View3Curve::get\_\-curve (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Curve_a70dcbaad96d985a6ab000b9ee0018c6d}
+\begin{DoxyReturn}{Returns}
+A pointer to the current curve node being displayed, or 0. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Curve_a8b8e42671e07b55cff891847b93a2fe7}{
+\index{ew::View3Curve@{ew::View3Curve}!set\_\-color@{set\_\-color}}
+\index{set\_\-color@{set\_\-color}!ew::View3Curve@{ew::View3Curve}}
+\paragraph[{set\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Curve::set\_\-color (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$}]{ rgb}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Curve_a8b8e42671e07b55cff891847b93a2fe7}
+
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em rgb}]This points to an array of size 3 containing the new colour for the curve. \end{DoxyParams}
+\hypertarget{classew_1_1View3Curve_a4286dde821d57c24f54dad948f92a827}{
+\index{ew::View3Curve@{ew::View3Curve}!get\_\-color@{get\_\-color}}
+\index{get\_\-color@{get\_\-color}!ew::View3Curve@{ew::View3Curve}}
+\paragraph[{get\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}const unsigned char $\ast$ ew::View3Curve::get\_\-color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Curve_a4286dde821d57c24f54dad948f92a827}
+\begin{DoxyReturn}{Returns}
+A pointer to the current colour for the curve. 
+\end{DoxyReturn}

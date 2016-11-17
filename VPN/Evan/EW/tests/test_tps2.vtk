@@ -1,0 +1,29 @@
+#!/usr/bin/tclsh
+# This is a short script to calculate a tps using the vtk tookkit.
+package require vtk
+vtkPoints lhs
+lhs SetNumberOfPoints 5
+lhs SetPoint 0 1.0 2.0 0.0
+lhs SetPoint 1 2.0 2.0 0.0
+lhs SetPoint 2 1.0 1.0 0.0
+lhs SetPoint 3 2.0 1.0 0.0
+lhs SetPoint 4 1.5 1.5 0.0
+vtkPoints rhs
+rhs SetNumberOfPoints 5
+rhs SetPoint 0 1.0 2.0 0.0
+rhs SetPoint 1 2.0 2.0 0.0
+rhs SetPoint 2 1.0 1.0 0.0
+rhs SetPoint 3 2.0 1.0 0.0
+rhs SetPoint 4 1.5 1.8 0.0
+
+vtkThinPlateSplineTransform spl
+spl SetBasisToR2LogR
+spl SetSourceLandmarks lhs
+spl SetTargetLandmarks rhs
+spl Update
+
+puts [spl TransformDoublePoint 1.6 1.5 0.0]
+puts [spl TransformDoublePoint 1.7 1.5 0.0]
+puts [spl TransformDoublePoint 1.8 1.5 0.0]
+puts [spl TransformDoublePoint 1.9 1.5 0.0]
+exit

@@ -1,0 +1,20 @@
+For landmark configurations in 2D, this is the basis of the space of shape variables described in \begin{DoxyVerb}
+BOOKSTEIN, F L. 1996b. A standard formula for the uniform shape
+component in landmark data. Pages 153-168 in Advances in morphometrics
+(L. F Marcus, M. Corti, A. Loy, G. J. P. Naylor, and D.
+E. Slice, eds.). Plenum, New York
+\end{DoxyVerb}
+ and in \begin{DoxyVerb}
+Computing the Uniform Component of Shape Variation
+F. JAMES ROHLF AND FRED L. BOOKSTEIN
+Syst. Biol. 52(1):66-69, 2003
+\end{DoxyVerb}
+ These papers describe the basis in the case of a landmark configuration that has been centered, scaled to centroid size one and had its principal axes oriented to the coordinate axes.
+
+The space in question is 2 dimensional, and the 2 basis elements are derived by applying linear shears \[\pmatrix{1&1\cr 0&1\cr}\qquad\pmatrix{2&0\cr 0&1\cr}\] to the landmarks of the centered, scaled and oriented landmark configuration. The resulting shape variables are projected onto the shape space tangent space.
+
+\hyperlink{classew_1_1Tps2_aa5177ff7fb842da0e20f153c1b992765}{ew::Tps2::principal\_\-axes()} calculates such an arrangement of axes, and \hyperlink{classew_1_1Tps2_aaca568d43a1711ad009bdee2cc14c011}{ew::Tps2::uniform\_\-basis()} calculates the same basis for an arbitrary configuration of landmarks, one which hasn't necessarily been centered, scaled or aligned.
+
+\hyperlink{classew_1_1Tps3_a02aeaf33e23f589c11ac000452a76775}{ew::Tps3::principal\_\-axes()} calculates the analagous arrangement of axes in 3D. \hyperlink{classew_1_1Tps3_a7387ee3274c7c6ba83c499b809506863}{ew::Tps3::uniform\_\-basis()} calculates an unpublished generalization of the above basis. In 3D the space of uniform warps is 5 dimensional. If we apply the same procedure in 3D, as we did in 2D, but with the following shears \[\pmatrix{1&1&0\cr 0&1&0\cr 0&0&1\cr}\qquad \pmatrix{1&0&0\cr 0&1&1\cr 0&0&1\cr}\qquad \pmatrix{1&0&1\cr 0&1&0\cr 0&0&1\cr}\qquad \pmatrix{2&0&0\cr 0&1&0\cr 0&0&1\cr}\qquad \pmatrix{1&0&0\cr 0&2&0\cr 0&0&1\cr}\qquad \pmatrix{1&0&0\cr 0&1&0\cr 0&0&2\cr}\] the last 3 resulting shape variables are linearly dependent. \hyperlink{classew_1_1Tps3_a7387ee3274c7c6ba83c499b809506863}{ew::Tps3::uniform\_\-basis()} calculates the first 4 resulting shape variables and a linear combination of the last 2 which result in a basis.
+
+In a centered and scaled landmark configuration of n landmarks, the results of \hyperlink{classew_1_1Tps2_aaca568d43a1711ad009bdee2cc14c011}{ew::Tps2::uniform\_\-basis()} are orthonormal vectors of $\mathbb{R}^{2n}$ that are othogonal to the landmark displacements resulting from infinitesimal rotations, translations and scalings, and similarly for the results of \hyperlink{classew_1_1Tps3_a7387ee3274c7c6ba83c499b809506863}{ew::Tps3::uniform\_\-basis()} in $\mathbb{R}^{3n}$. 

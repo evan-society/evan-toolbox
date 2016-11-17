@@ -1,0 +1,15 @@
+[individuals]
+2
+[dimensions]
+3
+[landmarks]
+4
+[rawpoints]
+0. 0. 0.
+0. 0. 1.
+0. 1. 1.
+1. 1. 1.
+0. 0. 0.
+0. 0. 2.
+0. 1. 2.
+1. 1. 2.

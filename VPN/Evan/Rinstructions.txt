@@ -1,0 +1,27 @@
+R Node
+
+The Evan Toolkit can be linked against R.
+It is important that the version of R on the computer running the Evan Toolkit is the same it as was linked against (currently 2.10.1).
+
+For the R node to work:
+	R has to be installed on the computer.
+	The R.exe needs to be found in the path
+	The R_HOME varible needs to be set.
+
+R can be downloaded from here:
+	http://www.r-project.org/
+
+To set the path in Windows XP
+Select Start->Control Panel->System
+Select Advanced tab
+Click Environment Variables
+
+Select path under System Variables and click edit.
+Add the path to R.exe to the path variable (typcally something like "C:\Program Files\R\R-2.xx.x\bin")
+
+To create R_HOME variable click New under System Variables
+set the name to R_HOME
+set the value to the R home directory (something like "C:\Program Files\R\R-2.xx.x")
+
+
+

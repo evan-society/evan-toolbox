@@ -1,0 +1,325 @@
+\hypertarget{classew_1_1DataflowSpline3}{
+\subsection{ew::DataflowSpline3 Class Reference}
+\label{classew_1_1DataflowSpline3}\index{ew::DataflowSpline3@{ew::DataflowSpline3}}
+}
+
+
+3D Spline Node  
+
+
+
+
+{\ttfamily \#include $<$ew/DataflowSpline3.h$>$}
+
+
+
+Inheritance diagram for ew::DataflowSpline3:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{classew_1_1DataflowSpline3__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classew_1_1DataflowSpline3_a568e3304e82c3659bf60db90857cdbb3}{set\_\-template} (const \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} $\ast$f)
+\item 
+const \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} $\ast$ \hyperlink{classew_1_1DataflowSpline3_a539e7fc0d4121a31b383a766c243cea7}{get\_\-template} () const 
+\item 
+unsigned long \hyperlink{classew_1_1DataflowSpline3_af99ac5e26b81ddc18d09713d7ebdc00d}{get\_\-change\_\-cycle\_\-template} () const 
+\item 
+void \hyperlink{classew_1_1DataflowSpline3_a08c3a3fb2c36969894afa0256282f76c}{set\_\-specimen} (const \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} $\ast$f)
+\item 
+const \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} $\ast$ \hyperlink{classew_1_1DataflowSpline3_ad0463444434aed2f1b54f7ce16f493bd}{get\_\-specimen} () const 
+\item 
+unsigned long \hyperlink{classew_1_1DataflowSpline3_a14e8361646fc5fe098b670690038f10b}{get\_\-change\_\-cycle\_\-specimen} () const 
+\item 
+int \hyperlink{classew_1_1DataflowSpline3_afddea45da34e52c9f28582a1ccca07dd}{get\_\-n\_\-lmks} () const 
+\item 
+int \hyperlink{classew_1_1DataflowSpline3_aedeb4a2beed67c9ac49caf7300dcd9c5}{get\_\-f\_\-size} () const 
+\item 
+int \hyperlink{classew_1_1DataflowSpline3_a812346e97afeae66fe6cf9d462fb771a}{lmk\_\-index} (int side, int point\_\-set, int i) const 
+\item 
+int \hyperlink{classew_1_1DataflowSpline3_aa0a156725d9a29c9d278a2bb90d27d27}{lmk\_\-pointset} (int side, int lmk\_\-index) const 
+\item 
+int \hyperlink{classew_1_1DataflowSpline3_a49e2ffd2c78efb144d023da9f25d24ca}{lmk\_\-pointset\_\-i} (int side, int lmk\_\-index) const 
+\item 
+bool \hyperlink{classew_1_1DataflowSpline3_a546e8bf4ffd0f57d04df17a3ffeb8a4c}{get\_\-nonsingular} () const 
+\item 
+double \hyperlink{classew_1_1DataflowSpline3_a3da92ed8913113804b8d45a60894549b}{get\_\-energy} () const 
+\item 
+const double $\ast$ \hyperlink{classew_1_1DataflowSpline3_a7597bf0db3a9f8f861dfe5b76a4415fc}{get\_\-optimized\_\-lmk\_\-images} () const 
+\item 
+void \hyperlink{classew_1_1DataflowSpline3_a8624ee7efc3543e6457a28e05919c3dd}{warp\_\-points} (double $\ast$outp, const double $\ast$inp, int l) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned long \hyperlink{classew_1_1DataflowSpline3_a97c2c2e0955273f4db1cccc052ecfd4a}{get\_\-version\_\-association} () const 
+\item 
+unsigned long \hyperlink{classew_1_1DataflowSpline3_a7c2c1abc16855dd21e95029e49040ad0}{get\_\-version\_\-interaction} () const 
+\item 
+unsigned long \hyperlink{classew_1_1DataflowSpline3_afa1dfc18ee811369951af160fd666f81}{get\_\-version\_\-factorization} () const 
+\item 
+unsigned long \hyperlink{classew_1_1DataflowSpline3_a1db766446fc6eb08ec1a78e8693b45fb}{get\_\-version\_\-spline} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1DataflowSpline3}{ew::DataflowSpline3} is a node that manages a thin-\/plate spline.
+
+\hyperlink{classew_1_1DataflowSpline3}{ew::DataflowSpline3} is a class without assignment or comparison. There are private member variables.
+
+Nodes of this class depend on 2 nodes, the template and specimen \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} nodes. Nodes representing warped geometric objects will depend on a \hyperlink{classew_1_1DataflowSpline3}{ew::DataflowSpline3} node. A ew::Dataflow\_\-Spline3 is considered valid if it's template and specimen dependencies have been set and if there are 4 or more associated landmarks.
+
+Initially and when reset, the node has neither template or specimen set. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1DataflowSpline3_a568e3304e82c3659bf60db90857cdbb3}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!set\_\-template@{set\_\-template}}
+\index{set\_\-template@{set\_\-template}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{set\_\-template}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowSpline3::set\_\-template (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::DataflowForm3} $\ast$}]{ f}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowSpline3_a568e3304e82c3659bf60db90857cdbb3}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em f}]A pointer to the new template form node. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowSpline3_a539e7fc0d4121a31b383a766c243cea7}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-template@{get\_\-template}}
+\index{get\_\-template@{get\_\-template}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-template}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowForm3} $\ast$ ew::DataflowSpline3::get\_\-template (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a539e7fc0d4121a31b383a766c243cea7}
+\begin{DoxyReturn}{Returns}
+A pointer to the template node. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_af99ac5e26b81ddc18d09713d7ebdc00d}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-change\_\-cycle\_\-template@{get\_\-change\_\-cycle\_\-template}}
+\index{get\_\-change\_\-cycle\_\-template@{get\_\-change\_\-cycle\_\-template}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-change\_\-cycle\_\-template}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowSpline3::get\_\-change\_\-cycle\_\-template (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_af99ac5e26b81ddc18d09713d7ebdc00d}
+\begin{DoxyReturn}{Returns}
+The last cycle the template pointer was changed. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_a08c3a3fb2c36969894afa0256282f76c}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!set\_\-specimen@{set\_\-specimen}}
+\index{set\_\-specimen@{set\_\-specimen}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{set\_\-specimen}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowSpline3::set\_\-specimen (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::DataflowForm3} $\ast$}]{ f}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1DataflowSpline3_a08c3a3fb2c36969894afa0256282f76c}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em f}]A pointer to the new specimen form node. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowSpline3_ad0463444434aed2f1b54f7ce16f493bd}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-specimen@{get\_\-specimen}}
+\index{get\_\-specimen@{get\_\-specimen}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-specimen}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowForm3} $\ast$ ew::DataflowSpline3::get\_\-specimen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_ad0463444434aed2f1b54f7ce16f493bd}
+\begin{DoxyReturn}{Returns}
+A pointer to the specimen node. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_a14e8361646fc5fe098b670690038f10b}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-change\_\-cycle\_\-specimen@{get\_\-change\_\-cycle\_\-specimen}}
+\index{get\_\-change\_\-cycle\_\-specimen@{get\_\-change\_\-cycle\_\-specimen}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-change\_\-cycle\_\-specimen}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowSpline3::get\_\-change\_\-cycle\_\-specimen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a14e8361646fc5fe098b670690038f10b}
+\begin{DoxyReturn}{Returns}
+The last cycle the specimen pointer was changed. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_afddea45da34e52c9f28582a1ccca07dd}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-n\_\-lmks@{get\_\-n\_\-lmks}}
+\index{get\_\-n\_\-lmks@{get\_\-n\_\-lmks}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-n\_\-lmks}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowSpline3::get\_\-n\_\-lmks (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_afddea45da34e52c9f28582a1ccca07dd}
+\begin{DoxyReturn}{Returns}
+The number of landmarks and semi-\/landmarks matched between template and specimen. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_aedeb4a2beed67c9ac49caf7300dcd9c5}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-f\_\-size@{get\_\-f\_\-size}}
+\index{get\_\-f\_\-size@{get\_\-f\_\-size}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-f\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowSpline3::get\_\-f\_\-size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_aedeb4a2beed67c9ac49caf7300dcd9c5}
+\begin{DoxyReturn}{Returns}
+The algebraic dimension of the spline, or -\/1. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_a812346e97afeae66fe6cf9d462fb771a}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!lmk\_\-index@{lmk\_\-index}}
+\index{lmk\_\-index@{lmk\_\-index}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{lmk\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowSpline3::lmk\_\-index (
+\begin{DoxyParamCaption}
+\item[{int}]{ side, }
+\item[{int}]{ point\_\-set, }
+\item[{int}]{ i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a812346e97afeae66fe6cf9d462fb771a}
+To construct the spline, landmarks in the template and specimen are matched by id and by position within the point\_\-set. This calculates the index in the spline of a point in a point\_\-set. 
+\begin{DoxyParams}{Parameters}
+\item[{\em side}]0 if the point is in the template, 1 if it is in the specimen. \item[{\em point\_\-set}]The index of the point\_\-set. \item[{\em i}]The position of the point within the point\_\-set. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index, if the point is matched, otherwise -\/1. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_aa0a156725d9a29c9d278a2bb90d27d27}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!lmk\_\-pointset@{lmk\_\-pointset}}
+\index{lmk\_\-pointset@{lmk\_\-pointset}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{lmk\_\-pointset}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowSpline3::lmk\_\-pointset (
+\begin{DoxyParamCaption}
+\item[{int}]{ side, }
+\item[{int}]{ index}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_aa0a156725d9a29c9d278a2bb90d27d27}
+This is the inverse of \hyperlink{classew_1_1DataflowSpline3_a812346e97afeae66fe6cf9d462fb771a}{lmk\_\-index}. 
+\begin{DoxyParams}{Parameters}
+\item[{\em side}]0 for the pointset in the template, 1 for the pointset in the specimen. \item[{\em index}]The index as returned by \hyperlink{classew_1_1DataflowSpline3_a812346e97afeae66fe6cf9d462fb771a}{lmk\_\-index}. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The pointset of the specified landmark in the spline. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_a49e2ffd2c78efb144d023da9f25d24ca}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!lmk\_\-pointset\_\-i@{lmk\_\-pointset\_\-i}}
+\index{lmk\_\-pointset\_\-i@{lmk\_\-pointset\_\-i}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{lmk\_\-pointset\_\-i}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowSpline3::lmk\_\-pointset\_\-i (
+\begin{DoxyParamCaption}
+\item[{int}]{ side, }
+\item[{int}]{ index}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a49e2ffd2c78efb144d023da9f25d24ca}
+This is the inverse of \hyperlink{classew_1_1DataflowSpline3_a812346e97afeae66fe6cf9d462fb771a}{lmk\_\-index}. 
+\begin{DoxyParams}{Parameters}
+\item[{\em side}]0 for the pointset in the template, 1 for the pointset in the specimen. \item[{\em index}]The index as returned by \hyperlink{classew_1_1DataflowSpline3_a812346e97afeae66fe6cf9d462fb771a}{lmk\_\-index}. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the landmark in the pointset of the specified landmark in the spline. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_a546e8bf4ffd0f57d04df17a3ffeb8a4c}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-nonsingular@{get\_\-nonsingular}}
+\index{get\_\-nonsingular@{get\_\-nonsingular}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-nonsingular}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::DataflowSpline3::get\_\-nonsingular (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a546e8bf4ffd0f57d04df17a3ffeb8a4c}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the spline is non-\/singular. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_a3da92ed8913113804b8d45a60894549b}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-energy@{get\_\-energy}}
+\index{get\_\-energy@{get\_\-energy}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-energy}]{\setlength{\rightskip}{0pt plus 5cm}double ew::DataflowSpline3::get\_\-energy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a3da92ed8913113804b8d45a60894549b}
+\begin{DoxyReturn}{Returns}
+The bending energy of the spline. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em If}]the spline is singular, a std::runtime\_\-error is thrown. \end{DoxyExceptions}
+\hypertarget{classew_1_1DataflowSpline3_a7597bf0db3a9f8f861dfe5b76a4415fc}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-optimized\_\-lmk\_\-images@{get\_\-optimized\_\-lmk\_\-images}}
+\index{get\_\-optimized\_\-lmk\_\-images@{get\_\-optimized\_\-lmk\_\-images}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-optimized\_\-lmk\_\-images}]{\setlength{\rightskip}{0pt plus 5cm}const double $\ast$ ew::DataflowSpline3::get\_\-optimized\_\-lmk\_\-images (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a7597bf0db3a9f8f861dfe5b76a4415fc}
+This returns the positions of the landmarks after being allowed to slide in their relaxation spaces to the positions that minimize bending energy. The order of the landmarks is as defined by \hyperlink{classew_1_1DataflowSpline3_a812346e97afeae66fe6cf9d462fb771a}{lmk\_\-index}. If the spline is singular, a std::runtime\_\-error is thrown. The pointer is valid until the node or a dependency of the node is changed. \begin{DoxyReturn}{Returns}
+A pointer to an array of coordinates. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_a8624ee7efc3543e6457a28e05919c3dd}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!warp\_\-points@{warp\_\-points}}
+\index{warp\_\-points@{warp\_\-points}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{warp\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowSpline3::warp\_\-points (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ outp, }
+\item[{const double $\ast$}]{ inp, }
+\item[{int}]{ l}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1DataflowSpline3_a8624ee7efc3543e6457a28e05919c3dd}
+This applies the spline to an array of points. If the spline is singular, a std::runtime\_\-error is thrown. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em outp}]Where to store the warped point coordinates. \item[\mbox{\tt[in]} {\em inp}]Where the original point coordinates are stored. \item[\mbox{\tt[in]} {\em l}]The number of points. \end{DoxyParams}
+\hypertarget{classew_1_1DataflowSpline3_a97c2c2e0955273f4db1cccc052ecfd4a}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-version\_\-association@{get\_\-version\_\-association}}
+\index{get\_\-version\_\-association@{get\_\-version\_\-association}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-version\_\-association}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowSpline3::get\_\-version\_\-association (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, private\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a97c2c2e0955273f4db1cccc052ecfd4a}
+\begin{DoxyReturn}{Returns}
+The last cycle the XXX was changed. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_a7c2c1abc16855dd21e95029e49040ad0}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-version\_\-interaction@{get\_\-version\_\-interaction}}
+\index{get\_\-version\_\-interaction@{get\_\-version\_\-interaction}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-version\_\-interaction}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowSpline3::get\_\-version\_\-interaction (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, private\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a7c2c1abc16855dd21e95029e49040ad0}
+\begin{DoxyReturn}{Returns}
+The last cycle the XXX was changed. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_afa1dfc18ee811369951af160fd666f81}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-version\_\-factorization@{get\_\-version\_\-factorization}}
+\index{get\_\-version\_\-factorization@{get\_\-version\_\-factorization}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-version\_\-factorization}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowSpline3::get\_\-version\_\-factorization (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, private\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_afa1dfc18ee811369951af160fd666f81}
+\begin{DoxyReturn}{Returns}
+The last cycle the XXX was changed. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowSpline3_a1db766446fc6eb08ec1a78e8693b45fb}{
+\index{ew::DataflowSpline3@{ew::DataflowSpline3}!get\_\-version\_\-spline@{get\_\-version\_\-spline}}
+\index{get\_\-version\_\-spline@{get\_\-version\_\-spline}!ew::DataflowSpline3@{ew::DataflowSpline3}}
+\paragraph[{get\_\-version\_\-spline}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowSpline3::get\_\-version\_\-spline (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, private\mbox{]}}}\hfill}
+\label{classew_1_1DataflowSpline3_a1db766446fc6eb08ec1a78e8693b45fb}
+\begin{DoxyReturn}{Returns}
+The last cycle the XXX was changed. 
+\end{DoxyReturn}

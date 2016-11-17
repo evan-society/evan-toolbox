@@ -1,0 +1,158 @@
+\hypertarget{classew_1_1Curve3}{
+\subsection{ew::Curve3 Class Reference}
+\label{classew_1_1Curve3}\index{ew::Curve3@{ew::Curve3}}
+}
+
+
+Piecewise-\/linear Curve.  
+
+
+
+
+{\ttfamily \#include $<$ew/Curve3.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classew_1_1Curve3_a95a72b61fbf434beac0249208a4515b1}{reset} ()
+\item 
+void \hyperlink{classew_1_1Curve3_a621f9ac655f597b8155b856d2fcce723}{read\_\-file} (const char $\ast$file)
+\item 
+void \hyperlink{classew_1_1Curve3_aafce19cb266f66c940e210c9cc9008bb}{read\_\-points} (const std::vector$<$ double $>$ \&coords)
+\item 
+void \hyperlink{classew_1_1Curve3_a3fdf3122c89eca2c6190eb2162d08695}{write\_\-file} (const char $\ast$file) const 
+\item 
+void \hyperlink{classew_1_1Curve3_af96ad8ce0f90919eeaa0716c3f64355c}{swap} (\hyperlink{classew_1_1Curve3}{ew::Curve3} \&s)
+\item 
+bool \hyperlink{classew_1_1Curve3_ac59817bbc1f4cbfbc64727ffded6a123}{operator==} (const \hyperlink{classew_1_1Curve3}{ew::Curve3} \&a) const 
+\item 
+bool \hyperlink{classew_1_1Curve3_aee23523f6117834d2f91a053ae9db22a}{operator!=} (const \hyperlink{classew_1_1Curve3}{ew::Curve3} \&a) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std::vector$<$ float $>$ \hyperlink{classew_1_1Curve3_aca6992a3b3b6fb8d27824437c55d8c35}{points}
+\item 
+std::vector$<$ int $>$ \hyperlink{classew_1_1Curve3_a5fb191b14f5b7dceb04eeebf9e7171d3}{edges}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Curve3}{ew::Curve3} encapsulates data for piecewise-\/linear curves in $\mathbb{R}^3$.
+
+The data consists of a vector of points and a vector of edges.
+
+\hyperlink{classew_1_1Curve3}{ew::Curve3} is a data structure that supports default construction, copy construction and assignment. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Curve3_a95a72b61fbf434beac0249208a4515b1}{
+\index{ew::Curve3@{ew::Curve3}!reset@{reset}}
+\index{reset@{reset}!ew::Curve3@{ew::Curve3}}
+\paragraph[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Curve3::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Curve3_a95a72b61fbf434beac0249208a4515b1}
+This frees any current data and sets the object to the initial state. \hypertarget{classew_1_1Curve3_a621f9ac655f597b8155b856d2fcce723}{
+\index{ew::Curve3@{ew::Curve3}!read\_\-file@{read\_\-file}}
+\index{read\_\-file@{read\_\-file}!ew::Curve3@{ew::Curve3}}
+\paragraph[{read\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Curve3::read\_\-file (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ filename}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Curve3_a621f9ac655f597b8155b856d2fcce723}
+This reads the surface contained in the {\itshape file\/}. The following surface formats are supported:
+\begin{DoxyItemize}
+\item obj format Only these types of record are currently supported:
+\begin{DoxyItemize}
+\item v
+\item l with non-\/negative arguments
+\end{DoxyItemize}
+\end{DoxyItemize}
+\begin{DoxyParams}{Parameters}
+\item[{\em filename}]the name of the file to read \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em std::bad\_\-alloc}]\item[{\em \hyperlink{classew_1_1ErrorIO}{ew::ErrorIO}}]\end{DoxyExceptions}
+\hypertarget{classew_1_1Curve3_aafce19cb266f66c940e210c9cc9008bb}{
+\index{ew::Curve3@{ew::Curve3}!read\_\-points@{read\_\-points}}
+\index{read\_\-points@{read\_\-points}!ew::Curve3@{ew::Curve3}}
+\paragraph[{read\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Curve3::read\_\-points (
+\begin{DoxyParamCaption}
+\item[{const std::vector$<$ double $>$ \&}]{ coords}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Curve3_aafce19cb266f66c940e210c9cc9008bb}
+This reads a curve as a list of points. 
+\begin{DoxyParams}{Parameters}
+\item[{\em coords}]the vector of coordinates \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em std::bad\_\-alloc}]\end{DoxyExceptions}
+\hypertarget{classew_1_1Curve3_a3fdf3122c89eca2c6190eb2162d08695}{
+\index{ew::Curve3@{ew::Curve3}!write\_\-file@{write\_\-file}}
+\index{write\_\-file@{write\_\-file}!ew::Curve3@{ew::Curve3}}
+\paragraph[{write\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Curve3::write\_\-file (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ filename}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Curve3_a3fdf3122c89eca2c6190eb2162d08695}
+This writes the surface to the {\itshape file\/} in obj format. 
+\begin{DoxyParams}{Parameters}
+\item[{\em filename}]the name of the file to write \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em \hyperlink{classew_1_1ErrorIO}{ew::ErrorIO}}]\end{DoxyExceptions}
+\hypertarget{classew_1_1Curve3_af96ad8ce0f90919eeaa0716c3f64355c}{
+\index{ew::Curve3@{ew::Curve3}!swap@{swap}}
+\index{swap@{swap}!ew::Curve3@{ew::Curve3}}
+\paragraph[{swap}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Curve3::swap (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Curve3} \&}]{ s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Curve3_af96ad8ce0f90919eeaa0716c3f64355c}
+Swap data between 2 curves without copying. 
+\begin{DoxyParams}{Parameters}
+\item[{\em s}]the surface to swap {\ttfamily this} with \end{DoxyParams}
+\hypertarget{classew_1_1Curve3_ac59817bbc1f4cbfbc64727ffded6a123}{
+\index{ew::Curve3@{ew::Curve3}!operator==@{operator==}}
+\index{operator==@{operator==}!ew::Curve3@{ew::Curve3}}
+\paragraph[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Curve3::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Curve3} \&}]{ a}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Curve3_ac59817bbc1f4cbfbc64727ffded6a123}
+Compares this curve with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other curve \end{DoxyParams}
+\hypertarget{classew_1_1Curve3_aee23523f6117834d2f91a053ae9db22a}{
+\index{ew::Curve3@{ew::Curve3}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!ew::Curve3@{ew::Curve3}}
+\paragraph[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Curve3::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Curve3} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Curve3_aee23523f6117834d2f91a053ae9db22a}
+Compares this curve with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other curve \end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Curve3_aca6992a3b3b6fb8d27824437c55d8c35}{
+\index{ew::Curve3@{ew::Curve3}!points@{points}}
+\index{points@{points}!ew::Curve3@{ew::Curve3}}
+\paragraph[{points}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::Curve3::points}}\hfill}
+\label{classew_1_1Curve3_aca6992a3b3b6fb8d27824437c55d8c35}
+This vector has size 3 times the number of points. Each consecutive triple defines a point. \hypertarget{classew_1_1Curve3_a5fb191b14f5b7dceb04eeebf9e7171d3}{
+\index{ew::Curve3@{ew::Curve3}!edges@{edges}}
+\index{edges@{edges}!ew::Curve3@{ew::Curve3}}
+\paragraph[{edges}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::Curve3::edges}}\hfill}
+\label{classew_1_1Curve3_a5fb191b14f5b7dceb04eeebf9e7171d3}
+This vector has size 2 times the number of edges. The elements are indices of the points list, and are in the range \mbox{[}0, number of points). Each consecutive pair defines an edge. 

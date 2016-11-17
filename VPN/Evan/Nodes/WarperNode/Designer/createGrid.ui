@@ -1,0 +1,211 @@
+<ui version="4.0" >
+ <class>CreateGridDialog</class>
+ <widget class="QDialog" name="CreateGridDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>545</width>
+    <height>197</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label_15" >
+     <property name="text" >
+      <string>Name:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="4" >
+    <widget class="QLineEdit" name="lineEdit" >
+     <property name="text" >
+      <string>Grid</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="5" colspan="4" >
+    <widget class="QLabel" name="label_13" >
+     <property name="text" >
+      <string>Size in GPA unit:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="9" colspan="4" >
+    <widget class="QLineEdit" name="lineEdit_2" >
+     <property name="text" >
+      <string>1.0</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Number of rows:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="4" >
+    <widget class="QLineEdit" name="line1" >
+     <property name="text" >
+      <string>15</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5" colspan="4" >
+    <widget class="QLabel" name="label_3" >
+     <property name="text" >
+      <string>Number of columns:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="9" colspan="4" >
+    <widget class="QLineEdit" name="line2" >
+     <property name="text" >
+      <string>15</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2" >
+    <widget class="QRadioButton" name="radioButton" >
+     <property name="text" >
+      <string>One Landmark</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="10" colspan="2" >
+    <widget class="QRadioButton" name="radioButton_4" >
+     <property name="text" >
+      <string>X-Y plane</string>
+     </property>
+     <property name="checked" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="12" >
+    <widget class="QLabel" name="label_11" >
+     <property name="text" >
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2" >
+    <widget class="QRadioButton" name="radioButton_2" >
+     <property name="text" >
+      <string>Two landmarks</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="7" >
+    <widget class="QSpinBox" name="spinBox_2" />
+   </item>
+   <item row="8" column="0" colspan="13" >
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="7" >
+    <widget class="QSpinBox" name="spinBox" />
+   </item>
+   <item row="5" column="10" >
+    <widget class="QRadioButton" name="radioButton_5" >
+     <property name="text" >
+      <string>X-Z plane</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" >
+    <widget class="QRadioButton" name="radioButton_9" >
+     <property name="text" >
+      <string>Initialization at the centre</string>
+     </property>
+     <property name="checked" >
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2" >
+    <widget class="QLabel" name="label_5" >
+     <property name="text" >
+      <string>First landmark index:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2" >
+    <widget class="QLabel" name="label_7" >
+     <property name="text" >
+      <string>Second landmark index</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2" >
+    <widget class="QLabel" name="label_8" >
+     <property name="text" >
+      <string>Third landmark index</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" >
+    <widget class="QRadioButton" name="radioButton_3" >
+     <property name="text" >
+      <string>Three landmarks</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="7" >
+    <widget class="QSpinBox" name="spinBox_3" />
+   </item>
+   <item row="6" column="10" >
+    <widget class="QRadioButton" name="radioButton_6" >
+     <property name="text" >
+      <string>Y-Z plane</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CreateGridDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CreateGridDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -1,0 +1,527 @@
+<ui version="4.0" >
+ <class>TemplandWindow</class>
+ <widget class="QMainWindow" name="TemplandWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>778</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Templand - Untitled.ltb</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QVBoxLayout" name="verticalLayout_3" >
+    <item>
+     <widget class="QMdiArea" name="mdiArea" >
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="viewMode" >
+       <enum>QMdiArea::TabbedView</enum>
+      </property>
+      <property name="tabShape" >
+       <enum>QTabWidget::Triangular</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>778</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuF_ile" >
+    <property name="title" >
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_New" />
+    <addaction name="action_Open_File" />
+    <addaction name="action_Save" />
+    <addaction name="actionSave_As" />
+    <addaction name="separator" />
+    <addaction name="actionE_xit" />
+   </widget>
+   <widget class="QMenu" name="menu_View" >
+    <property name="title" >
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionShow_template" />
+    <addaction name="actionBack_ground" />
+   </widget>
+   <widget class="QMenu" name="menuWindow" >
+    <property name="title" >
+     <string>&amp;Window</string>
+    </property>
+    <addaction name="actionClose" />
+    <addaction name="actionClose_All" />
+    <addaction name="separator" />
+    <addaction name="actionTile" />
+    <addaction name="actionCascade" />
+    <addaction name="separator" />
+    <addaction name="actionNext" />
+    <addaction name="actionPrevious" />
+   </widget>
+   <addaction name="menuF_ile" />
+   <addaction name="menu_View" />
+   <addaction name="menuWindow" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QToolBar" name="toolBar" >
+   <property name="windowTitle" >
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionFree_Movement" />
+   <addaction name="actionHRestrict" />
+   <addaction name="actionVRestrict" />
+   <addaction name="actionTwist" />
+  </widget>
+  <action name="actionShow_template" >
+   <property name="checkable" >
+    <bool>false</bool>
+   </property>
+   <property name="checked" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Template</string>
+   </property>
+   <property name="toolTip" >
+    <string>Show Template Windows</string>
+   </property>
+  </action>
+  <action name="action_Open_File" >
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/I_Open.png</normaloff>:/Images/I_Open.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Open File</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionOpen_Filmstrip" >
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/I_OpenFilm.png</normaloff>:/Images/I_OpenFilm.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Open &amp;Filmstrip</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="action_Save" >
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/I_Save.png</normaloff>:/Images/I_Save.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Save</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSave_As" >
+   <property name="text" >
+    <string>Save &amp;As...</string>
+   </property>
+  </action>
+  <action name="actionE_xit" >
+   <property name="text" >
+    <string>E&amp;xit</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionFree_Movement" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/FreeMove.png</normaloff>:/Images/FreeMove.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Free Movement</string>
+   </property>
+  </action>
+  <action name="actionHRestrict" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/XRestrict.png</normaloff>:/Images/XRestrict.png</iconset>
+   </property>
+   <property name="text" >
+    <string>HRestrict</string>
+   </property>
+   <property name="toolTip" >
+    <string>Restrict Movement along the Horizontal Axis</string>
+   </property>
+  </action>
+  <action name="actionVRestrict" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/YRestrict.png</normaloff>:/Images/YRestrict.png</iconset>
+   </property>
+   <property name="text" >
+    <string>VRestrict</string>
+   </property>
+   <property name="toolTip" >
+    <string>Restrict Movement along the Vertical Axis</string>
+   </property>
+   <property name="statusTip" >
+    <string/>
+   </property>
+  </action>
+  <action name="actionTwist" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/ZRestrict.png</normaloff>:/Images/ZRestrict.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Twist around Z-axis</string>
+   </property>
+  </action>
+  <action name="actionTem_plate_View" >
+   <property name="text" >
+    <string>Tem&amp;plate View</string>
+   </property>
+  </action>
+  <action name="actionTemplate_Sli_ce" >
+   <property name="text" >
+    <string>Template Sli&amp;ce</string>
+   </property>
+  </action>
+  <action name="action_Target_View" >
+   <property name="text" >
+    <string>&amp;Target View</string>
+   </property>
+  </action>
+  <action name="actionTarget_Slice" >
+   <property name="text" >
+    <string>Target Slice</string>
+   </property>
+  </action>
+  <action name="actionBack_ground" >
+   <property name="text" >
+    <string>Back&amp;ground</string>
+   </property>
+  </action>
+  <action name="actionDelete_Tableau" >
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/delete.png</normaloff>:/Images/delete.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Delete Current Tableau</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionAdd_Tableau" >
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/I_Save.png</normaloff>:/Images/I_Save.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Add Tableau</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="action_Replace_Tableau" >
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/I_Save.png</normaloff>:/Images/I_Save.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Replace Current Tableau</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Shift+T</string>
+   </property>
+  </action>
+  <action name="actionMove_Tableau_Up" >
+   <property name="text" >
+    <string>Move Tableau &amp;Up</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+U</string>
+   </property>
+  </action>
+  <action name="actionMove_Tableau_Down" >
+   <property name="text" >
+    <string>Move Tableau &amp;Down</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Shift+U</string>
+   </property>
+  </action>
+  <action name="action_New" >
+   <property name="icon" >
+    <iconset resource="../../../Resources.qrc" >
+     <normaloff>:/Images/I_New.png</normaloff>:/Images/I_New.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;New</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionClose" >
+   <property name="text" >
+    <string>Cl&amp;ose</string>
+   </property>
+  </action>
+  <action name="actionClose_All" >
+   <property name="text" >
+    <string>Close &amp;All</string>
+   </property>
+  </action>
+  <action name="actionTile" >
+   <property name="text" >
+    <string>&amp;Tile</string>
+   </property>
+  </action>
+  <action name="actionCascade" >
+   <property name="text" >
+    <string>&amp;Cascade</string>
+   </property>
+  </action>
+  <action name="actionNext" >
+   <property name="text" >
+    <string>&amp;Next</string>
+   </property>
+  </action>
+  <action name="actionPrevious" >
+   <property name="text" >
+    <string>&amp;Previous</string>
+   </property>
+  </action>
+  <action name="actionOpen_Filmstrip_2" >
+   <property name="text" >
+    <string>Open &amp;Filmstrip</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionCompute_Spline" >
+   <property name="text" >
+    <string>Compute Spline</string>
+   </property>
+  </action>
+  <action name="actionMap_all_landmarks" >
+   <property name="text" >
+    <string>Map all Landmarks</string>
+   </property>
+  </action>
+  <action name="actionMap_single_Landmark" >
+   <property name="text" >
+    <string>Map single Landmark</string>
+   </property>
+  </action>
+  <action name="actionLandmark" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Landmark</string>
+   </property>
+  </action>
+  <action name="actionSemi_Landmark" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Semi-Landmark</string>
+   </property>
+  </action>
+  <action name="actionNon_Landmark" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Non-Landmark</string>
+   </property>
+   <property name="visible" >
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionSemi_Landmark_2" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Semi-Landmark</string>
+   </property>
+  </action>
+  <action name="actionSelect_points" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Select points in template and specimen</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../../../Resources.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionE_xit</sender>
+   <signal>triggered()</signal>
+   <receiver>TemplandWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>493</x>
+     <y>433</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionClose</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>closeActiveSubWindow()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>388</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionClose_All</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>closeAllSubWindows()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>388</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionTile</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>tileSubWindows()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>388</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCascade</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>cascadeSubWindows()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>388</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNext</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>activateNextSubWindow()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>388</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionPrevious</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>activatePreviousSubWindow()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>388</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

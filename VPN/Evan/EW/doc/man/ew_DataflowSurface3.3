@@ -1,0 +1,123 @@
+.TH "ew::DataflowSurface3" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::DataflowSurface3 \- 
+.PP
+Surface Node Base Class.  
+
+\fBew::DataflowSurface3\fP is the base class for nodes containing triangulated surfaces in \fBR\fP^3.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/DataflowSurface3.h>\fP
+.PP
+Inherits \fBew::DataflowNode\fP.
+.PP
+Inherited by \fBew::DataflowSurface3E\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBget_num_points\fP () const "
+.br
+.ti -1c
+.RI "int \fBget_num_faces\fP () const "
+.br
+.ti -1c
+.RI "const float * \fBget_points\fP () const "
+.br
+.ti -1c
+.RI "const int * \fBget_faces\fP () const "
+.br
+.ti -1c
+.RI "const \fBew::Bbox3\fP * \fBget_bbox\fP () const "
+.br
+.ti -1c
+.RI "void \fBmake_index\fP () const "
+.br
+.ti -1c
+.RI "bool \fBindex_is_made\fP () const "
+.br
+.ti -1c
+.RI "double \fBproject\fP (int *face, double *coeffs, double *normal, double *proj, const double *inp) const "
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::DataflowSurface3\fP is a class without assignment or comparison. There are private member variables.
+.PP
+For efficient rendering of the same surface in multiple windows, an OpenGL display list is constructed containing the basic surface geometry commands. All windows displaying a given surface must share display lists. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "int ew::DataflowSurface3::get_num_points () const\fC [inline]\fP"This will force the network into an updating phase. 
+.PP
+\fBReturns:\fP
+.RS 4
+The number of points used in the surface. 
+.RE
+.PP
+
+.SS "int ew::DataflowSurface3::get_num_faces () const\fC [inline]\fP"This will force the network into an updating phase. 
+.PP
+\fBReturns:\fP
+.RS 4
+The number of triangular faces in the surface. 
+.RE
+.PP
+
+.SS "const float * ew::DataflowSurface3::get_points () const\fC [inline]\fP"This will force the network into an updating phase. The pointer is valid until the node or a dependency of the node is changed. 
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the coordinates of the points used in the surface. 
+.RE
+.PP
+
+.SS "const int * ew::DataflowSurface3::get_faces () const\fC [inline]\fP"This will force the network into an updating phase. The pointer is valid until the node or a dependency of the node is changed. 
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the indices of the points used in the surface. 
+.RE
+.PP
+
+.SS "const \fBew::Bbox3\fP * ew::DataflowSurface3::get_bbox () const\fC [inline]\fP"The pointer is valid until the node or a dependency of the node is changed. 
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the bounding box of the surface. 
+.RE
+.PP
+
+.SS "void ew::DataflowSurface3::make_index () const\fC [inline]\fP"This makes the surface spatial index if it has not already been made since the surface was last changed. The spatial index is used by \fBproject\fP. 
+.SS "bool ew::DataflowSurface3::index_is_made () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the surface spatial index is up to date. 
+.RE
+.PP
+
+.SS "double ew::DataflowSurface3::project (int * face, double * coeffs, double * normal, double * proj, const double * inp) const"This finds the nearest point on the surface to a given point. The surface spatial index will be made if it has not already been made. This might be time consuming. The timing of this delay can be controlled by calling \fBmake_index\fP beforehand. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIface\fP The index of the face of the surface containing the nearest point. 
+.br
+\fIcoeffs\fP The coefficients of the nearest point when expressed as a linear combination of the vertices of the face. 
+.br
+\fInormal\fP The interpolated normal at the nearest point. If a sensible normal cannot be calculated, an arbitrary unit vector is returned. 
+.br
+\fIproj\fP The coordinates of the nearest point on the surface. 
+.br
+\fIinp\fP The coordinates of the original point. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The distance from the original point to the projected point. 
+.RE
+.PP
+
+

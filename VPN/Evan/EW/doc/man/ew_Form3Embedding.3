@@ -1,0 +1,61 @@
+.TH "ew::Form3Embedding" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Form3Embedding \- 
+.PP
+Embedding Relation.  
+
+\fBew::Form3Embedding\fP contains data for an embedding relation of \fBew::Form3\fP. It is used to indicate subset relationships between point, curve and surface elements.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Form3Embedding.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Form3Embedding\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Form3Embedding\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBsubset_id\fP"
+.br
+.ti -1c
+.RI "std::string \fBsuperset_id\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Form3Embedding\fP is a data structure that supports default construction, copy construction, assignment and equality comparison. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::Form3Embedding::operator== (const \fBew::Form3Embedding\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SS "bool ew::Form3Embedding::operator!= (const \fBew::Form3Embedding\fP & a) const\fC [inline]\fP"Compares this element with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other element 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "std::string \fBew::Form3Embedding::subset_id\fP"The id of the lower dimensional element of the embedding. 
+.SS "std::string \fBew::Form3Embedding::superset_id\fP"The id of the higher dimensional element of the embedding. 
+

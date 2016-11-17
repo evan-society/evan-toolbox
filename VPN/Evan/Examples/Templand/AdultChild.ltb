@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ew_dig3 version="1.0">
+
+<tableau>
+<template_form file="HumanAdult.frm"/>
+<specimen_form file="HumanChild.frm"/>
+<specimen_view>[-.7223993360242517 -.7492792127568955 -.5451226528522749] [1 0 0 0 1 0 0 0 1] .007721992647154494</specimen_view>
+<specimen_slice>[-.7223993360242517 -.7492792127568955 -.5451226528522749] [1 0 0 0 1 0 0 0 1] .007721992647154494</specimen_slice>
+<specimen_surface id="HumanChild"/>
+</tableau>
+
+</ew_dig3>

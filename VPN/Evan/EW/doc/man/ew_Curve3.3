@@ -1,0 +1,136 @@
+.TH "ew::Curve3" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Curve3 \- 
+.PP
+Piecewise-linear Curve.  
+
+\fBew::Curve3\fP encapsulates data for piecewise-linear curves in \fBR\fP^3.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Curve3.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.ti -1c
+.RI "void \fBread_file\fP (const char *file)"
+.br
+.ti -1c
+.RI "void \fBread_points\fP (const std::vector< double > &coords)"
+.br
+.ti -1c
+.RI "void \fBwrite_file\fP (const char *file) const "
+.br
+.ti -1c
+.RI "void \fBswap\fP (\fBew::Curve3\fP &s)"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBew::Curve3\fP &a) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Curve3\fP &a) const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< float > \fBpoints\fP"
+.br
+.ti -1c
+.RI "std::vector< int > \fBedges\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+The data consists of a vector of points and a vector of edges.
+.PP
+\fBew::Curve3\fP is a data structure that supports default construction, copy construction and assignment. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::Curve3::reset ()"This frees any current data and sets the object to the initial state. 
+.SS "void ew::Curve3::read_file (const char * filename)"This reads the surface contained in the \fIfile\fP. The following surface formats are supported:
+.IP "\(bu" 2
+obj format Only these types of record are currently supported:
+.IP "  \(bu" 4
+v
+.IP "  \(bu" 4
+l with non-negative arguments
+.PP
+
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP the name of the file to read 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.br
+\fI\fBew::ErrorIO\fP\fP 
+.RE
+.PP
+
+.SS "void ew::Curve3::read_points (const std::vector< double > & coords)"This reads a curve as a list of points. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcoords\fP the vector of coordinates 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.RE
+.PP
+
+.SS "void ew::Curve3::write_file (const char * filename) const"This writes the surface to the \fIfile\fP in obj format. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfilename\fP the name of the file to write 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fI\fBew::ErrorIO\fP\fP 
+.RE
+.PP
+
+.SS "void ew::Curve3::swap (\fBew::Curve3\fP & s)\fC [inline]\fP"Swap data between 2 curves without copying. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIs\fP the surface to swap \fCthis\fP with 
+.RE
+.PP
+
+.SS "bool ew::Curve3::operator== (const \fBew::Curve3\fP & a) const"Compares this curve with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other curve 
+.RE
+.PP
+
+.SS "bool ew::Curve3::operator!= (const \fBew::Curve3\fP & a) const\fC [inline]\fP"Compares this curve with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other curve 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "\fBew::Curve3::points\fP"This vector has size 3 times the number of points. Each consecutive triple defines a point. 
+.SS "\fBew::Curve3::edges\fP"This vector has size 2 times the number of edges. The elements are indices of the points list, and are in the range [0, number of points). Each consecutive pair defines an edge. 
+

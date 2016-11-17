@@ -1,0 +1,321 @@
+.TH "ew::DataflowForm3" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::DataflowForm3 \- 
+.PP
+3D Form Node  
+
+\fBew::DataflowForm3\fP is a node that manages an \fBew::Form3\fP.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/DataflowForm3.h>\fP
+.PP
+Inherits \fBew::DataflowNode\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDataflowForm3\fP (\fBew::DataflowNetwork\fP *i_network)"
+.br
+.ti -1c
+.RI "void \fBset_data\fP (const \fBew::Form3\fP *data)"
+.br
+.ti -1c
+.RI "const \fBew::Form3\fP * \fBget_data\fP () const "
+.br
+.ti -1c
+.RI "int \fBset_volume\fP (bool *replaced, const \fBew::Form3Volume\fP *vl)"
+.br
+.ti -1c
+.RI "void \fBremove_volume\fP (int n)"
+.br
+.ti -1c
+.RI "int \fBset_surface\fP (bool *replaced, const \fBew::Form3Surface\fP *sr)"
+.br
+.ti -1c
+.RI "void \fBremove_surface\fP (int n)"
+.br
+.ti -1c
+.RI "int \fBset_curve\fP (bool *replaced, const \fBew::Form3Curve\fP *cr)"
+.br
+.ti -1c
+.RI "void \fBremove_curve\fP (int n)"
+.br
+.ti -1c
+.RI "int \fBset_pointset\fP (bool *replaced, const \fBew::Form3PointSet\fP *ps)"
+.br
+.ti -1c
+.RI "void \fBset_pointset_location\fP (int n, int i, const double *loc)"
+.br
+.ti -1c
+.RI "void \fBset_pointset_relax\fP (int n, int i, int rdim, const double *rparam)"
+.br
+.ti -1c
+.RI "void \fBremove_pointset\fP (int n)"
+.br
+.ti -1c
+.RI "int \fBset_embedding\fP (bool *replaced, const \fBew::Form3Embedding\fP *em)"
+.br
+.ti -1c
+.RI "void \fBset_superset\fP (const char *subset_id, const char *superset_id)"
+.br
+.ti -1c
+.RI "void \fBremove_embedding\fP (int n)"
+.br
+.ti -1c
+.RI "int \fBset_reflection\fP (bool *replaced, const \fBew::Form3Reflection\fP *rf)"
+.br
+.ti -1c
+.RI "void \fBremove_reflection\fP (int n)"
+.br
+.ti -1c
+.RI "unsigned long \fBget_change_cycle_association\fP () const "
+.br
+.ti -1c
+.RI "unsigned long \fBget_change_cycle_coords\fP () const "
+.br
+.ti -1c
+.RI "unsigned long \fBget_change_cycle_relax\fP () const "
+.br
+.ti -1c
+.RI "const \fBew::Bbox3\fP * \fBget_bbox\fP () const "
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::DataflowForm3\fP is a class without assignment or comparison. There are private member variables.
+.PP
+Nodes of this class do not depend on other nodes, but other nodes can depend on them. They are always considered valid.
+.PP
+Initially and when reset, the node is empty. 
+.SH CONSTRUCTORS AND DESCTRUCTORS
+.PP 
+.SS "ew::DataflowForm3::DataflowForm3 (\fBew::DataflowNetwork\fP * i_network)\fC [explicit]\fP"This creates a form3 node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_network\fP The network this node should belong to. 
+.RE
+.PP
+
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::DataflowForm3::set_data (const \fBew::Form3\fP * data)"This sets the contents of the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdata\fP A pointer to the \fBew::Form3\fP data to copy. 
+.RE
+.PP
+
+.SS "const \fBew::Form3\fP * ew::DataflowForm3::get_data () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the current \fBew::Form3\fP data contained in the node. 
+.RE
+.PP
+
+.SS "int ew::DataflowForm3::set_volume (bool * replaced, const \fBew::Form3Volume\fP * vl)"This adds or replaces a volume in the \fBew::Form3\fP data managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the volume replaced an existing volume. 
+.br
+\fIvl\fP A pointer to the volume data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the new volume in \fBew::Form3::volumes\fP. 
+.RE
+.PP
+
+.SS "void ew::DataflowForm3::remove_volume (int n)"This deletes a volume in the \fBew::Form3\fP managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the volume to delete. 
+.RE
+.PP
+
+.SS "int ew::DataflowForm3::set_surface (bool * replaced, const \fBew::Form3Surface\fP * sr)"This adds or replaces a surface in the \fBew::Form3\fP data managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the surface replaced an existing surface. 
+.br
+\fIsr\fP A pointer to the surface data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the new surface in \fBew::Form3::surfaces\fP. 
+.RE
+.PP
+
+.SS "void ew::DataflowForm3::remove_surface (int n)"This deletes a surface in the \fBew::Form3\fP managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the surface to delete. 
+.RE
+.PP
+
+.SS "int ew::DataflowForm3::set_curve (bool * replaced, const \fBew::Form3Curve\fP * cr)"This adds or replaces a curve in the \fBew::Form3\fP data managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the curve replaced an existing curve. 
+.br
+\fIcr\fP A pointer to the curve data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the new curve in \fBew::Form3::curves\fP. 
+.RE
+.PP
+
+.SS "void ew::DataflowForm3::remove_curve (int n)"This deletes a curve in the \fBew::Form3\fP managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the curve to delete. 
+.RE
+.PP
+
+.SS "int ew::DataflowForm3::set_pointset (bool * replaced, const \fBew::Form3PointSet\fP * ps)"This adds or replaces a point set in the \fBew::Form3\fP data managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the point set replaced an existing point set. 
+.br
+\fIps\fP A pointer to the point set data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the new or replaced pointset. 
+.RE
+.PP
+
+.SS "void ew::DataflowForm3::set_pointset_location (int n, int i, const double * loc)"This changes the coordinates of an element of the point set. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the point set. 
+.br
+\fIi\fP The index of the element in the point set. 
+.br
+\fIloc\fP A pointer to the new coordinates of this entry. 
+.RE
+.PP
+
+.SS "void ew::DataflowForm3::set_pointset_relax (int n, int i, int rdim, const double * rparam)"This changes the relaxation parameters of an element of the point set. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the point set. 
+.br
+\fIi\fP The index of the element in the point set. 
+.br
+\fIrdim\fP The new relax_dims of this entry. 
+.br
+\fIrparam\fP A pointer to the new relax_params of this entry. 
+.RE
+.PP
+
+.SS "void ew::DataflowForm3::remove_pointset (int n)"This deletes a point set in the \fBew::Form3\fP managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the point set to delete. 
+.RE
+.PP
+
+.SS "int ew::DataflowForm3::set_embedding (bool * replaced, const \fBew::Form3Embedding\fP * em)"This adds or replaces a embedding in the \fBew::Form3\fP data managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the embedding replaced an existing embedding. 
+.br
+\fIem\fP A pointer to the embedding data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the new embedding in \fBew::Form3::embeddings\fP. 
+.RE
+.PP
+
+.SS "void ew::DataflowForm3::set_superset (const char * subset_id, const char * superset_id)"This makes one element of the form the unique superset of another element. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsubset_id\fP The id of the element that should have a unique superset. 
+.br
+\fIsuperset_id\fP The id of the element that be the unique superset. 
+.RE
+.PP
+
+.SS "void ew::DataflowForm3::remove_embedding (int n)"This deletes a embedding in the \fBew::Form3\fP managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the embedding to delete. 
+.RE
+.PP
+
+.SS "int ew::DataflowForm3::set_reflection (bool * replaced, const \fBew::Form3Reflection\fP * rf)"This adds or replaces a reflection in the \fBew::Form3\fP data managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIreplaced\fP \fCtrue\fP if the reflection replaced an existing reflection. 
+.br
+\fIrf\fP A pointer to the reflection data to copy. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the new reflection in \fBew::Form3::reflections\fP. 
+.RE
+.PP
+
+.SS "void ew::DataflowForm3::remove_reflection (int n)"This deletes a reflection in the \fBew::Form3\fP managed by the node. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP The index of the reflection to delete. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowForm3::get_change_cycle_association () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The last cycle the form was changed in a way that effects landmark matching. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowForm3::get_change_cycle_coords () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The last cycle that any location of a landmark was changed. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowForm3::get_change_cycle_relax () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The last cycle that any relaxation of a landmark was changed. 
+.RE
+.PP
+
+.SS "const \fBew::Bbox3\fP * ew::DataflowForm3::get_bbox () const\fC [inline]\fP"The pointer until the node or a dependency of the node is changed. 
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the bounding box of the points in the form. 
+.RE
+.PP
+
+

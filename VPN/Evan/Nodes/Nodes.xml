@@ -1,0 +1,208 @@
+<Nodes>
+ <DataTab>
+  <Node icon=":Images/Templand.png" type="TemplandNode" name="Templand" >
+   <ports>
+    <output description="Landmarks for Specimen" type="LandmarkSet" />
+    <output description="Surfaces for Specimen" type="SurfaceVector" />
+    <output description="Landmarks for Template" type="LandmarkSet" />
+    <output description="Surfaces for Template" type="SurfaceVector" />
+    <output description="Template landmarks for Spline" type="LandmarkSet" />
+    <output description="Specimen landmarks for Spline" type="LandmarkSet" />
+    <output description="All Specimens" type="Specimens" />
+</ports>
+  </Node>
+  <Node tooltip="Import Data" icon=":Images/Import.png" type="ImportNode" name="Import" >
+   <ports>
+    <output description="Imported Specimens" type="Specimens" />
+    <output description="Imported Surface" type="Surface" />
+    <output description="Imported Matrix" type="Variables" />
+    <output description="Imported Volume" type="Volume" />
+   </ports>
+  </Node>
+  <Node tooltip="Export Data" icon=":Images/Export.png" type="ExportNode" name="Export" >
+   <ports>
+    <input optional="1" description="Specimens" type="Specimens" />
+    <input optional="1" description="Surface" type="Surface" />
+    <input optional="1" description="Data Matrix" type="Variables" />
+   </ports>
+  </Node>
+  <Node icon=":Images/select.png" type="SelectNode" name="Select a Specimen" >
+   <ports>
+    <output description="Selected Specimen(s)" type="Specimens" />
+    <input optional="0" description="Specimens" type="Specimens" />
+   </ports>
+  </Node>
+  <Node tooltip="Reflected Relabelling" icon=":Images/RR.png" type="ReflectedRelabelling" name="Reflected Relabelling" >
+   <ports>
+    <output description="Original specimens and reflected specimens" type="Specimens" />
+    <input optional="0" description="Specimens" type="Specimens" />
+   </ports>
+  </Node>
+  <Node icon=":Images/Concat.png" type="ConcatNode" name="Concat Specimens" >
+   <ports>
+    <output description="Concatenated Specimens" type="Specimens" />
+    <input optional="0" description="Specimens" type="Specimens" />
+    <input optional="0" description="Specimens" type="Specimens" />
+   </ports>
+  </Node>
+ </DataTab>
+ <UtilTab>
+ <!--
+  <Node icon=":Images/R.png" type="RNode" name="R Interface" >
+   <ports>
+    <output description="R Outputs" type="RList" />
+    <input optional="0" description="R Inputs" type="RList" />
+   </ports>
+  </Node>
+-->
+  <Node icon=":Images/Subtract.png" type="SubtractNode" name="Subtract" >
+   <ports>
+    <output description="Difference(s) vectors" type="Loadings" />
+    <output description="Difference(s) specimens" type="Specimens" />
+    <input optional="0" description="Source specimen" type="LandmarkSet" />
+    <input optional="0" description="Target specimen(s)" type="Specimens" />
+   </ports>
+  </Node>
+  <Node icon=":Images/Group.png" type="GroupNode" name="Group Specimens" >
+   <ports>
+    <output description="Grouped Specimens" type="Specimens" />
+    <output description="Group means" type="Specimens" />
+    <input optional="0" description="Specimens" type="Specimens" />
+   </ports>
+  </Node>
+  <Node icon=":Images/Transform.png" type="TransformNode" name="Transform" >
+   <ports>
+    <output description="Transformed Specimen" type="LandmarkSet" />
+    <output description="Transformed Surface" type="Surface" />
+    <input optional="2" description="Specimen to Transform" type="LandmarkSet" />
+    <input optional="2" description="Surface to Transform" type="Surface" />
+    <input optional="0" description="Transform Matrix" type="TransformMatrix" />
+   </ports>
+  </Node>
+<!--
+<Node icon=":Images/Multiply.png" type="MultiplyNode" name="Multiply" >
+   <ports>
+    <output description="Loadings Out" type="Loadings" />
+    <input optional="0" description="Loadings In" type="Loadings" />
+   </ports>
+  </Node>
+-->
+  <Node icon=":Images/Realise.png" type="RealiseNode" name="Realise" >
+   <ports>
+    <output description="Realised specimen" type="LandmarkSet" />
+    <input optional="0" description="Input specimen" type="LandmarkSet" />
+    <input optional="0" description="Warp vectors" type="Loadings" />
+    <input optional="0" description="Warp values" type="FloatVector" />
+   </ports>
+  </Node>
+  <Node icon=":Images/Annotation.png" type="AnnotationNode" name="Annotation" >
+   <ports>
+   </ports>
+  </Node>
+ </UtilTab>
+ <GMMTab>
+  <Node icon=":Images/Warper.png" type="WarperNode" name="Warper" >
+   <ports>
+    <output description="Warped Landmarks" type="LandmarkSet" />
+    <output description="Warped Surface" type="Surface" />
+    <output description="Warped Grids" type="GroupWarpGrids" />
+    <input optional="0" description="Base specimen" type="LandmarkSet" />
+    <input optional="0" description="Warps Vector" type="Warpings" />
+    <input optional="1" description="Base Surface" type="Surface" />
+    <input optional="1" description="Warp Values" type="FloatVector" />
+   </ports>
+  </Node>
+  <Node tooltip="Generalised Procrustes Analysis" icon=":Images/GPA.png" type="GPANode" name="GPA Module" >
+   <ports>
+    <output description="Specimens (GPA)" type="Specimens" />
+    <output description="Coord Transform" type="TransformMatrix" />
+    <output description="Residuals" type="Specimens" />
+    <output description="Procrustes Distances" type="Variables" />
+    <output description="Centroid Sizes" type="CentroidSizes" />
+    <output description="Mean Specimen" type="LandmarkSet" />
+    <output description="Uniform Part" type="Specimens" />
+    <output description="Transformed Surface" type="Surface" />
+    <output description="Mean Surface" type="Surface" />
+    <output description="Shape vectors" type="Variables" />
+    <output description="Form vectors" type="Variables" />
+    <input optional="0" description="Specimens" type="Specimens" />
+    <input optional="1" description="Surface" type="Surface" />
+   </ports>
+  </Node>
+  <Node icon=":Images/PCA.png" type="PCANode" name="PCA" >
+   <ports>
+    <output description="PC Scores" type="PCScore" />
+    <output description="Eigenvalues" type="Variables" />
+    <output description="Eigenvectors (Loadings)" type="Loadings" />
+    <input optional="1" description="Landmarks of N Specimens" type="Specimens" />
+   </ports>
+  </Node>
+  <Node icon=":Images/GenerateSurface.png" type="GenerateSurfaceNode" name="Generate Surface" >
+   <ports>
+    <output description="Generated Surface" type="Surface" />
+    <input optional="0" description="Source Landmarks" type="LandmarkSet" />
+    <input optional="0" description="Target Landmarks" type="LandmarkSet" />
+    <input optional="0" description="Source Surface" type="Surface" />
+   </ports>
+  </Node>
+  <Node tooltip="Multiple Multivariate Regression" icon=":Images/Regression.png" type="MMRNode" name="Regression" >
+   <ports>
+    <output description="Regression Coefficients" type="Loadings" />
+    <output description="Predicted Values" type="Specimens" />
+    <output description="Residuals" type="Specimens" />
+    <output description="Standardised Specimens" type="Specimens" />
+    <output description="R-Squared" type="Variables" />
+    <input optional="0" description="Specimens for dependent data" type="Specimens" />
+    <input optional="1" description="Additional variables" type="Variables" />
+   </ports>
+  </Node>
+  <Node tooltip="Two Block Partial Least Squares" icon=":Images/PLS.png" type="PLSNode" name="PLSNode" >
+   <ports>
+    <output description="Singular Warp Scores 1" type="PCScore" />
+    <output description="Singular Warp Scores 2" type="PCScore" />
+    <output description="Loadings for Block 1" type="Loadings" />
+    <output description="Loadings for Block 2" type="Loadings" />
+    <output description="Covariances between Singular Warps" type="Variables" />
+    <output description="Correlations between Singular Warps" type="Variables" />
+    <input optional="0" description="Specimens for Block 1" type="Specimens" />
+    <input optional="0" description="Specimens for Block 2" type="Specimens" />
+   </ports>
+  </Node>
+  <Node icon=":Images/PCO.png" type="PCONode" name="Principal Coordinate Analysis" >
+   <ports>
+    <output description="Eigenvectors (Principal Coordinates)" type="Variables" />
+    <output description="Eigenvalues" type="Variables" />
+    <input optional="0" description="Distance Matrix" type="Variables" />
+   </ports>
+  </Node>
+ </GMMTab>
+ <ViewTab>
+  <Node icon=":Images/Viewer.png" type="ViewerNode" name="3D Viewer" >
+   <ports>
+    <input optional="0" description="All viewable objects" type="Renderables" />
+   </ports>
+  </Node>
+  <Node icon=":Images/Plotter.png" type="PlotterNode" name="Graph Plotter" >
+   <ports>
+    <output description="X Y axes Loadings" type="Loadings" />
+    <output description="Left mouse coordinates" type="FloatVector" />
+    <output description="Right mouse coordinates" type="FloatVector" />
+    <input optional="0" description="X-Axis Variables" type="Variables" />
+    <input optional="0" description="Y-Axis Variables" type="Variables" />
+    <input optional="1" description="Basis variables mapping (Loadings)" type="Loadings" />
+   </ports>
+  </Node>
+  <Node icon=":Images/Plotter3D.png" type="Plotter3DNode" name="3D Plotter" >
+   <ports>
+    <input optional="0" description="X-Axis Variables" type="Variables" />
+    <input optional="0" description="Y-Axis Variables" type="Variables" />
+    <input optional="0" description="Z-Axis Variables" type="Variables" />
+   </ports>
+  </Node>
+    <Node icon=":Images/Print.png" type="PrintNode" name="Print Output" >
+   <ports>
+    <input optional="0" description="All printable objects" type="Printables" />
+   </ports>
+  </Node>
+ </ViewTab>
+</Nodes>

@@ -1,0 +1,273 @@
+\hypertarget{classew_1_1Bbox3}{
+\subsection{ew::Bbox3 Class Reference}
+\label{classew_1_1Bbox3}\index{ew::Bbox3@{ew::Bbox3}}
+}
+
+
+3D Bounding Box  
+
+
+
+
+{\ttfamily \#include $<$ew/Bbox3.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classew_1_1Bbox3_a26579e1841a0f752e3a79e988e98707f}{get\_\-empty} () const 
+\item 
+double \hyperlink{classew_1_1Bbox3_a2838343af372447f215625b3bfee011f}{get\_\-radius\_\-center} (double $\ast$c) const 
+\item 
+void \hyperlink{classew_1_1Bbox3_ab06a8762e69081a2b02a6c1d5b977c6f}{set\_\-to\_\-empty} ()
+\item 
+void \hyperlink{classew_1_1Bbox3_a53f88220ba9b50c5725a10449bd644b3}{set\_\-to\_\-point} (const float $\ast$pt)
+\item 
+void \hyperlink{classew_1_1Bbox3_addb0297cecb83b5a86f179546755f34b}{set\_\-to\_\-point} (const double $\ast$pt)
+\item 
+void \hyperlink{classew_1_1Bbox3_aa7464417fe10edc1620621e2f731efa7}{set\_\-to\_\-points} (const float $\ast$pt, int n)
+\item 
+void \hyperlink{classew_1_1Bbox3_afb40f89efe08a100f22284b39e5a49e2}{set\_\-to\_\-points} (const double $\ast$pt, int n)
+\item 
+void \hyperlink{classew_1_1Bbox3_abece0f00bf018e73a26c4673146ff8d6}{add} (const float $\ast$pt)
+\item 
+void \hyperlink{classew_1_1Bbox3_ab0e8b4e3f0a41986b8dd100882789cde}{add} (const double $\ast$pt)
+\item 
+void \hyperlink{classew_1_1Bbox3_a56fad10babc1ea138111cf08930610d8}{add} (const float $\ast$pt, int n)
+\item 
+void \hyperlink{classew_1_1Bbox3_a759091d2ba2a4a8da920655911d32fed}{add} (const double $\ast$pt, int n)
+\item 
+void \hyperlink{classew_1_1Bbox3_a25fb0f104fa60d5b9e6d1705b2b1cea3}{set\_\-to\_\-union} (const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} $\ast$b1, const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} $\ast$b2)
+\item 
+bool \hyperlink{classew_1_1Bbox3_a5da873b6427fccb86d76a8080c12f559}{operator==} (const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} \&a) const 
+\item 
+bool \hyperlink{classew_1_1Bbox3_afc632a5f709054e67d0ab83bee318676}{operator!=} (const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} \&a) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{classew_1_1Bbox3_a386445b5ea3806503e33993943843afc}{min} \mbox{[}3\mbox{]}
+\item 
+double \hyperlink{classew_1_1Bbox3_a33f29d6f0df32349cbfc36e441ee646d}{max} \mbox{[}3\mbox{]}
+\end{DoxyCompactItemize}
+\subsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} \hyperlink{classew_1_1Bbox3_ae34792fc91bdc9abaa9d17ee55936169}{empty\_\-box}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Bbox3}{ew::Bbox3} represents bounding boxes in $\mathbb{R}^3$.
+
+\hyperlink{classew_1_1Bbox3}{ew::Bbox3} is a POD type class. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Bbox3_a26579e1841a0f752e3a79e988e98707f}{
+\index{ew::Bbox3@{ew::Bbox3}!get\_\-empty@{get\_\-empty}}
+\index{get\_\-empty@{get\_\-empty}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{get\_\-empty}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Bbox3::get\_\-empty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_a26579e1841a0f752e3a79e988e98707f}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the minima are infinity and the maxima are negative infinity 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Bbox3_a2838343af372447f215625b3bfee011f}{
+\index{ew::Bbox3@{ew::Bbox3}!get\_\-radius\_\-center@{get\_\-radius\_\-center}}
+\index{get\_\-radius\_\-center@{get\_\-radius\_\-center}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{get\_\-radius\_\-center}]{\setlength{\rightskip}{0pt plus 5cm}double ew::Bbox3::get\_\-radius\_\-center (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ c}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Bbox3_a2838343af372447f215625b3bfee011f}
+Calculates the center and circumradius of a box. \begin{DoxyPrecond}{Precondition}
+The box is not empty. 
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em c}]the address of an array of size 3 where the center coordinates should be stored. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the radius 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Bbox3_ab06a8762e69081a2b02a6c1d5b977c6f}{
+\index{ew::Bbox3@{ew::Bbox3}!set\_\-to\_\-empty@{set\_\-to\_\-empty}}
+\index{set\_\-to\_\-empty@{set\_\-to\_\-empty}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{set\_\-to\_\-empty}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::set\_\-to\_\-empty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_ab06a8762e69081a2b02a6c1d5b977c6f}
+Set this box to be the empty box. \hypertarget{classew_1_1Bbox3_a53f88220ba9b50c5725a10449bd644b3}{
+\index{ew::Bbox3@{ew::Bbox3}!set\_\-to\_\-point@{set\_\-to\_\-point}}
+\index{set\_\-to\_\-point@{set\_\-to\_\-point}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{set\_\-to\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::set\_\-to\_\-point (
+\begin{DoxyParamCaption}
+\item[{const float $\ast$}]{ pt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_a53f88220ba9b50c5725a10449bd644b3}
+Set this box to be the bounding box of a point. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em pt}]the address of the array of size 3 containing the point coordinates \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_addb0297cecb83b5a86f179546755f34b}{
+\index{ew::Bbox3@{ew::Bbox3}!set\_\-to\_\-point@{set\_\-to\_\-point}}
+\index{set\_\-to\_\-point@{set\_\-to\_\-point}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{set\_\-to\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::set\_\-to\_\-point (
+\begin{DoxyParamCaption}
+\item[{const double $\ast$}]{ pt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_addb0297cecb83b5a86f179546755f34b}
+Set this box to be the bounding box of a point. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em pt}]the address of the array of size 3 containing the point coordinates \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_aa7464417fe10edc1620621e2f731efa7}{
+\index{ew::Bbox3@{ew::Bbox3}!set\_\-to\_\-points@{set\_\-to\_\-points}}
+\index{set\_\-to\_\-points@{set\_\-to\_\-points}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{set\_\-to\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::set\_\-to\_\-points (
+\begin{DoxyParamCaption}
+\item[{const float $\ast$}]{ pt, }
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_aa7464417fe10edc1620621e2f731efa7}
+Set this box to be the bounding box of an array of points. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em pt}]the address of an array of size 3 $\ast$ {\itshape n\/} containing the point coordinates, ordered by point \item[{\em n}]the number of points \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_afb40f89efe08a100f22284b39e5a49e2}{
+\index{ew::Bbox3@{ew::Bbox3}!set\_\-to\_\-points@{set\_\-to\_\-points}}
+\index{set\_\-to\_\-points@{set\_\-to\_\-points}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{set\_\-to\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::set\_\-to\_\-points (
+\begin{DoxyParamCaption}
+\item[{const double $\ast$}]{ pt, }
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_afb40f89efe08a100f22284b39e5a49e2}
+Set this box to be the bounding box of an array of points. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em pt}]the address of an array of size 3 $\ast$ {\itshape n\/} containing the point coordinates, ordered by point \item[{\em n}]the number of points \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_abece0f00bf018e73a26c4673146ff8d6}{
+\index{ew::Bbox3@{ew::Bbox3}!add@{add}}
+\index{add@{add}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{add}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::add (
+\begin{DoxyParamCaption}
+\item[{const float $\ast$}]{ pt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_abece0f00bf018e73a26c4673146ff8d6}
+Extend this box, if necessary, to include a point. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em pt}]the address of the array of size 3 containing the point coordinates \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_ab0e8b4e3f0a41986b8dd100882789cde}{
+\index{ew::Bbox3@{ew::Bbox3}!add@{add}}
+\index{add@{add}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{add}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::add (
+\begin{DoxyParamCaption}
+\item[{const double $\ast$}]{ pt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_ab0e8b4e3f0a41986b8dd100882789cde}
+Extend this box, if necessary, to include a point. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em pt}]the address of the array of size 3 containing the point coordinates \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_a56fad10babc1ea138111cf08930610d8}{
+\index{ew::Bbox3@{ew::Bbox3}!add@{add}}
+\index{add@{add}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{add}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::add (
+\begin{DoxyParamCaption}
+\item[{const float $\ast$}]{ pt, }
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_a56fad10babc1ea138111cf08930610d8}
+Extend this box, if necessary, to include an array of points. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em pt}]the address of an array of size 3 $\ast$ {\itshape n\/} containing the point coordinates, ordered by point \item[{\em n}]the number of points \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_a759091d2ba2a4a8da920655911d32fed}{
+\index{ew::Bbox3@{ew::Bbox3}!add@{add}}
+\index{add@{add}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{add}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::add (
+\begin{DoxyParamCaption}
+\item[{const double $\ast$}]{ pt, }
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_a759091d2ba2a4a8da920655911d32fed}
+Extend this box, if necessary, to include an array of points. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em pt}]the address of an array of size 3 $\ast$ {\itshape n\/} containing the point coordinates, ordered by point \item[{\em n}]the number of points \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_a25fb0f104fa60d5b9e6d1705b2b1cea3}{
+\index{ew::Bbox3@{ew::Bbox3}!set\_\-to\_\-union@{set\_\-to\_\-union}}
+\index{set\_\-to\_\-union@{set\_\-to\_\-union}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{set\_\-to\_\-union}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Bbox3::set\_\-to\_\-union (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Bbox3} $\ast$}]{ b1, }
+\item[{const {\bf ew::Bbox3} $\ast$}]{ b2}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Bbox3_a25fb0f104fa60d5b9e6d1705b2b1cea3}
+Set the bounding box to the union of the specified bounding boxes. 
+\begin{DoxyParams}{Parameters}
+\item[{\em b1,b2}]the boxes to combine \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_a5da873b6427fccb86d76a8080c12f559}{
+\index{ew::Bbox3@{ew::Bbox3}!operator==@{operator==}}
+\index{operator==@{operator==}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Bbox3::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Bbox3} \&}]{ a}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Bbox3_a5da873b6427fccb86d76a8080c12f559}
+Compares this box with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other box \end{DoxyParams}
+\hypertarget{classew_1_1Bbox3_afc632a5f709054e67d0ab83bee318676}{
+\index{ew::Bbox3@{ew::Bbox3}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Bbox3::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Bbox3} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_afc632a5f709054e67d0ab83bee318676}
+Compares this box with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other box \end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Bbox3_a386445b5ea3806503e33993943843afc}{
+\index{ew::Bbox3@{ew::Bbox3}!min@{min}}
+\index{min@{min}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{min}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ew::Bbox3::min}\mbox{[}3\mbox{]}}\hfill}
+\label{classew_1_1Bbox3_a386445b5ea3806503e33993943843afc}
+These are the minima in the 3 coordinate directions. Except for the empty box, these should all be finite and no greater than the corresponding maxima. \hypertarget{classew_1_1Bbox3_a33f29d6f0df32349cbfc36e441ee646d}{
+\index{ew::Bbox3@{ew::Bbox3}!max@{max}}
+\index{max@{max}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{max}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ew::Bbox3::max}\mbox{[}3\mbox{]}}\hfill}
+\label{classew_1_1Bbox3_a33f29d6f0df32349cbfc36e441ee646d}
+These are the maxima in the 3 coordinate directions. Except for the empty box, these should all be finite and no less than the corresponding minima. \hypertarget{classew_1_1Bbox3_ae34792fc91bdc9abaa9d17ee55936169}{
+\index{ew::Bbox3@{ew::Bbox3}!empty\_\-box@{empty\_\-box}}
+\index{empty\_\-box@{empty\_\-box}!ew::Bbox3@{ew::Bbox3}}
+\paragraph[{empty\_\-box}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Bbox3} {\bf ew::Bbox3::empty\_\-box}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}\hfill}
+\label{classew_1_1Bbox3_ae34792fc91bdc9abaa9d17ee55936169}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+  {
+    std::numeric_limits<double>::infinity(),
+    std::numeric_limits<double>::infinity(),
+    std::numeric_limits<double>::infinity()
+  }, {
+    -std::numeric_limits<double>::infinity(),
+    -std::numeric_limits<double>::infinity(),
+    -std::numeric_limits<double>::infinity()
+  }
+}
+\end{DoxyCode}
+This is an empty box. 

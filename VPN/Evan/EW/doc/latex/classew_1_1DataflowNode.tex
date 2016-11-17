@@ -1,0 +1,134 @@
+\hypertarget{classew_1_1DataflowNode}{
+\subsection{ew::DataflowNode Class Reference}
+\label{classew_1_1DataflowNode}\index{ew::DataflowNode@{ew::DataflowNode}}
+}
+
+
+Node Base Class.  
+
+
+
+
+{\ttfamily \#include $<$ew/DataflowNode.h$>$}
+
+
+
+Inheritance diagram for ew::DataflowNode:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{classew_1_1DataflowNode__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classew_1_1DataflowNode_afb722a0a8129fb026e9ab82c638dda54}{reset} ()=0
+\item 
+void \hyperlink{classew_1_1DataflowNode_a412a930ede1955b09dcc708dd78469a5}{incr\_\-ref\_\-count} () const 
+\item 
+void \hyperlink{classew_1_1DataflowNode_a7ee43d6c11ea87911ce0dbc16df0722a}{decr\_\-ref\_\-count} () const 
+\item 
+unsigned long \hyperlink{classew_1_1DataflowNode_a80553efd99a2247c70b179600cc84fc5}{get\_\-change\_\-cycle} () const 
+\item 
+unsigned long \hyperlink{classew_1_1DataflowNode_a748037041473e788688117cd99b095c2}{get\_\-version} () const 
+\item 
+bool \hyperlink{classew_1_1DataflowNode_ab107e9b827f2ce8e9875fff5f90723b0}{get\_\-valid} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} $\ast$const \hyperlink{classew_1_1DataflowNode_af3e8a9a18dac03806dda98ed1fcc79e9}{network}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+EW::DataflowNode is the base class for nodes in a EW::DataflowNetwork.
+
+EW::DataflowNode does not support assignment or comparison. It contains private members, protected members and undocumented members.
+
+Nodes are referenced counted and can only be deleted indirectly by calling \hyperlink{classew_1_1DataflowNode_a7ee43d6c11ea87911ce0dbc16df0722a}{decr\_\-ref\_\-count}. The reference count is set to 1 by the constructor.
+
+Depending on its parameters, a node is considered valid or invalid. What constitutes a valid state depends on the specific node class.
+
+A node can depend on other nodes. The possible dependencies are defined by the specific node class. It is a precondition of methods that set these dependencies that they do not create dependency loops.
+
+After the EW::DataflowNetwork has been destroyed, the only EW::DataflowNode method that may be called is decr\_\-ref\_\-count. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1DataflowNode_afb722a0a8129fb026e9ab82c638dda54}{
+\index{ew::DataflowNode@{ew::DataflowNode}!reset@{reset}}
+\index{reset@{reset}!ew::DataflowNode@{ew::DataflowNode}}
+\paragraph[{reset}]{\setlength{\rightskip}{0pt plus 5cm}virtual void ew::DataflowNode::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}\hfill}
+\label{classew_1_1DataflowNode_afb722a0a8129fb026e9ab82c638dda54}
+This resets a node to the state it had immediately after construction. \hypertarget{classew_1_1DataflowNode_a412a930ede1955b09dcc708dd78469a5}{
+\index{ew::DataflowNode@{ew::DataflowNode}!incr\_\-ref\_\-count@{incr\_\-ref\_\-count}}
+\index{incr\_\-ref\_\-count@{incr\_\-ref\_\-count}!ew::DataflowNode@{ew::DataflowNode}}
+\paragraph[{incr\_\-ref\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowNode::incr\_\-ref\_\-count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1DataflowNode_a412a930ede1955b09dcc708dd78469a5}
+This increases the reference count. \hypertarget{classew_1_1DataflowNode_a7ee43d6c11ea87911ce0dbc16df0722a}{
+\index{ew::DataflowNode@{ew::DataflowNode}!decr\_\-ref\_\-count@{decr\_\-ref\_\-count}}
+\index{decr\_\-ref\_\-count@{decr\_\-ref\_\-count}!ew::DataflowNode@{ew::DataflowNode}}
+\paragraph[{decr\_\-ref\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowNode::decr\_\-ref\_\-count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1DataflowNode_a7ee43d6c11ea87911ce0dbc16df0722a}
+This decreases the reference count. If the reference count becomes zero, the node is deleted. \hypertarget{classew_1_1DataflowNode_a80553efd99a2247c70b179600cc84fc5}{
+\index{ew::DataflowNode@{ew::DataflowNode}!get\_\-change\_\-cycle@{get\_\-change\_\-cycle}}
+\index{get\_\-change\_\-cycle@{get\_\-change\_\-cycle}!ew::DataflowNode@{ew::DataflowNode}}
+\paragraph[{get\_\-change\_\-cycle}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowNode::get\_\-change\_\-cycle (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowNode_a80553efd99a2247c70b179600cc84fc5}
+\begin{DoxyReturn}{Returns}
+{\ttfamily The} last cycle on which a change to the node was made. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowNode_a748037041473e788688117cd99b095c2}{
+\index{ew::DataflowNode@{ew::DataflowNode}!get\_\-version@{get\_\-version}}
+\index{get\_\-version@{get\_\-version}!ew::DataflowNode@{ew::DataflowNode}}
+\paragraph[{get\_\-version}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ew::DataflowNode::get\_\-version (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowNode_a748037041473e788688117cd99b095c2}
+The version of a node is the greater of the last network cycle that any parameter of the node was changed, and the versions of any nodes that the node depends on. This will force the network into an updating phase. \begin{DoxyReturn}{Returns}
+{\ttfamily The} version of the node. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowNode_ab107e9b827f2ce8e9875fff5f90723b0}{
+\index{ew::DataflowNode@{ew::DataflowNode}!get\_\-valid@{get\_\-valid}}
+\index{get\_\-valid@{get\_\-valid}!ew::DataflowNode@{ew::DataflowNode}}
+\paragraph[{get\_\-valid}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::DataflowNode::get\_\-valid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowNode_ab107e9b827f2ce8e9875fff5f90723b0}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the node is in a valid state. 
+\end{DoxyReturn}
+\begin{DoxyPostcond}{Postcondition}
+The network will be in an update phase. 
+\end{DoxyPostcond}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1DataflowNode_af3e8a9a18dac03806dda98ed1fcc79e9}{
+\index{ew::DataflowNode@{ew::DataflowNode}!network@{network}}
+\index{network@{network}!ew::DataflowNode@{ew::DataflowNode}}
+\paragraph[{network}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::DataflowNetwork}$\ast$ const {\bf ew::DataflowNode::network}}\hfill}
+\label{classew_1_1DataflowNode_af3e8a9a18dac03806dda98ed1fcc79e9}
+This points to the EW::Dataflow\_\-Network that this EW::Dataflow\_\-Node was created with. 

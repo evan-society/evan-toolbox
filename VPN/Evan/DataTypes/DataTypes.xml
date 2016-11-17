@@ -1,0 +1,24 @@
+<DataTypes>
+	<DataType class="MatrixD"/>
+	<DataType class="LandmarkSet"/>
+	<DataType class="Surface"/>
+	<DataType class="SurfaceVector"/>
+	<DataType class="Specimens"/>
+	<DataType class="Loadings"/>
+	<DataType class="Warpings"/>
+	<DataType class="PCScore"/>
+	<DataType class="ProcrustesDistances"/>
+	<DataType class="TransformMatrix"/>
+	<DataType class="Float"/>
+	<DataType class="FloatVector"/>
+	<DataType class="RList"/>
+	<DataType class="CentroidSizes"/>
+	<DataType class="Variables"/>
+    <DataType class="Renderables"/>
+	<DataType class="Info"/>
+	<DataType class="WarpGrid"/>
+    <DataType class="MyClipPlane"/>
+	<DataType class="GroupWarpGrids"/>
+	<DataType class="Volume"/>
+	<DataType class="Printables"/>
+</DataTypes>

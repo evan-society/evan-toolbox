@@ -1,0 +1,91 @@
+.TH "ew::DataflowNode" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::DataflowNode \- 
+.PP
+Node Base Class.  
+
+EW::DataflowNode is the base class for nodes in a EW::DataflowNetwork.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/DataflowNode.h>\fP
+.PP
+Inherited by ew::DataflowArray3, \fBew::DataflowCurve3\fP, ew::DataflowData3, \fBew::DataflowForm3\fP, ew::DataflowImage3, \fBew::DataflowSpline3\fP, and \fBew::DataflowSurface3\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBreset\fP ()=0"
+.br
+.ti -1c
+.RI "void \fBincr_ref_count\fP () const "
+.br
+.ti -1c
+.RI "void \fBdecr_ref_count\fP () const "
+.br
+.ti -1c
+.RI "unsigned long \fBget_change_cycle\fP () const "
+.br
+.ti -1c
+.RI "unsigned long \fBget_version\fP () const "
+.br
+.ti -1c
+.RI "bool \fBget_valid\fP () const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBew::DataflowNetwork\fP *const \fBnetwork\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+EW::DataflowNode does not support assignment or comparison. It contains private members, protected members and undocumented members.
+.PP
+Nodes are referenced counted and can only be deleted indirectly by calling \fBdecr_ref_count\fP. The reference count is set to 1 by the constructor.
+.PP
+Depending on its parameters, a node is considered valid or invalid. What constitutes a valid state depends on the specific node class.
+.PP
+A node can depend on other nodes. The possible dependencies are defined by the specific node class. It is a precondition of methods that set these dependencies that they do not create dependency loops.
+.PP
+After the EW::DataflowNetwork has been destroyed, the only EW::DataflowNode method that may be called is decr_ref_count. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "virtual void ew::DataflowNode::reset ()\fC [pure virtual]\fP"This resets a node to the state it had immediately after construction. 
+.SS "void ew::DataflowNode::incr_ref_count () const"This increases the reference count. 
+.SS "void ew::DataflowNode::decr_ref_count () const"This decreases the reference count. If the reference count becomes zero, the node is deleted. 
+.SS "unsigned long ew::DataflowNode::get_change_cycle () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+\fCThe\fP last cycle on which a change to the node was made. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowNode::get_version () const\fC [inline]\fP"The version of a node is the greater of the last network cycle that any parameter of the node was changed, and the versions of any nodes that the node depends on. This will force the network into an updating phase. 
+.PP
+\fBReturns:\fP
+.RS 4
+\fCThe\fP version of the node. 
+.RE
+.PP
+
+.SS "bool ew::DataflowNode::get_valid () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the node is in a valid state. 
+.RE
+.PP
+\fBPostcondition:\fP
+.RS 4
+The network will be in an update phase. 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "\fBew::DataflowNetwork\fP* const \fBew::DataflowNode::network\fP"This points to the EW::Dataflow_Network that this EW::Dataflow_Node was created with. 
+

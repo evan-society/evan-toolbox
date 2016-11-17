@@ -1,0 +1,326 @@
+<ui version="4.0" >
+ <class>WarperDialog</class>
+ <widget class="QTabWidget" name="WarperDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>389</height>
+   </rect>
+  </property>
+  <property name="minimumSize" >
+   <size>
+    <width>400</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="focusPolicy" >
+   <enum>Qt::ClickFocus</enum>
+  </property>
+  <property name="windowTitle" >
+   <string>TabWidget</string>
+  </property>
+  <property name="currentIndex" >
+   <number>2</number>
+  </property>
+  <widget class="QWidget" name="tab" >
+   <attribute name="title" >
+    <string>Warping</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout" >
+    <property name="sizeConstraint" >
+     <enum>QLayout::SetMinimumSize</enum>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout" >
+      <item>
+       <widget class="QLabel" name="label" >
+        <property name="maximumSize" >
+         <size>
+          <width>16777215</width>
+          <height>155</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>Change slider(s) range:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="rangeLineEdit" />
+      </item>
+      <item>
+       <widget class="QPushButton" name="rangePushButton" >
+        <property name="text" >
+         <string>Set Range</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2" >
+      <property name="sizeConstraint" >
+       <enum>QLayout::SetFixedSize</enum>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3" >
+        <property name="sizeConstraint" >
+         <enum>QLayout::SetFixedSize</enum>
+        </property>
+        <item>
+         <widget class="QCheckBox" name="m_useShadersCheck" >
+          <property name="text" >
+           <string>Hardware Acceleration</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox" >
+          <property name="text" >
+           <string>Sliders independent</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkbox4" >
+          <property name="text" >
+           <string>Reset Sliders</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton" >
+          <property name="text" >
+           <string>Play All</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="laySliders" />
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tab2" >
+   <attribute name="title" >
+    <string>Grid</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_2" >
+    <item>
+     <widget class="QGroupBox" name="groupBox" >
+      <property name="minimumSize" >
+       <size>
+        <width>0</width>
+        <height>14</height>
+       </size>
+      </property>
+      <property name="title" >
+       <string>Addition of grid</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3" >
+       <item>
+        <widget class="GridTreeWidget" name="treeWidget" >
+         <column>
+          <property name="text" >
+           <string/>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4" >
+         <property name="text" >
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="tab_2" >
+   <attribute name="title" >
+    <string>Grid Animation</string>
+   </attribute>
+   <layout class="QGridLayout" name="gridLayout" >
+    <item row="1" column="1" >
+     <widget class="QPushButton" name="pushButton_2" >
+      <property name="text" >
+       <string>Start Position</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2" >
+     <widget class="QPushButton" name="pushButton_3" >
+      <property name="text" >
+       <string>Stop Position</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2" >
+     <widget class="QLineEdit" name="lineEdit" >
+      <property name="minimumSize" >
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="text" >
+       <string>10.0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" >
+     <widget class="QLabel" name="label_2" >
+      <property name="text" >
+       <string>Lenght (sec)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" >
+     <widget class="QComboBox" name="comboBox" >
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize" >
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="baseSize" >
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <item>
+       <property name="text" >
+        <string>Min to Max</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Max to Min</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Min to Max then Max to Min</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Max to Min then Min to Max</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="3" column="2" >
+     <widget class="QComboBox" name="comboBox_2" >
+      <item>
+       <property name="text" >
+        <string>One cycle</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Always</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="4" column="1" >
+     <widget class="QPushButton" name="pushButton_4" >
+      <property name="text" >
+       <string>Play</string>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2" >
+     <widget class="QPushButton" name="pushButton_5" >
+      <property name="text" >
+       <string>Pause</string>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2" >
+     <spacer name="verticalSpacer" >
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0" >
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0" >
+     <spacer name="horizontalSpacer" >
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="3" >
+     <spacer name="horizontalSpacer_2" >
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0" >
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="5" column="1" >
+     <spacer name="verticalSpacer_2" >
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0" >
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GridTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>../GridTreeWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

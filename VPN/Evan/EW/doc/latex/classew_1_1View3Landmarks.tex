@@ -1,0 +1,243 @@
+\hypertarget{classew_1_1View3Landmarks}{
+\subsection{ew::View3Landmarks Class Reference}
+\label{classew_1_1View3Landmarks}\index{ew::View3Landmarks@{ew::View3Landmarks}}
+}
+
+
+Landmarks Item.  
+
+
+
+
+{\ttfamily \#include $<$ew/View3Landmarks.h$>$}
+
+
+
+Inheritance diagram for ew::View3Landmarks:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{classew_1_1View3Landmarks__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4}{symbol\_\-t} \{ \hyperlink{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4a0844a595f6fe10dff5493050cbc31a2c}{SYMBOL\_\-CROSS}, 
+\hyperlink{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4a1f2350f74b86929d03442b7c7fccbf88}{SYMBOL\_\-CIRCLE}, 
+\hyperlink{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4ae45cc6c7d43c3c5924d55612b3c193e8}{SYMBOL\_\-DOT}
+ \}
+\end{DoxyCompactItemize}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1View3Landmarks_ac2b94a222f9c767f376386648163e21e}{View3Landmarks} (\hyperlink{classew_1_1View3Widget}{ew::View3Widget} $\ast$\hyperlink{classew_1_1View3Item_a7d765842ec7b9e145cefa37e3dbae658}{view}, int i\_\-type=0)
+\item 
+void \hyperlink{classew_1_1View3Landmarks_a28b6615870a90c8179023827796bbc45}{set\_\-form} (const \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} $\ast$frm)
+\item 
+const \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} $\ast$ \hyperlink{classew_1_1View3Landmarks_ad41875336f92f693fa215137305a09ed}{get\_\-form} () const 
+\item 
+void \hyperlink{classew_1_1View3Landmarks_a72cad881f909b1105ef46ab53f9b2801}{set\_\-color} (const unsigned char $\ast$rgb)
+\item 
+const unsigned char $\ast$ \hyperlink{classew_1_1View3Landmarks_aff46a81fe7ec6bd3895dbe9ea6630230}{get\_\-color} () const 
+\item 
+void \hyperlink{classew_1_1View3Landmarks_a5215584e89b18fca5f9b53e6943d6ffe}{set\_\-highlight} (int ps, int i)
+\item 
+int \hyperlink{classew_1_1View3Landmarks_ad39299ed05ded5379e4f8749e8eaa2a3}{get\_\-highlight\_\-ps} () const 
+\item 
+int \hyperlink{classew_1_1View3Landmarks_a2c4b9e20c783af8f296868b04ad4711a}{get\_\-highlight\_\-i} () const 
+\item 
+void \hyperlink{classew_1_1View3Landmarks_ae6dfece42f463c68bfc76f3782fd5006}{set\_\-symbol} (int sym)
+\item 
+int \hyperlink{classew_1_1View3Landmarks_a6144e736708e87f05fe35fccc1963626}{get\_\-symbol} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const int \hyperlink{classew_1_1View3Landmarks_a2aac16ae4a3bc617df69e9a881309011}{N\_\-SYMBOLS} = 3
+\item 
+static const char $\ast$const \hyperlink{classew_1_1View3Landmarks_acf1fcc64c77ecabaee9ad645a46a707c}{symbol\_\-names} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1View3Landmarks}{ew::View3Landmarks} is an \hyperlink{classew_1_1View3Widget}{ew::View3Widget} item to display the landmarks in a \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3}.
+
+\hyperlink{classew_1_1View3Landmarks}{ew::View3Landmarks} is a class without assignment or comparison. There are private member variables. 
+
+\subsubsection{Member Enumeration Documentation}
+\hypertarget{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!symbol\_\-t@{symbol\_\-t}}
+\index{symbol\_\-t@{symbol\_\-t}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{symbol\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ew::View3Landmarks::symbol\_\-t}}\hfill}
+\label{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4}
+These are the possible values for \hyperlink{classew_1_1View3Landmarks_ae6dfece42f463c68bfc76f3782fd5006}{set\_\-symbol} and \hyperlink{classew_1_1View3Landmarks_a6144e736708e87f05fe35fccc1963626}{get\_\-symbol}. The first, with value zero, is \hyperlink{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4a0844a595f6fe10dff5493050cbc31a2c}{SYMBOL\_\-CROSS}. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{SYMBOL\_\-CROSS@{SYMBOL\_\-CROSS}!ew::View3Landmarks@{ew::View3Landmarks}}\index{ew::View3Landmarks@{ew::View3Landmarks}!SYMBOL\_\-CROSS@{SYMBOL\_\-CROSS}}\item[{\em 
+\hypertarget{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4a0844a595f6fe10dff5493050cbc31a2c}{
+SYMBOL\_\-CROSS}
+\label{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4a0844a595f6fe10dff5493050cbc31a2c}
+}]A cross symbol. \index{SYMBOL\_\-CIRCLE@{SYMBOL\_\-CIRCLE}!ew::View3Landmarks@{ew::View3Landmarks}}\index{ew::View3Landmarks@{ew::View3Landmarks}!SYMBOL\_\-CIRCLE@{SYMBOL\_\-CIRCLE}}\item[{\em 
+\hypertarget{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4a1f2350f74b86929d03442b7c7fccbf88}{
+SYMBOL\_\-CIRCLE}
+\label{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4a1f2350f74b86929d03442b7c7fccbf88}
+}]A circle symbol. \index{SYMBOL\_\-DOT@{SYMBOL\_\-DOT}!ew::View3Landmarks@{ew::View3Landmarks}}\index{ew::View3Landmarks@{ew::View3Landmarks}!SYMBOL\_\-DOT@{SYMBOL\_\-DOT}}\item[{\em 
+\hypertarget{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4ae45cc6c7d43c3c5924d55612b3c193e8}{
+SYMBOL\_\-DOT}
+\label{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4ae45cc6c7d43c3c5924d55612b3c193e8}
+}]A dot symbol. \end{description}
+\end{Desc}
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1View3Landmarks_ac2b94a222f9c767f376386648163e21e}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!View3Landmarks@{View3Landmarks}}
+\index{View3Landmarks@{View3Landmarks}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{View3Landmarks}]{\setlength{\rightskip}{0pt plus 5cm}ew::View3Landmarks::View3Landmarks (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::View3Widget} $\ast$}]{ i\_\-view, }
+\item[{int}]{ i\_\-type = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}\hfill}
+\label{classew_1_1View3Landmarks_ac2b94a222f9c767f376386648163e21e}
+This creates an item. 
+\begin{DoxyParams}{Parameters}
+\item[{\em view\_\-i}]The view widget the item should belong to. \item[{\em type\_\-i}]The initializer for \hyperlink{classew_1_1View3Item_a7e21fcde8f082ba2409bcb2999a4b7fd}{ew::View3Item::type}. \end{DoxyParams}
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1View3Landmarks_a28b6615870a90c8179023827796bbc45}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!set\_\-form@{set\_\-form}}
+\index{set\_\-form@{set\_\-form}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{set\_\-form}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Landmarks::set\_\-form (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::DataflowForm3} $\ast$}]{ frm}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Landmarks_a28b6615870a90c8179023827796bbc45}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em frm}]A pointer to the new form node to display, or 0. \end{DoxyParams}
+\hypertarget{classew_1_1View3Landmarks_ad41875336f92f693fa215137305a09ed}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!get\_\-form@{get\_\-form}}
+\index{get\_\-form@{get\_\-form}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{get\_\-form}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowForm3} $\ast$ ew::View3Landmarks::get\_\-form (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Landmarks_ad41875336f92f693fa215137305a09ed}
+\begin{DoxyReturn}{Returns}
+A pointer to the current form node being displayed, or 0. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Landmarks_a72cad881f909b1105ef46ab53f9b2801}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!set\_\-color@{set\_\-color}}
+\index{set\_\-color@{set\_\-color}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{set\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Landmarks::set\_\-color (
+\begin{DoxyParamCaption}
+\item[{const unsigned char $\ast$}]{ rgb}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Landmarks_a72cad881f909b1105ef46ab53f9b2801}
+
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em rgb}]This points to an array of size 3 containing the new colour for the landmark symbols. \end{DoxyParams}
+\hypertarget{classew_1_1View3Landmarks_aff46a81fe7ec6bd3895dbe9ea6630230}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!get\_\-color@{get\_\-color}}
+\index{get\_\-color@{get\_\-color}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{get\_\-color}]{\setlength{\rightskip}{0pt plus 5cm}const unsigned char $\ast$ ew::View3Landmarks::get\_\-color (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Landmarks_aff46a81fe7ec6bd3895dbe9ea6630230}
+\begin{DoxyReturn}{Returns}
+A pointer to the current colour for the landmark symbols. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Landmarks_a5215584e89b18fca5f9b53e6943d6ffe}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!set\_\-highlight@{set\_\-highlight}}
+\index{set\_\-highlight@{set\_\-highlight}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{set\_\-highlight}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Landmarks::set\_\-highlight (
+\begin{DoxyParamCaption}
+\item[{int}]{ ps, }
+\item[{int}]{ i}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Landmarks_a5215584e89b18fca5f9b53e6943d6ffe}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em ps}]The pointset of the landmark to highlight. \item[{\em i}]The index of the landmark within the pointset of the landmark to highlight. \end{DoxyParams}
+\hypertarget{classew_1_1View3Landmarks_ad39299ed05ded5379e4f8749e8eaa2a3}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!get\_\-highlight\_\-ps@{get\_\-highlight\_\-ps}}
+\index{get\_\-highlight\_\-ps@{get\_\-highlight\_\-ps}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{get\_\-highlight\_\-ps}]{\setlength{\rightskip}{0pt plus 5cm}int ew::View3Landmarks::get\_\-highlight\_\-ps (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Landmarks_ad39299ed05ded5379e4f8749e8eaa2a3}
+\begin{DoxyReturn}{Returns}
+The currently highlighted pointset index, or -\/1. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Landmarks_a2c4b9e20c783af8f296868b04ad4711a}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!get\_\-highlight\_\-i@{get\_\-highlight\_\-i}}
+\index{get\_\-highlight\_\-i@{get\_\-highlight\_\-i}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{get\_\-highlight\_\-i}]{\setlength{\rightskip}{0pt plus 5cm}int ew::View3Landmarks::get\_\-highlight\_\-i (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Landmarks_a2c4b9e20c783af8f296868b04ad4711a}
+\begin{DoxyReturn}{Returns}
+The currently highlighted landmark index within the pointset, or -\/1. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1View3Landmarks_ae6dfece42f463c68bfc76f3782fd5006}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!set\_\-symbol@{set\_\-symbol}}
+\index{set\_\-symbol@{set\_\-symbol}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{set\_\-symbol}]{\setlength{\rightskip}{0pt plus 5cm}void ew::View3Landmarks::set\_\-symbol (
+\begin{DoxyParamCaption}
+\item[{int}]{ sym}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1View3Landmarks_ae6dfece42f463c68bfc76f3782fd5006}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em sym}]The new landmark symbol. \end{DoxyParams}
+\hypertarget{classew_1_1View3Landmarks_a6144e736708e87f05fe35fccc1963626}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!get\_\-symbol@{get\_\-symbol}}
+\index{get\_\-symbol@{get\_\-symbol}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{get\_\-symbol}]{\setlength{\rightskip}{0pt plus 5cm}int ew::View3Landmarks::get\_\-symbol (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1View3Landmarks_a6144e736708e87f05fe35fccc1963626}
+\begin{DoxyReturn}{Returns}
+The current landmark symbol. 
+\end{DoxyReturn}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1View3Landmarks_a2aac16ae4a3bc617df69e9a881309011}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!N\_\-SYMBOLS@{N\_\-SYMBOLS}}
+\index{N\_\-SYMBOLS@{N\_\-SYMBOLS}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{N\_\-SYMBOLS}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf ew::View3Landmarks::N\_\-SYMBOLS} = 3\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}\hfill}
+\label{classew_1_1View3Landmarks_a2aac16ae4a3bc617df69e9a881309011}
+They number of possible \hyperlink{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4}{symbol\_\-t} values. \hypertarget{classew_1_1View3Landmarks_acf1fcc64c77ecabaee9ad645a46a707c}{
+\index{ew::View3Landmarks@{ew::View3Landmarks}!symbol\_\-names@{symbol\_\-names}}
+\index{symbol\_\-names@{symbol\_\-names}!ew::View3Landmarks@{ew::View3Landmarks}}
+\paragraph[{symbol\_\-names}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$const {\bf ew::View3Landmarks::symbol\_\-names}\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}\hfill}
+\label{classew_1_1View3Landmarks_acf1fcc64c77ecabaee9ad645a46a707c}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+  "cross",
+  "circle",
+  "dot",
+  0
+}
+\end{DoxyCode}
+The names of the \hyperlink{classew_1_1View3Landmarks_a1568c52b9714e8042cfdc7a1835413c4}{symbol\_\-t} choices. 

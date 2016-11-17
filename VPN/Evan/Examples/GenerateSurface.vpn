@@ -1,0 +1,13 @@
+<VPN>
+ <Node x="-1211" y="-512" params="Examples/macac.fascicularis.txt$$$$$$$$txt$$1$$31$$3dim$$Examples/macac.fascicularis.ply$$$$$$checked$$1$$$$unchecked" type="ImportNode" annotation="" />
+ <Node x="-1209" y="-352" params="Examples/exampledata.txt$$$$$$$$morphologika$$0$$0$$3dim$$$$$$$$checked$$1$$$$unchecked" type="ImportNode" annotation="" />
+ <Node x="-720" y="-496" params="0.2|0.2|0.4|1|0.1|10000|0.707107|0|0|0.707107|0|-1|0|0$" type="ViewerNode" annotation="" />
+ <Node x="-965" y="-431" params="" type="GenerateSurfaceNode" annotation="" />
+ <Node x="-721" y="-379" params="1$$0$$0$$0$$0$$1$$0$$0$$0$$1$$0$$0$$0$$0$$0$$0" type="ExportNode" annotation="" />
+ <Link ports="0:1:0:0|0:0|0," sNode="1" eNode="3" />
+ <Link ports="0:0:0:0|0:0|0,1:2:0:0|0:0|0," sNode="0" eNode="3" />
+ <Link ports="0:0:0:0|0:0|0," sNode="3" eNode="2" />
+ <Link ports="0:0:0:0|0:0|0," sNode="0" eNode="2" />
+ <Link ports="0:0:0:-989|-347:-815|-134," sNode="1" eNode="2" />
+ <Link ports="0:1:0:0|0:0|0," sNode="3" eNode="4" />
+</VPN>

@@ -1,0 +1,373 @@
+\hypertarget{classew_1_1Dig3Space}{
+\subsection{ew::Dig3Space Class Reference}
+\label{classew_1_1Dig3Space}\index{ew::Dig3Space@{ew::Dig3Space}}
+}
+
+
+Space Element.  
+
+
+
+
+{\ttfamily \#include $<$ew/Dig3Space.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} $\ast$ \hyperlink{classew_1_1Dig3Space_aa7bb402a0efa069bd3bc38c46ffe9b68}{get\_\-form\_\-node} ()
+\item 
+void \hyperlink{classew_1_1Dig3Space_a920cc8f98f082fddbf1de18621976172}{reset\_\-form} ()
+\item 
+void \hyperlink{classew_1_1Dig3Space_aa179034ae1e56e82b11505f0eb43a453}{set\_\-form\_\-data} (const \hyperlink{classew_1_1Form3}{ew::Form3} $\ast$form\_\-data)
+\item 
+const \hyperlink{classew_1_1Form3}{ew::Form3} $\ast$ \hyperlink{classew_1_1Dig3Space_a645d433945b2cc2e884f7b021435069a}{get\_\-form\_\-data} () const 
+\item 
+int \hyperlink{classew_1_1Dig3Space_a7f263aecc7500ef7d3ade73ad3a2ecd7}{set\_\-form\_\-curve} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3Curve}{ew::Form3Curve} $\ast$cr)
+\item 
+void \hyperlink{classew_1_1Dig3Space_a288e09fc51893bbc770693d390bb41dc}{remove\_\-form\_\-curve} (int n)
+\item 
+int \hyperlink{classew_1_1Dig3Space_a56f5bb5aea82832e14d0ae558b8e8b67}{set\_\-form\_\-surface} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3Surface}{ew::Form3Surface} $\ast$sr)
+\item 
+void \hyperlink{classew_1_1Dig3Space_a580843a50f9080b1cfd0232f14825d79}{remove\_\-form\_\-surface} (int n)
+\item 
+int \hyperlink{classew_1_1Dig3Space_a40cc9ace8fb6b3f9c4d250a05fb19b83}{set\_\-form\_\-pointset} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3PointSet}{ew::Form3PointSet} $\ast$ps)
+\item 
+void \hyperlink{classew_1_1Dig3Space_ac2e4e42bbb25f06d5ae344c6be3d541e}{set\_\-form\_\-pointset\_\-location} (int n, int i, const double $\ast$loc)
+\item 
+void \hyperlink{classew_1_1Dig3Space_aad83d1715297a4cc818db875cd61f967}{set\_\-form\_\-pointset\_\-relax} (int n, int i, int rdim, const double $\ast$rparam)
+\item 
+void \hyperlink{classew_1_1Dig3Space_ac7d8bdae1bf32ecdcc832e0144aa6efe}{remove\_\-form\_\-pointset} (int n)
+\item 
+int \hyperlink{classew_1_1Dig3Space_ae7204b1c52aea0f57725c5439946d0ec}{set\_\-form\_\-embedding} (bool $\ast$replaced, const \hyperlink{classew_1_1Form3Embedding}{ew::Form3Embedding} $\ast$em)
+\item 
+void \hyperlink{classew_1_1Dig3Space_a4724ad4460ab037c1473f2dc4004dfa8}{set\_\-form\_\-superset} (const char $\ast$subset\_\-id, const char $\ast$superset\_\-id)
+\item 
+void \hyperlink{classew_1_1Dig3Space_a12a7c818b711b266b46f50c6f84f7d4f}{remove\_\-form\_\-embedding} (int n)
+\item 
+int \hyperlink{classew_1_1Dig3Space_a83170563f07652019f67840a9adf4004}{get\_\-curve\_\-of\_\-pointset} (int ps) const 
+\item 
+int \hyperlink{classew_1_1Dig3Space_a236fdd1626f1a08873db9d7cf8b2a075}{get\_\-surface\_\-of\_\-pointset} (int ps) const 
+\item 
+void \hyperlink{classew_1_1Dig3Space_a0809a7797f05de87aee70dfc6de58322}{get\_\-bbox} (\hyperlink{classew_1_1Bbox3}{ew::Bbox3} $\ast$b) const 
+\item 
+const \hyperlink{classew_1_1DataflowCurve3E}{ew::DataflowCurve3E} $\ast$const $\ast$ \hyperlink{classew_1_1Dig3Space_ab2d954551601f184d1f415ac6998e49e}{get\_\-curve\_\-nodes} () const 
+\item 
+const \hyperlink{classew_1_1DataflowSurface3E}{ew::DataflowSurface3E} $\ast$const $\ast$ \hyperlink{classew_1_1Dig3Space_a58554373351ed520f4fbad1569b218b7}{get\_\-surface\_\-nodes} () const 
+\item 
+bool \hyperlink{classew_1_1Dig3Space_aadeb4f28cbecbdbc3a77b6a37bc40098}{project} (int $\ast$rdim, double $\ast$rparam, double $\ast$proj, const double $\ast$p, const char $\ast$id) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} $\ast$const \hyperlink{classew_1_1Dig3Space_a9b0b4fe232f986990d036782ada68b7d}{network}
+\item 
+\hyperlink{classew_1_1Dig3}{ew::Dig3} $\ast$const \hyperlink{classew_1_1Dig3Space_adb69ce686a3d16df25a616a70ac82b7b}{dig3}
+\item 
+const int \hyperlink{classew_1_1Dig3Space_a00176cf8f95e7fe1ef6c0530f332ba7c}{index}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Dig3Space}{ew::Dig3Space} implements a space element of \hyperlink{classew_1_1Dig3}{ew::Dig3}. There are 2 spaces, the template space and the specimen space. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Dig3Space_aa7bb402a0efa069bd3bc38c46ffe9b68}{
+\index{ew::Dig3Space@{ew::Dig3Space}!get\_\-form\_\-node@{get\_\-form\_\-node}}
+\index{get\_\-form\_\-node@{get\_\-form\_\-node}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{get\_\-form\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowForm3} $\ast$ ew::Dig3Space::get\_\-form\_\-node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_aa7bb402a0efa069bd3bc38c46ffe9b68}
+This returns a pointer to the \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} node managed by the \hyperlink{classew_1_1Dig3Space}{ew::Dig3Space}. This node can be changed using \hyperlink{classew_1_1Dig3Space}{ew::Dig3Space} wrappers for the \hyperlink{classew_1_1DataflowForm3}{ew::DataflowForm3} methods. \hypertarget{classew_1_1Dig3Space_a920cc8f98f082fddbf1de18621976172}{
+\index{ew::Dig3Space@{ew::Dig3Space}!reset\_\-form@{reset\_\-form}}
+\index{reset\_\-form@{reset\_\-form}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{reset\_\-form}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::reset\_\-form (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3Space_a920cc8f98f082fddbf1de18621976172}
+This sets the space to an empty form. \hypertarget{classew_1_1Dig3Space_aa179034ae1e56e82b11505f0eb43a453}{
+\index{ew::Dig3Space@{ew::Dig3Space}!set\_\-form\_\-data@{set\_\-form\_\-data}}
+\index{set\_\-form\_\-data@{set\_\-form\_\-data}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{set\_\-form\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::set\_\-form\_\-data (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Form3} $\ast$}]{ form\_\-data}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3Space_aa179034ae1e56e82b11505f0eb43a453}
+This sets the space to a new form. 
+\begin{DoxyParams}{Parameters}
+\item[{\em form\_\-data}]The form data to copy. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3Space_a645d433945b2cc2e884f7b021435069a}{
+\index{ew::Dig3Space@{ew::Dig3Space}!get\_\-form\_\-data@{get\_\-form\_\-data}}
+\index{get\_\-form\_\-data@{get\_\-form\_\-data}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{get\_\-form\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Form3} $\ast$ ew::Dig3Space::get\_\-form\_\-data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_a645d433945b2cc2e884f7b021435069a}
+\begin{DoxyReturn}{Returns}
+A pointer to the ew::From3 data of the space. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3Space_a7f263aecc7500ef7d3ade73ad3a2ecd7}{
+\index{ew::Dig3Space@{ew::Dig3Space}!set\_\-form\_\-curve@{set\_\-form\_\-curve}}
+\index{set\_\-form\_\-curve@{set\_\-form\_\-curve}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{set\_\-form\_\-curve}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3Space::set\_\-form\_\-curve (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3Curve} $\ast$}]{ cr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3Space_a7f263aecc7500ef7d3ade73ad3a2ecd7}
+This adds or replaces a curve in the space. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the curve replaced an existing curve. \item[{\em cr}]A pointer to the curve data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the curve. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3Space_a288e09fc51893bbc770693d390bb41dc}{
+\index{ew::Dig3Space@{ew::Dig3Space}!remove\_\-form\_\-curve@{remove\_\-form\_\-curve}}
+\index{remove\_\-form\_\-curve@{remove\_\-form\_\-curve}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{remove\_\-form\_\-curve}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::remove\_\-form\_\-curve (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3Space_a288e09fc51893bbc770693d390bb41dc}
+This deletes a curve from the space. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the curve to delete. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3Space_a56f5bb5aea82832e14d0ae558b8e8b67}{
+\index{ew::Dig3Space@{ew::Dig3Space}!set\_\-form\_\-surface@{set\_\-form\_\-surface}}
+\index{set\_\-form\_\-surface@{set\_\-form\_\-surface}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{set\_\-form\_\-surface}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3Space::set\_\-form\_\-surface (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3Surface} $\ast$}]{ sr}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3Space_a56f5bb5aea82832e14d0ae558b8e8b67}
+This adds or replaces a surface in the space. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the surface replaced an existing surface. \item[{\em sr}]A pointer to the surface data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the surface. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3Space_a580843a50f9080b1cfd0232f14825d79}{
+\index{ew::Dig3Space@{ew::Dig3Space}!remove\_\-form\_\-surface@{remove\_\-form\_\-surface}}
+\index{remove\_\-form\_\-surface@{remove\_\-form\_\-surface}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{remove\_\-form\_\-surface}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::remove\_\-form\_\-surface (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3Space_a580843a50f9080b1cfd0232f14825d79}
+This deletes a surface from the space. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the surface to delete. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3Space_a40cc9ace8fb6b3f9c4d250a05fb19b83}{
+\index{ew::Dig3Space@{ew::Dig3Space}!set\_\-form\_\-pointset@{set\_\-form\_\-pointset}}
+\index{set\_\-form\_\-pointset@{set\_\-form\_\-pointset}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{set\_\-form\_\-pointset}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3Space::set\_\-form\_\-pointset (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3PointSet} $\ast$}]{ ps}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_a40cc9ace8fb6b3f9c4d250a05fb19b83}
+This adds or replaces a pointset in the space. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the point set replaced an existing point set. \item[{\em ps}]A pointer to the point set data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the point set. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3Space_ac2e4e42bbb25f06d5ae344c6be3d541e}{
+\index{ew::Dig3Space@{ew::Dig3Space}!set\_\-form\_\-pointset\_\-location@{set\_\-form\_\-pointset\_\-location}}
+\index{set\_\-form\_\-pointset\_\-location@{set\_\-form\_\-pointset\_\-location}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{set\_\-form\_\-pointset\_\-location}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::set\_\-form\_\-pointset\_\-location (
+\begin{DoxyParamCaption}
+\item[{int}]{ n, }
+\item[{int}]{ i, }
+\item[{const double $\ast$}]{ loc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_ac2e4e42bbb25f06d5ae344c6be3d541e}
+This changes the coordinates of an element of the point set. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the point set. \item[{\em i}]The index of the element in the point set. \item[\mbox{\tt[in]} {\em loc}]A pointer to the new coordinates of this entry. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3Space_aad83d1715297a4cc818db875cd61f967}{
+\index{ew::Dig3Space@{ew::Dig3Space}!set\_\-form\_\-pointset\_\-relax@{set\_\-form\_\-pointset\_\-relax}}
+\index{set\_\-form\_\-pointset\_\-relax@{set\_\-form\_\-pointset\_\-relax}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{set\_\-form\_\-pointset\_\-relax}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::set\_\-form\_\-pointset\_\-relax (
+\begin{DoxyParamCaption}
+\item[{int}]{ n, }
+\item[{int}]{ i, }
+\item[{int}]{ rdim, }
+\item[{const double $\ast$}]{ rparam}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_aad83d1715297a4cc818db875cd61f967}
+This changes the relaxation parameters of an element of the point set. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the point set. \item[{\em i}]The index of the element in the point set. \item[\mbox{\tt[in]} {\em rdim}]The new relax\_\-dims of this entry. \item[\mbox{\tt[in]} {\em rparam}]A pointer to the new relax\_\-params of this entry. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3Space_ac7d8bdae1bf32ecdcc832e0144aa6efe}{
+\index{ew::Dig3Space@{ew::Dig3Space}!remove\_\-form\_\-pointset@{remove\_\-form\_\-pointset}}
+\index{remove\_\-form\_\-pointset@{remove\_\-form\_\-pointset}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{remove\_\-form\_\-pointset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::remove\_\-form\_\-pointset (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_ac7d8bdae1bf32ecdcc832e0144aa6efe}
+This deletes a point set from the space. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the point set to delete. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3Space_ae7204b1c52aea0f57725c5439946d0ec}{
+\index{ew::Dig3Space@{ew::Dig3Space}!set\_\-form\_\-embedding@{set\_\-form\_\-embedding}}
+\index{set\_\-form\_\-embedding@{set\_\-form\_\-embedding}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{set\_\-form\_\-embedding}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3Space::set\_\-form\_\-embedding (
+\begin{DoxyParamCaption}
+\item[{bool $\ast$}]{ replaced, }
+\item[{const {\bf ew::Form3Embedding} $\ast$}]{ em}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_ae7204b1c52aea0f57725c5439946d0ec}
+This adds or replaces a embedding in the space. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em replaced}]{\ttfamily true} if the embedding replaced an existing embedding. \item[{\em em}]A pointer to the embedding data to copy. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the embedding. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3Space_a4724ad4460ab037c1473f2dc4004dfa8}{
+\index{ew::Dig3Space@{ew::Dig3Space}!set\_\-form\_\-superset@{set\_\-form\_\-superset}}
+\index{set\_\-form\_\-superset@{set\_\-form\_\-superset}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{set\_\-form\_\-superset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::set\_\-form\_\-superset (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ subset\_\-id, }
+\item[{const char $\ast$}]{ superset\_\-id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_a4724ad4460ab037c1473f2dc4004dfa8}
+This makes one element of the form the unique superset of another element. 
+\begin{DoxyParams}{Parameters}
+\item[{\em subset\_\-id}]The id of the element that should have a unique superset. \item[{\em superset\_\-id}]The id of the element that be the unique superset. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3Space_a12a7c818b711b266b46f50c6f84f7d4f}{
+\index{ew::Dig3Space@{ew::Dig3Space}!remove\_\-form\_\-embedding@{remove\_\-form\_\-embedding}}
+\index{remove\_\-form\_\-embedding@{remove\_\-form\_\-embedding}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{remove\_\-form\_\-embedding}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::remove\_\-form\_\-embedding (
+\begin{DoxyParamCaption}
+\item[{int}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_a12a7c818b711b266b46f50c6f84f7d4f}
+This deletes a embedding from the space. 
+\begin{DoxyParams}{Parameters}
+\item[{\em n}]The index of the embedding to delete. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3Space_a83170563f07652019f67840a9adf4004}{
+\index{ew::Dig3Space@{ew::Dig3Space}!get\_\-curve\_\-of\_\-pointset@{get\_\-curve\_\-of\_\-pointset}}
+\index{get\_\-curve\_\-of\_\-pointset@{get\_\-curve\_\-of\_\-pointset}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{get\_\-curve\_\-of\_\-pointset}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3Space::get\_\-curve\_\-of\_\-pointset (
+\begin{DoxyParamCaption}
+\item[{int}]{ ps}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Dig3Space_a83170563f07652019f67840a9adf4004}
+This finds the curve a pointset is embedded in if any. 
+\begin{DoxyParams}{Parameters}
+\item[{\em ps}]The index of the pointset. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the curve, or -\/1. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3Space_a236fdd1626f1a08873db9d7cf8b2a075}{
+\index{ew::Dig3Space@{ew::Dig3Space}!get\_\-surface\_\-of\_\-pointset@{get\_\-surface\_\-of\_\-pointset}}
+\index{get\_\-surface\_\-of\_\-pointset@{get\_\-surface\_\-of\_\-pointset}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{get\_\-surface\_\-of\_\-pointset}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3Space::get\_\-surface\_\-of\_\-pointset (
+\begin{DoxyParamCaption}
+\item[{int}]{ ps}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Dig3Space_a236fdd1626f1a08873db9d7cf8b2a075}
+This finds the surface a pointset is embedded in if any. 
+\begin{DoxyParams}{Parameters}
+\item[{\em ps}]The index of the pointset. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the surface, or -\/1. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3Space_a0809a7797f05de87aee70dfc6de58322}{
+\index{ew::Dig3Space@{ew::Dig3Space}!get\_\-bbox@{get\_\-bbox}}
+\index{get\_\-bbox@{get\_\-bbox}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{get\_\-bbox}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Space::get\_\-bbox (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Bbox3} $\ast$}]{ b}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Dig3Space_a0809a7797f05de87aee70dfc6de58322}
+This calculates the bounding box of all elements of the space's form. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em b}]Where to store the bounding box. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3Space_ab2d954551601f184d1f415ac6998e49e}{
+\index{ew::Dig3Space@{ew::Dig3Space}!get\_\-curve\_\-nodes@{get\_\-curve\_\-nodes}}
+\index{get\_\-curve\_\-nodes@{get\_\-curve\_\-nodes}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{get\_\-curve\_\-nodes}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowCurve3E} $\ast$const $\ast$ ew::Dig3Space::get\_\-curve\_\-nodes (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_ab2d954551601f184d1f415ac6998e49e}
+\begin{DoxyReturn}{Returns}
+The curve node index. The i'th entry is a pointer to the curve node corresponding to the i'th curve, or zero if this curve has no data. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3Space_a58554373351ed520f4fbad1569b218b7}{
+\index{ew::Dig3Space@{ew::Dig3Space}!get\_\-surface\_\-nodes@{get\_\-surface\_\-nodes}}
+\index{get\_\-surface\_\-nodes@{get\_\-surface\_\-nodes}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{get\_\-surface\_\-nodes}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowSurface3E} $\ast$const $\ast$ ew::Dig3Space::get\_\-surface\_\-nodes (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Space_a58554373351ed520f4fbad1569b218b7}
+\begin{DoxyReturn}{Returns}
+The surface node index. The i'th entry is a pointer to the surface node corresponding to the i'th surface, or zero if this surface has no data. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3Space_aadeb4f28cbecbdbc3a77b6a37bc40098}{
+\index{ew::Dig3Space@{ew::Dig3Space}!project@{project}}
+\index{project@{project}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{project}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Dig3Space::project (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ rdim, }
+\item[{double $\ast$}]{ rparam, }
+\item[{double $\ast$}]{ proj, }
+\item[{const double $\ast$}]{ p, }
+\item[{const char $\ast$}]{ id}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1Dig3Space_aadeb4f28cbecbdbc3a77b6a37bc40098}
+This projects a point onto either a curve or surface. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em rdim}]Where to store the relax\_\-dim of the projection. \item[\mbox{\tt[out]} {\em rparam}]Where to store the relax\_\-params of the projection. This should point to an array of size 3. \item[\mbox{\tt[out]} {\em proj}]Where to store the coordinates of the projected point. This should point to an array of size 3. \item[\mbox{\tt[in]} {\em p}]The coordinates of the original point. This should point to an array of size 3. \item[\mbox{\tt[in]} {\em id}]The id of the surface or curve to project onto. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the operation could be performed. This is false if there is no surface or curve with the given id, or if this surface or curve is a placeholder (has no filename). 
+\end{DoxyReturn}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Dig3Space_a9b0b4fe232f986990d036782ada68b7d}{
+\index{ew::Dig3Space@{ew::Dig3Space}!network@{network}}
+\index{network@{network}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{network}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::DataflowNetwork} $\ast$const {\bf ew::Dig3Space::network}}\hfill}
+\label{classew_1_1Dig3Space_a9b0b4fe232f986990d036782ada68b7d}
+This points to the \hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} that the \hyperlink{classew_1_1Dig3Space_adb69ce686a3d16df25a616a70ac82b7b}{dig3} was created with. \hypertarget{classew_1_1Dig3Space_adb69ce686a3d16df25a616a70ac82b7b}{
+\index{ew::Dig3Space@{ew::Dig3Space}!dig3@{dig3}}
+\index{dig3@{dig3}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{dig3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::Dig3} $\ast$const {\bf ew::Dig3Space::dig3}}\hfill}
+\label{classew_1_1Dig3Space_adb69ce686a3d16df25a616a70ac82b7b}
+This points to the \hyperlink{classew_1_1Dig3}{ew::Dig3} that this \hyperlink{classew_1_1Dig3Space}{ew::Dig3Space} is contained in. \hypertarget{classew_1_1Dig3Space_a00176cf8f95e7fe1ef6c0530f332ba7c}{
+\index{ew::Dig3Space@{ew::Dig3Space}!index@{index}}
+\index{index@{index}!ew::Dig3Space@{ew::Dig3Space}}
+\paragraph[{index}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf ew::Dig3Space::index}}\hfill}
+\label{classew_1_1Dig3Space_a00176cf8f95e7fe1ef6c0530f332ba7c}
+This is 0 if this is the template space of \hyperlink{classew_1_1Dig3Space_adb69ce686a3d16df25a616a70ac82b7b}{dig3}, 1 if the specimen space. 

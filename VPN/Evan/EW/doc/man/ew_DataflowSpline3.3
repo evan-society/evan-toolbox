@@ -1,0 +1,248 @@
+.TH "ew::DataflowSpline3" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::DataflowSpline3 \- 
+.PP
+3D Spline Node  
+
+\fBew::DataflowSpline3\fP is a node that manages a thin-plate spline.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/DataflowSpline3.h>\fP
+.PP
+Inherits \fBew::DataflowNode\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBset_template\fP (const \fBew::DataflowForm3\fP *f)"
+.br
+.ti -1c
+.RI "const \fBew::DataflowForm3\fP * \fBget_template\fP () const "
+.br
+.ti -1c
+.RI "unsigned long \fBget_change_cycle_template\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_specimen\fP (const \fBew::DataflowForm3\fP *f)"
+.br
+.ti -1c
+.RI "const \fBew::DataflowForm3\fP * \fBget_specimen\fP () const "
+.br
+.ti -1c
+.RI "unsigned long \fBget_change_cycle_specimen\fP () const "
+.br
+.ti -1c
+.RI "int \fBget_n_lmks\fP () const "
+.br
+.ti -1c
+.RI "int \fBget_f_size\fP () const "
+.br
+.ti -1c
+.RI "int \fBlmk_index\fP (int side, int point_set, int i) const "
+.br
+.ti -1c
+.RI "int \fBlmk_pointset\fP (int side, int lmk_index) const "
+.br
+.ti -1c
+.RI "int \fBlmk_pointset_i\fP (int side, int lmk_index) const "
+.br
+.ti -1c
+.RI "bool \fBget_nonsingular\fP () const "
+.br
+.ti -1c
+.RI "double \fBget_energy\fP () const "
+.br
+.ti -1c
+.RI "const double * \fBget_optimized_lmk_images\fP () const "
+.br
+.ti -1c
+.RI "void \fBwarp_points\fP (double *outp, const double *inp, int l) const "
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "unsigned long \fBget_version_association\fP () const "
+.br
+.ti -1c
+.RI "unsigned long \fBget_version_interaction\fP () const "
+.br
+.ti -1c
+.RI "unsigned long \fBget_version_factorization\fP () const "
+.br
+.ti -1c
+.RI "unsigned long \fBget_version_spline\fP () const "
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::DataflowSpline3\fP is a class without assignment or comparison. There are private member variables.
+.PP
+Nodes of this class depend on 2 nodes, the template and specimen \fBew::DataflowForm3\fP nodes. Nodes representing warped geometric objects will depend on a \fBew::DataflowSpline3\fP node. A ew::Dataflow_Spline3 is considered valid if it's template and specimen dependencies have been set and if there are 4 or more associated landmarks.
+.PP
+Initially and when reset, the node has neither template or specimen set. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::DataflowSpline3::set_template (const \fBew::DataflowForm3\fP * f)"\fBParameters:\fP
+.RS 4
+\fIf\fP A pointer to the new template form node. 
+.RE
+.PP
+
+.SS "const \fBew::DataflowForm3\fP * ew::DataflowSpline3::get_template () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the template node. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowSpline3::get_change_cycle_template () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The last cycle the template pointer was changed. 
+.RE
+.PP
+
+.SS "void ew::DataflowSpline3::set_specimen (const \fBew::DataflowForm3\fP * f)"\fBParameters:\fP
+.RS 4
+\fIf\fP A pointer to the new specimen form node. 
+.RE
+.PP
+
+.SS "const \fBew::DataflowForm3\fP * ew::DataflowSpline3::get_specimen () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+A pointer to the specimen node. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowSpline3::get_change_cycle_specimen () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The last cycle the specimen pointer was changed. 
+.RE
+.PP
+
+.SS "int ew::DataflowSpline3::get_n_lmks () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The number of landmarks and semi-landmarks matched between template and specimen. 
+.RE
+.PP
+
+.SS "int ew::DataflowSpline3::get_f_size () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The algebraic dimension of the spline, or -1. 
+.RE
+.PP
+
+.SS "int ew::DataflowSpline3::lmk_index (int side, int point_set, int i) const\fC [inline]\fP"To construct the spline, landmarks in the template and specimen are matched by id and by position within the point_set. This calculates the index in the spline of a point in a point_set. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIside\fP 0 if the point is in the template, 1 if it is in the specimen. 
+.br
+\fIpoint_set\fP The index of the point_set. 
+.br
+\fIi\fP The position of the point within the point_set. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index, if the point is matched, otherwise -1. 
+.RE
+.PP
+
+.SS "int ew::DataflowSpline3::lmk_pointset (int side, int index) const\fC [inline]\fP"This is the inverse of \fBlmk_index\fP. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIside\fP 0 for the pointset in the template, 1 for the pointset in the specimen. 
+.br
+\fIindex\fP The index as returned by \fBlmk_index\fP. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The pointset of the specified landmark in the spline. 
+.RE
+.PP
+
+.SS "int ew::DataflowSpline3::lmk_pointset_i (int side, int index) const\fC [inline]\fP"This is the inverse of \fBlmk_index\fP. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIside\fP 0 for the pointset in the template, 1 for the pointset in the specimen. 
+.br
+\fIindex\fP The index as returned by \fBlmk_index\fP. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+The index of the landmark in the pointset of the specified landmark in the spline. 
+.RE
+.PP
+
+.SS "bool ew::DataflowSpline3::get_nonsingular () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+\fCtrue\fP if the spline is non-singular. 
+.RE
+.PP
+
+.SS "double ew::DataflowSpline3::get_energy () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The bending energy of the spline. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIIf\fP the spline is singular, a std::runtime_error is thrown. 
+.RE
+.PP
+
+.SS "const double * ew::DataflowSpline3::get_optimized_lmk_images () const\fC [inline]\fP"This returns the positions of the landmarks after being allowed to slide in their relaxation spaces to the positions that minimize bending energy. The order of the landmarks is as defined by \fBlmk_index\fP. If the spline is singular, a std::runtime_error is thrown. The pointer is valid until the node or a dependency of the node is changed. 
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to an array of coordinates. 
+.RE
+.PP
+
+.SS "void ew::DataflowSpline3::warp_points (double * outp, const double * inp, int l) const"This applies the spline to an array of points. If the spline is singular, a std::runtime_error is thrown. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIoutp\fP Where to store the warped point coordinates. 
+.br
+\fIinp\fP Where the original point coordinates are stored. 
+.br
+\fIl\fP The number of points. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowSpline3::get_version_association () const\fC [inline, private]\fP"\fBReturns:\fP
+.RS 4
+The last cycle the XXX was changed. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowSpline3::get_version_interaction () const\fC [inline, private]\fP"\fBReturns:\fP
+.RS 4
+The last cycle the XXX was changed. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowSpline3::get_version_factorization () const\fC [inline, private]\fP"\fBReturns:\fP
+.RS 4
+The last cycle the XXX was changed. 
+.RE
+.PP
+
+.SS "unsigned long ew::DataflowSpline3::get_version_spline () const\fC [inline, private]\fP"\fBReturns:\fP
+.RS 4
+The last cycle the XXX was changed. 
+.RE
+.PP
+
+

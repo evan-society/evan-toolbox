@@ -1,0 +1,14 @@
+<About>
+<Author name="Roger Phillips" />
+<Author name="Paul O'Higgins" />
+<Author name="Fred Bookstein" />
+<Author name="Bill Green" />
+<Author name="Youssef Shady George-Nashed" />
+<Author name="Helgi Petur Gunnarsson" />
+<Author name="Vincent Dalge" />
+<Author name="Ramy Gowigati" />
+<Author name="Oualid Ben Ali" />
+<Version year="2012" month="March" day="4" ni="1.51" revision="1638" />
+<Website path="www.evan-society.org" />
+<SVN revision="$WCREV$" date="$WCDATE$" path="$WCURL$" />
+</About>

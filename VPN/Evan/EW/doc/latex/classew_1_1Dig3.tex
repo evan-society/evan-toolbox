@@ -1,0 +1,234 @@
+\hypertarget{classew_1_1Dig3}{
+\subsection{ew::Dig3 Class Reference}
+\label{classew_1_1Dig3}\index{ew::Dig3@{ew::Dig3}}
+}
+
+
+Digitizing Application.  
+
+
+
+
+{\ttfamily \#include $<$ew/Dig3.h$>$}
+
+\subsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classew_1_1Dig3_a218d7ccda5d476de1b2c8970f9c383ee}{space\_\-index\_\-t} \{ \hyperlink{classew_1_1Dig3_a218d7ccda5d476de1b2c8970f9c383eea8c1f651f962feb7eab6c19ee25118422}{SPACE\_\-TEMPLATE} =  0, 
+\hyperlink{classew_1_1Dig3_a218d7ccda5d476de1b2c8970f9c383eea6efc6a44da15940b77ef70100ff927cc}{SPACE\_\-SPECIMEN} =  1
+ \}
+\item 
+enum \hyperlink{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9f}{tableau\_\-flags\_\-t} \{ \hyperlink{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9fa49d067eb1fe80f6bcb69ff88b9611156}{TABLEAU\_\-VIEW} =  0x01, 
+\hyperlink{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9fac9c4c28672545c31088458b3767c03c7}{TABLEAU\_\-SETTINGS} =  0x02, 
+\hyperlink{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9fa1f77087df3ef36d5e24ec4ca71374d2d}{TABLEAU\_\-ALL} =  0x03
+ \}
+\end{DoxyCompactItemize}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1Dig3_aabdbcd7bda62dda77dfa195023578051}{Dig3} (\hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} $\ast$\hyperlink{classew_1_1Dig3_a94c1e034e60f4ca25cff64ee88ca86ab}{network})
+\item 
+\hyperlink{classew_1_1Dig3_a837f1989dfa80f5bf22eecafb055bf5c}{$\sim$Dig3} ()
+\item 
+int \hyperlink{classew_1_1Dig3_a44fe876fbf8342d6edd2355729afc495}{get\_\-n\_\-views} () const 
+\item 
+\hyperlink{classew_1_1Dig3View}{ew::Dig3View} $\ast$const $\ast$ \hyperlink{classew_1_1Dig3_a5ddec0535d0680a0b37616dbc4eee042}{get\_\-views} () const 
+\item 
+\hyperlink{classew_1_1Dig3Space}{ew::Dig3Space} $\ast$const $\ast$ \hyperlink{classew_1_1Dig3_ad8f02ea649e872543988eaf56ac8858f}{get\_\-spaces} () const 
+\item 
+const \hyperlink{classew_1_1DataflowSpline3}{ew::DataflowSpline3} $\ast$ \hyperlink{classew_1_1Dig3_ab163ea18f43b5c753b1b18b1523b4886}{get\_\-spline\_\-node} () const 
+\item 
+void \hyperlink{classew_1_1Dig3_a805ae977646c8b6c3bd1bff65c700569}{save\_\-tableau} (\hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} $\ast$outp, int template\_\-main, int template\_\-slice, int specimen\_\-main, int specimen\_\-slice)
+\item 
+void \hyperlink{classew_1_1Dig3_aa20f2ab4ae20bfa1600ff4a32fbb2182}{load\_\-tableau} (const \hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} $\ast$inp, int view, unsigned int flags)
+\item 
+void \hyperlink{classew_1_1Dig3_a9683b9f765ca282b010431c4e8b1888d}{interpolate\_\-tableau} (const \hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} $\ast$inp1, const \hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} $\ast$inp2, double e, int view)
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} $\ast$const \hyperlink{classew_1_1Dig3_a94c1e034e60f4ca25cff64ee88ca86ab}{network}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Dig3}{ew::Dig3} implements a 3D digitizing application.
+
+\hyperlink{classew_1_1Dig3}{ew::Dig3} is a class without assignment or comparison. There are private member variables.
+
+An \hyperlink{classew_1_1Dig3}{ew::Dig3} maintains 2 space elements, the template and the specimen.
+
+View elements can be added and removed by creating or destroying \hyperlink{classew_1_1Dig3View}{ew::Dig3View} objects. 
+
+\subsubsection{Member Enumeration Documentation}
+\hypertarget{classew_1_1Dig3_a218d7ccda5d476de1b2c8970f9c383ee}{
+\index{ew::Dig3@{ew::Dig3}!space\_\-index\_\-t@{space\_\-index\_\-t}}
+\index{space\_\-index\_\-t@{space\_\-index\_\-t}!ew::Dig3@{ew::Dig3}}
+\paragraph[{space\_\-index\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ew::Dig3::space\_\-index\_\-t}}\hfill}
+\label{classew_1_1Dig3_a218d7ccda5d476de1b2c8970f9c383ee}
+These are the indices of the 2 spaces in the array of spaces. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{SPACE\_\-TEMPLATE@{SPACE\_\-TEMPLATE}!ew::Dig3@{ew::Dig3}}\index{ew::Dig3@{ew::Dig3}!SPACE\_\-TEMPLATE@{SPACE\_\-TEMPLATE}}\item[{\em 
+\hypertarget{classew_1_1Dig3_a218d7ccda5d476de1b2c8970f9c383eea8c1f651f962feb7eab6c19ee25118422}{
+SPACE\_\-TEMPLATE}
+\label{classew_1_1Dig3_a218d7ccda5d476de1b2c8970f9c383eea8c1f651f962feb7eab6c19ee25118422}
+}]The index of the template space. \index{SPACE\_\-SPECIMEN@{SPACE\_\-SPECIMEN}!ew::Dig3@{ew::Dig3}}\index{ew::Dig3@{ew::Dig3}!SPACE\_\-SPECIMEN@{SPACE\_\-SPECIMEN}}\item[{\em 
+\hypertarget{classew_1_1Dig3_a218d7ccda5d476de1b2c8970f9c383eea6efc6a44da15940b77ef70100ff927cc}{
+SPACE\_\-SPECIMEN}
+\label{classew_1_1Dig3_a218d7ccda5d476de1b2c8970f9c383eea6efc6a44da15940b77ef70100ff927cc}
+}]The index of the specimen space. \end{description}
+\end{Desc}
+
+\hypertarget{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9f}{
+\index{ew::Dig3@{ew::Dig3}!tableau\_\-flags\_\-t@{tableau\_\-flags\_\-t}}
+\index{tableau\_\-flags\_\-t@{tableau\_\-flags\_\-t}!ew::Dig3@{ew::Dig3}}
+\paragraph[{tableau\_\-flags\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ew::Dig3::tableau\_\-flags\_\-t}}\hfill}
+\label{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9f}
+These are flags that can be or-\/ed and passed to \hyperlink{classew_1_1Dig3_aa20f2ab4ae20bfa1600ff4a32fbb2182}{load\_\-tableau}. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{TABLEAU\_\-VIEW@{TABLEAU\_\-VIEW}!ew::Dig3@{ew::Dig3}}\index{ew::Dig3@{ew::Dig3}!TABLEAU\_\-VIEW@{TABLEAU\_\-VIEW}}\item[{\em 
+\hypertarget{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9fa49d067eb1fe80f6bcb69ff88b9611156}{
+TABLEAU\_\-VIEW}
+\label{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9fa49d067eb1fe80f6bcb69ff88b9611156}
+}]Set the view mapping. \index{TABLEAU\_\-SETTINGS@{TABLEAU\_\-SETTINGS}!ew::Dig3@{ew::Dig3}}\index{ew::Dig3@{ew::Dig3}!TABLEAU\_\-SETTINGS@{TABLEAU\_\-SETTINGS}}\item[{\em 
+\hypertarget{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9fac9c4c28672545c31088458b3767c03c7}{
+TABLEAU\_\-SETTINGS}
+\label{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9fac9c4c28672545c31088458b3767c03c7}
+}]Set the settings. \index{TABLEAU\_\-ALL@{TABLEAU\_\-ALL}!ew::Dig3@{ew::Dig3}}\index{ew::Dig3@{ew::Dig3}!TABLEAU\_\-ALL@{TABLEAU\_\-ALL}}\item[{\em 
+\hypertarget{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9fa1f77087df3ef36d5e24ec4ca71374d2d}{
+TABLEAU\_\-ALL}
+\label{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9fa1f77087df3ef36d5e24ec4ca71374d2d}
+}]Set everything. \end{description}
+\end{Desc}
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{classew_1_1Dig3_aabdbcd7bda62dda77dfa195023578051}{
+\index{ew::Dig3@{ew::Dig3}!Dig3@{Dig3}}
+\index{Dig3@{Dig3}!ew::Dig3@{ew::Dig3}}
+\paragraph[{Dig3}]{\setlength{\rightskip}{0pt plus 5cm}ew::Dig3::Dig3 (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::DataflowNetwork} $\ast$}]{ network}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}explicit\mbox{]}}}\hfill}
+\label{classew_1_1Dig3_aabdbcd7bda62dda77dfa195023578051}
+This creates an empty digitizing application. 
+\begin{DoxyParams}{Parameters}
+\item[{\em network}]A pointer to a dataflow network. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3_a837f1989dfa80f5bf22eecafb055bf5c}{
+\index{ew::Dig3@{ew::Dig3}!$\sim$Dig3@{$\sim$Dig3}}
+\index{$\sim$Dig3@{$\sim$Dig3}!ew::Dig3@{ew::Dig3}}
+\paragraph[{$\sim$Dig3}]{\setlength{\rightskip}{0pt plus 5cm}ew::Dig3::$\sim$Dig3 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3_a837f1989dfa80f5bf22eecafb055bf5c}
+This destroys the digitizing application. Any \hyperlink{classew_1_1Dig3View}{ew::Dig3View} widgets associated with it are also destroyed. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Dig3_a44fe876fbf8342d6edd2355729afc495}{
+\index{ew::Dig3@{ew::Dig3}!get\_\-n\_\-views@{get\_\-n\_\-views}}
+\index{get\_\-n\_\-views@{get\_\-n\_\-views}!ew::Dig3@{ew::Dig3}}
+\paragraph[{get\_\-n\_\-views}]{\setlength{\rightskip}{0pt plus 5cm}int ew::Dig3::get\_\-n\_\-views (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3_a44fe876fbf8342d6edd2355729afc495}
+\begin{DoxyReturn}{Returns}
+The number of views. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3_a5ddec0535d0680a0b37616dbc4eee042}{
+\index{ew::Dig3@{ew::Dig3}!get\_\-views@{get\_\-views}}
+\index{get\_\-views@{get\_\-views}!ew::Dig3@{ew::Dig3}}
+\paragraph[{get\_\-views}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::Dig3View} $\ast$const $\ast$ ew::Dig3::get\_\-views (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3_a5ddec0535d0680a0b37616dbc4eee042}
+\begin{DoxyReturn}{Returns}
+The view index. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3_ad8f02ea649e872543988eaf56ac8858f}{
+\index{ew::Dig3@{ew::Dig3}!get\_\-spaces@{get\_\-spaces}}
+\index{get\_\-spaces@{get\_\-spaces}!ew::Dig3@{ew::Dig3}}
+\paragraph[{get\_\-spaces}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::Dig3Space} $\ast$const $\ast$ ew::Dig3::get\_\-spaces (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3_ad8f02ea649e872543988eaf56ac8858f}
+\begin{DoxyReturn}{Returns}
+The space index. There are always 2 spaces and the index is constant. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3_ab163ea18f43b5c753b1b18b1523b4886}{
+\index{ew::Dig3@{ew::Dig3}!get\_\-spline\_\-node@{get\_\-spline\_\-node}}
+\index{get\_\-spline\_\-node@{get\_\-spline\_\-node}!ew::Dig3@{ew::Dig3}}
+\paragraph[{get\_\-spline\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::DataflowSpline3} $\ast$ ew::Dig3::get\_\-spline\_\-node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3_ab163ea18f43b5c753b1b18b1523b4886}
+\begin{DoxyReturn}{Returns}
+A pointer to the spline node that this \hyperlink{classew_1_1Dig3}{ew::Dig3} manages. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1Dig3_a805ae977646c8b6c3bd1bff65c700569}{
+\index{ew::Dig3@{ew::Dig3}!save\_\-tableau@{save\_\-tableau}}
+\index{save\_\-tableau@{save\_\-tableau}!ew::Dig3@{ew::Dig3}}
+\paragraph[{save\_\-tableau}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3::save\_\-tableau (
+\begin{DoxyParamCaption}
+\item[{{\bf ew::Dig3Tableau} $\ast$}]{ outp, }
+\item[{int}]{ template\_\-main, }
+\item[{int}]{ template\_\-slice, }
+\item[{int}]{ specimen\_\-main, }
+\item[{int}]{ specimen\_\-slice}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3_a805ae977646c8b6c3bd1bff65c700569}
+This creates a tableau record from the indicated views, specified by index. The form filename fields of the tableau are left blank, and must be explicitly set. 
+\begin{DoxyParams}{Parameters}
+\item[{\em outp}]Where to store the tableau record. \item[{\em template\_\-main}]The index of a template main view to record. \item[{\em template\_\-slice}]The index of a template slice view to record. \item[{\em specimen\_\-main}]The index of a specimen main view to record. \item[{\em specimen\_\-slice}]The index of a specimen slice view to record. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3_aa20f2ab4ae20bfa1600ff4a32fbb2182}{
+\index{ew::Dig3@{ew::Dig3}!load\_\-tableau@{load\_\-tableau}}
+\index{load\_\-tableau@{load\_\-tableau}!ew::Dig3@{ew::Dig3}}
+\paragraph[{load\_\-tableau}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3::load\_\-tableau (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Dig3Tableau} $\ast$}]{ inp, }
+\item[{int}]{ view, }
+\item[{unsigned int}]{ flags}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3_aa20f2ab4ae20bfa1600ff4a32fbb2182}
+This applies a tableau record to the indicated view. The type of view and its space determine which part of the record is applied. The form filename fields are not applied. The forms must be explicitly set beforehand. 
+\begin{DoxyParams}{Parameters}
+\item[{\em inp}]The tableau to apply. \item[{\em view}]The index of the view to apply it to. \item[{\em flags}]Flags of type \hyperlink{classew_1_1Dig3_a52d5624e2591670cdb6e7fb212a55c9f}{tableau\_\-flags\_\-t} indicating which parts of the tableau record to apply. \end{DoxyParams}
+\hypertarget{classew_1_1Dig3_a9683b9f765ca282b010431c4e8b1888d}{
+\index{ew::Dig3@{ew::Dig3}!interpolate\_\-tableau@{interpolate\_\-tableau}}
+\index{interpolate\_\-tableau@{interpolate\_\-tableau}!ew::Dig3@{ew::Dig3}}
+\paragraph[{interpolate\_\-tableau}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3::interpolate\_\-tableau (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Dig3Tableau} $\ast$}]{ inp1, }
+\item[{const {\bf ew::Dig3Tableau} $\ast$}]{ inp2, }
+\item[{double}]{ e, }
+\item[{int}]{ view}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3_a9683b9f765ca282b010431c4e8b1888d}
+This interpolates between tableau records and applies the result to the indicated view. Only the views are applied. The settings of the tableau and the forms cannot be interpolated and need to be manually applied when a new frame is reached in a filmstrip. 
+\begin{DoxyParams}{Parameters}
+\item[{\em inp1,inp2}]The tableaus to interpolate. \item[{\em e}]The interpolation parameter, with 0.0 corresponding to {\itshape inp1\/} and 1.0 to {\itshape inp\/}. {\itshape e\/} is not restricted to \mbox{[}0.0, 1.0\mbox{]}. \item[{\em view}]The index of the view to apply it to. \end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Dig3_a94c1e034e60f4ca25cff64ee88ca86ab}{
+\index{ew::Dig3@{ew::Dig3}!network@{network}}
+\index{network@{network}!ew::Dig3@{ew::Dig3}}
+\paragraph[{network}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::DataflowNetwork} $\ast$const {\bf ew::Dig3::network}}\hfill}
+\label{classew_1_1Dig3_a94c1e034e60f4ca25cff64ee88ca86ab}
+This points to the \hyperlink{classew_1_1DataflowNetwork}{ew::DataflowNetwork} that this \hyperlink{classew_1_1Dig3}{ew::Dig3} was created with. 

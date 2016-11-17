@@ -1,0 +1,89 @@
+.TH "ew::View3Item" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::View3Item \- 
+.PP
+Item Base Class.  
+
+\fBew::View3Item\fP is the base class for items displayed in ew::View_widget.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/View3Item.h>\fP
+.PP
+Inherited by \fBew::View3Curve\fP, \fBew::View3Image\fP, \fBew::View3Landmarks\fP, and \fBew::View3Surface\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBget_state\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_state\fP (bool st)"
+.br
+.ti -1c
+.RI "virtual const \fBew::Bbox3\fP * \fBget_bbox\fP ()=0"
+.br
+.ti -1c
+.RI "int \fBget_index\fP () const "
+.br
+.ti -1c
+.RI "void \fBdestroy\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBew::DataflowNetwork\fP *const \fBnetwork\fP"
+.br
+.ti -1c
+.RI "\fBew::View3Widget\fP *const \fBview\fP"
+.br
+.ti -1c
+.RI "const int \fBtype\fP"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::View3Item\fP is a class without assignment or comparison. There are private member variables.
+.PP
+Items must be created with \fCnew\fP and then belong to the \fBew::View3Widget\fP. They must only be deleted indirectly with the \fBdestroy\fP method. Remaining items will be automatically deleted when the \fBew::View3Widget\fP is destroyed. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "bool ew::View3Item::get_state () const\fC [inline]\fP"An item is displayed iff the state is \fCtrue\fP. 
+.PP
+\fBReturns:\fP
+.RS 4
+The current state of the item. 
+.RE
+.PP
+
+.SS "void ew::View3Item::set_state (bool i)"\fBParameters:\fP
+.RS 4
+\fIi\fP The new state of the item. 
+.RE
+.PP
+
+.SS "const \fBew::Bbox3\fP * ew::View3Item::get_bbox ()\fC [pure virtual]\fP"\fBReturns:\fP
+.RS 4
+A pointer to a bounding box for the item as currently being displayed. 
+.RE
+.PP
+
+.SS "int ew::View3Item::get_index () const\fC [inline]\fP"\fBReturns:\fP
+.RS 4
+The current index of the item in the widget's item list. 
+.RE
+.PP
+
+.SS "void ew::View3Item::destroy ()\fC [inline]\fP"This removes the item from the widget and destroys it. 
+.SH MEMBER DATA
+.PP 
+.SS "\fBew::DataflowNetwork\fP *const \fBew::View3Item::network\fP"This points to the \fBew::DataflowNetwork\fP that the \fBview\fP was created with. 
+.SS "\fBew::View3Widget\fP *const \fBew::View3Item::view\fP"This points to the \fBew::View3Widget\fP the this \fBew::View3Item\fP was created with. 
+.SS "const int \fBew::View3Item::type\fP"This is an arbitrary value supplied in the constructor. It is client data, not touched by \fBew::View3Item\fP or \fBew::View3Widget\fP. 
+

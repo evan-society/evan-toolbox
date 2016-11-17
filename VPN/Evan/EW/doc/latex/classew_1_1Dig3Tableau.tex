@@ -1,0 +1,135 @@
+\hypertarget{classew_1_1Dig3Tableau}{
+\subsection{ew::Dig3Tableau Class Reference}
+\label{classew_1_1Dig3Tableau}\index{ew::Dig3Tableau@{ew::Dig3Tableau}}
+}
+
+
+Viewing State Record.  
+
+
+
+
+{\ttfamily \#include $<$ew/Dig3Tableau.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classew_1_1Dig3Tableau_a093ba4facab01a36f8a131f38d3dc4d2}{
+\hyperlink{classew_1_1Dig3Tableau_a093ba4facab01a36f8a131f38d3dc4d2}{Dig3Tableau} ()}
+\label{classew_1_1Dig3Tableau_a093ba4facab01a36f8a131f38d3dc4d2}
+
+\begin{DoxyCompactList}\small\item\em This sets intrinsic member variables to their default values. \item\end{DoxyCompactList}\item 
+void \hyperlink{classew_1_1Dig3Tableau_aa8f042e3995367fdeb3dfc612b75fcab}{reset} ()
+\item 
+bool \hyperlink{classew_1_1Dig3Tableau_adb42bf7da4ce08240005b9262a22d4f6}{operator!=} (const \hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} \&a) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{classew_1_1Dig3Tableau_ac74f443090f0591aed7b3934e69fdb80}{read\_\-file} (std::vector$<$ \hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} $>$ $\ast$outp, const char $\ast$file)
+\item 
+static void \hyperlink{classew_1_1Dig3Tableau_ab8a6e764e4145174c813511b38784800}{write\_\-file} (const char $\ast$file, bool compress, const std::vector$<$ \hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} $>$ $\ast$inp)
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classew_1_1Dig3TableauSpace}{ew::Dig3TableauSpace} \hyperlink{classew_1_1Dig3Tableau_a1b990b9b496c362b4163a524495991e8}{space} \mbox{[}2\mbox{]}
+\item 
+double \hyperlink{classew_1_1Dig3Tableau_abf30abc4fcb077a98b911b66136ed29e}{slice\_\-clip\_\-ratio}
+\item 
+unsigned char \hyperlink{classew_1_1Dig3Tableau_ade125d58d73182b82eecad5ff22f7008}{bg} \mbox{[}3\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} contains a partial record of the state of an \hyperlink{classew_1_1Dig3}{ew::Dig3}.
+
+\hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} is a data structure that supports default construction, copy construction, assignment and equality comparison.
+
+\hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} records the \hyperlink{classew_1_1Dig3}{ew::Dig3} space forms indirectly as file names. It does not record the \hyperlink{classew_1_1Dig3}{ew::Dig3} views, their widgets or their linkages. It records the settings of one each of:
+\begin{DoxyItemize}
+\item a template main view
+\item a template slice view
+\item a specimen main view
+\item a specimen slice view
+\end{DoxyItemize}Some settings will be assumed to be common to some or all of the windows. It does not record state that is not controlled by the library, such as the window sizes, file browser history or transient state such as the selected item, window configuration, or gui modal state.
+
+\hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} lists are represented in save files read by \hyperlink{classew_1_1Dig3Tableau_ac74f443090f0591aed7b3934e69fdb80}{read\_\-file} and \hyperlink{classew_1_1Dig3Tableau_ab8a6e764e4145174c813511b38784800}{write\_\-file}. Here is an example:
+\begin{DoxyItemize}
+\item \hyperlink{example_8sav}{example.sav}
+\end{DoxyItemize}The representation is exact except that filenames in the form files are abbreviated to relative filenames in common situations were possible, but in \hyperlink{classew_1_1Dig3Tableau}{ew::Dig3Tableau} they are always in canonical form. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1Dig3Tableau_aa8f042e3995367fdeb3dfc612b75fcab}{
+\index{ew::Dig3Tableau@{ew::Dig3Tableau}!reset@{reset}}
+\index{reset@{reset}!ew::Dig3Tableau@{ew::Dig3Tableau}}
+\paragraph[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Tableau::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill}
+\label{classew_1_1Dig3Tableau_aa8f042e3995367fdeb3dfc612b75fcab}
+This resets the object to its initial state. \hypertarget{classew_1_1Dig3Tableau_ac74f443090f0591aed7b3934e69fdb80}{
+\index{ew::Dig3Tableau@{ew::Dig3Tableau}!read\_\-file@{read\_\-file}}
+\index{read\_\-file@{read\_\-file}!ew::Dig3Tableau@{ew::Dig3Tableau}}
+\paragraph[{read\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Tableau::read\_\-file (
+\begin{DoxyParamCaption}
+\item[{std::vector$<$ {\bf ew::Dig3Tableau} $>$ $\ast$}]{ outp, }
+\item[{const char $\ast$}]{ file}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Tableau_ac74f443090f0591aed7b3934e69fdb80}
+This reads a save file. The file can be compressed with gzip compression. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[in]} {\em outp}]The vector to store the records read in. \item[{\em file}]The file name. \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em std::bad\_\-alloc}]\item[{\em ew::IOError}]\end{DoxyExceptions}
+\hypertarget{classew_1_1Dig3Tableau_ab8a6e764e4145174c813511b38784800}{
+\index{ew::Dig3Tableau@{ew::Dig3Tableau}!write\_\-file@{write\_\-file}}
+\index{write\_\-file@{write\_\-file}!ew::Dig3Tableau@{ew::Dig3Tableau}}
+\paragraph[{write\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void ew::Dig3Tableau::write\_\-file (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ file, }
+\item[{bool}]{ compress, }
+\item[{const std::vector$<$ {\bf ew::Dig3Tableau} $>$ $\ast$}]{ outp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Tableau_ab8a6e764e4145174c813511b38784800}
+This writes a save file. 
+\begin{DoxyParams}{Parameters}
+\item[{\em file}]The file name. \item[{\em compress}]If {\ttfamily true}, write the file compressed with gzip compression. \item[\mbox{\tt[in]} {\em outp}]The vector of records to write. \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+\item[{\em std::bad\_\-alloc}]\item[{\em EW::ErrorIO}]\end{DoxyExceptions}
+\hypertarget{classew_1_1Dig3Tableau_adb42bf7da4ce08240005b9262a22d4f6}{
+\index{ew::Dig3Tableau@{ew::Dig3Tableau}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!ew::Dig3Tableau@{ew::Dig3Tableau}}
+\paragraph[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::Dig3Tableau::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf ew::Dig3Tableau} \&}]{ a}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1Dig3Tableau_adb42bf7da4ce08240005b9262a22d4f6}
+Compares this record with another, member by member. 
+\begin{DoxyParams}{Parameters}
+\item[{\em a}]the other record \end{DoxyParams}
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{classew_1_1Dig3Tableau_a1b990b9b496c362b4163a524495991e8}{
+\index{ew::Dig3Tableau@{ew::Dig3Tableau}!space@{space}}
+\index{space@{space}!ew::Dig3Tableau@{ew::Dig3Tableau}}
+\paragraph[{space}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ew::Dig3TableauSpace} {\bf ew::Dig3Tableau::space}\mbox{[}2\mbox{]}}\hfill}
+\label{classew_1_1Dig3Tableau_a1b990b9b496c362b4163a524495991e8}
+The template and specimen space states. \hypertarget{classew_1_1Dig3Tableau_abf30abc4fcb077a98b911b66136ed29e}{
+\index{ew::Dig3Tableau@{ew::Dig3Tableau}!slice\_\-clip\_\-ratio@{slice\_\-clip\_\-ratio}}
+\index{slice\_\-clip\_\-ratio@{slice\_\-clip\_\-ratio}!ew::Dig3Tableau@{ew::Dig3Tableau}}
+\paragraph[{slice\_\-clip\_\-ratio}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf ew::Dig3Tableau::slice\_\-clip\_\-ratio}}\hfill}
+\label{classew_1_1Dig3Tableau_abf30abc4fcb077a98b911b66136ed29e}
+The slice clip ratio. The default is 0.01. \hypertarget{classew_1_1Dig3Tableau_ade125d58d73182b82eecad5ff22f7008}{
+\index{ew::Dig3Tableau@{ew::Dig3Tableau}!bg@{bg}}
+\index{bg@{bg}!ew::Dig3Tableau@{ew::Dig3Tableau}}
+\paragraph[{bg}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char {\bf ew::Dig3Tableau::bg}\mbox{[}3\mbox{]}}\hfill}
+\label{classew_1_1Dig3Tableau_ade125d58d73182b82eecad5ff22f7008}
+The window background. The default is \mbox{[}0, 0, 0\mbox{]}. 

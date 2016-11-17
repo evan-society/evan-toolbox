@@ -1,0 +1,152 @@
+\hypertarget{classew_1_1DataflowCurve3}{
+\subsection{ew::DataflowCurve3 Class Reference}
+\label{classew_1_1DataflowCurve3}\index{ew::DataflowCurve3@{ew::DataflowCurve3}}
+}
+
+
+Curve Node Base Class.  
+
+
+
+
+{\ttfamily \#include $<$ew/DataflowCurve3.h$>$}
+
+
+
+Inheritance diagram for ew::DataflowCurve3:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{classew_1_1DataflowCurve3__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classew_1_1DataflowCurve3_afa6639c14717ab3d2a64ed48bc37683d}{get\_\-num\_\-points} () const 
+\item 
+int \hyperlink{classew_1_1DataflowCurve3_a1617f1c56fc2b04284180f7bb4f707e1}{get\_\-num\_\-edges} () const 
+\item 
+const float $\ast$ \hyperlink{classew_1_1DataflowCurve3_a8e88c66552e476c51b3719e7316d3565}{get\_\-points} () const 
+\item 
+const int $\ast$ \hyperlink{classew_1_1DataflowCurve3_af1fc7dfffb82610efedae52e69262daf}{get\_\-edges} () const 
+\item 
+const \hyperlink{classew_1_1Bbox3}{ew::Bbox3} $\ast$ \hyperlink{classew_1_1DataflowCurve3_a11b0a9f416916cf526988d7a787e61f4}{get\_\-bbox} () const 
+\item 
+void \hyperlink{classew_1_1DataflowCurve3_a3705ea92d9fc796b4013f1b862607c73}{make\_\-index} () const 
+\item 
+bool \hyperlink{classew_1_1DataflowCurve3_ae1314c04d06c2b29651bedfd0d68e0bd}{index\_\-is\_\-made} () const 
+\item 
+double \hyperlink{classew_1_1DataflowCurve3_a914a3fd65c2a397f0fef3ad5e1f67bce}{project} (int $\ast$edge, double $\ast$coeffs, double $\ast$tangent, double $\ast$proj, const double $\ast$inp) const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\hyperlink{classew_1_1DataflowCurve3}{ew::DataflowCurve3} is the base class for nodes containing piecewise-\/linear curves in $\mathbb{R}^3$.
+
+\hyperlink{classew_1_1DataflowCurve3}{ew::DataflowCurve3} is a class without assignment or comparison. There are private member variables.
+
+For efficient rendering of the same curve in multiple windows, an OpenGL display list is constructed containing the basic curve geometry commands. All windows displaying a given curve must share display lists. 
+
+\subsubsection{Member Function Documentation}
+\hypertarget{classew_1_1DataflowCurve3_afa6639c14717ab3d2a64ed48bc37683d}{
+\index{ew::DataflowCurve3@{ew::DataflowCurve3}!get\_\-num\_\-points@{get\_\-num\_\-points}}
+\index{get\_\-num\_\-points@{get\_\-num\_\-points}!ew::DataflowCurve3@{ew::DataflowCurve3}}
+\paragraph[{get\_\-num\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowCurve3::get\_\-num\_\-points (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowCurve3_afa6639c14717ab3d2a64ed48bc37683d}
+This will force the network into an updating phase. \begin{DoxyReturn}{Returns}
+The number of points used in the curve. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowCurve3_a1617f1c56fc2b04284180f7bb4f707e1}{
+\index{ew::DataflowCurve3@{ew::DataflowCurve3}!get\_\-num\_\-edges@{get\_\-num\_\-edges}}
+\index{get\_\-num\_\-edges@{get\_\-num\_\-edges}!ew::DataflowCurve3@{ew::DataflowCurve3}}
+\paragraph[{get\_\-num\_\-edges}]{\setlength{\rightskip}{0pt plus 5cm}int ew::DataflowCurve3::get\_\-num\_\-edges (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowCurve3_a1617f1c56fc2b04284180f7bb4f707e1}
+This will force the network into an updating phase. \begin{DoxyReturn}{Returns}
+The number of triangular edges in the curve. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowCurve3_a8e88c66552e476c51b3719e7316d3565}{
+\index{ew::DataflowCurve3@{ew::DataflowCurve3}!get\_\-points@{get\_\-points}}
+\index{get\_\-points@{get\_\-points}!ew::DataflowCurve3@{ew::DataflowCurve3}}
+\paragraph[{get\_\-points}]{\setlength{\rightskip}{0pt plus 5cm}const float $\ast$ ew::DataflowCurve3::get\_\-points (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowCurve3_a8e88c66552e476c51b3719e7316d3565}
+This will force the network into an updating phase. The pointer is valid until the node or a dependency of the node is changed. \begin{DoxyReturn}{Returns}
+A pointer to the coordinates of the points used in the curve. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowCurve3_af1fc7dfffb82610efedae52e69262daf}{
+\index{ew::DataflowCurve3@{ew::DataflowCurve3}!get\_\-edges@{get\_\-edges}}
+\index{get\_\-edges@{get\_\-edges}!ew::DataflowCurve3@{ew::DataflowCurve3}}
+\paragraph[{get\_\-edges}]{\setlength{\rightskip}{0pt plus 5cm}const int $\ast$ ew::DataflowCurve3::get\_\-edges (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowCurve3_af1fc7dfffb82610efedae52e69262daf}
+This will force the network into an updating phase. The pointer is valid until the node or a dependency of the node is changed. \begin{DoxyReturn}{Returns}
+A pointer to the indices of the points used in the curve. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowCurve3_a11b0a9f416916cf526988d7a787e61f4}{
+\index{ew::DataflowCurve3@{ew::DataflowCurve3}!get\_\-bbox@{get\_\-bbox}}
+\index{get\_\-bbox@{get\_\-bbox}!ew::DataflowCurve3@{ew::DataflowCurve3}}
+\paragraph[{get\_\-bbox}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf ew::Bbox3} $\ast$ ew::DataflowCurve3::get\_\-bbox (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowCurve3_a11b0a9f416916cf526988d7a787e61f4}
+The pointer is valid until the node or a dependency of the node is changed. \begin{DoxyReturn}{Returns}
+A pointer to the bounding box of the curve. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowCurve3_a3705ea92d9fc796b4013f1b862607c73}{
+\index{ew::DataflowCurve3@{ew::DataflowCurve3}!make\_\-index@{make\_\-index}}
+\index{make\_\-index@{make\_\-index}!ew::DataflowCurve3@{ew::DataflowCurve3}}
+\paragraph[{make\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}void ew::DataflowCurve3::make\_\-index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowCurve3_a3705ea92d9fc796b4013f1b862607c73}
+This makes the curve spatial index if it has not already been made since the curve was last changed. The spatial index is used by \hyperlink{classew_1_1DataflowCurve3_a914a3fd65c2a397f0fef3ad5e1f67bce}{project}. \hypertarget{classew_1_1DataflowCurve3_ae1314c04d06c2b29651bedfd0d68e0bd}{
+\index{ew::DataflowCurve3@{ew::DataflowCurve3}!index\_\-is\_\-made@{index\_\-is\_\-made}}
+\index{index\_\-is\_\-made@{index\_\-is\_\-made}!ew::DataflowCurve3@{ew::DataflowCurve3}}
+\paragraph[{index\_\-is\_\-made}]{\setlength{\rightskip}{0pt plus 5cm}bool ew::DataflowCurve3::index\_\-is\_\-made (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill}
+\label{classew_1_1DataflowCurve3_ae1314c04d06c2b29651bedfd0d68e0bd}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if the curve spatial index is up to date. 
+\end{DoxyReturn}
+\hypertarget{classew_1_1DataflowCurve3_a914a3fd65c2a397f0fef3ad5e1f67bce}{
+\index{ew::DataflowCurve3@{ew::DataflowCurve3}!project@{project}}
+\index{project@{project}!ew::DataflowCurve3@{ew::DataflowCurve3}}
+\paragraph[{project}]{\setlength{\rightskip}{0pt plus 5cm}double ew::DataflowCurve3::project (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ edge, }
+\item[{double $\ast$}]{ coeffs, }
+\item[{double $\ast$}]{ tangent, }
+\item[{double $\ast$}]{ proj, }
+\item[{const double $\ast$}]{ inp}
+\end{DoxyParamCaption}
+) const}\hfill}
+\label{classew_1_1DataflowCurve3_a914a3fd65c2a397f0fef3ad5e1f67bce}
+This finds the nearest point on the curve to a given point. The curve spatial index will be made if it has not already been made. 
+\begin{DoxyParams}{Parameters}
+\item[\mbox{\tt[out]} {\em edge}]The index of the edge of the curve containing the nearest point. \item[\mbox{\tt[out]} {\em coeffs}]The coefficients of the nearest point when expressed as a linear combination of the vertices of the edge. \item[\mbox{\tt[out]} {\em tangent}]The interpolated tangent at the nearest point. If a sensible tangent cannot be calculated, an arbitrary unit vector is returned. \item[\mbox{\tt[out]} {\em proj}]The coordinates of the nearest point on the curve. \item[\mbox{\tt[in]} {\em inp}]The coordinates of the original point. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The distance from the original point to the projected point. 
+\end{DoxyReturn}

@@ -1,0 +1,126 @@
+.TH "ew::Dig3Tableau" 3 "4.20100927" "EW Library" "EW Library"
+.ad l
+.nh
+.SH NAME
+ew::Dig3Tableau \- 
+.PP
+Viewing State Record.  
+
+\fBew::Dig3Tableau\fP contains a partial record of the state of an \fBew::Dig3\fP.
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ew/Dig3Tableau.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDig3Tableau\fP ()"
+.br
+.RI "\fIThis sets intrinsic member variables to their default values. \fP"
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBew::Dig3Tableau\fP &a) const "
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBread_file\fP (std::vector< \fBew::Dig3Tableau\fP > *outp, const char *file)"
+.br
+.ti -1c
+.RI "static void \fBwrite_file\fP (const char *file, bool compress, const std::vector< \fBew::Dig3Tableau\fP > *inp)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBew::Dig3TableauSpace\fP \fBspace\fP [2]"
+.br
+.ti -1c
+.RI "double \fBslice_clip_ratio\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBbg\fP [3]"
+.br
+.in -1c
+.SH DESCRIPTION
+.PP 
+.PP
+\fBew::Dig3Tableau\fP is a data structure that supports default construction, copy construction, assignment and equality comparison.
+.PP
+\fBew::Dig3Tableau\fP records the \fBew::Dig3\fP space forms indirectly as file names. It does not record the \fBew::Dig3\fP views, their widgets or their linkages. It records the settings of one each of:
+.IP "\(bu" 2
+a template main view
+.IP "\(bu" 2
+a template slice view
+.IP "\(bu" 2
+a specimen main view
+.IP "\(bu" 2
+a specimen slice view
+.PP
+Some settings will be assumed to be common to some or all of the windows. It does not record state that is not controlled by the library, such as the window sizes, file browser history or transient state such as the selected item, window configuration, or gui modal state.
+.PP
+\fBew::Dig3Tableau\fP lists are represented in save files read by \fBread_file\fP and \fBwrite_file\fP. Here is an example:
+.IP "\(bu" 2
+\fBexample.sav\fP
+.PP
+The representation is exact except that filenames in the form files are abbreviated to relative filenames in common situations were possible, but in \fBew::Dig3Tableau\fP they are always in canonical form. 
+.SH MEMBER FUNCTIONS
+.PP 
+.SS "void ew::Dig3Tableau::reset ()"This resets the object to its initial state. 
+.SS "void ew::Dig3Tableau::read_file (std::vector< \fBew::Dig3Tableau\fP > * outp, const char * file)\fC [static]\fP"This reads a save file. The file can be compressed with gzip compression. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIoutp\fP The vector to store the records read in. 
+.br
+\fIfile\fP The file name. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.br
+\fIew::IOError\fP 
+.RE
+.PP
+
+.SS "void ew::Dig3Tableau::write_file (const char * file, bool compress, const std::vector< \fBew::Dig3Tableau\fP > * outp)\fC [static]\fP"This writes a save file. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfile\fP The file name. 
+.br
+\fIcompress\fP If \fCtrue\fP, write the file compressed with gzip compression. 
+.br
+\fIoutp\fP The vector of records to write. 
+.RE
+.PP
+\fBExceptions:\fP
+.RS 4
+\fIstd::bad_alloc\fP 
+.br
+\fIEW::ErrorIO\fP 
+.RE
+.PP
+
+.SS "bool ew::Dig3Tableau::operator!= (const \fBew::Dig3Tableau\fP & a) const\fC [inline]\fP"Compares this record with another, member by member. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIa\fP the other record 
+.RE
+.PP
+
+.SH MEMBER DATA
+.PP 
+.SS "\fBew::Dig3TableauSpace\fP \fBew::Dig3Tableau::space\fP[2]"The template and specimen space states. 
+.SS "double \fBew::Dig3Tableau::slice_clip_ratio\fP"The slice clip ratio. The default is 0.01. 
+.SS "unsigned char \fBew::Dig3Tableau::bg\fP[3]"The window background. The default is [0, 0, 0]. 
+

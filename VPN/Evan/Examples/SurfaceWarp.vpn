@@ -1,0 +1,13 @@
+<VPN>
+ <Node x="-1109" y="-202" params="/home/ynashed/workspace/Evan/VPN/Evan/Examples/exampledata.txt$$$$$$$$morphologika$$0$$0$$3dim$$/home/ynashed/workspace/Evan/VPN/Evan/Examples/Surface_for_Specimen1.obj$$$$$$checked$$1$$$$checked$$$$$$standard" type="ImportNode" annotation=""/>
+ <Node x="-861" y="-189" params="1$$1$$1$$0$$0$$1$$0$$1$$1$$0$$0$$1$$1$$0$$0$$0$$100$$1e-12$$" type="GPANode" annotation=""/>
+ <Node x="-459" y="-106" params="*0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_0~0~0~10.0~0~0_" type="WarperNode" annotation=""/>
+ <Node x="-657" y="-197" params="1.0$$1.0$$0" type="SubtractNode" annotation=""/>
+ <Node x="-245" y="41" params="0.2|0.2|0.4|4.06723e+17|0.1|10000|0.707633|0.00496942|0.00361926|0.706554|4.93946e+15|-4.06693e+17|-6.25176e+14|0$Warped Landmarks|0|0|0|01|1|1|0|0|0|1|0|0|0|0|0|0/Warped Surface|0|0|0|01|1|1|0|0|0|1|0|0|0|0|0|0/Warped grids|192|192|192|255|1|1|1|0|0|0|1|0|0|0|0|0|0|()[]/" type="ViewerNode" annotation=""/>
+ <Link ports="0:0:0:0|0:0|0,1:1:0:0|0:0|0," sNode="0" eNode="1"/>
+ <Link ports="5:0:0:0|0:0|0,8:2:0:0|0:0|0," sNode="1" eNode="2"/>
+ <Link ports="5:0:0:0|0:0|0,0:1:0:0|0:0|0," sNode="1" eNode="3"/>
+ <Link ports="0:1:0:0|0:0|0," sNode="3" eNode="2"/>
+ <Link ports="0:0:0:0|0:0|0,1:0:0:0|0:0|0,2:0:0:0|0:0|0," sNode="2" eNode="4"/>
+ <Settings zoom="100"/>
+</VPN>

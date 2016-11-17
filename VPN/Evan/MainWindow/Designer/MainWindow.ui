@@ -1,0 +1,520 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>630</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>EVAN Toolbox</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset>
+    <normaloff>:/Images/Evan.ico</normaloff>:/Images/Evan.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QHBoxLayout" name="horizontalLayout" >
+    <item>
+     <widget class="QTabWidget" name="NodeBoxTabs" >
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Expanding" hsizetype="Maximum" >
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="tabPosition" >
+       <enum>QTabWidget::West</enum>
+      </property>
+      <property name="tabShape" >
+       <enum>QTabWidget::Triangular</enum>
+      </property>
+      <property name="currentIndex" >
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="dataTab" >
+       <attribute name="title" >
+        <string>Data</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="utilTab" >
+       <attribute name="title" >
+        <string>Utilities</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="gmmTab" >
+       <attribute name="title" >
+        <string>GMM</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="viewTab" >
+       <attribute name="title" >
+        <string>View</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout" >
+      <item>
+       <widget class="QMdiArea" name="mdiArea" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="viewMode" >
+         <enum>QMdiArea::TabbedView</enum>
+        </property>
+        <property name="tabShape" >
+         <enum>QTabWidget::Triangular</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="m_logTextEdit" >
+        <property name="readOnly" >
+         <bool>true</bool>
+        </property>
+        <property name="html" >
+         <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;">
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;">&lt;/p>&lt;/body>&lt;/html></string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="mainStatusBar" />
+  <widget class="QToolBar" name="toolBar" >
+   <property name="windowTitle" >
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_New" />
+   <addaction name="action_Open" />
+   <addaction name="action_Save" />
+   <addaction name="separator" />
+   <addaction name="actionDeleteSelection" />
+   <addaction name="actionRunNetwork" />
+   <addaction name="actionForceRunNetwork" />
+   <addaction name="separator" />
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File" >
+    <property name="title" >
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="recentMenu" >
+     <property name="title" >
+      <string>Open Recent </string>
+     </property>
+     <addaction name="emptyAction" />
+    </widget>
+    <widget class="QMenu" name="menuSave_As" >
+     <property name="title" >
+      <string>Save &amp;As...</string>
+     </property>
+     <addaction name="actionWith_Nodes_States" />
+     <addaction name="actionWithout_Nodes_States" />
+    </widget>
+    <addaction name="action_New" />
+    <addaction name="action_Open" />
+    <addaction name="action_Save" />
+    <addaction name="menuSave_As" />
+    <addaction name="separator" />
+    <addaction name="recentMenu" />
+    <addaction name="separator" />
+    <addaction name="separator" />
+    <addaction name="actionE_xit" />
+   </widget>
+   <widget class="QMenu" name="menu_View" >
+    <property name="title" >
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionLog" />
+   </widget>
+   <widget class="QMenu" name="menu_Window" >
+    <property name="title" >
+     <string>&amp;Window</string>
+    </property>
+    <addaction name="actionCl_ose" />
+    <addaction name="actionClose_All" />
+    <addaction name="separator" />
+    <addaction name="action_Tile" />
+    <addaction name="action_Cascade" />
+    <addaction name="separator" />
+    <addaction name="action_Next" />
+    <addaction name="action_Previous" />
+   </widget>
+   <widget class="QMenu" name="menuAbout" >
+    <property name="title" >
+     <string>Help</string>
+    </property>
+    <addaction name="actionLicense" />
+    <addaction name="actionRegister" />
+    <addaction name="actionAbout" />
+   </widget>
+   <addaction name="menu_File" />
+   <addaction name="menu_View" />
+   <addaction name="menu_Window" />
+   <addaction name="menuAbout" />
+  </widget>
+  <action name="actionDeleteSelection" >
+   <property name="icon" >
+    <iconset resource="../../Resources.qrc" >
+     <normaloff>:/Images/delete.png</normaloff>:/Images/delete.png</iconset>
+   </property>
+   <property name="text" >
+    <string>DeleteSelection</string>
+   </property>
+   <property name="iconText" >
+    <string>Delete Selection</string>
+   </property>
+   <property name="toolTip" >
+    <string>Delete Selection</string>
+   </property>
+   <property name="shortcut" >
+    <string>Del</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionRunNetwork" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="../../Resources.qrc" >
+     <normaloff>:/Images/play.png</normaloff>
+     <normalon>:/Images/pause.png</normalon>:/Images/play.png</iconset>
+   </property>
+   <property name="text" >
+    <string>runNetwork</string>
+   </property>
+   <property name="toolTip" >
+    <string>Start the VPN Network</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="action_New" >
+   <property name="icon" >
+    <iconset resource="../../Resources.qrc" >
+     <normaloff>:/Images/I_New.png</normaloff>:/Images/I_New.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;New</string>
+   </property>
+   <property name="toolTip" >
+    <string>Create New Project File</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="action_Open" >
+   <property name="icon" >
+    <iconset resource="../../Resources.qrc" >
+     <normaloff>:/Images/I_Open.png</normaloff>:/Images/I_Open.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Open</string>
+   </property>
+   <property name="toolTip" >
+    <string>Open an Existing Project File</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="action_Save" >
+   <property name="icon" >
+    <iconset resource="../../Resources.qrc" >
+     <normaloff>:/Images/I_Save.png</normaloff>:/Images/I_Save.png</iconset>
+   </property>
+   <property name="text" >
+    <string>&amp;Save</string>
+   </property>
+   <property name="toolTip" >
+    <string>Save this Project File</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionE_xit" >
+   <property name="text" >
+    <string>E&amp;xit</string>
+   </property>
+   <property name="toolTip" >
+    <string>Exit the Application</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionCl_ose" >
+   <property name="text" >
+    <string>Cl&amp;ose</string>
+   </property>
+   <property name="toolTip" >
+    <string>Close Active Window</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+F4</string>
+   </property>
+  </action>
+  <action name="actionClose_All" >
+   <property name="text" >
+    <string>Close &amp;All</string>
+   </property>
+   <property name="toolTip" >
+    <string>Close All Windows</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Shift+F4</string>
+   </property>
+  </action>
+  <action name="action_Tile" >
+   <property name="text" >
+    <string>&amp;Tile</string>
+   </property>
+  </action>
+  <action name="action_Cascade" >
+   <property name="text" >
+    <string>&amp;Cascade</string>
+   </property>
+  </action>
+  <action name="action_Next" >
+   <property name="text" >
+    <string>&amp;Next</string>
+   </property>
+  </action>
+  <action name="action_Previous" >
+   <property name="text" >
+    <string>&amp;Previous</string>
+   </property>
+  </action>
+  <action name="actionLog" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Log</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Shift+L</string>
+   </property>
+  </action>
+  <action name="emptyAction" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Empty</string>
+   </property>
+  </action>
+  <action name="actionLicense" >
+   <property name="text" >
+    <string>License</string>
+   </property>
+  </action>
+  <action name="actionAbout" >
+   <property name="text" >
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionRegister" >
+   <property name="text" >
+    <string>Register</string>
+   </property>
+  </action>
+  <action name="actionWithout_Nodes_States" >
+   <property name="text" >
+    <string>Without Nodes States</string>
+   </property>
+  </action>
+  <action name="actionNew_vpn" >
+   <property name="text" >
+    <string>New vpn</string>
+   </property>
+  </action>
+  <action name="actionWith_Nodes_States" >
+   <property name="text" >
+    <string>With Nodes States</string>
+   </property>
+  </action>
+  <action name="actionForceRunNetwork" >
+   <property name="icon" >
+    <iconset>
+     <normaloff>:/Images/refresh.png</normaloff>:/Images/refresh.png</iconset>
+   </property>
+   <property name="text" >
+    <string>forceRunNetwork</string>
+   </property>
+   <property name="toolTip" >
+    <string>Reset All Nodes</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../../Resources.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionE_xit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>399</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCl_ose</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>closeActiveSubWindow()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>265</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionClose_All</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>closeAllSubWindows()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>265</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Tile</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>tileSubWindows()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>265</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Cascade</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>cascadeSubWindows()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>265</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Next</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>activateNextSubWindow()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>265</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_Previous</sender>
+   <signal>triggered()</signal>
+   <receiver>mdiArea</receiver>
+   <slot>activatePreviousSubWindow()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>265</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionLog</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>m_logTextEdit</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>421</x>
+     <y>504</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

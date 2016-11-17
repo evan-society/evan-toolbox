@@ -1,0 +1,270 @@
+<ui version="4.0" >
+ <class>LicenseDialog</class>
+ <widget class="QDialog" name="LicenseDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>518</width>
+    <height>329</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>EVAN Toolbox License</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" >
+   <item row="0" column="0" >
+    <widget class="QPlainTextEdit" name="plainTextEdit" >
+     <property name="readOnly" >
+      <bool>true</bool>
+     </property>
+     <property name="plainText" >
+      <string>Copyright © 2014
+
+The copyright of the EVAN Toolbox belongs to the University of Hull, the University of York
+and the University of Vienna.
+The copyright of the GMM Library belongs to the University of Hull, the University of York
+and the University of Vienna.
+The copyright of the Edgewarp Library belongs to William D K Green and the University of Vienna.
+
+All rights reserved.
+
+EVAN Toolbox, TempLand are trademarks of the EVAN Society (http://www.evan-society.org/)
+
+All other trademarks and trade names used here are acknowledged to belong to
+their respective owners.
+
+The EVAN Toolbox is provided 'as-is', without any express or implied warranty.
+In no event will the authors of the software be held liable for any damages 
+arising from the use of this software.
+
+The EVAN Toolbox is provided here under the terms of the GNU Public License (version 2).
+
+A copy of the GNU Public License is available from the license page of 
+the www.evan-society.org website.
+
+_________________________________________________________________
+The EVAN Toolbox software uses the OpenGL ® graphics library.
+
+_________________________________________________________________
+OpenSceneGraph Copyright © 2002 Robert Osfield.
+This software uses OpenSceneGraph. OpenScenGraph is provided here under the 
+terms of the OpenSceneGraph Public License.
+A copy of this license is available from the license page of www.evan-society.org
+http://www.openscenegraph.org/
+
+_________________________________________________________________
+R Copyright © 
+The EVAN Toolbox uses R. R is provided here under the terms of the GNU Public license.
+A copy of this license is available from the license page of www.evan-society.org
+http://www.r-project.org/
+
+_________________________________________________________________
+Qwt Copyright © 
+The EVAN Toolbox is based in part on the work of the Qwt project (http://qwt.sf.net).
+Qwt. Qwt is provided under the terms of the Qwt license which is based on the LGPL license.
+
+_________________________________________________________________
+Qwtplot3d   Copyright ©  2003-2005 Michael Bieber
+
+The EVAN Toolbox uses Qwtplot3d which is provided under the terms of the zlib license below. 
+
+ QwtPlot3D license -- January 5th, 2005
+
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the author be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+
+_________________________________________________________________
+rply Copyright © 2003-2005 Diego Nehab.
+
+The EVAN Toolbox uses rply which is provided under the terms of the MIT license below. 
+
+The MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+_________________________________________________________________
+
+libxml2 Copyright © Daniel Veillard
+
+The EVAN Toolbox uses libxml2 which is provided under the terms of the MIT license below. 
+
+The MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+_________________________________________________________________
+Lapack  Copyright © 1992-2008 The University of Tennessee.  All rights reserved.
+
+The EVAN Toolbox uses Lapack which is provided under the terms of the license below. 
+
+$COPYRIGHT$
+
+Additional copyrights may follow
+
+$HEADER$
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+- Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer. 
+  
+- Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer listed
+  in this license in the documentation and/or other materials
+  provided with the distribution.
+  
+- Neither the name of the copyright holders nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+  
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT  
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT  
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+
+_________________________________________________________________
+gdtoa
+
+The EVAN Toolbox uses a modified version of the gdtoa libary. 
+
+Below is the copyright notice from gdtoa.tgz:
+
+/****************************************************************
+Copyright © 1997-2001 Lucent Technologies
+All Rights Reserved
+
+Permission to use, copy, modify, and distribute this software and
+its documentation for any purpose and without fee is hereby
+granted, provided that the above copyright notice appear in all
+copies and that both that the copyright notice and this
+permission notice and warranty disclaimer appear in supporting
+documentation, and that the name of Lucent or any of its entities
+not be used in advertising or publicity pertaining to
+distribution of the software without specific, written prior
+permission.
+
+LUCENT DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
+IN NO EVENT SHALL LUCENT OR ANY OF ITS ENTITIES BE LIABLE FOR ANY
+SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER
+IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+THIS SOFTWARE.
+****************************************************************/
+
+http://cvsweb.netbsd.org/bsdweb.cgi/src/lib/libc/gdtoa/
+
+_________________________________________________________________
+DCMTK
+
+The EVAN Toolbox uses the DCMTK software package. 
+
+COPYRIGHT
+
+Unless otherwise specified, the DCMTK software package has the
+following copyright:
+
+/*
+ *  Copyright © 1994-2005, OFFIS
+ *
+ *  This software and supporting documentation were developed by
+ *
+ *    Kuratorium OFFIS e.V.
+ *    Healthcare Information and Communication Systems
+ *    Escherweg 2
+ *    D-26121 Oldenburg, Germany
+ *
+ *  THIS SOFTWARE IS MADE AVAILABLE,  AS IS,  AND OFFIS MAKES NO  WARRANTY
+ *  REGARDING  THE  SOFTWARE,  ITS  PERFORMANCE,  ITS  MERCHANTABILITY  OR
+ *  FITNESS FOR ANY PARTICULAR USE, FREEDOM FROM ANY COMPUTER DISEASES  OR
+ *  ITS CONFORMITY TO ANY SPECIFICATION. THE ENTIRE RISK AS TO QUALITY AND
+ *  PERFORMANCE OF THE SOFTWARE IS WITH THE USER.
+ *
+ *  Copyright of the software  and  supporting  documentation  is,  unless
+ *  otherwise stated, owned by OFFIS, and free access is hereby granted as
+ *  a license to  use  this  software,  copy  this  software  and  prepare
+ *  derivative works based upon this software.  However, any  distribution
+ *  of this software source code or supporting documentation or derivative
+ *  works  (source code and  supporting documentation)  must  include  the
+ *  three paragraphs of this copyright notice.
+ *
+ */
+
+http://dicom.offis.de/dcmtk.php.en
+
+_________________________________________________________________
+mexcel Copyright © Andrea Litvin
+
+The EVAN Toolbox uses code provided for saving Excel files. The web article
+has no explicit license attached to it but may contain usage terms in the
+article text or the download files themselves. If in doubt please contact 
+the author via the discussion board available via the web article.
+
+http://www.codeproject.com/KB/cpp/miniexcel.aspx
+
+_________________________________________________________________
+</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

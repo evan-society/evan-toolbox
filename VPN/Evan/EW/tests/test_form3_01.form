@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ew_form3 version="1.0">
+
+<surface id="Mand" file="case07.sur"/>
+
+<curve id="Bord"/>
+<curve id="RamL"/>
+<curve id="RamR" state="unset"/>
+<curve id="AlvBü" file="case07_lia.cur" state="provisional"/>
+<curve id="AlvLi" file="case07_loa.cur" state="warped"/>
+<curve id="Sym" file="case07_sym.cur"/>
+
+<pointset id="MSpl" type="plane" state="provisional">
+<locations>1.2 3.4 5.6</locations>
+<orientations>1 0 0 0 1 0 0 0 1</orientations>
+<sizes>86.3</sizes>
+</pointset>
+
+<pointset id="CCpl" type="plane">
+<locations>0 0 0</locations>
+</pointset>
+
+<pointset id="ConRT">
+<locations>9.8 7.6 5.4</locations>
+<relax_dims>3</relax_dims>
+</pointset>
+
+<pointset id="ConLT">
+<locations>9.8 7.6 5.4</locations>
+<relax_dims>2</relax_dims>
+<relax_params>1.2 3.4 5.6</relax_params>
+</pointset>
+
+<pointset id="ConRM">
+<locations>9.8 7.6 5.4</locations>
+<relax_dims>1</relax_dims>
+<relax_params>1.2 3.4 5.6</relax_params>
+</pointset>
+
+<pointset id="ConLM">
+<locations>0 0 0</locations>
+</pointset>
+
+<pointset id="ConRL">
+<locations>0 0 0</locations>
+</pointset>
+
+<pointset id="ConLL">
+<locations>0 0 0</locations>
+</pointset>
+
+<pointset id="CorR">
+<locations>0 0 0</locations>
+</pointset>
+
+<pointset id="CorL">
+<locations>0 0 0</locations>
+</pointset>
+
+<pointset id="MenR">
+<locations>9.8 7.6 5.4</locations>
+<orientations>1 0 0 0 0 1 0 -1 0</orientations>
+</pointset>
+
+<pointset id="MenL">
+<locations>9.8 7.6 5.4</locations>
+<orientations>1 0 0 0 0 1 0 -1 0</orientations>
+</pointset>
+
+<pointset id="MandR">
+<locations>0 0 0</locations>
+</pointset>
+
+<pointset id="MandL">
+<locations>0 0 0</locations>
+</pointset>
+
+<pointset id="Inf1">
+<locations>9.8 7.6 5.4</locations>
+</pointset>
+
+<pointset id="Inf2">
+<locations>9.8 7.6 5.4</locations>
+</pointset>
+
+<pointset id="Symph">
+<locations>9.8 7.6 5.4</locations>
+</pointset>
+
+<pointset id="slMandL" type="semi-landmark" state="projected" n="2">
+<locations>
+0 0 0
+0 0 0
+</locations>
+</pointset>
+
+<pointset id="slMandR" type="semi-landmark" state="optimized" n="2">
+<locations>
+0 0 0
+0 0 0
+</locations>
+</pointset>
+
+<pointset id="slBordL" type="semi-landmark" n="2">
+<locations>
+0 0 0
+0 0 0
+</locations>
+</pointset>
+
+<pointset id="slBordR" type="semi-landmark" n="2">
+<locations>
+0 0 0
+0 0 0
+</locations>
+</pointset>
+
+<pointset id="slRamL" type="semi-landmark" n="2">
+<locations>
+0 0 0
+0 0 0
+</locations>
+</pointset>
+
+<pointset id="slRamR" type="semi-landmark" n="2">
+<locations>
+0 0 0
+0 0 0
+</locations>
+</pointset>
+
+<pointset id="slAlvBL" type="semi-landmark" n="2">
+<locations>
+1.23 4.56 7.89
+2.13 5.46 1.4
+</locations>
+<relax_dims>
+0
+3
+</relax_dims>
+</pointset>
+
+<pointset id="slAlvBR" type="semi-landmark" n="2">
+<locations>
+1.23 4.56 7.89
+2.13 5.46 8.79
+</locations>
+<relax_dims>
+0
+2
+</relax_dims>
+<relax_params>
+0 0 0
+2.13 5.46 8.79
+</relax_params>
+</pointset>
+
+<pointset id="slAlvLL" type="semi-landmark" n="2">
+<locations>
+1.23 4.56 7.89
+2.13 5.46 8.79
+</locations>
+</pointset>
+
+<pointset id="slAlvLR" type="semi-landmark" n="2">
+<locations>
+1.23 4.56 7.89
+2.13 5.46 8.79
+</locations>
+</pointset>
+
+<pointset id="slSym" type="semi-landmark" n="2">
+<locations>
+1.23 4.56 7.89
+2.13 5.46 8.79
+</locations>
+</pointset>
+
+<embedding subset="Bord" superset="Mand"/>
+<embedding subset="RamL" superset="Mand"/>
+<embedding subset="RamR" superset="Mand"/>
+<embedding subset="AlvBü" superset="Mand"/>
+<embedding subset="AlvLi" superset="Mand"/>
+<embedding subset="Sym" superset="Mand"/>
+<embedding subset="Sym" superset="MSpl"/>
+<embedding subset="ConLT" superset="Mand"/>
+<embedding subset="ConRT" superset="Mand"/>
+<embedding subset="ConLM" superset="Mand"/>
+<embedding subset="ConRM" superset="Mand"/>
+<embedding subset="ConLL" superset="Mand"/>
+<embedding subset="ConRL" superset="Mand"/>
+<embedding subset="CorL" superset="Mand"/>
+<embedding subset="CorR" superset="Mand"/>
+<embedding subset="Inf1" superset="Bord"/>
+<embedding subset="Inf1" superset="MSpl"/>
+<embedding subset="Inf2" superset="Borf"/>
+<embedding subset="Inf2" superset="MSpl"/>
+<embedding subset="Symph" superset="Bord"/>
+<embedding subset="Symph" superset="Sym"/>
+<embedding subset="slMandL" superset="Mand"/>
+<embedding subset="slMandR" superset="Mand"/>
+<embedding subset="slBordL" superset="Bord"/>
+<embedding subset="slBordR" superset="Bord"/>
+<embedding subset="slRamL" superset="RamL"/>
+<embedding subset="slRamR" superset="RamR"/>
+<embedding subset="slAlvBL" superset="ALvBü"/>
+<embedding subset="slAlvBR" superset="ALvBü"/>
+<embedding subset="slAlvLL" superset="AlvLi"/>
+<embedding subset="slAlvLR" superset="AlvLi"/>
+<embedding subset="slSym" superset="Sym"/>
+
+<reflection left="ConLT" right="ConRT"/>
+<reflection left="ConLM" right="ConRM"/>
+<reflection left="ConLL" right="ConRL"/>
+<reflection left="CorL" right="CorR"/>
+<reflection left="MandL" right="MandR"/>
+<reflection left="MenL" right="MenR"/>
+<reflection left="slMandL" right="slMandR"/>
+<reflection left="slRamL" right="slRamR"/>
+<reflection left="slAlvBL" right="slAlvBR"/>
+<reflection left="slAlvLL" right="slAlvLR"/>
+<reflection left="Inf1" right="Inf1"/>
+<reflection left="Inf2" right="Inf2"/>
+<reflection left="Symph" right="Symph"/>
+<reflection left="slSym" right="slSym"/>
+
+</ew_form3>

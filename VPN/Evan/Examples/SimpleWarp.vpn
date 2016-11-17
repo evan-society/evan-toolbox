@@ -1,0 +1,12 @@
+<VPN>
+ <Node x="-1032" y="-196" params="Examples/tetrahedron.morphologika.txt$$$$$$$$morphologika$$0$$0$$3dim$$Examples/tetrahedron.sur$$$$$$checked$$1$$$$unchecked" type="ImportNode" annotation="" />
+ <Node x="-861" y="-189" params="1$$1$$1$$0$$0$$1$$0$$1$$1$$0$$0$$1$$1$$0$$0$$0$$100$$1e-12$$" type="GPANode" annotation="" />
+ <Node x="-479" y="-96" params="" type="WarperNode" annotation="" />
+ <Node x="-681" y="-128" params="1.0$$1.0$$0" type="SubtractNode" annotation="" />
+ <Node x="-319" y="6" params="0.2|0.2|0.4|2.32042|0.1|10000|0.707107|0|0|0.707107|0.002684|-2.37287|-0.0442314|0$Warped Landmarks|192|192|192|255|1|1|1|0|0|0|1|0|0|0|0|0|0/Warped Surface|192|192|192|255|1|1|1|0|0|0|1|0|0|0|0|0|0/" type="ViewerNode" annotation="" />
+ <Link ports="0:0:0:0|0:0|0,1:1:0:0|0:0|0," sNode="0" eNode="1" />
+ <Link ports="0:0:0:-624|-146:-617|-287,7:2:0:-629|3:-603|49," sNode="1" eNode="2" />
+ <Link ports="0:1:0:0|0:0|0," sNode="3" eNode="2" />
+ <Link ports="0:0:0:0|0:0|0,1:0:0:0|0:0|0,2:0:0:0|0:0|0," sNode="2" eNode="4" />
+ <Link ports="0:0:0:0|0:0|0,0:1:0:0|0:0|0," sNode="1" eNode="3" />
+</VPN>
