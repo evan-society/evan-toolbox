@@ -1,5 +1,3 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.0.2)
-
 SET(CMAKE_AUTOMOC ON)
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 cmake_policy(SET CMP0020 OLD)
@@ -7,7 +5,7 @@ cmake_policy(SET CMP0020 OLD)
 FIND_PACKAGE(Qt4 REQUIRED QtCore QtGui QtOpenGL QtXml QtSvg)
 FIND_PACKAGE(Qwt REQUIRED)
 FIND_PACKAGE(Qwt3D REQUIRED)
-FIND_PACKAGE(OpenSceneGraph REQUIRED osgViewer osgText osgDB osgManipulator osgGA osgUtil osgVolume osg)
+FIND_PACKAGE(OpenSceneGraph 2.0.0 REQUIRED osgViewer osgText osgDB osgManipulator osgGA osgUtil osgVolume osg)
 FIND_PACKAGE(OpenGL REQUIRED)
 #SET(BLAS_DIR $ENV{BLAS_DIR} CACHE PATH "Path where BLAS libraries are located")
 #FIND_PACKAGE(BLAS REQUIRED)
@@ -17,10 +15,6 @@ FIND_PACKAGE(SDL REQUIRED)
 # Look for the header file
 FIND_PATH( ICONV_INCLUDE_DIR NAMES iconv.h )
 MARK_AS_ADVANCED( ICONV_INCLUDE_DIR )
-
-# Look for the library
-FIND_LIBRARY( ICONV_LIBRARY NAMES iconv )
-MARK_AS_ADVANCED( ICONV_LIBRARY )
 
 OPTION(BUILD_GMM "Build GMM Library" ON)
 OPTION(LINK_STATICLY "Attempt to create one big binary, with all dependencies linked staticly" ON)

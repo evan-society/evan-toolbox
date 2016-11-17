@@ -548,7 +548,7 @@ void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, 
 
     m_loadedCameraDist = distance; // seems to not be necessary
 
-    //m_cameraManipulator->setTransformation ( viewDir * distance + center, center, upDir );
+    m_cameraManipulator->setTransformation ( viewDir * distance + center, center, upDir );
 
     m_loadedViewMatrix = m_cameraManipulator->getMatrix();
 
