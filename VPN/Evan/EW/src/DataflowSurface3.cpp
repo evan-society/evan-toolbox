@@ -99,14 +99,14 @@ ew::DataflowSurface3::update_normals() const
     double ny = (bz - az) * (cx - ax) - (bx - ax) * (cz - az);
     double nz = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax);
     double nn = std::sqrt (nx * nx + ny * ny + nz * nz);
-    if (nn != 0.0) {
+    /*if (nn != 0.0) {			//YN (Apr21,2016): As per Bill Green's email. A fix for near degenerate faces
       nx /= nn;
       ny /= nn;
       nz /= nn;
     } else {
       nx = 1.0;
       ny = nz = 0.0;
-    }
+    }*/
     outp_normals[3 * a] += nx;
     outp_normals[3 * a + 1] += ny;
     outp_normals[3 * a + 2] += nz;
