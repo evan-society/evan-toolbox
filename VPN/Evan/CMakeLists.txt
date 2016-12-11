@@ -50,7 +50,7 @@ ELSE(WIN32)
 	SET(ET_Libs ${ET_Libs} ${LAPACK_LIBRARIES})
 ENDIF()
 
-ADD_EXECUTABLE(ET Evan.cpp ${ET_sources} ${ET_headers} ${Node_sources} ${ET_resources})
+ADD_EXECUTABLE(ET Evan.cpp ${ET_sources} ${ET_headers} ${Node_sources} ${ET_resources} "Evan.rc")
 TARGET_LINK_LIBRARIES(ET ${ET_Libs})
 
 SET_PROPERTY(TARGET ET PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)

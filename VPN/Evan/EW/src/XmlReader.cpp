@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cstring>
 #include <string>
+#include <sstream>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libxml/xmlversion.h>
@@ -237,7 +238,7 @@ ew::XmlReader::read_doubles(double *dd, int l, xmlNode *node)
 {
   const char *s = CastCcp(xmlNodeGetContent(node));
   if (s != 0) {
-    const char *s1 = s;
+    /*const char *s1 = s;
     int j = 0;
     while (j < l) {
       if (ew::String::scan_ws(&s1, s1) <= 0 && j != 0) {
@@ -253,6 +254,13 @@ ew::XmlReader::read_doubles(double *dd, int l, xmlNode *node)
     ew::String::scan_ws(&s1, s1);
     if (*s1 != 0) {
       j -= 1;
+    }*/
+    std::stringstream valueStrStream(s);
+    int j = 0;
+    while (j<l)
+    {
+      valueStrStream >> dd[j];
+      j++;
     }
     xmlFree(CastVp(s));
     if (j == l) {
