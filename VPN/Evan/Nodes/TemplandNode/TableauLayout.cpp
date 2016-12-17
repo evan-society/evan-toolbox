@@ -818,9 +818,8 @@ bool TableauLayout::projectSemiLmk(const QString& topId, bool checksurface, bool
 }
 
 
-double TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, bool slide)
+void TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, bool slide)
 {
-	double totalMovement = 0;
     if( m_dig3.get_spaces()[1]->get_form_data()->surfaces.size() == 0 && m_dig3.get_spaces()[1]->get_form_data()->curves.size() == 0 )
     {
         QMessageBox::information( this, "Error", "There is no surface or curve to slide the landmarks on. Please import a surface or a curve." );
@@ -829,12 +828,7 @@ double TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, b
 
     std::string semiLmkId = dynamic_cast< SemiLandmarksTopItem* >( item )->getLmkID().toStdString();
     const ew::Form3* frm = m_dig3.get_spaces()[1]->get_form_data();
-
-    int surface_index = -1;
-    int curve_index = -1;
-
     const char* found_embedding = m_dig3.get_spaces()[1]->get_form_data()->search_superset(semiLmkId.c_str());
-
 	std::string embeddedItemId = std::string(found_embedding);
 
     if(embeddedItemId == "" || found_embedding == 0)
@@ -853,150 +847,25 @@ double TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, b
     	sp->set_form_embedding( &b, &fe );
     }
 
-    if( frm != 0 )
-    {
-    	surface_index = embeddedSurfaceIndex(embeddedItemId, frm);
-    	curve_index = embeddedCurveIndex(embeddedItemId, frm);
-    }
-
-
     if( item->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
     {
-        std::string lmkId = dynamic_cast< SemiLandmarksTopItem* >( item )->getLmkID().toStdString();
-
-        if(surface_index != -1)
+        SlideDialog* slideDialog = new SlideDialog(this, false);
+        if(slideDialog->exec())
         {
-        	if( frm != 0 )
-        		for(unsigned int j=0; j<frm->pointsets.size(); ++j)
-					if( frm->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK  )
-					{
-						if( frm->pointsets[j].id == lmkId )
-						{
-							if( frm->pointsets[j].state == ew::Form3::STATE_PROJECTED )
-							{
-								ew::Form3PointSet ps = frm->pointsets[j];
-								for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
-									ps.relax_dims[i] = slide ?  2 : 0;
-								while( (int)ps.relax_dims.size() < ps.n )
-									ps.relax_dims.push_back( slide ?  2 : 0 );
-								ew::Dig3Space *sp = m_dig3.get_spaces()[1];
-
-								bool b = false;
-								sp->set_form_pointset(&b, &ps);
-
-								int n = frm->pointsets[j].n;
-
-								const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-								try
-								{
-									const double* points = ds->get_optimized_lmk_images();
-
-									if( points )
-									{
-										for( int i = 0; i < n; ++i )
-										{
-											int index = ds->lmk_index( 1, j, i );
-											totalMovement += abs(ps.locations[i*3]-points[index*3]);
-											totalMovement += abs(ps.locations[i*3+1]-points[index*3+1]);
-											totalMovement += abs(ps.locations[i*3+2]-points[index*3+2]);
-
-											ps.locations[i * 3    ] = points[index * 3    ];
-											ps.locations[i * 3 + 1] = points[index * 3 + 1];
-											ps.locations[i * 3 + 2] = points[index * 3 + 2];
-										}
-
-										totalMovement/=n;
-										ps.state = ew::Form3::STATE_OPTIMIZED;
-										b = false;
-
-										sp->set_form_pointset(&b, &ps);
-										// now update their state
-										updateTreeViewStates( 1 );
-									}
-								}
-								catch( std::exception& ex )
-								{
-									QMessageBox::information( this, "Error", ex.what() );
-								}
-
-							} // end projected check
-							else
-							{
-								QMessageBox::information( this, "Error", "Landmarks should be projected before slid." );
-								return -1;
-							}
-						}
-					}
+            for(unsigned int j=0; j<frm->pointsets.size(); ++j)
+                    if( frm->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK &&  
+                        frm->pointsets[j].id == semiLmkId)
+                    {
+                        if(frm->pointsets[j].state == ew::Form3::STATE_PROJECTED)
+                            slideAll(slideDialog->getIterations(),slideDialog->getEpsilon(), j);
+                        else
+                            QMessageBox::information( this, "Error", "Landmarks should be projected before slid." );                            
+                        break;
+                    }
+            
         }
-
-        if(curve_index != -1)
-        {
-        	if( frm != 0 )
-        		for(unsigned int j=0; j<frm->pointsets.size(); ++j)
-        			if( frm->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK  )
-					{
-						if( frm->pointsets[j].id == lmkId )
-						{
-							if( frm->pointsets[j].state == ew::Form3::STATE_PROJECTED )
-							{
-								ew::Form3PointSet ps = frm->pointsets[j];
-
-								for( unsigned int i = 0; i < ps.relax_dims.size(); ++i )
-									ps.relax_dims[i] = slide ?  1 : 0;
-								while( (int)ps.relax_dims.size() < ps.n )
-									ps.relax_dims.push_back( slide ?  1 : 0 );
-								ew::Dig3Space *sp = m_dig3.get_spaces()[1];
-
-								bool b = false;
-								sp->set_form_pointset(&b, &ps);
-
-								int n = frm->pointsets[j].n;
-
-								const ew::DataflowSpline3* ds = m_dig3.get_spline_node();
-								try
-								{
-									const double* points = ds->get_optimized_lmk_images();
-
-									if( points )
-									{
-										for( int i = 0; i < n; ++i )
-										{
-											int index = ds->lmk_index( 1, j, i );
-											totalMovement += abs(ps.locations[i*3]-points[index*3]);
-											totalMovement += abs(ps.locations[i*3+1]-points[index*3+1]);
-											totalMovement += abs(ps.locations[i*3+2]-points[index*3+2]);
-
-											ps.locations[i * 3    ] = points[index * 3    ];
-											ps.locations[i * 3 + 1] = points[index * 3 + 1];
-											ps.locations[i * 3 + 2] = points[index * 3 + 2];
-										}
-
-										totalMovement/=n;
-										ps.state = ew::Form3::STATE_OPTIMIZED;
-
-										b = false;
-										sp->set_form_pointset(&b, &ps);
-
-										// now update their state
-										updateTreeViewStates( 1 );
-									}
-								}
-								catch( std::exception& ex )
-								{
-									QMessageBox::information( this, "Error", ex.what() );
-								}
-
-							} // end projected check
-							else
-							{
-								QMessageBox::information( this, "Error", "Landmarks should be projected before slid." );
-								return -1;
-							}
-						}
-					}
-        }
+        delete slideDialog;
     }
-    return totalMovement;
 }
 
 bool TableauLayout::isInTargetTreeView( const QString& id )
@@ -1251,7 +1120,7 @@ void TableauLayout::mapLmk(FormItem* item, int index)
     }
 }
 
-void TableauLayout::slideAll(int iterations, double eps)
+void TableauLayout::slideAll(int iterations, double eps, int pointsetIndex)
 {
 	ew::Dig3Space* sp = m_dig3.get_spaces()[1];
 	const ew::Form3* frm = sp->get_form_data();
@@ -1267,7 +1136,9 @@ void TableauLayout::slideAll(int iterations, double eps)
 	{
 		double error = 0;
 		map<int,int> slidLMKs;
-		for(unsigned int j=0; j<frm->pointsets.size(); ++j)
+        int n = (pointsetIndex<0)?frm->pointsets.size():pointsetIndex+1; //slide all or just one pointset
+        pointsetIndex = (pointsetIndex<0)?0:pointsetIndex;
+		for(int j=pointsetIndex; j<n; ++j)
 		{
 			ew::Form3PointSet ps = frm->pointsets[j];
 			if( ps.type != ew::Form3::TYPE_SEMI_LANDMARK || ps.state != ew::Form3::STATE_PROJECTED)

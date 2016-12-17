@@ -183,7 +183,7 @@ public slots:
     bool projectLmkOntoCurve( ViewTreeItem* item, int index, bool checksurface = true, bool showstatus = true );
     bool projectSemiLmk(const QString& topId, bool checksurface = true, bool showstatus = true, int index=-1);
     void lmkProject(FormItem* form, ViewTreeItem* item, int index);
-    double lmkSlide( FormItem* form, ViewTreeItem* item, int index, bool slide);
+    void lmkSlide( FormItem* form, ViewTreeItem* item, int index, bool slide);
     void lmkExport(FormItem* form);
     void lmkExportAll(FormItem* form);
 //    void updateTemplate(FormItem* form);
@@ -270,7 +270,7 @@ private:
 
     int embeddedCurveIndex(const std::string& id, const ew::Form3* form);
     int embeddedSurfaceIndex(const std::string& id, const ew::Form3* form);
-    void slideAll(int iterations, double eps);
+    void slideAll(int iterations, double eps, int pointsetIndex=-1);
     bool projectToEmbedding(const ew::Form3* form, const std::string& semiLmkId,
     						int surface_index, int curve_index, int semiLmkIndex=-1,
     						bool checksurface=true, bool showstatus=true);

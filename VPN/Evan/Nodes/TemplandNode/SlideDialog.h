@@ -13,9 +13,11 @@
 class SlideDialog : public QDialog, public Ui::SlideDialog
 {
 public:
-	SlideDialog(QWidget* parent) : QDialog(parent)
+	SlideDialog(QWidget* parent, bool showSlideCB = true) : QDialog(parent)
 	{
 	    setupUi(this);
+    	m_slideCB->setVisible(showSlideCB);
+    	groupBox->setEnabled(!showSlideCB);
 	}
 	~SlideDialog(){}
 
