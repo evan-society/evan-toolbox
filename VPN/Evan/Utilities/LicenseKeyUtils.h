@@ -1,7 +1,7 @@
 #ifndef LICENCEKEYUTILS_H
 #define LICENCEKEYUTILS_H
 
-#include "sha1.cpp"
+#include "sha1.h"
 #include <QString>
 
 #ifdef USE_UNIX_LOCATIONS
