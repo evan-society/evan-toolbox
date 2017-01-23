@@ -823,7 +823,7 @@ void TableauLayout::lmkSlide( FormItem* form, ViewTreeItem* item, int index, boo
     if( m_dig3.get_spaces()[1]->get_form_data()->surfaces.size() == 0 && m_dig3.get_spaces()[1]->get_form_data()->curves.size() == 0 )
     {
         QMessageBox::information( this, "Error", "There is no surface or curve to slide the landmarks on. Please import a surface or a curve." );
-        return -1;
+        return;
     }
 
     std::string semiLmkId = dynamic_cast< SemiLandmarksTopItem* >( item )->getLmkID().toStdString();
@@ -1132,12 +1132,13 @@ void TableauLayout::slideAll(int iterations, double eps, int pointsetIndex)
 	emit status("Sliding semi-landmarks, Please wait...");
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
+    map<int,int> slidLMKs;
+    int n = (pointsetIndex<0)?frm->pointsets.size():pointsetIndex+1; //slide all or just one pointset
+    pointsetIndex = (pointsetIndex<0)?0:pointsetIndex;
+
 	while(true)
 	{
 		double error = 0;
-		map<int,int> slidLMKs;
-        int n = (pointsetIndex<0)?frm->pointsets.size():pointsetIndex+1; //slide all or just one pointset
-        pointsetIndex = (pointsetIndex<0)?0:pointsetIndex;
 		for(int j=pointsetIndex; j<n; ++j)
 		{
 			ew::Form3PointSet ps = frm->pointsets[j];
@@ -1153,7 +1154,7 @@ void TableauLayout::slideAll(int iterations, double eps, int pointsetIndex)
 				ps.relax_dims.push_back( relaxDims );
 			bool b = false;
 			sp->set_form_pointset(&b, &ps);
-			slidLMKs.insert(pair<int,int>(j,frm->pointsets[j].n));
+			slidLMKs[j] = frm->pointsets[j].n;
 		}
 
 		try
@@ -1186,7 +1187,7 @@ void TableauLayout::slideAll(int iterations, double eps, int pointsetIndex)
 		}
 		catch( std::exception& ex )
 		{QMessageBox::information( this, "Error", ex.what() );}
-
+        
 		if(iterations>0)
 		{
 			if(++nIterations==iterations)

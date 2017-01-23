@@ -26,7 +26,7 @@ QT4_ADD_RESOURCES(ET_resources Resources.qrc)
 FILE(GLOB ET_shaders "Shaders/*.frag" "Shaders/*.vert")
 FILE(GLOB ET_examples "Examples/*.vpn" "Examples/*.txt" "Examples/*.obj")
 FILE(GLOB Templand_examples "Examples/Templand/*.ltb" "Examples/Templand/*.frm" "Examples/Templand/*.obj")
-FILE(GLOB ET_sources "DataTypes/*.cpp" "MainWindow/*.cpp" "Nodes/*.cpp" "Scheduler/*.cpp" "Utilities/*.cpp" "Utilities/*.c" "DataTypes/*.h" "MainWindow/*.h" "Nodes/*.h" "Scheduler/*.h" "Utilities/*.h" "DataTypes/*.hpp" "MainWindow/*.hpp" "Nodes/*.hpp" "Scheduler/*.hpp" "Utilities/*.hpp")
+FILE(GLOB ET_sources "Utilities/*.cpp" "Utilities/*.c" "DataTypes/*.cpp" "MainWindow/*.cpp" "Nodes/*.cpp" "Scheduler/*.cpp" "DataTypes/*.h" "MainWindow/*.h" "Nodes/*.h" "Scheduler/*.h" "Utilities/*.h" "DataTypes/*.hpp" "MainWindow/*.hpp" "Nodes/*.hpp" "Scheduler/*.hpp" "Utilities/*.hpp")
 
 IF(${BUILD_GMM})
   ADD_SUBDIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/EW")
@@ -45,11 +45,12 @@ INCLUDE_DIRECTORIES("${CMAKE_CURRENT_SOURCE_DIR}/GMM/include" "${CMAKE_CURRENT_S
 
 SET(ET_Libs GMM ew ${QWT_LIBRARY} ${QWT3D_LIBRARY} Qt4::QtCore Qt4::QtGui Qt4::QtOpenGL Qt4::QtXml Qt4::QtSvg ${OPENSCENEGRAPH_LIBRARIES} ${OPENGL_LIBRARIES}  ${LIBXML2_LIBRARIES} ${ICONV_LIBRARY})
 IF(WIN32)
-	SET(ET_Libs ${ET_Libs} ${LAPACKE_LIBRARIES} ${SDL_LIBRARY} winmm ws2_32 imm32 version)
+	SET(ET_Libs ${ET_Libs} ${LAPACKE_LIBRARIES} ${SDL_LIBRARY} iphlpapi winmm ws2_32 imm32 version)
 ELSE(WIN32)
 	SET(ET_Libs ${ET_Libs} ${LAPACK_LIBRARIES})
 ENDIF()
 
+ADD_DEFINITIONS(-DENCRYPT_EVAN_LICENSE_)
 ADD_EXECUTABLE(ET Evan.cpp ${ET_sources} ${ET_headers} ${Node_sources} ${ET_resources} "Evan.rc")
 TARGET_LINK_LIBRARIES(ET ${ET_Libs})
 

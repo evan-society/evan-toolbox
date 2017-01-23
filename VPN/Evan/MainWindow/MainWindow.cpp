@@ -839,7 +839,8 @@ void MainWindow::showLicense()
 void MainWindow::showRegistration()
 {
 #ifdef ENCRYPT_EVAN_LICENSE_
-    if(IsRegistered == 0)
+    //if(IsRegistered == 0)
+    if(!Globals::getInstance()->isRegistered())
     {
         QDialog *registerDialog = new QDialog();
 
