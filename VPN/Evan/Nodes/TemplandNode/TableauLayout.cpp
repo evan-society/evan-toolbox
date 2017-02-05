@@ -3189,6 +3189,18 @@ void TableauLayout::renameLmk(FormItem* form, ViewTreeItem* item, int index, con
                     SemiLandmarksTopItem* sti = dynamic_cast< SemiLandmarksTopItem* >( vti );
                     if( getPointsetLocation( sti->getLmkID().toStdString(), 1, x, y, z, index ) )
                         sti->setLmkIndex( index );
+
+                    //update embeddings
+                    std::vector<ew::Form3Embedding> embeddings = m_dig3.get_spaces()[1]->get_form_data()->embeddings;
+                    for (unsigned int k = 0; k<embeddings.size(); k++)
+                        if(embeddings[k].subset_id == oldID)
+                        {
+                            bool replaced = false;
+                            embeddings[k].subset_id = newID.toStdString();
+                            m_dig3.get_spaces()[1]->remove_form_embedding(k);
+                            m_dig3.get_spaces()[1]->set_form_embedding(&replaced, &embeddings[k]);
+                            break;
+                        }
                 }
             }
 
