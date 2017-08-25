@@ -8,7 +8,11 @@ FILE(GLOB LG_sources "*.cpp")
 FILE(GLOB LG_headers "*.h")
 QT4_WRAP_UI(LG_uisrc generator.ui)
 
-SET(LG_Libs Qt4::QtCore Qt4::QtGui iphlpapi winmm ws2_32 imm32 version)
+IF(WIN32)
+	SET(LG_Libs Qt4::QtCore Qt4::QtGui iphlpapi winmm ws2_32 imm32 version)
+ELSE(WIN32)
+	SET(LG_Libs Qt4::QtCore Qt4::QtGui)
+ENDIF()
 
 ADD_EXECUTABLE(LicenseGenerator ${LG_sources} ${LG_uisrc} ${LG_headers})
 TARGET_LINK_LIBRARIES(LicenseGenerator ${LG_Libs})

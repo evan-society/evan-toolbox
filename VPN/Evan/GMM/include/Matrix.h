@@ -200,7 +200,7 @@ public:
 
     T** GetMatrix() {return matrix;}
     T* GetSinglePtr() {return matrix[0];}
-    void transform(Matrix<T>& trans)                        //YS: 29/01/09 to be used by any DataType containing a Matrix
+    void transform(const Matrix<T>& trans)                        //YS: 29/01/09 to be used by any DataType containing a Matrix
     {
         Matrix<T> temp(4,1);
         for(unsigned int i=0; i<rows; ++i)

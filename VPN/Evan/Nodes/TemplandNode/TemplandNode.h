@@ -64,7 +64,9 @@ private:
         return dynamic_cast<TableauLayout *>( cwin->widget() );
 	}
 
-	void GetSpecimens();
+	int fillLandmarkSet(LandmarkSet*, const ew::Form3*, bool flipAxis=true);
+	bool fillSurfaces(SurfaceVector*, const ew::Form3*);
+	void GetSpecimens(bool flipAxis=true);
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -116,6 +118,7 @@ public slots:
 
     void selectPoints( bool tog );
 
+    void slideOnConsensus();
 signals:
 	void dataReady();
 };
