@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cstring>
 #include <deque>
+#include <sstream>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -125,12 +126,15 @@ ew::Surface3::read_file(const char *filename)
           break;
         }
         float val;
-        if (!ew::String::scan_finite_float(&val, &s, s)) {
+        std::stringstream valueStrStream(std::string(s,32)); //32 digit number maximum "probably an overkill"
+        valueStrStream >> val;
+        s+=valueStrStream.tellg();
+        /*if (!ew::String::scan_finite_float(&val, &s, s)) {			//Bug with reading scientific notation (xxxe-xx)
           throw ew::ErrorIO(ew::String::ssprintf(
            "The surface obj file %s could not be loaded"
            " (invalid format, bad floating point value in line %d).",
            filename, ln));
-        }
+        }*/
         if (nval < 3) {
           vals[nval] = val;
         }

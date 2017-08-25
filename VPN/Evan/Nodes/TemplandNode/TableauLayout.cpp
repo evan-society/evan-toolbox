@@ -219,6 +219,8 @@ TableauLayout::TableauLayout(QWidget *parent, QGLWidget* share2) : QWidget(paren
     m_tblRight->setDisabled( true );
     m_tblListRightE->setDisabled( true );
 
+    m_consensusPB->setDisabled( true );
+
     m_filmFirstFrame->setDisabled( true );
     m_filmPlayBackward->setDisabled( true );
     m_filmPlay->setDisabled( true );
@@ -458,53 +460,58 @@ void TableauLayout::lmkProject(FormItem* form, ViewTreeItem* item, int index)
 
 }
 
-void TableauLayout::projectAll( bool checksurface )
+void TableauLayout::projectAll( bool checksurface, int target)
 {
     int notprojected = 0;
-    int count = m_targetTopLandmarks->childCount();
+    LandmarksTopItem* lmkTopItem = (target==1)?m_targetTopLandmarks:m_templateTopLandmarks;
+    int count = lmkTopItem->childCount();
     for( int i = 0; i < count; ++i )
     {
-        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( i ) );
+        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( lmkTopItem->child( i ) );
 
         if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
         {
             LandmarkItem *li = dynamic_cast< LandmarkItem* >( vti );
-            if( projectLmk( vti, li->getLmkIndex(), checksurface, false ) == false )
+            if( projectLmk( vti, li->getLmkIndex(), checksurface, false, target ) == false )
             {
                 ++notprojected;
             }
         }
         else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
         {
-            if( projectSemiLmk( dynamic_cast< SemiLandmarksTopItem* >(vti)->getLmkID(), checksurface, false ) == false )
+            if( projectSemiLmk( dynamic_cast< SemiLandmarksTopItem* >(vti)->getLmkID(), checksurface, false, target ) == false )
             {
                 ++notprojected;
             }
         }
     }
 
-    QString msg; msg.setNum( count - notprojected );
-    msg += " Landmarks have been projected.";
-    if( notprojected > 0 )
+    if(target==1)
     {
-        QString ss; ss.setNum( notprojected );
-        msg += " ";
-        msg += ss;
-        msg += " Landmarks were already projected.";
+		QString msg; msg.setNum( count - notprojected );
+		msg += " Landmarks have been projected.";
+		if( notprojected > 0 )
+		{
+			QString ss; ss.setNum( notprojected );
+			msg += " ";
+			msg += ss;
+			msg += " Landmarks were already projected.";
+		}
+		Logger::getInstance()->log( msg, Logger::INFO );
     }
-    Logger::getInstance()->log( msg, Logger::INFO );
 
+    updateTreeViewStates(target);
 }
 
-bool TableauLayout::projectLmk( ViewTreeItem* item, int index, bool checksurface, bool showstatus )
+bool TableauLayout::projectLmk( ViewTreeItem* item, int index, bool checksurface, bool showstatus, int target )
 {
-    if( m_dig3.get_spaces()[1]->get_form_data()->surfaces.size() > 0 )
+    if( m_dig3.get_spaces()[target]->get_form_data()->surfaces.size() > 0 )
     {
-        return projectLmkOntoSurface(item, index, checksurface, showstatus);
+        return projectLmkOntoSurface(item, index, checksurface, showstatus, target );
     }
-    else if( m_dig3.get_spaces()[1]->get_form_data()->curves.size() > 0 )
+    else if( m_dig3.get_spaces()[target]->get_form_data()->curves.size() > 0 )
     {
-        return projectLmkOntoCurve(item, index, checksurface, showstatus);
+        return projectLmkOntoCurve(item, index, checksurface, showstatus, target );
     }
     else
     {
@@ -514,10 +521,10 @@ bool TableauLayout::projectLmk( ViewTreeItem* item, int index, bool checksurface
     return false;
 }
 
-bool TableauLayout::projectLmkOntoSurface( ViewTreeItem* item, int index, bool checksurface, bool showstatus )
+bool TableauLayout::projectLmkOntoSurface( ViewTreeItem* item, int index, bool checksurface, bool showstatus, int target  )
 {
     std::string s = dynamic_cast< LandmarkItem* >( item )->getLmkID().toStdString();
-    const ew::Form3* form = m_dig3.get_spaces()[1]->get_form_data();
+    const ew::Form3* form = m_dig3.get_spaces()[target]->get_form_data();
     if( form != 0 )
         for(unsigned int j=0; j<form->pointsets.size(); ++j)
             if( form->pointsets[j].type == ew::Form3::TYPE_LANDMARK )
@@ -532,7 +539,7 @@ bool TableauLayout::projectLmkOntoSurface( ViewTreeItem* item, int index, bool c
                         p[1] = form->pointsets[j].locations[1];
                         p[2] = form->pointsets[j].locations[2];
 
-                        const ew::DataflowSurface3E * const * sur = m_dig3.get_spaces()[1]->get_surface_nodes();
+                        const ew::DataflowSurface3E * const * sur = m_dig3.get_spaces()[target]->get_surface_nodes();
 
                         int face[3];
                         double coeff[3];
@@ -549,7 +556,7 @@ bool TableauLayout::projectLmkOntoSurface( ViewTreeItem* item, int index, bool c
 
                         ps.state = ew::Form3::STATE_PROJECTED;
 
-                        ew::Dig3Space *sp = m_dig3.get_spaces()[1];
+                        ew::Dig3Space *sp = m_dig3.get_spaces()[target];
                         bool b = false;
                         sp->set_form_pointset(&b, &ps);
 
@@ -580,10 +587,10 @@ bool TableauLayout::projectLmkOntoSurface( ViewTreeItem* item, int index, bool c
     return false;
 }
 
-bool TableauLayout::projectLmkOntoCurve( ViewTreeItem* item, int index, bool checksurface, bool showstatus )
+bool TableauLayout::projectLmkOntoCurve( ViewTreeItem* item, int index, bool checksurface, bool showstatus, int target )
 {
     std::string s = dynamic_cast< LandmarkItem* >( item )->getLmkID().toStdString();
-    const ew::Form3* form = m_dig3.get_spaces()[1]->get_form_data();
+    const ew::Form3* form = m_dig3.get_spaces()[target]->get_form_data();
     if( form != 0 )
         for(unsigned int j=0; j<form->pointsets.size(); ++j)
             if( form->pointsets[j].type == ew::Form3::TYPE_LANDMARK )
@@ -598,7 +605,7 @@ bool TableauLayout::projectLmkOntoCurve( ViewTreeItem* item, int index, bool che
                         p[1] = form->pointsets[j].locations[1];
                         p[2] = form->pointsets[j].locations[2];
 
-                        const ew::DataflowCurve3E * const * cur = m_dig3.get_spaces()[1]->get_curve_nodes();
+                        const ew::DataflowCurve3E * const * cur = m_dig3.get_spaces()[target]->get_curve_nodes();
 
 						int edge;
 						double coeff[3];
@@ -615,7 +622,7 @@ bool TableauLayout::projectLmkOntoCurve( ViewTreeItem* item, int index, bool che
 
                         ps.state = ew::Form3::STATE_PROJECTED;
 
-                        ew::Dig3Space *sp = m_dig3.get_spaces()[1];
+                        ew::Dig3Space *sp = m_dig3.get_spaces()[target];
                         bool b = false;
                         sp->set_form_pointset(&b, &ps);
 
@@ -648,7 +655,7 @@ bool TableauLayout::projectLmkOntoCurve( ViewTreeItem* item, int index, bool che
 
 bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string& semiLmkId,
 										int surface_index, int curve_index, int semiLmkIndex,
-										bool checksurface, bool showstatus)
+										bool checksurface, bool showstatus, int target)
 {
 	for(unsigned int j=0; j<form->pointsets.size(); ++j)
 		if(form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
@@ -680,14 +687,14 @@ bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string&
 						if(surface_index>=0)
 						{
 							int face[3];
-							const ew::DataflowSurface3E * const * sur = m_dig3.get_spaces()[1]->get_surface_nodes();
+							const ew::DataflowSurface3E * const * sur = m_dig3.get_spaces()[target]->get_surface_nodes();
 							sur = &sur[surface_index];
 							(*sur)->project(face, coeff, normal, proj, p);
 						}
 						else if(curve_index>=0)
 						{
 							int edge;
-							const ew::DataflowCurve3E * const * cur = m_dig3.get_spaces()[1]->get_curve_nodes();
+							const ew::DataflowCurve3E * const * cur = m_dig3.get_spaces()[target]->get_curve_nodes();
 							projectOntoCurve(cur, &edge, coeff, normal, proj, p, curve_index);
 						}
 
@@ -714,12 +721,12 @@ bool TableauLayout::projectToEmbedding(const ew::Form3* form, const std::string&
 
 					ps.state = ew::Form3::STATE_PROJECTED;
 
-					ew::Dig3Space *sp = m_dig3.get_spaces()[1];
+					ew::Dig3Space *sp = m_dig3.get_spaces()[target];
 					bool b = false;
 					sp->set_form_pointset(&b, &ps);
 
 					// make sure to note form has been changed
-					m_targetSaved = false;
+					m_targetSaved = (target!=1);
 
 					if( showstatus )
 					{
@@ -763,11 +770,11 @@ int TableauLayout::embeddedSurfaceIndex(const std::string& id, const ew::Form3* 
 	return -1;
 }
 
-bool TableauLayout::projectSemiLmk(const QString& topId, bool checksurface, bool showstatus, int semiLmkIndex)
+bool TableauLayout::projectSemiLmk(const QString& topId, bool checksurface, bool showstatus, int semiLmkIndex, int target)
 {
     if( checksurface )
     {
-        if( m_dig3.get_spaces()[1]->get_form_data()->surfaces.size() == 0 && m_dig3.get_spaces()[1]->get_form_data()->curves.size() == 0 )
+        if( m_dig3.get_spaces()[target]->get_form_data()->surfaces.size() == 0 && m_dig3.get_spaces()[target]->get_form_data()->curves.size() == 0 )
         {
             QMessageBox::information( this, "Error", "There is no surface or curve to project the landmarks onto. Please import a surface or a curve." );
             return false;
@@ -776,25 +783,25 @@ bool TableauLayout::projectSemiLmk(const QString& topId, bool checksurface, bool
 
     std::string semiLmkId = topId.toStdString();
 
-    const ew::Form3* form = m_dig3.get_spaces()[1]->get_form_data();
+    const ew::Form3* form = m_dig3.get_spaces()[target]->get_form_data();
 
     std::string embeddedItemId = "";
 
-    const char* found_embedding = m_dig3.get_spaces()[1]->get_form_data()->search_superset(semiLmkId.c_str());
+    const char* found_embedding = m_dig3.get_spaces()[target]->get_form_data()->search_superset(semiLmkId.c_str());
 
     if(found_embedding == 0)
     {
     	// if no embedded item found, use first
-    	if(m_dig3.get_spaces()[1]->get_form_data()->surfaces.size() > 0)
-    		embeddedItemId = m_dig3.get_spaces()[1]->get_form_data()->surfaces[0].id;
-    	else if(m_dig3.get_spaces()[1]->get_form_data()->curves.size() > 0)
-    		embeddedItemId = m_dig3.get_spaces()[1]->get_form_data()->curves[0].id;
+    	if(m_dig3.get_spaces()[target]->get_form_data()->surfaces.size() > 0)
+    		embeddedItemId = m_dig3.get_spaces()[target]->get_form_data()->surfaces[0].id;
+    	else if(m_dig3.get_spaces()[target]->get_form_data()->curves.size() > 0)
+    		embeddedItemId = m_dig3.get_spaces()[target]->get_form_data()->curves[0].id;
 
     	ew::Form3Embedding fe;
     	fe.subset_id = semiLmkId;
     	fe.superset_id = embeddedItemId;
     	bool b = false;
-    	ew::Dig3Space *sp = m_dig3.get_spaces()[1];
+    	ew::Dig3Space *sp = m_dig3.get_spaces()[target];
     	sp->set_form_embedding( &b, &fe );
 
     	Logger::getInstance()->log("No embedded object found for: " + QString(semiLmkId.c_str()) + ". Projecting onto first object.",Logger::WARNING);
@@ -811,7 +818,7 @@ bool TableauLayout::projectSemiLmk(const QString& topId, bool checksurface, bool
 		if((surface_index==-1) && (curve_index==-1))
 			return false;
 		else
-			return projectToEmbedding(form, semiLmkId, surface_index, curve_index, semiLmkIndex, checksurface, showstatus);
+			return projectToEmbedding(form, semiLmkId, surface_index, curve_index, semiLmkIndex, checksurface, false, target);
     }
 
     return false;
@@ -2128,6 +2135,8 @@ bool TableauLayout::loadTableau(QString loadedFile, bool loaded)
             m_tblRight->setDisabled( tempTableaus.size() < 2 );
             m_tblListRightE->setDisabled( tempTableaus.size() < 2 );
 
+            m_consensusPB->setDisabled( tempTableaus.size() < 2 );
+
             m_filmFirstFrame->setDisabled( tempTableaus.size() < 2 );
             m_filmPlayBackward->setDisabled( tempTableaus.size() < 2 );
             m_filmPlay->setDisabled( tempTableaus.size() < 2 );
@@ -2442,6 +2451,8 @@ void TableauLayout::addTableau( int index )
     m_tblLeft->setDisabled( m_tableauList.size() < 2 );
     m_tblRight->setDisabled( m_tableauList.size() < 2 );
     m_tblListRightE->setDisabled( m_tableauList.size() < 2 );
+
+    m_consensusPB->setDisabled( m_tableauList.size() < 2 );
 }
 
 void TableauLayout::replaceTableau()
@@ -2523,6 +2534,8 @@ void TableauLayout::deleteTableau()
         m_tblRight->setDisabled( true );
         m_tblListRightE->setDisabled( true );
     }
+
+    m_consensusPB->setDisabled( m_tableauList.size() < 2 );
 }
 
 void TableauLayout::moveTableauToPrev()

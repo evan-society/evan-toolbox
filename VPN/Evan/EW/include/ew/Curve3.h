@@ -26,7 +26,8 @@ namespace ew {
     void reset();
     void read_file(const char *file);
     void read_points(const std::vector<double> &coords);
-    void write_file(const char *file) const;
+    void write_file(const char *file) const;	//YS (2 July 2017): writes in binary, no idea why.
+    void write_file_txt(const char *file) const;
     inline void swap(ew::Curve3 &s);
     bool operator==(const ew::Curve3 &a) const;
     inline bool operator!=(const ew::Curve3 &a) const;

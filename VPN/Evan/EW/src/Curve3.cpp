@@ -229,8 +229,8 @@ ew::Curve3::read_points(const std::vector<double> &coords)
     points[i] = static_cast<float>(coords[i]);
   }
   for (int i = 0; i + 1 < static_cast<int>(coords.size()) / 3; i += 1) {
-    edges[2 * i] = i;
-    edges[2 * i + 1] = i + 1;
+    edges[2 * i] = i + 1;			//YS (2 July 2017): indexing should start from 1 not 0
+    edges[2 * i + 1] = i + 2;
   }
 }
 
@@ -298,6 +298,23 @@ ew::Curve3::write_file(const char *filename) const
      filename));
   }
   return;
+}
+
+void ew::Curve3::write_file_txt(const char *filename) const
+{
+	std::ofstream fd;
+	fd.open(filename);
+	if(!fd.is_open())
+	{
+		throw ew::ErrorIO(ew::String::ssprintf(
+		     "The curve file %s could not be saved (the file could not be opened).",
+		     filename));
+	}
+	for (int i=0; i<static_cast<int>(points.size()); i+=3)
+		fd << "v "<< points[i] << " " << points[i+1] << " " << points[i+2] << std::endl;
+	for (int i=0; i<static_cast<int>(edges.size()); i+=2)
+			fd << "e "<< edges[i] << " " << edges[i+1] << std::endl;
+	fd.close();
 }
 
 /// Compares this curve with another, member by member.

@@ -61,6 +61,7 @@ public:
     QPushButton *m_tblListRightE;
     QPushButton *m_tblEnd;
     QSpacerItem *horizontalSpacer;
+    QPushButton *m_consensusPB;
     QToolButton *m_filmShow;
     QGroupBox *m_filmGrpBox;
     QVBoxLayout *verticalLayout_3;
@@ -297,6 +298,10 @@ public:
 
     horizontalLayout_4->addItem(horizontalSpacer);
 
+    m_consensusPB = new QPushButton(Form);
+    m_consensusPB->setObjectName(QString::fromUtf8("m_consensusPB"));
+    horizontalLayout_4->addWidget(m_consensusPB);
+
     m_filmShow = new QToolButton(Form);
     m_filmShow->setObjectName(QString::fromUtf8("m_filmShow"));
     m_filmShow->setCheckable(true);
@@ -506,6 +511,8 @@ public:
     QObject::connect(m_tblListRightE, SIGNAL(clicked()), Form, SLOT(tblMoveRightE()));
     QObject::connect(m_tblEnd, SIGNAL(clicked()), Form, SLOT(tblMoveToEnd()));
 
+    QObject::connect(m_consensusPB, SIGNAL(clicked()), Form, SLOT(slideOnConsensus()));
+
     QMetaObject::connectSlotsByName(Form);
     } // setupUi
 
@@ -553,9 +560,11 @@ public:
 
 #ifndef QT_NO_TOOLTIP
     m_tblEnd->setToolTip(QApplication::translate("Form", "Display last tableau", 0, QApplication::UnicodeUTF8));
+    m_consensusPB->setToolTip(QApplication::translate("Form", "Slide tableau on the consensus", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
 
     m_tblEnd->setText(QString());
+    m_consensusPB->setText(QApplication::translate("Form", "Consensus", 0, QApplication::UnicodeUTF8));
     m_filmShow->setText(QApplication::translate("Form", "+", 0, QApplication::UnicodeUTF8));
     m_filmGrpBox->setTitle(QApplication::translate("Form", "Filmstrip", 0, QApplication::UnicodeUTF8));
     m_frameLBL->setText(QApplication::translate("Form", "Frame:", 0, QApplication::UnicodeUTF8));

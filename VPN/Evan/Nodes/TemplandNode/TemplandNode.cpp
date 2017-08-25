@@ -155,6 +155,8 @@ TableauLayout* TemplandNode::newTableau( bool createNewTab )
     mdiArea->setActiveSubWindow(mdiArea->addSubWindow(newProject));
     connect(newProject, SIGNAL(	status( QString) ), this, SLOT( status( QString) ) );
     connect(newProject, SIGNAL(	status( QString, int) ), this, SLOT( status( QString, int) ) );
+    connect(newProject, SIGNAL(	calcConsensus() ), this, SLOT( slideOnConsensus() ) );
+
     connect( mdiArea, SIGNAL(subWindowActivated (QMdiSubWindow*)), this, SLOT(subWindowChanged(QMdiSubWindow*)) );
 
     connect(actionHRestrict, SIGNAL(toggled(bool)), newProject, SLOT(restTargetY(bool) ) );
@@ -387,60 +389,17 @@ void TemplandNode::refreshOutputs()
     emit status(QString("Refreshing Output Ports, Please wait..."));
     TableauLayout* tlw = dynamic_cast< TableauLayout* >( cwin->widget() );
 
-    bool surfaceAdded = false;
 	const ew::Form3 * form =  tlw->getTargetFormData();
     unsigned int lmkCount = 0;
 
     if(isOutputConnected(0))
     {
-        //Fill the landmarks Output
-        for(unsigned int j=0; j<form->pointsets.size(); ++j)
+        if(fillLandmarkSet(m_targetLmks,form))
         {
-            if(form->pointsets[j].type == ew::Form3::TYPE_LANDMARK)
-                lmkCount++;
-            else if (form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
-                lmkCount += form->pointsets[j].n;
-        }
-
-        if(lmkCount)
-        {
-            m_targetLmks->ReSize(lmkCount, 3);
-            unsigned int lmkIndex = 0;
-            for(unsigned int j=0; j<form->pointsets.size(); ++j)
-            {
-                if(form->pointsets[j].type == ew::Form3::TYPE_LANDMARK)
-                {
-
-                    m_targetLmks->set(lmkIndex, 0, form->pointsets[j].locations[0]);
-                    m_targetLmks->set(lmkIndex, 1, -form->pointsets[j].locations[2]);
-                    m_targetLmks->set(lmkIndex, 2, form->pointsets[j].locations[1]);
-
-                    //m_targetLmks->set(lmkIndex, 0, form->pointsets[j].locations[0]);
-                    //m_targetLmks->set(lmkIndex, 1/*2*/, form->pointsets[j].locations[1]);
-                    //m_targetLmks->set(lmkIndex, 2/*1*/, form->pointsets[j].locations[2]);
-                    lmkIndex++;
-                }
-                else if (form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
-                {
-                    for ( int k = 0; k < form->pointsets[j].n; k++ )
-                    {
-
-                        m_targetLmks->set(lmkIndex, 0, form->pointsets[j].locations[3*k]);
-                        m_targetLmks->set(lmkIndex, 1, -form->pointsets[j].locations[3*k+2]);
-                        m_targetLmks->set(lmkIndex, 2, form->pointsets[j].locations[3*k+1]);
-
-                        //m_targetLmks->set(lmkIndex, 0, form->pointsets[j].locations[3*k]);
-                        //m_targetLmks->set(lmkIndex, 1/*2*/, form->pointsets[j].locations[3*k+1]);
-                        //m_targetLmks->set(lmkIndex, 2/*1*/, form->pointsets[j].locations[3*k+2]);
-                        lmkIndex++;
-                    }
-                }
-            }
-
             QString file = "";
             if(getCurrentTableauFile() != 0)
             {
-                file = getCurrentTableauFile()->getTemplateFormFileName();
+                file = getCurrentTableauFile()->getTargetFormFileName();
 
                 if(file.contains('/'))
                 {
@@ -468,31 +427,7 @@ void TemplandNode::refreshOutputs()
 
     if(isOutputConnected(1))
     {
-        //Fill the Surfaces Output
-        for(unsigned int j=0; j<form->surfaces.size(); ++j)
-        {
-            if(j < m_targetSurfaces->getSize())
-            {
-                if(m_targetSurfaces->getSurface(j)->getRenderableName() == form->surfaces[j].id.c_str())
-                    continue;
-                else
-                {
-                    Surface* outSurface = new Surface;
-                    outSurface->initialize(form->surfaces[j].id.c_str(), form->surfaces[j].file.c_str());
-                    m_targetSurfaces->setSurface(j, outSurface);
-                    surfaceAdded = true;
-                }
-            }
-            else
-            {
-                Surface* outSurface = new Surface;
-                outSurface->initialize(form->surfaces[j].id.c_str(), form->surfaces[j].file.c_str());
-                m_targetSurfaces->addSurface(outSurface);
-                surfaceAdded = true;
-            }
-        }
-
-        if(surfaceAdded)
+        if(fillSurfaces(m_targetSurfaces,form))
         {
             m_targetSurfaces->initialize(form->surfaces[0].id.c_str());
             setOutputPort1(m_targetSurfaces);
@@ -506,41 +441,8 @@ void TemplandNode::refreshOutputs()
 
     if(isOutputConnected(2))
     {
-        //Fill the Landmarks Output
-        lmkCount = 0;
-        for(unsigned int j=0; j<form2->pointsets.size(); ++j)
+        if(fillLandmarkSet(m_templateLmks,form2))
         {
-            if(form2->pointsets[j].type == ew::Form3::TYPE_LANDMARK)
-                lmkCount++;
-            else if(form2->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
-                lmkCount += form2->pointsets[j].n;
-        }
-
-        if(lmkCount)
-        {
-            m_templateLmks->ReSize(lmkCount, 3);
-            unsigned int lmkIndex = 0;
-            for(unsigned int j=0; j<form2->pointsets.size(); ++j)
-            {
-                if(form2->pointsets[j].type == ew::Form3::TYPE_LANDMARK)
-                {
-                    m_templateLmks->set(lmkIndex, 0, form2->pointsets[j].locations[0]);
-                    m_templateLmks->set(lmkIndex, 1, -form2->pointsets[j].locations[2]);
-                    m_templateLmks->set(lmkIndex, 2, form2->pointsets[j].locations[1]);
-                    lmkIndex++;
-                }
-                else if (form2->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
-                {
-                    for ( int k = 0; k < form2->pointsets[j].n; k++ )
-                    {
-                        m_templateLmks->set(lmkIndex, 0, form2->pointsets[j].locations[3*k]);
-                        m_templateLmks->set(lmkIndex, 1, -form2->pointsets[j].locations[3*k+2]);
-                        m_templateLmks->set(lmkIndex, 2, form2->pointsets[j].locations[3*k+1]);
-                        lmkIndex++;
-                    }
-                }
-            }
-
             QString file = "";
             if(getCurrentTableauFile() != 0)
             {
@@ -572,32 +474,7 @@ void TemplandNode::refreshOutputs()
 
     if(isOutputConnected(3))
     {
-        surfaceAdded = false;
-        //Fill the Surfaces Output
-        for(unsigned int j=0; j<form2->surfaces.size(); ++j)
-        {
-            if(j < m_templateSurfaces->getSize())
-            {
-                if(m_templateSurfaces->getSurface(j)->getRenderableName() == form2->surfaces[j].id.c_str())
-                    continue;
-                else
-                {
-                    Surface* outSurface = new Surface;
-                    outSurface->initialize(form2->surfaces[j].id.c_str(), form2->surfaces[j].file.c_str());
-                    m_templateSurfaces->setSurface(j, outSurface);
-                    surfaceAdded = true;
-                }
-            }
-            else
-            {
-                Surface* outSurface = new Surface;
-                outSurface->initialize(form2->surfaces[j].id.c_str(), form2->surfaces[j].file.c_str());
-                m_templateSurfaces->addSurface(outSurface);
-                surfaceAdded = true;
-            }
-        }
-
-        if(surfaceAdded)
+        if(fillSurfaces(m_templateSurfaces,form2))
         {
             m_templateSurfaces->initialize(form2->surfaces[0].id.c_str());
             setOutputPort3(m_templateSurfaces);
@@ -647,20 +524,85 @@ void TemplandNode::refreshOutputs()
     emit status(QString("Output Ports Updated"));
 }
 
-void TemplandNode::GetSpecimens()
+int TemplandNode::fillLandmarkSet(LandmarkSet* lmkset, const ew::Form3* form, bool flipAxis)
+{
+	//Fill the Landmarks Output
+	int lmkCount = 0;
+	for(unsigned int j=0; j<form->pointsets.size(); ++j)
+	{
+		if(form->pointsets[j].type == ew::Form3::TYPE_LANDMARK)
+			lmkCount++;
+		else if(form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
+			lmkCount += form->pointsets[j].n;
+	}
+
+	if(lmkCount)
+	{
+		lmkset->ReSize(lmkCount, 3);
+		unsigned int lmkIndex = 0;
+		for(unsigned int j=0; j<form->pointsets.size(); ++j)
+		{
+			if(form->pointsets[j].type == ew::Form3::TYPE_LANDMARK)
+			{
+				lmkset->set(lmkIndex, 0, form->pointsets[j].locations[0]);
+				lmkset->set(lmkIndex, 1, flipAxis?-form->pointsets[j].locations[2]:form->pointsets[j].locations[1]);
+				lmkset->set(lmkIndex, 2, flipAxis?form->pointsets[j].locations[1]:form->pointsets[j].locations[2]);
+				lmkIndex++;
+			}
+			else if (form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
+			{
+				for ( int k = 0; k < form->pointsets[j].n; k++ )
+				{
+					lmkset->set(lmkIndex, 0, form->pointsets[j].locations[3*k]);
+					lmkset->set(lmkIndex, 1, flipAxis?-form->pointsets[j].locations[3*k+2]:form->pointsets[j].locations[3*k+1]);
+					lmkset->set(lmkIndex, 2, flipAxis?form->pointsets[j].locations[3*k+1]:form->pointsets[j].locations[3*k+2]);
+					lmkIndex++;
+				}
+			}
+		}
+	}
+
+	return lmkCount;
+}
+
+bool TemplandNode::fillSurfaces(SurfaceVector* sv, const ew::Form3* form)
+{
+	//Fill the Surfaces Output
+	for(unsigned int j=0; j<form->surfaces.size(); ++j)
+	{
+		bool replaceSurface = (j<sv->getSize());
+		if (replaceSurface && sv->getSurface(j)->getRenderableName() == form->surfaces[j].id.c_str())
+			continue;
+		Surface* outSurface = new Surface;
+		if(!outSurface->initialize(form->surfaces[j].id.c_str(), form->surfaces[j].file.c_str()))
+		{
+			Logger::getInstance()->log(QString("[Templand Node] Failed to initialize surface '%1'!").arg(form->surfaces[j].file.c_str()),
+										Logger::RUN_ERROR);
+			delete outSurface;
+			return false;
+		}
+		if (replaceSurface)
+			sv->setSurface(j, outSurface);
+		else
+			sv->addSurface(outSurface);
+	}
+
+	return sv->getSize()>0;
+}
+
+void TemplandNode::GetSpecimens(bool flipAxis)
 {
 	m_specimens->clear();
-
 	std::vector<std::vector<double> > rawdata;
-
-    // std::vector<ew::Dig3Tableau> tempTableaus;
-    std::vector<ew::Dig3Tableau> tableauList;
 
     QString fileName = getCurrentTableauFile()->toString();
 
     if(fileName !="")
     {
-    	ew::Dig3Tableau::read_file(&tableauList, fileName.toStdString().c_str());
+    	//ew::Dig3Tableau::read_file(&tableauList, fileName.toStdString().c_str());
+    	QMdiSubWindow * cwin = mdiArea->currentSubWindow();
+    	TableauLayout* tlw = dynamic_cast< TableauLayout* >( cwin->widget() );
+    	const std::vector<ew::Dig3Tableau>& tableauList = tlw->getTableauList();
 
     	int landmarks = 0;
 
@@ -675,7 +617,7 @@ void TemplandNode::GetSpecimens()
     		QFile file(formFile);
     		if (!file.exists())
     		{
-    			Logger::getInstance()->log(QString("[Import Node] Failed to load form! File '%1' does not exist!").arg(formFile), Logger::RUN_ERROR);
+    			Logger::getInstance()->log(QString("[Templand Node] Failed to load form! File '%1' does not exist!").arg(formFile), Logger::RUN_ERROR);
     			return;
     		}
     		else
@@ -696,38 +638,10 @@ void TemplandNode::GetSpecimens()
 
 			if (form.pointsets.size()>0)
 			{
-				unsigned int lmks = 0;
-				for (unsigned int j=0; j<form.pointsets.size(); ++j)
-				{
-					std::vector<double> tempvec(3);
-					if (form.pointsets[j].type == ew::Form3::TYPE_LANDMARK)
-					{
-						tempvec[0] = form.pointsets[j].locations[0];
-						tempvec[1] = form.pointsets[j].locations[1];
-						tempvec[2] = form.pointsets[j].locations[2];
-
-						rawdata.push_back(tempvec);
-
-						lmks++;
-					}
-					else if (form.pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
-					{
-						// fill in the semi landmarks location in array
-						for ( int k = 0; k < form.pointsets[j].n; k++ )
-						{
-							tempvec[0] = form.pointsets[j].locations[3*k];
-							tempvec[1] = form.pointsets[j].locations[3*k+1];
-							tempvec[2] = form.pointsets[j].locations[3*k+2];
-
-							rawdata.push_back(tempvec);
-							lmks++;
-						}
-					}
-				}
+				LandmarkSet *lmkset = new LandmarkSet;
+				int lmks = fillLandmarkSet(lmkset,&form,flipAxis);
 				if (landmarks == 0)
-				{
 					landmarks = lmks;
-				}
 				else if (landmarks != (int) lmks)
 				{
 					if(!warned)
@@ -736,15 +650,6 @@ void TemplandNode::GetSpecimens()
 						warned = true;
 					}
 				}
-
-				LandmarkSet *lmkset = new LandmarkSet(lmks,3);
-				for (unsigned int j=0;j<lmks;j++)
-				{
-					(*lmkset)[j][0] = rawdata[j][0];
-					(*lmkset)[j][1] = -rawdata[j][2];
-					(*lmkset)[j][2] = rawdata[j][1];
-				}
-
 				m_specimens->addLandmarkSet(lmkset);
 
 				QString value;
@@ -763,4 +668,175 @@ void TemplandNode::GetSpecimens()
 	}
 }
 
+#include<gpa.h>
 
+void TemplandNode::slideOnConsensus()
+{
+	Logger::getInstance()->log("[Templand Node] Sliding on Consensus...");
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+
+	//1- Perform GPA
+	QMdiSubWindow * cwin = mdiArea->currentSubWindow();
+	TableauLayout* tlw = dynamic_cast< TableauLayout* >( cwin->widget() );
+	const ew::Form3 * templateForm =  tlw->getTemplateFormData();
+
+	int lmkCount=fillLandmarkSet(m_templateLmks,templateForm,false);
+	GetSpecimens(false);
+	m_specimens->addLandmarkSet(m_templateLmks);
+
+	const int individuals = m_specimens->getSize();
+	const int landmarks = m_specimens->getLandmarkCount();
+	const int dimensions = m_specimens->getLandmarkDimensions(); //should always be 3
+	if (lmkCount != landmarks)
+		Logger::getInstance()->log("[Templand Node] Template and target(s) do not have the same number of landmarks!", Logger::WARNING);
+	Matrix<double> data(landmarks * individuals, dimensions);
+	for (int i=0;i<individuals;i++) //Fill target landmarks
+	{
+		LandmarkSet *lands = m_specimens->getLandmarkSet(i);
+		for (int j=0;j<landmarks;j++)
+			for (int k=0;k<dimensions;k++)
+				data[i*landmarks+j][k] = (*lands)[j][k];
+	}
+
+	GPA gpa(&data, individuals, landmarks, dimensions);
+	gpa.PerformGPA();
+
+	//2- Get mean shape, multiply mean shape by mean centroid size
+	LandmarkSet meanSpecimen;
+	gpa.GetProcrustesMean(&meanSpecimen);
+	MatrixD transMat;
+	gpa.GetTransformationMatrix(individuals-1,&transMat); //Template is the last specimen
+	meanSpecimen.transform(!transMat);
+	tlw->replaceTargetForm(tlw->getTemplateFormFileName());
+
+	//Set mean shape as the new template
+	ew::Form3 consensusForm(*templateForm);
+	int lmkIndex = 0;
+	QVector<QString> supersets;
+	QVector<QString> subsets;
+	for(unsigned int j=0; j<templateForm->pointsets.size(); ++j)
+	{
+		if(consensusForm.pointsets[j].type == ew::Form3::TYPE_LANDMARK)
+		{
+			consensusForm.pointsets[j].locations[0] = meanSpecimen[lmkIndex][0];
+			consensusForm.pointsets[j].locations[1] = meanSpecimen[lmkIndex][1];
+			consensusForm.pointsets[j].locations[2] = meanSpecimen[lmkIndex][2];
+			lmkIndex++;
+		}
+		else if (consensusForm.pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK)
+		{
+			for ( int k = 0; k < consensusForm.pointsets[j].n; k++ )
+			{
+				consensusForm.pointsets[j].locations[3*k] = meanSpecimen[lmkIndex][0];
+				consensusForm.pointsets[j].locations[3*k+1] = meanSpecimen[lmkIndex][1];
+				consensusForm.pointsets[j].locations[3*k+2] = meanSpecimen[lmkIndex][2];
+				lmkIndex++;
+			}
+			consensusForm.pointsets[j].state = ew::Form3::STATE_SET;
+			//consensusForm.pointsets[j].relax_dims.clear();
+			std::fill(consensusForm.pointsets[j].relax_params.begin(), consensusForm.pointsets[j].relax_params.end(),0);
+			subsets.push_back(consensusForm.pointsets[j].id.c_str());
+			supersets.push_back(consensusForm.search_superset(subsets.back().toStdString().c_str()));
+		}
+	}
+
+	//3- Generate consensus surface
+	Logger::getInstance()->log("[Templand] Warping template surface(s) to mean shape...");
+
+	TPS tps(m_templateLmks->GetMatrix(),meanSpecimen.GetMatrix(),meanSpecimen.GetRows(),3);
+	tps.PerformTPS();
+
+	const ew::Dig3Space* templateSpace = tlw->getTemplateDigSpace();
+	for(int i=0; i<templateSpace->get_n_surface_nodes(); ++i)
+	{
+		const ew::Surface3* currentSurface = templateSpace->get_surface_nodes()[i]->get_data();
+		Matrix<double>* pointInOutMat = new Matrix<double>(currentSurface->points.size()/3,3);
+		Matrix<unsigned int>* facesMat= new Matrix<unsigned int>(currentSurface->faces.size()/3,3);
+		for(size_t j=0; j<pointInOutMat->GetRows(); ++j)
+		{
+			(*pointInOutMat)[j][0] = currentSurface->points[3*j];
+			(*pointInOutMat)[j][1] = currentSurface->points[3*j+1];
+			(*pointInOutMat)[j][2] = currentSurface->points[3*j+2];
+		}
+		for(size_t j=0; j<facesMat->GetRows(); ++j)
+		{
+			(*facesMat)[j][0] = currentSurface->faces[3*j];
+			(*facesMat)[j][1] = currentSurface->faces[3*j+1];
+			(*facesMat)[j][2] = currentSurface->faces[3*j+2];
+		}
+		tps.WarpPoints(pointInOutMat->GetMatrix(), pointInOutMat, pointInOutMat->GetRows());
+
+		QString newSurfaceId = QString(consensusForm.surfaces[i].id.c_str())+ "_consensus";
+		QString newSurfaceFile = consensusForm.surfaces[i].file.c_str();
+		newSurfaceFile = newSurfaceFile.left( newSurfaceFile.lastIndexOf(".obj") )+ "_consensus.obj";
+
+		Surface* inSurface = new Surface;
+		inSurface->setVertices(pointInOutMat);
+		inSurface->setIndices(facesMat);
+		inSurface->initialize(templateForm->surfaces[i].id.c_str());
+		inSurface->saveToFile(newSurfaceFile);
+
+		int embedIndex = supersets.lastIndexOf(consensusForm.surfaces[i].id.c_str());
+		if(embedIndex>=0)
+			consensusForm.set_superset(subsets[embedIndex].toStdString().c_str(), newSurfaceId.toStdString().c_str());
+		consensusForm.surfaces[i].file = newSurfaceFile.toStdString();
+		consensusForm.surfaces[i].id = newSurfaceId.toStdString();
+	}
+	// Also warp curves
+	Logger::getInstance()->log("[Templand] Warping template curves(s) to mean shape...");
+	for(int i=0; i<templateSpace->get_n_curve_nodes(); ++i)
+	{
+		const ew::Curve3* currentCurve = templateSpace->get_curve_nodes()[i]->get_data();
+		Matrix<double> pointInOutMat(currentCurve->points.size()/3,3);
+		for(size_t j=0; j<pointInOutMat.GetRows(); ++j)
+		{
+			pointInOutMat[j][0] = currentCurve->points[3*j];
+			pointInOutMat[j][1] = currentCurve->points[3*j+1];
+			pointInOutMat[j][2] = currentCurve->points[3*j+2];
+		}
+		tps.WarpPoints(pointInOutMat.GetMatrix(), &pointInOutMat, pointInOutMat.GetRows());
+
+		/*for(size_t j=0; j<pointInOutMat.GetRows(); ++j)
+		{
+			double temp = pointInOutMat[j][1];
+			pointInOutMat[j][1] = pointInOutMat[j][2];
+			pointInOutMat[j][2] = -temp;
+		}*/
+
+		std::vector<double> warpedPoints;
+		warpedPoints.assign(pointInOutMat.GetSinglePtr(), pointInOutMat.GetSinglePtr()+currentCurve->points.size());
+		ew::Curve3 warpedCurve(*currentCurve);
+		warpedCurve.read_points(warpedPoints);
+
+		QString newCurveFile = consensusForm.curves[i].file.c_str();
+		newCurveFile = newCurveFile.left( newCurveFile.lastIndexOf(".obj") )+ "_consensus.obj";
+
+		warpedCurve.write_file_txt(newCurveFile.toStdString().c_str());
+		consensusForm.curves[i].file = newCurveFile.toStdString();
+	}
+
+	// Now save consensus form to disk
+	Logger::getInstance()->log("[Templand] Saving consensus to disk...");
+	QString cfname = tlw->getTemplateFormFileName();
+	cfname = cfname.left( cfname.lastIndexOf(".frm") );
+	cfname += "_consensus.frm";
+	consensusForm.write_file(cfname.toStdString().c_str(),false);
+
+	tlw->replaceTemplateForm(cfname);
+	tlw->addTableau(0);
+	// Project all template landmarks and semi-landmarks to their embedding (just in case)
+	tlw->projectAll(true,0);
+
+	//4- Replace templates of all targets with the consensus
+	Logger::getInstance()->log("[Templand] Replacing template with consensus ...");
+	const std::vector<ew::Dig3Tableau>& tableauList = tlw->getTableauList();
+	for(size_t i=1; i<tableauList.size(); ++i)
+	{
+		ew::Dig3Tableau currentTbl = tableauList[i];
+		currentTbl.space[0].form_filename = cfname.toStdString();
+		tlw->setTableau(i, currentTbl);
+	}
+
+	Logger::getInstance()->log("[Templand] done!");
+	QApplication::restoreOverrideCursor();
+}

@@ -56,7 +56,7 @@ public:
     int getLineWidth()                const {return m_lineWidth;}
     void setRaw(bool raw) {m_bRaw = raw;}
 
-    void applyTransform(Matrix<double>& mat)
+    void applyTransform(const Matrix<double>& mat)
     {m_vertices->transform(mat);}
 
     bool loadTexture(const QString&);

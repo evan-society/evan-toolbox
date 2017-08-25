@@ -42,25 +42,20 @@ public:
 
 	QString getCurrentFilename() { if( m_tableauFile.isEmpty() ) return "Untitled"; return m_tableauFile; }
 
-    const ew::Form3* getFormData()
-    {
-        return m_dig3.get_spaces()[1]->get_form_data();
-    }
+	const ew::Dig3Space* getTargetDigSpace()
+	{return m_dig3.get_spaces()[1];}
+
+	const ew::Dig3Space* getTemplateDigSpace()
+	{return m_dig3.get_spaces()[0];}
 
     const ew::Form3* getTemplateFormData()
-    {
-        return m_dig3.get_spaces()[0]->get_form_data();
-    }
+    {return getTemplateDigSpace()->get_form_data();}
 
     const ew::Form3* getTargetFormData()
-    {
-        return m_dig3.get_spaces()[1]->get_form_data();
-    }
+    {return getTargetDigSpace()->get_form_data();}
 
     QGLWidget* mainWidget()
-    {
-        return m_targetSliceView;
-    }
+    {return m_targetSliceView;}
 
     void selectPointsInViews( bool select ) { m_selectPointsInViews = select; }
     bool selectPointsInViews() { return m_selectPointsInViews; }
@@ -157,6 +152,8 @@ public slots:
     void tblSwapPrev();
     void tblSwapNext();
 
+    void slideOnConsensus() {emit calcConsensus();}
+
     void pointType( int type );
 
     void secPerFrame( const QString& text );
@@ -177,20 +174,36 @@ public slots:
         m_templateItemTree->setVisible(!v);
     }
 
-    void projectAll( bool checksurface = true );
-    bool projectLmk( ViewTreeItem* item, int index, bool checksurface = true, bool showstatus = true );
-    bool projectLmkOntoSurface( ViewTreeItem* item, int index, bool checksurface = true, bool showstatus = true );
-    bool projectLmkOntoCurve( ViewTreeItem* item, int index, bool checksurface = true, bool showstatus = true );
-    bool projectSemiLmk(const QString& topId, bool checksurface = true, bool showstatus = true, int index=-1);
+    void projectAll( bool checksurface = true, int target=1 );
+    bool projectLmk( ViewTreeItem* item, int index, bool checksurface = true, bool showstatus = true, int target=1 );
+    bool projectLmkOntoSurface( ViewTreeItem* item, int index, bool checksurface = true, bool showstatus = true, int target=1 );
+    bool projectLmkOntoCurve( ViewTreeItem* item, int index, bool checksurface = true, bool showstatus = true , int target=1);
+    bool projectSemiLmk(const QString& topId, bool checksurface = true, bool showstatus = true, int index=-1, int target=1);
     void lmkProject(FormItem* form, ViewTreeItem* item, int index);
     void lmkSlide( FormItem* form, ViewTreeItem* item, int index, bool slide);
     void lmkExport(FormItem* form);
     void lmkExportAll(FormItem* form);
 //    void updateTemplate(FormItem* form);
     void saveCurve(FormItem* form, int index);
-    QString getTargetFormFileName(){return m_targetFile;}
-    QString getTemplateFormFileName(){return m_targetFile;}
+    const QString& getTargetFormFileName(){return m_targetFile;}
+    const QString& getTemplateFormFileName(){return m_templateFile;}
 
+    void replaceTargetForm(const QString& f)
+    {
+    	m_targetFile = f;
+    	loadForm(m_targetFormItem, true);
+    }
+    void replaceTemplateForm(const QString& f)
+    {
+		m_templateFile = f;
+		loadForm(m_templateFormItem, true);
+	}
+    const std::vector<ew::Dig3Tableau>& getTableauList() const {return m_tableauList;}
+    void setTableau(size_t i, const ew::Dig3Tableau& tbl)
+    {
+    	if(i<m_tableauList.size())
+    		m_tableauList[i] = tbl;
+    }
 signals:
 	void status( QString msg );
 	void status( QString msg, int val );
@@ -203,6 +216,7 @@ signals:
     void deleteForm( bool enable );
     void swapPrevForm( bool enable );
     void swapNextForm( bool enable );
+    void calcConsensus();
 
 private slots:
     void formUpdated(FormItem*);
@@ -273,7 +287,7 @@ private:
     void slideAll(int iterations, double eps, int pointsetIndex=-1);
     bool projectToEmbedding(const ew::Form3* form, const std::string& semiLmkId,
     						int surface_index, int curve_index, int semiLmkIndex=-1,
-    						bool checksurface=true, bool showstatus=true);
+    						bool checksurface=true, bool showstatus=true, int target=1);
     bool checkSpline();
     bool warpLandmarkItem(LandmarkItem* lmi);
     bool warpSemilandmarkItem(SemiLandmarksTopItem* lmi);
