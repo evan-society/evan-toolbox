@@ -5,6 +5,11 @@
 #include "../Utilities/GeodeFinder.h"
 #include <osg/LineWidth>
 
+#ifdef OSG_LIBRARY_STATIC
+    USE_OSGPLUGIN(stl)
+    USE_OSGPLUGIN(obj)
+#endif
+
 extern ofstream dbgfile;// debug
 
 bool Surface::setFromContainer(DataTypePtr& surfacesPtr, unsigned int partIndex)

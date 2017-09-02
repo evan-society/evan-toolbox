@@ -304,9 +304,9 @@ p_ply ply_open(const char *name, p_ply_error_cb error_cb) {
         fclose(fp);
         return NULL;
     }
-    if (strcmp(magic, "ply\n")) {
+    if (strncmp (magic, "ply", 3)) {
         fclose(fp);
-        error_cb("Not a PLY file. Expected magic number 'ply\\n'");
+        error_cb("Not a PLY file. Expected magic number 'ply'");
         return NULL;
     }
     ply = ply_alloc();

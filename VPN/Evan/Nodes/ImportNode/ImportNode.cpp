@@ -38,6 +38,10 @@ vector<int> x_faces;
 vector<int> y_faces;
 vector<int> z_faces;
 
+//error callback function
+void logError(const char* errMsg)
+{Logger::getInstance()->log(errMsg, Logger::RUN_ERROR);}
+
 // callbacks for reading ply
 static int vertex_cb(p_ply_argument argument)
 {
@@ -83,7 +87,7 @@ static int face_cb(p_ply_argument argument)
 
 int ReadPlyFile(const char * filename, Matrix<double> * vertices, Matrix<unsigned int> * faces)
 {
-    p_ply ply = ply_open(filename, NULL);
+    p_ply ply = ply_open(filename, logError);
     if (!ply)
     {
         string str("\tFailed to open ply file: ");

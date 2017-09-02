@@ -1,7 +1,7 @@
 #include "RealiseNode/RealiseNode.h"
 #include "MultiplyNode/MultiplyNode.h"
 #include "AnnotationNode/AnnotationNode.h"
-//#include "Plotter3DNode/Plotter3DNode.h"
+#include "Plotter3DNode/Plotter3DNode.h"
 #include "TemplandNode/TemplandNode.h"
 #include "GroupNode/GroupNode.h"
 #include "ConcatNode/ConcatNode.h"
@@ -49,8 +49,8 @@ INode* NodeFactory::getNode(const QString& serializedNode)
 	else
 	if(nodeType == "AnnotationNode")
 		newNode = new AnnotationNode();
-	/*else if(nodeType == "Plotter3DNode")
-		newNode = new Plotter3DNode();*/
+	else if(nodeType == "Plotter3DNode")
+		newNode = new Plotter3DNode();
 	else if(nodeType == "TemplandNode")
 		newNode = new TemplandNode();
 	else if(nodeType == "GroupNode")
