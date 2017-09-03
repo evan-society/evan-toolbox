@@ -672,7 +672,7 @@ void TemplandNode::GetSpecimens(bool flipAxis)
 
 void TemplandNode::slideOnConsensus()
 {
-	Logger::getInstance()->log("[Templand Node] Sliding on Consensus...");
+	status("Sliding on Consensus...");
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	//1- Perform GPA
@@ -741,7 +741,7 @@ void TemplandNode::slideOnConsensus()
 	}
 
 	//3- Generate consensus surface
-	Logger::getInstance()->log("[Templand] Warping template surface(s) to mean shape...");
+	status("Warping template surface(s) to mean shape...");
 
 	TPS tps(m_templateLmks->GetMatrix(),meanSpecimen.GetMatrix(),meanSpecimen.GetRows(),3);
 	tps.PerformTPS();
@@ -783,7 +783,7 @@ void TemplandNode::slideOnConsensus()
 		consensusForm.surfaces[i].id = newSurfaceId.toStdString();
 	}
 	// Also warp curves
-	Logger::getInstance()->log("[Templand] Warping template curves(s) to mean shape...");
+	status("Warping template curves(s) to mean shape...");
 	for(int i=0; i<templateSpace->get_n_curve_nodes(); ++i)
 	{
 		const ew::Curve3* currentCurve = templateSpace->get_curve_nodes()[i]->get_data();
@@ -816,7 +816,7 @@ void TemplandNode::slideOnConsensus()
 	}
 
 	// Now save consensus form to disk
-	Logger::getInstance()->log("[Templand] Saving consensus to disk...");
+	status("Saving consensus to disk...");
 	QString cfname = tlw->getTemplateFormFileName();
 	cfname = cfname.left( cfname.lastIndexOf(".frm") );
 	cfname += "_consensus.frm";
@@ -828,7 +828,7 @@ void TemplandNode::slideOnConsensus()
 	tlw->projectAll(true,0);
 
 	//4- Replace templates of all targets with the consensus
-	Logger::getInstance()->log("[Templand] Replacing template with consensus ...");
+	status("Replacing template with consensus...");
 	const std::vector<ew::Dig3Tableau>& tableauList = tlw->getTableauList();
 	for(size_t i=1; i<tableauList.size(); ++i)
 	{
@@ -837,6 +837,14 @@ void TemplandNode::slideOnConsensus()
 		tlw->setTableau(i, currentTbl);
 	}
 
-	Logger::getInstance()->log("[Templand] done!");
+    //5- Now slide all targets against the consensus
+    status("Sliding target semi-landmarks against consensus...");
+    for(size_t i=0; i<tableauList.size(); ++i)
+    {
+        //tlw->moveToFrame(i+1);
+        tlw->slideAll(1,0);
+        tlw->moveTableauToNext();
+    }
+	status("done!", 2);
 	QApplication::restoreOverrideCursor();
 }
