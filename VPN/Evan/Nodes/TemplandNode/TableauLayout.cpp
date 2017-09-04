@@ -2894,26 +2894,14 @@ void TableauLayout::applyItemChange(ViewTree* itemTree, QTreeWidgetItem* treeIte
 void TableauLayout::deleteLmk(FormItem* itemForm, int i)
 {
     std::string id;
-    if( itemForm==m_targetFormItem )
-    {
-        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_targetTopLandmarks->child( i ) );
-        if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-            id = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
-        else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-            id = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID().toStdString();
-    }
-    else if( itemForm==m_templateFormItem )
-    {
-        ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( m_templateTopLandmarks->child( i ) );
-        if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
-            id = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
-        else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
-            id = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID().toStdString();
-    }
+    ViewTreeItem* vti = dynamic_cast< ViewTreeItem* >( (( itemForm==m_targetFormItem )?m_targetTopLandmarks:m_templateTopLandmarks)->child( i ) );
+    if( vti->getType() == ViewTreeItem::LANDMARK_ITEM )
+        id = dynamic_cast< LandmarkItem* >( vti )->getLmkID().toStdString();
+    else if( vti->getType() == ViewTreeItem::SEMILANDMARKS_ITEM )
+        id = dynamic_cast< SemiLandmarksTopItem* >( vti )->getLmkID().toStdString();
 
     if( id.empty() )
         return;
-
     const ew::Form3* form = m_dig3.get_spaces()[ (itemForm==m_targetFormItem) ? 1 : 0 ]->get_form_data();
     int index = i;
     bool found = false;
@@ -2930,54 +2918,40 @@ void TableauLayout::deleteLmk(FormItem* itemForm, int i)
 
     if( !found )
         return;
-
     m_dig3.get_spaces()[itemForm==m_targetFormItem ? 1:0]->remove_form_pointset(index);
     formUpdated(itemForm);
 }
 
 void TableauLayout::deleteLmk(FormItem* patch, ViewTreeItem* semi, int index )
 {
-    std::string id = dynamic_cast< SemiLandmarksTopItem* >( patch )->getLmkID().toStdString();
-
+    std::string id = dynamic_cast< SemiLandmarkItem* >( semi )->getParent()->getLmkID().toStdString();
+    int foundIndex = -1;
     const ew::Form3* form = m_dig3.get_spaces()[ 1 ]->get_form_data();
     if( form != 0 )
         for(unsigned int j=0; j<form->pointsets.size(); ++j)
-            if( form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK )
+            if( form->pointsets[j].type == ew::Form3::TYPE_SEMI_LANDMARK && form->pointsets[j].id == id )
             {
-                if( form->pointsets[j].id == id )
-                {
-                    for( int n = 0; n < form->pointsets[j].n; ++n )
-                    {
-                        if( n == index )
-                        {
-                            ew::Form3PointSet ps = form->pointsets[j];
-                            // delete the x y z
-                            ps.locations.erase( ps.locations.begin() + n * 3 );
-                            ps.locations.erase( ps.locations.begin() + n * 3 );
-                            ps.locations.erase( ps.locations.begin() + n * 3 );
-
-                            // delet the relax dims
-                            if( (int)ps.relax_dims.size() > n )
-                                ps.relax_dims.erase( ps.relax_dims.begin() + n );
-
-                            // delete the relax params
-                            if( (int)ps.relax_params.size() > n * 3 + 3 )
-                            {
-                                ps.relax_params.erase( ps.relax_params.begin() + n * 3 );
-                                ps.relax_params.erase( ps.relax_params.begin() + n * 3 );
-                                ps.relax_params.erase( ps.relax_params.begin() + n * 3 );
-                            }
-
-                            // decrease the pointset count
-                            --ps.n;
-
-                            bool b = false;
-                            m_dig3.get_spaces()[ 1 ]->set_form_pointset(&b, &ps);
-                            return;
-                        }
-                    }
-                }
+                foundIndex = j;
+                break;
             }
+    if(foundIndex>=0)
+    {
+        ew::Form3PointSet ps = form->pointsets[foundIndex];
+        // delete the x y z
+        size_t psIndex = index*3;
+        ps.locations.erase( ps.locations.begin() + psIndex,  ps.locations.begin() + psIndex + 3);
+        // delet the relax dims
+        if( (int)ps.relax_dims.size() > index )
+            ps.relax_dims.erase( ps.relax_dims.begin() + index );
+
+        // delete the relax params
+        if( (int)ps.relax_params.size() > psIndex + 3 )
+            ps.relax_params.erase( ps.relax_params.begin() + psIndex,  ps.relax_params.begin() + psIndex + 3);
+        // decrease the pointset count
+        --ps.n;
+        bool b = false;
+        m_dig3.get_spaces()[ 1 ]->set_form_pointset(&b, &ps);
+    }
 }
 
 void TableauLayout::deleteAllLmk(FormItem* itemForm, int i)
