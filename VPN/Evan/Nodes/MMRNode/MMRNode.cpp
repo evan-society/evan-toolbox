@@ -1512,7 +1512,7 @@ void MMRNode::PrintOutput()
 
     outfile<< "Wilk's Lambda:\t" << m_WilksLambda << "\t" <<endl;
     outfile<< "\tF-test\t" << FTestWilks <<endl;
-    outfile<< "\tProbability\t" << FProbWilks <<endl;
+    outfile<< "\tThe incomplete Beta function ratio\t" << FProbWilks <<endl;
 
     s = 0.0;
     if ((m_numIndependent * m_numIndependent) + (m_numDependent * m_numDependent) > 5 )
