@@ -587,6 +587,8 @@ void PlotterNode::plot()
 
     if(m_xAxisInput->getSpecimenGroupNumber() == 0 ) //Plot without group information
     {
+        m_allMarkers.clear();
+        m_rowIndices.clear();
         unsigned int n = m_xAxisInput->GetRows();
 
         for(unsigned int i=0; i<n; ++i)
@@ -601,6 +603,8 @@ void PlotterNode::plot()
             mark->setLabelAlignment(Qt::AlignTop);
             mark->setSymbol(m_plotSymbol);
             mark->attach(m_plotArea);
+            m_allMarkers.push_back(mark);
+            m_rowIndices.push_back(i);
         }
     }
     else
