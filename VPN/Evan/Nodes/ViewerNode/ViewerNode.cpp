@@ -21,7 +21,7 @@
 
 ViewerMainWindow::ViewerMainWindow(ViewerNode* viewer): QMainWindow(), m_viewer(viewer)
 {
-    std::cout << "ViewerMainWindow::ViewerMainWindow\n"; //husky debug
+    //std::cout << "ViewerMainWindow::ViewerMainWindow\n"; //husky debug
 
     QMenuBar* menubar = new QMenuBar();
     QMenu* viewMenu = new QMenu("View");
@@ -269,7 +269,7 @@ ViewerNode::ViewerNode( QWidget * parent , const char * name ,
                                         const QGLWidget * shareWidget, WindowFlags f ) :
                                         AdapterWidget(parent, name, shareWidget, f), INode()
 {
-    std::cout << "ViewerNode::ViewerNode\n"; //husky debug
+    //std::cout << "ViewerNode::ViewerNode\n"; //husky debug
 
     m_renderInput = NULL;
 
@@ -560,68 +560,14 @@ void ViewerNode::focusSceneObject( const osg::Vec3 &center, const float radius, 
 
 void ViewerNode::focusScene()
 {
-    QMap< IRenderable*, osg::Node* >::const_iterator it;
+    //YN (Sep13,2017): I don't know why use a new group when we have root
+    /*QMap< IRenderable*, osg::Node* >::const_iterator it;
     const QMap< IRenderable*, osg::Node* >::const_iterator itEnd = m_currentScene.end();
 
     QMap< Volumes*, osgVolume::Volume* >::const_iterator itVol;
     const QMap< Volumes*, osgVolume::Volume* >::const_iterator itVolEnd = m_currentVolumeScene.end();
-
-#define MANUAL_AABB_CALCULATION
-
-
-#if defined(MANUAL_AABB_CALCULATION)
-    osg::Vec3 minAABB( +FLT_MAX, +FLT_MAX, +FLT_MAX );
-    osg::Vec3 maxAABB( -FLT_MAX, -FLT_MAX, -FLT_MAX );
-
-    // manually determine AABB
-    for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
-
-        it.value()->dirtyBound(); // may not be necessary; causes re-evaluation of bounding sphere
-
-        float r = it.value()->getBound().radius();
-        osg::Vec3 rVec = osg::Vec3( r, r, r );
-        osg::Vec3 c = it.value()->getBound().center();
-        osg::Vec3 minC = c - rVec;
-        osg::Vec3 maxC = c + rVec;
-
-        if ( minC.x() < minAABB.x() ) {
-            minAABB.x() = minC.x();
-        }
-        if ( minC.y() < minAABB.y() ) {
-            minAABB.y() = minC.y();
-        }
-        if ( minC.z() < minAABB.z() ) {
-            minAABB.z() = minC.z();
-        }
-
-        if ( maxC.x() > maxAABB.x() ) {
-            maxAABB.x() = maxC.x();
-        }
-        if ( maxC.y() > maxAABB.y() ) {
-            maxAABB.y() = maxC.y();
-        }
-        if ( maxC.z() > maxAABB.z() ) {
-            maxAABB.z() = maxC.z();
-        }
-    }
-
-    osg::Vec3 halfAABB = ( maxAABB - minAABB ) * 0.5f;
-    osg::Vec3 groupC = minAABB + halfAABB;
-    float groupR = halfAABB.length();
-
-    #if !defined(NDEBUG)
-    Logger::getInstance()->log(     QString( "[ViewerNode] process() AABB manually: " ) +
-                                    QString( "( " ) +   QString::number( minAABB.x() ) + QString( ", " ) +
-                                                        QString::number( minAABB.y() ) + QString( ", " ) +
-                                                        QString::number( minAABB.z() ) + QString( " ), " ) +
-                                    QString( "( " ) +   QString::number( maxAABB.x() ) + QString( ", " ) +
-                                                        QString::number( maxAABB.y() ) + QString( ", " ) +
-                                                        QString::number( maxAABB.z() ) + QString( " )" )  );
-    #endif
-
-#else
-
     // let OSG perform the heavy lifting
+    
     osg::Group *groupRootAABB = new osg::Group();
 
     for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
@@ -634,13 +580,6 @@ void ViewerNode::focusScene()
     osg::Vec3 groupC = groupRootAABB->getBound().center();
     float groupR = groupRootAABB->getBound().radius();
 
-//    Logger::getInstance()->log(     QString( "[ViewerNode] process() AABB osg: " ) +
-//                                    QString( "( " ) +   QString::number( groupC.x() ) + QString( ", " ) +
-//                                                        QString::number( groupC.y() ) + QString( ", " ) +
-//                                                        QString::number( groupC.z() ) + QString( " ), " ) +
-//                                    QString( "radius = " ) + QString::number( groupR ) );
-
-
     //delete groupRootAABB;
     // delete does not work => ref counted
     for ( it = m_currentScene.begin() ; it != itEnd; ++it ) {
@@ -650,9 +589,10 @@ void ViewerNode::focusScene()
             groupRootAABB->removeChild( itVol.value() );
     }
 
-    groupRootAABB->unref();
-#endif
+    groupRootAABB->unref();*/
 
+    osg::Vec3 groupC = m_root->getBound().center();
+    float groupR = m_root->getBound().radius();
     //focusSceneObject( groupC, groupR, &m_loadedViewMatrix );
     focusSceneObject( groupC, groupR );
 }
