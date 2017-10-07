@@ -24,11 +24,11 @@ WarpGrid* AbstractWarpGrid::asWarpGrid(){
     return dynamic_cast<WarpGrid*>(this);
 }
 
-osg::Matrixd AbstractWarpGrid::computeWorldtoLocalMatrix()
+osg::Matrixf AbstractWarpGrid::computeWorldtoLocalMatrix()
 {
     if (!parent || !parent->getOsgTransform() || !parent->getOsgTransform().valid())
-        return osg::Matrixd::identity();
-    osg::Matrixd mat = getOsgTransform()->getMatrix();
+        return osg::Matrixf::identity();
+    osg::Matrixf mat = getOsgTransform()->getMatrix();
     mat *= parent->getParentMatrixTransform();
     return mat;
 }
@@ -175,7 +175,7 @@ WarpGrid::~WarpGrid()
 
 void WarpGrid::updateGrid()
 {
-    osg::Matrixd compositeMatrixTransform = computeWorldtoLocalMatrix();
+    osg::Matrixf compositeMatrixTransform = computeWorldtoLocalMatrix();
     if (compositeMatrixTransform == m_previousMatrixTransform)
         return;
 
@@ -184,7 +184,7 @@ void WarpGrid::updateGrid()
         generateShape();
 
         getShaderUniform("P")->set(compositeMatrixTransform);
-        getShaderUniform("P_Inverted")->set(osg::Matrixd::inverse(compositeMatrixTransform));
+        getShaderUniform("P_Inverted")->set(osg::Matrixf::inverse(compositeMatrixTransform));
 
         QList<osg::ref_ptr<osg::Vec3Array> > bindValues;
         for (int j=0;j<qMin(5,getParent()->getTps().size());j++)
@@ -323,7 +323,7 @@ MyClipPlane* WarpGrid::makeBestFitPlane()
     result->initializeGrid(name);
 
     // get points
-    osg::Matrixd mat = computeWorldtoLocalMatrix();
+    osg::Matrixf mat = computeWorldtoLocalMatrix();
     Matrix<double>* evanMat = osgMatrixToEvanMatrix(mat);
     Matrix<double>* points = new Matrix<double>(*m_originalVertices);
     points->transform(*evanMat);
@@ -355,7 +355,7 @@ MyClipPlane* WarpGrid::makeBestFitPlane()
     Matrix<double>* mat3x3 = new Matrix<double>();
     m_pca.GetPCLoadings(mat3x3);
 
-    osg::Matrixd mat4x4 = osg::Matrixd::identity();
+    osg::Matrixf mat4x4 = osg::Matrixf::identity();
      for (unsigned int i=0;i<mat3x3->GetRows();i++){
         for (unsigned int j=0;j<mat3x3->GetCols();j++){
             mat4x4(i,j) = mat3x3->get(j,i);
@@ -396,7 +396,7 @@ void WarpGrid::applyShader()
     }
     addShaderUniform(osg::Uniform::INT, "numElements");
     getOsgGeometry()->getOrCreateStateSet()->addUniform(new osg::Uniform("P",computeWorldtoLocalMatrix()));
-    getOsgGeometry()->getOrCreateStateSet()->addUniform(new osg::Uniform("P_Inverted",osg::Matrixd::inverse(computeWorldtoLocalMatrix())));
+    getOsgGeometry()->getOrCreateStateSet()->addUniform(new osg::Uniform("P_Inverted",osg::Matrixf::inverse(computeWorldtoLocalMatrix())));
     getShaderUniform("numElements")->set(getParent()->getTps().size());
     if(!attachShaders("grid"))
         return;
@@ -447,7 +447,7 @@ QString WarpGrid::toString() const
     else
         result += "0|0|0|0|"; // VD - bug fix
 
-    osg::Matrixd rTransform = m_osgTransform->getMatrix();
+    osg::Matrixf rTransform = m_osgTransform->getMatrix();
     result +=   QString().setNum(rTransform.getScale().x())+"|"+
                 QString().setNum(rTransform.getScale().y())+"|"+
                 QString().setNum(rTransform.getScale().z())+"|"+
@@ -620,7 +620,7 @@ QString GroupWarpGrids::toString() const
     else
         result += "0|0|0|0|"; // VD - bug fix
 
-    osg::Matrixd rTransform = m_osgTransform->getMatrix();
+    osg::Matrixf rTransform = m_osgTransform->getMatrix();
     result +=   QString().setNum(rTransform.getScale().x())+"|"+
                 QString().setNum(rTransform.getScale().y())+"|"+
                 QString().setNum(rTransform.getScale().z())+"|"+
