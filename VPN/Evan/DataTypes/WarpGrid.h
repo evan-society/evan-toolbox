@@ -20,11 +20,11 @@ class MyClipPlane;
 class AbstractWarpGrid : public QObject, public Surface
 {
 protected:
-    osg::Matrixd m_previousMatrixTransform;
-    osg::Matrixd m_firstSelection;
+    osg::Matrixf m_previousMatrixTransform;
+    osg::Matrixf m_firstSelection;
     GroupWarpGrids* parent;
-    osg::Matrixd m_startPosition;
-    osg::Matrixd m_endPosition;
+    osg::Matrixf m_startPosition;
+    osg::Matrixf m_endPosition;
     osg::Quat m_startPositionRot;
     osg::Quat m_endPositionRot;
     osg::Vec3d m_startPositionTrans;
@@ -35,21 +35,21 @@ protected:
 public:
     AbstractWarpGrid():QObject(), Surface()
     {
-        m_startPosition=osg::Matrixd::identity();
-        m_endPosition=osg::Matrixd::identity();
+        m_startPosition=osg::Matrixf::identity();
+        m_endPosition=osg::Matrixf::identity();
         addType(GRID_T);
         parent=NULL;
     }
 
     void update() {updateGrid();}
 
-    osg::Matrixd computeWorldtoLocalMatrix();
+    osg::Matrixf computeWorldtoLocalMatrix();
 
     void setParent(GroupWarpGrids* p) {parent=p;}
     GroupWarpGrids* getParent() const {return parent;}
 
     void resetTransform()  {m_osgTransform->setMatrix(m_firstSelection);}
-    void setGridTransform(const osg::Matrixd& mat)
+    void setGridTransform(const osg::Matrixf& mat)
     {
          m_firstSelection=m_previousMatrixTransform=mat;
          getOsgTransform()->setMatrix(mat);
@@ -173,12 +173,12 @@ private:
     QList<GroupWarpGrids*> m_listGroupGrid;
     bool m_useShader;
     QVector<TPS*> m_tps;
-//    osg::Matrixd m_previousMatrixTransform;
-    osg::Matrixd m_parentMatrixTransform;
+//    osg::Matrixf m_previousMatrixTransform;
+    osg::Matrixf m_parentMatrixTransform;
     bool m_isMainGroup;
     ////Animation///
-    osg::Matrixd m_startPosition;
-    osg::Matrixd m_endPosition;
+    osg::Matrixf m_startPosition;
+    osg::Matrixf m_endPosition;
     osg::Quat m_startPositionRot;
     osg::Quat m_endPositionRot;
     osg::Vec3d m_startPositionTrans;
@@ -195,8 +195,8 @@ public:
     {
 
         m_isMainGroup=false;
-//        m_previousMatrixTransform=osg::Matrixd::identity();
-        m_parentMatrixTransform=osg::Matrixd::identity();
+//        m_previousMatrixTransform=osg::Matrixf::identity();
+        m_parentMatrixTransform=osg::Matrixf::identity();
         //connect(&m_timer, SIGNAL(timeout()), this, SLOT(update()));
     }
 
@@ -229,8 +229,8 @@ public:
     void deleteGroupGrid(GroupWarpGrids* groupWarpg);
     void removeGrid(WarpGrid* warpg) {warpg->removeShader();m_listGrid.removeAll(warpg);initialize(getRenderableName());}
 
-    void setParentMatrixTransform(osg::Matrixd mat) {m_parentMatrixTransform=mat;}
-    osg::Matrixd getParentMatrixTransform() const   {return m_parentMatrixTransform*getOsgTransform()->getMatrix();}
+    void setParentMatrixTransform(osg::Matrixf mat) {m_parentMatrixTransform=mat;}
+    osg::Matrixf getParentMatrixTransform() const   {return m_parentMatrixTransform*getOsgTransform()->getMatrix();}
 
     bool isShaderUsed() {return m_useShader;}
     void setUsedShader(bool b);
