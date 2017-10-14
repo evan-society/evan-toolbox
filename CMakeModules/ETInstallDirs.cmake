@@ -6,7 +6,7 @@
 
 # Executables
 if(NOT DEFINED ET_INSTALL_BIN_DIR)
-  set(ET_INSTALL_BIN_DIR "bin" CACHE PATH "Installation path for executables")
+  set(ET_INSTALL_BIN_DIR "." CACHE PATH "Installation path for executables")
 endif()
 
 # Libraries

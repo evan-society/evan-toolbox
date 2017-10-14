@@ -30,7 +30,7 @@ INCLUDE(${CMAKE_MODULE_PATH}/Version.cmake)
 IF(WIN32)
 	SET(CPACK_GENERATOR NSIS)
 	SET(CPACK_NSIS_CREATE_ICONS_EXTRA
-    "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\ET.lnk' '$INSTDIR\\\\bin\\\\ET.exe'")
+    "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\ET.lnk' '$INSTDIR\\\\ET.exe'")
 	SET(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/VPN/Evan/Images\\\\Evan.ico")
 	SET(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/VPN/Evan/Images\\\\Evan.ico")
 	SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/VPN/Evan/license/evantoolbox_public_license.txt")
