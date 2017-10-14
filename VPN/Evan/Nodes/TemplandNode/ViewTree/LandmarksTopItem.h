@@ -72,6 +72,15 @@ public:
         m_contextMenu->addAction(colorAction);
         connect(colorAction, SIGNAL(triggered()), this, SLOT(signalColorChange()));
 
+        /*QMenu* sizeMenu = new QMenu("Size");
+        QAction* sizeIncAction = new QAction("Increase", sizeMenu);
+        connect(sizeIncAction, SIGNAL(triggered()), this, SLOT(signalSizeInc()));
+        sizeMenu->addAction(sizeIncAction);
+        QAction* sizeDecAction = new QAction("Decrease", sizeMenu);
+        connect(sizeDecAction, SIGNAL(triggered()), this, SLOT(signalSizeDec()));
+        sizeMenu->addAction(sizeDecAction);
+        m_contextMenu->addMenu(sizeMenu);*/
+        
 //        QAction* labelsAction = new QAction("Labels", m_contextMenu);
 //        labelsAction->setCheckable(true);
 //        m_contextMenu->addAction(labelsAction);
@@ -195,6 +204,8 @@ public slots:
     void signalMap(int index);
     void signalMapAll(int index);
     void signalReg(int index);
+    void signalSizeInc() {emit lmkSizeChange(m_parentForm, true);}
+    void signalSizeDec() {emit lmkSizeChange(m_parentForm, false);}
     void signalXSymbol() {emit lmkSymbolChanged(m_parentForm, ew::View3Landmarks::SYMBOL_CROSS);}
     void signalCircleSymbol() {emit lmkSymbolChanged(m_parentForm, ew::View3Landmarks::SYMBOL_CIRCLE);}
     void signalDotSymbol() {emit lmkSymbolChanged(m_parentForm, ew::View3Landmarks::SYMBOL_DOT);}
@@ -243,6 +254,7 @@ signals:
     void lmkMappedAll(FormItem*, int);
     void lmkRegister(FormItem*, int);
     void lmkAdded(FormItem*);
+    void lmkSizeChange(FormItem*, bool);
     void lmkSymbolChanged(FormItem*, ew::View3Landmarks::symbol_t);
     void lmkColorChanged(FormItem*);
     void addLandmarkHere( const QString& id, int semitype );

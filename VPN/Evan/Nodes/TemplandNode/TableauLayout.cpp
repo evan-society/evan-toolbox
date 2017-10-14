@@ -376,6 +376,7 @@ void TableauLayout::fillViewTrees(FormItem* formItem)
     connect( lmkTopItem, SIGNAL(lmkDeletedChild(FormItem*, ViewTreeItem*, int)), this, SLOT(deleteLmk(FormItem*, ViewTreeItem*, int)));
     connect( lmkTopItem, SIGNAL(lmkMoved(FormItem*, int)), this, SLOT(moveLmk(FormItem*, int)));
     connect( lmkTopItem, SIGNAL(lmkMovedChild(FormItem*, ViewTreeItem*, int)), this, SLOT(moveLmk(FormItem*, ViewTreeItem*, int)));
+    connect( lmkTopItem, SIGNAL(lmkSizeChange(FormItem*,bool)), this, SLOT(changeLmkSize(FormItem*,bool)));
     connect( lmkTopItem, SIGNAL(lmkSymbolChanged(FormItem*, ew::View3Landmarks::symbol_t)),
                             this, SLOT(changeLmksSymbol(FormItem*, ew::View3Landmarks::symbol_t)));
     connect( lmkTopItem, SIGNAL(lmkDeleteAll(FormItem*, int)), this, SLOT(deleteAllLmk(FormItem*, int)));
@@ -1195,14 +1196,21 @@ void TableauLayout::slideAll(int iterations, double eps, int pointsetIndex)
 		}
 		catch( std::exception& ex )
 		{QMessageBox::information( this, "Error", ex.what() );}
-        
+        nIterations++;
 		if(iterations>0)
 		{
-			if(++nIterations==iterations)
+			if(nIterations==iterations)
 				break;
 		}
 		else if (error-eps<=0)
 			break;
+        else if (nIterations>=100)
+        {
+            QString errStr; errStr = errStr.setNum(error);
+            QMessageBox::information( this, "Could not reach specified error", 
+                                    QString("Reached sliding error : ")+errStr );
+            break;
+        }
 	}
 
 	updateTreeViewStates( 1 );
@@ -2610,6 +2618,18 @@ void TableauLayout::changeSliceClipR(ViewTree* itemTree)
         if(ok)
             m_tableauList[m_frameSlider->value()-1].slice_clip_ratio = clipRatio;
     }
+}
+void TableauLayout::changeLmkSize(FormItem* itemForm, bool increase)
+{
+    View3Qt* surfaceWidget = itemForm==m_targetFormItem ?  m_targetView : m_templateView;
+    View3Qt* sliceWidget = itemForm==m_targetFormItem ?  m_targetSliceView: m_templateSliceView;
+
+    if(!surfaceWidget->get_landmarks_item() || !sliceWidget->get_landmarks_item())
+        return;
+    surfaceWidget->get_landmarks_item()->change_size(increase);
+    sliceWidget->get_landmarks_item()->change_size(increase);
+
+    tableauUpdated();
 }
 
 void TableauLayout::changeLmkColor(FormItem* itemForm)
