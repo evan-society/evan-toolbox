@@ -262,7 +262,7 @@ MMRNode::MMRNode(QWidget* parent) : QDialog(parent),  INode()
     rightRadioChanged();
 
     lineEdit_2->setText("0.0");
-    m_updated = false;
+    m_updated = true;
     m_standardised = false;
 }
 
@@ -277,23 +277,27 @@ void MMRNode::Regress()
         if ( listWidget->selectedItems().empty() && listWidget_2->selectedItems().empty() )
         {
             Logger::getInstance()->log("[Regression Node] No variables selected for independent or dependent variables.", Logger::WARNING);
+            m_updated = false;
             return;
         }
     }
     if (radioButton_3->isChecked() && listWidget->selectedItems().empty())
     {
         Logger::getInstance()->log("[Regression Node] No variables selected for dependent variables.", Logger::WARNING);
+        m_updated = false;
         return;
     }
     if (radioButton_6->isChecked() && listWidget_2->selectedItems().empty())
     {
         Logger::getInstance()->log("[Regression Node] No variables selected for independent variables.", Logger::WARNING);
+        m_updated = false;
         return;
     }
 
     if (m_Y.GetRows() != m_X.GetRows())
     {
         Logger::getInstance()->log("[Regression Node] Number of observations for independent and dependent data must be the same.", Logger::WARNING);
+        m_updated = false;
         return;
     }
 
@@ -440,6 +444,7 @@ void MMRNode::process()
 
     if (m_specimens == NULL || !m_specimens->isValid())
     {
+        m_updated = false;
         return;
     }
 
