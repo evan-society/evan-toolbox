@@ -1815,16 +1815,18 @@ void TableauLayout::loadForm(FormItem* formTreeItem, bool loaded, bool focus, bo
             }
         }
 
-        if(m_targetView && m_targetSliceView)   // set curve colour to red
+        View3Qt* surfaceWidget = formTreeItem==m_targetFormItem? m_targetView : m_templateView;
+        View3Qt* sliceWidget = formTreeItem==m_targetFormItem? m_targetSliceView: m_templateSliceView;
+        if(surfaceWidget && sliceWidget)   // set curve colour to red
         {
-            int nc = m_dig3.get_spaces()[1]->get_form_data()->curves.size();
+            int nc = m_dig3.get_spaces()[spaceIndex]->get_form_data()->curves.size();
             if (nc>0)
             {
                 unsigned char col[3] = {255, 0, 0};
                 for(int i=0;i<nc;i++)
                 {
-                    m_targetView->get_curve_items()[i]->set_color(col);
-                    m_targetSliceView->get_curve_items()[i]->set_color(col);
+                    surfaceWidget->get_curve_items()[i]->set_color(col);
+                    sliceWidget->get_curve_items()[i]->set_color(col);
                 }
             }
         }
