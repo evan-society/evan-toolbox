@@ -81,6 +81,7 @@ ew::View3Landmarks::View3Landmarks(ew::View3Widget *i_view, int i_type) :
  form(0),
  form_checked_version(0),
  symbol(SYMBOL_CROSS),
+ size(0.2),
  dlist(0),
  highlight_ps(-1),
  highlight_i(-1)
@@ -133,6 +134,21 @@ ew::View3Landmarks::get_bbox()
     return form->get_bbox();
   } else {
     return &ew::Bbox3::empty_box;
+  }
+}
+
+/// @param[in] up
+/// true to increase size, false to decrease
+void
+ew::View3Landmarks::change_size(bool up)
+{
+  size*= up?1.1:0.9;
+  // printf("Size %f\n", size);
+
+  //if(size<=1) size=1;    
+  ew::View3Item::prepared = false;
+  if (ew::View3Item::get_state()) {
+    ew::View3Item::redraw_view_later();
   }
 }
 
@@ -265,6 +281,21 @@ ew::View3Landmarks::prepare()
 //{
 //  glCallList(dlist);
 //}
+void drawLmk(const GLdouble *pos, int size, int symbol)
+{
+  switch(symbol)
+  {
+    case 0:
+    glBegin(GL_LINES);
+      GLdouble d = (((double)size)*0.5);
+      glVertex3d(pos[0],pos[1],pos[2]-d);
+      glVertex3d(pos[0],pos[1],pos[2]+d);
+      glVertex3d(pos[0]-d,pos[1],pos[2]);
+      glVertex3d(pos[0]+d,pos[1],pos[2]);
+    glEnd();
+    break;
+  }
+}
 
 void
 ew::View3Landmarks::render()
@@ -300,7 +331,7 @@ ew::View3Landmarks::render()
           glRasterPos3dv(&fps->locations[i]);
           glBitmap(MarkersN[sy], MarkersN[sy], MarkersO[sy], MarkersO[sy], 0.0,
            0.0, MarkersD[sy]);
-
+          //drawLmk(&fps->locations[i],size,sy);
           u += 1;
           if (ps == highlight_ps && i == highlight_i) {
             glColor3fv(c);

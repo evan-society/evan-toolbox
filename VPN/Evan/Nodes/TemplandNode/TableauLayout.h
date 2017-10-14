@@ -100,13 +100,14 @@ public slots:
     void changeCurveColor(CurveItem* surItem, FormItem* itemForm);
     void applyItemChange(ViewTree*, QTreeWidgetItem*, int);
     void highlightItem(ViewTree*, QTreeWidgetItem*);
+    void changeLmkSize(FormItem*, bool);
     void changeLmksSymbol(FormItem*, ew::View3Landmarks::symbol_t);
     void moveToFrame(int);
     void focusView(FormItem*,ViewTreeItem*);
     void deleteLmk(FormItem* itemForm, int i);
     void deleteLmk(FormItem* patch, ViewTreeItem* semi, int index );
     void moveLmk(FormItem* itemForm, int i);
-    void moveLmk(FormItem* patch, ViewTreeItem* semi, int index );
+    void moveLmk(FormItem* patch, ViewTreeItem* semi, int index ); 
     void deleteAllLmk(FormItem* itemForm, int i);
     void deleteSurface(FormItem* itemForm, int i)
     {

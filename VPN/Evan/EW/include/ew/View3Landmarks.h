@@ -21,6 +21,7 @@ namespace ew {
     void set_form(const ew::DataflowForm3 *frm);
     inline const ew::DataflowForm3 *get_form() const;
     virtual const ew::Bbox3 *get_bbox();
+    void change_size(bool up);
     void set_color(const unsigned char *rgb);
     inline const unsigned char *get_color() const;
     void set_highlight(int ps, int i);
@@ -54,6 +55,7 @@ namespace ew {
     const ew::DataflowForm3 *form;
     unsigned long form_checked_version;
     int symbol;
+    float size;
     unsigned char color[3];
     unsigned int dlist;
     int highlight_ps;
