@@ -2247,8 +2247,15 @@ bool TableauLayout::saveTableau()
 #endif
 
         m_savedAtleastOnce = true; //YN 20Nov2015 Fixing a bug when trying to save a tableau file with no appended forms
-        if(m_tableauList.size()==0)
-        	addTableau();
+        if(m_tableauList.size()>0)
+        {
+            int v = m_frameSBox->value() - 1;
+            if(v>=0)
+            {
+                m_tableauList[v].space[0].form_filename = templatePath.toStdString().c_str();
+                m_tableauList[v].space[1].form_filename = targetPath.toStdString().c_str();
+            }
+        }
 
         ew::Dig3Tableau::write_file(m_tableauFile.toStdString().c_str(), false, &m_tableauList);
 
