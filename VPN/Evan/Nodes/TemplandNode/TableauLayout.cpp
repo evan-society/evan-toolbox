@@ -1640,10 +1640,12 @@ void TableauLayout::resetForm(FormItem* formTreeItem)
     if( spaceIndex == 0 )
     {
         m_srcGrpBox->setTitle( "Template" );
+        m_templateFile = "";
     }
     else
     {
         m_trgtGrpBox->setTitle( "Specimen" );
+        m_targetFile = "";
     }
 
     formUpdated(formTreeItem);
@@ -2246,7 +2248,7 @@ bool TableauLayout::saveTableau()
         m_tableauFile = m_tableauFile.replace( '\\', '/' );
 #endif
 
-        m_savedAtleastOnce = true; //YN 20Nov2015 Fixing a bug when trying to save a tableau file with no appended forms
+        m_savedAtleastOnce = true;
         if(m_tableauList.size()>0)
         {
             int v = m_frameSBox->value() - 1;
@@ -3733,8 +3735,8 @@ void TableauLayout::tblMoveRightE()
 QString TableauLayout::getNewFormFilename()
 {
     QString file = m_targetFile;
-    if( m_tableauList.size() > 0 )
-        file = m_tableauList[ m_tableauList.size()-1 ].space[1].form_filename.c_str();
+    /*if( m_tableauList.size() > 0 )
+        file = m_tableauList[ m_tableauList.size()-1 ].space[1].form_filename.c_str();*/
 
     if( file.contains( "_c" ))
     {
