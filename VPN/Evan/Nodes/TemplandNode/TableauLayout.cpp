@@ -219,7 +219,7 @@ TableauLayout::TableauLayout(QWidget *parent, QGLWidget* share2) : QWidget(paren
     m_tblRight->setDisabled( true );
     m_tblListRightE->setDisabled( true );
 
-    m_consensusPB->setHidden( true );
+    //m_consensusPB->setHidden( true );
     m_consensusPB->setDisabled( true );
 
     m_filmFirstFrame->setDisabled( true );
