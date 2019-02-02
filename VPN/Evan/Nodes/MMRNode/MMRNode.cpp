@@ -1507,37 +1507,37 @@ void MMRNode::PrintOutput()
         outfile<<"Residual Mean Squares:\t"<<rms[i][i] <<endl;
     }
     outfile<<endl;
-    for (int j =0; j<m_numIndependent;j++)
-    {
+//    for (int j =0; j<m_numIndependent;j++)
+//    {
 //        outfile<<"Standard error for Y["<<j<<"]:\t"<< m_standardErrorY[j][j]<<endl;
-    }
-    outfile<<endl;
+//    }
+//    outfile<<endl;
 
-    outfile<<"Multivariate Statistics:"<<endl;
+//    outfile<<"Multivariate Statistics:"<<endl;
 
-    outfile<< "Wilk's Lambda:\t" << m_WilksLambda << "\t" <<endl;
-    outfile<< "\tF-test\t" << FTestWilks <<endl;
-    outfile<< "\tThe incomplete Beta function ratio\t" << FProbWilks <<endl;
+//    outfile<< "Wilk's Lambda:\t" << m_WilksLambda << "\t" <<endl;
+//    outfile<< "\tF-test\t" << FTestWilks <<endl;
+//    outfile<< "\tThe incomplete Beta function ratio\t" << FProbWilks <<endl;
 
-    s = 0.0;
-    if ((m_numIndependent * m_numIndependent) + (m_numDependent * m_numDependent) > 5 )
-    {
-        s = sqrt(((m_numIndependent * m_numIndependent)*(m_numDependent * m_numDependent) - 4)/((m_numIndependent * m_numIndependent) + (m_numDependent * m_numDependent) - 5));
-    }
-    else
-    {
-        s = 1.0;
-    }
+//    s = 0.0;
+//    if ((m_numIndependent * m_numIndependent) + (m_numDependent * m_numDependent) > 5 )
+//    {
+//        s = sqrt(((m_numIndependent * m_numIndependent)*(m_numDependent * m_numDependent) - 4)/((m_numIndependent * m_numIndependent) + (m_numDependent * m_numDependent) - 5));
+//    }
+//    else
+//    {
+//        s = 1.0;
+//    }
 
-    int df1 = m_numDependent * m_numIndependent;
-    int df2 = ((m_rows - 2) -(m_numDependent - m_numIndependent + 2) / 2)*s - (m_numIndependent*m_numDependent - 2) / 2;
+//    int df1 = m_numDependent * m_numIndependent;
+//    int df2 = ((m_rows - 2) -(m_numDependent - m_numIndependent + 2) / 2)*s - (m_numIndependent*m_numDependent - 2) / 2;
 
-    outfile<< "\tDF1:\t" << df1 <<endl;
-    outfile<< "\tDF2:\t" << df2 <<endl;
+//    outfile<< "\tDF1:\t" << df1 <<endl;
+//    outfile<< "\tDF2:\t" << df2 <<endl;
 
-    outfile<< "Pillai's Trace:\t" << m_PillaisTrace <<endl;
-    outfile<< "Hotelling Lawley's Trace:\t" << m_HotellingLawleyTrace <<endl;
-    outfile<< "Roy's Largest Root:\t" << m_RoysLargestRoot <<endl;
+//    outfile<< "Pillai's Trace:\t" << m_PillaisTrace <<endl;
+//    outfile<< "Hotelling Lawley's Trace:\t" << m_HotellingLawleyTrace <<endl;
+//    outfile<< "Roy's Largest Root:\t" << m_RoysLargestRoot <<endl;
 
 
 
