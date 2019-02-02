@@ -231,7 +231,7 @@ public:
 
     gridLayout->addItem(verticalSpacer_2, 5, 1, 1, 1);
 
-    WarperDialog->addTab(tab_2, QString());
+    //WarperDialog->addTab(tab_2, QString()); //YN 2/2/2019 Removing Grid Animation Issue #35
 
     retranslateUi(WarperDialog);
 
