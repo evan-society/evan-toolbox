@@ -63,7 +63,7 @@ public:
     bool initialize(const QString&);
     bool initialize(const QString&, const QString&);    //Initialize from a .obj file
     bool initialize(const Surface*, const QString&);    //Initialize from another surface
-    void refreshGeometry();                             //To use after changing the vertex data
+    void refreshGeometry(bool flip=false);              //To use after changing the vertex data
 
     void update(){}
 

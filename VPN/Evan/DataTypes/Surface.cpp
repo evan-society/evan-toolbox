@@ -211,14 +211,31 @@ bool Surface::initialize(const Surface* originalSurface, const QString& nodeName
     return true;
 }
 
-void Surface::refreshGeometry()
+void Surface::refreshGeometry(bool flip)
 {
     osg::ref_ptr<osg::Vec3Array> myVertices = new osg::Vec3Array;
     m_osgNode->removeDrawables(0,m_osgNode->getNumDrawables());
     for (unsigned int i = 0; i< m_vertices->GetRows();i++)
-        myVertices->push_back(osg::Vec3(m_vertices->get(i,0),m_vertices->get(i,1),m_vertices->get(i,2)));
+        myVertices->push_back(osg::Vec3(m_vertices->get(i,0),
+                                        flip? m_vertices->get(i,2):m_vertices->get(i,1),
+                                        flip?-m_vertices->get(i,1):m_vertices->get(i,2)));
 
     m_osgGeometry->setVertexArray(myVertices.get()); // attach the vertices array to the geometry
+    if(flip)
+    {
+        osg::ref_ptr<osg::Vec3Array> myNormals = (osg::Vec3Array*)m_osgGeometry->getNormalArray();
+        for(size_t i=0; i<myNormals->getNumElements(); i++)
+        {
+            osg::Vec3 norm = myNormals->at(i);
+            float temp = norm[1];
+            norm[1] = norm[2];
+            norm[2] = -temp;
+            myNormals->at(i) = norm;
+//            face->setElement(1,face->getElement(2));
+//            face->setElement(2,temp);
+        }
+        m_osgGeometry->setNormalArray(myNormals.get());
+    }
 
     if(m_bRaw)
     {

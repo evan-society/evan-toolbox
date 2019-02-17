@@ -568,21 +568,22 @@ int TemplandNode::fillLandmarkSet(LandmarkSet* lmkset, const ew::Form3* form, bo
 bool TemplandNode::fillSurfaces(SurfaceVector* sv, const ew::Form3* form)
 {
 	//Fill the Surfaces Output
-	for(unsigned int j=0; j<form->surfaces.size(); ++j)
+    for(unsigned int j=0; j<form->surfaces.size(); ++j)
 	{
-		bool replaceSurface = (j<sv->getSize());
-		if (replaceSurface && sv->getSurface(j)->getRenderableName() == form->surfaces[j].id.c_str())
+        bool replaceSurface = (j<sv->getSize());
+        if (replaceSurface && sv->getSurface(j)->getRenderableName() == form->surfaces[j].id.c_str())
 			continue;
-		Surface* outSurface = new Surface;
-		if(!outSurface->initialize(form->surfaces[j].id.c_str(), form->surfaces[j].file.c_str()))
-		{
-			Logger::getInstance()->log(QString("[Templand Node] Failed to initialize surface '%1'!").arg(form->surfaces[j].file.c_str()),
-										Logger::RUN_ERROR);
-			delete outSurface;
-			return false;
-		}
+        Surface* outSurface = new Surface;
+        if(!outSurface->initialize(form->surfaces[j].id.c_str(), form->surfaces[j].file.c_str()))
+        {
+            Logger::getInstance()->log(QString("[Templand Node] Failed to initialize surface '%1'!").arg(form->surfaces[j].file.c_str()),
+                                        Logger::RUN_ERROR);
+            delete outSurface;
+            return false;
+        }
+        outSurface->refreshGeometry(true);
 		if (replaceSurface)
-			sv->setSurface(j, outSurface);
+            sv->setSurface(j, outSurface);
 		else
 			sv->addSurface(outSurface);
 	}
@@ -705,7 +706,7 @@ void TemplandNode::slideOnConsensus()
 	LandmarkSet meanSpecimen;
 	gpa.GetProcrustesMean(&meanSpecimen);
 	MatrixD transMat;
-	gpa.GetTransformationMatrix(individuals-1,&transMat); //Template is the last specimen
+    gpa.GetTransformationMatrix(individuals-1,&transMat); //Template is the last specimen
 	meanSpecimen.transform(!transMat);
 	tlw->replaceTargetForm(tlw->getTemplateFormFileName());
 

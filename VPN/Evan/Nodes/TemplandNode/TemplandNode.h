@@ -64,9 +64,9 @@ private:
         return dynamic_cast<TableauLayout *>( cwin->widget() );
 	}
 
-	int fillLandmarkSet(LandmarkSet*, const ew::Form3*, bool flipAxis=true);
+    int fillLandmarkSet(LandmarkSet*, const ew::Form3*, bool flipAxis=false);
 	bool fillSurfaces(SurfaceVector*, const ew::Form3*);
-	void GetSpecimens(bool flipAxis=true);
+    void GetSpecimens(bool flipAxis=false);
 
 protected:
     void closeEvent(QCloseEvent *event);
