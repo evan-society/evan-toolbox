@@ -296,6 +296,16 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="m_slideAllPB">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Slide All</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="m_consensusPB">
        <property name="text">
         <string>Consensus</string>

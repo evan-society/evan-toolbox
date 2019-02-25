@@ -153,7 +153,8 @@ public slots:
     void tblSwapPrev();
     void tblSwapNext();
 
-    void slideOnConsensus() {emit calcConsensus();}
+    void createConsensus()  {emit calcConsensus();}
+    void slideAll()         {emit slideAllSignal();}
 
     void pointType( int type );
 
@@ -218,6 +219,7 @@ signals:
     void swapPrevForm( bool enable );
     void swapNextForm( bool enable );
     void calcConsensus();
+    void slideAllSignal();
 
 private slots:
     void formUpdated(FormItem*);
