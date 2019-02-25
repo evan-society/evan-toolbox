@@ -14,6 +14,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QSettings>
+#include <QProgressDialog>
 
 #include "ew/View3Surface.h"
 #include "ew/Dig3Tableau.h"
@@ -155,7 +156,8 @@ TableauLayout* TemplandNode::newTableau( bool createNewTab )
     mdiArea->setActiveSubWindow(mdiArea->addSubWindow(newProject));
     connect(newProject, SIGNAL(	status( QString) ), this, SLOT( status( QString) ) );
     connect(newProject, SIGNAL(	status( QString, int) ), this, SLOT( status( QString, int) ) );
-    connect(newProject, SIGNAL(	calcConsensus() ), this, SLOT( slideOnConsensus() ) );
+    connect(newProject, SIGNAL(	calcConsensus() ), this, SLOT( createConsensus() ) );
+    connect(newProject, SIGNAL(	slideAllSignal() ), this, SLOT( slideAll() ) );
 
     connect( mdiArea, SIGNAL(subWindowActivated (QMdiSubWindow*)), this, SLOT(subWindowChanged(QMdiSubWindow*)) );
 
@@ -671,9 +673,9 @@ void TemplandNode::GetSpecimens(bool flipAxis)
 
 #include<gpa.h>
 
-void TemplandNode::slideOnConsensus()
+void TemplandNode::createConsensus()
 {
-	status("Sliding on Consensus...");
+    status("Creating Consensus...");
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	//1- Perform GPA
@@ -691,6 +693,7 @@ void TemplandNode::slideOnConsensus()
 	if (lmkCount != landmarks)
 		Logger::getInstance()->log("[Templand Node] Template and target(s) do not have the same number of landmarks!", Logger::WARNING);
 	Matrix<double> data(landmarks * individuals, dimensions);
+
 	for (int i=0;i<individuals;i++) //Fill target landmarks
 	{
 		LandmarkSet *lands = m_specimens->getLandmarkSet(i);
@@ -837,15 +840,33 @@ void TemplandNode::slideOnConsensus()
 		currentTbl.space[0].form_filename = cfname.toStdString();
 		tlw->setTableau(i, currentTbl);
 	}
+    status("done!", 2);
+	QApplication::restoreOverrideCursor();
+}
 
+void TemplandNode::slideAll()
+{
+    QMdiSubWindow * cwin = mdiArea->currentSubWindow();
+    TableauLayout* tlw = dynamic_cast< TableauLayout* >( cwin->widget() );
+    const std::vector<ew::Dig3Tableau>& tableauList = tlw->getTableauList();
+
+    status("Sliding tableau...");
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     //5- Now slide all targets against the consensus
-    status("Sliding target semi-landmarks against consensus...");
+    QProgressDialog progress("Sliding all targets on template...", "Abort", 0, tableauList.size()-1, this);
+    progress.setMinimumDuration(0);
+    progress.setWindowModality(Qt::WindowModal);
+    progress.setAutoClose(false);
+    status("Sliding target semi-landmarks against current template...");
     for(size_t i=0; i<tableauList.size(); ++i)
     {
+        if (progress.wasCanceled())
+            break;
         //tlw->moveToFrame(i+1);
         tlw->slideAll(1,0);
         tlw->moveTableauToNext();
+        progress.setValue(i);
     }
-	status("done!", 2);
-	QApplication::restoreOverrideCursor();
+    status("done!", 2);
+    QApplication::restoreOverrideCursor();
 }

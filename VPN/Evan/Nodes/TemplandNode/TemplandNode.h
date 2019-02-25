@@ -118,7 +118,8 @@ public slots:
 
     void selectPoints( bool tog );
 
-    void slideOnConsensus();
+    void createConsensus();
+    void slideAll();
 signals:
 	void dataReady();
 };
