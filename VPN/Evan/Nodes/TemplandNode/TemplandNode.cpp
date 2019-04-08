@@ -16,6 +16,7 @@
 #include <QSettings>
 #include <QProgressDialog>
 
+#include "SlideDialog.h"
 #include "ew/View3Surface.h"
 #include "ew/Dig3Tableau.h"
 
@@ -595,7 +596,7 @@ bool TemplandNode::fillSurfaces(SurfaceVector* sv, const ew::Form3* form)
 
 void TemplandNode::GetSpecimens(bool flipAxis)
 {
-	m_specimens->clear();
+    m_specimens->clear();
 	std::vector<std::vector<double> > rawdata;
 
     QString fileName = getCurrentTableauFile()->toString();
@@ -671,10 +672,15 @@ void TemplandNode::GetSpecimens(bool flipAxis)
 	}
 }
 
-#include<gpa.h>
+#include"../GPANode/GPANode.h"
 
 void TemplandNode::createConsensus()
 {
+    if(QMessageBox::question(this, "Create consensus", "This will first perform a GPA over all the specimens in the tableau, "
+                                                    "then replace the current template with the GPA mean shape (consensus), "
+                                                    "and slide all specimens against the consensus.",
+                                   QMessageBox::Ok|QMessageBox::Cancel) == QMessageBox::Cancel)
+        return;
     status("Creating Consensus...");
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
@@ -682,12 +688,13 @@ void TemplandNode::createConsensus()
 	QMdiSubWindow * cwin = mdiArea->currentSubWindow();
 	TableauLayout* tlw = dynamic_cast< TableauLayout* >( cwin->widget() );
 	const ew::Form3 * templateForm =  tlw->getTemplateFormData();
+    QString cfname = tlw->getTemplateFormFileName();
+    bool firstConsensus = !cfname.endsWith("_consensus.frm");
 
 	int lmkCount=fillLandmarkSet(m_templateLmks,templateForm,false);
 	GetSpecimens(false);
-	m_specimens->addLandmarkSet(m_templateLmks);
 
-	const int individuals = m_specimens->getSize();
+    const int individuals = m_specimens->getSize() + 1;
 	const int landmarks = m_specimens->getLandmarkCount();
 	const int dimensions = m_specimens->getLandmarkDimensions(); //should always be 3
 	if (lmkCount != landmarks)
@@ -696,22 +703,30 @@ void TemplandNode::createConsensus()
 
 	for (int i=0;i<individuals;i++) //Fill target landmarks
 	{
-		LandmarkSet *lands = m_specimens->getLandmarkSet(i);
+        LandmarkSet *lands = i<(individuals-1)?m_specimens->getLandmarkSet(i):m_templateLmks;
 		for (int j=0;j<landmarks;j++)
 			for (int k=0;k<dimensions;k++)
 				data[i*landmarks+j][k] = (*lands)[j][k];
 	}
 
-	GPA gpa(&data, individuals, landmarks, dimensions);
-	gpa.PerformGPA();
+    GPANode gpaNode(this);
+    if(!gpaNode.exec())
+    {
+        status("Consensus cancelled!");
+        QApplication::restoreOverrideCursor();
+        return;
+    }
+    GPA* gpa = gpaNode.getGPARef();
+    gpa->LoadData(&data, individuals, landmarks, dimensions);
+    gpaNode.CalculateGPA();
 
 	//2- Get mean shape, multiply mean shape by mean centroid size
 	LandmarkSet meanSpecimen;
-	gpa.GetProcrustesMean(&meanSpecimen);
+    gpa->GetProcrustesMean(&meanSpecimen);
 	MatrixD transMat;
-    gpa.GetTransformationMatrix(individuals-1,&transMat); //Template is the last specimen
+    gpa->GetTransformationMatrix(individuals-1,&transMat); //Template is the last specimen
 	meanSpecimen.transform(!transMat);
-	tlw->replaceTargetForm(tlw->getTemplateFormFileName());
+    if(firstConsensus) tlw->replaceTargetForm(tlw->getTemplateFormFileName());
 
 	//Set mean shape as the new template
 	ew::Form3 consensusForm(*templateForm);
@@ -770,9 +785,10 @@ void TemplandNode::createConsensus()
 		}
 		tps.WarpPoints(pointInOutMat->GetMatrix(), pointInOutMat, pointInOutMat->GetRows());
 
-		QString newSurfaceId = QString(consensusForm.surfaces[i].id.c_str())+ "_consensus";
-		QString newSurfaceFile = consensusForm.surfaces[i].file.c_str();
-		newSurfaceFile = newSurfaceFile.left( newSurfaceFile.lastIndexOf(".obj") )+ "_consensus.obj";
+        QString newSurfaceId = QString(consensusForm.surfaces[i].id.c_str());
+        if(firstConsensus) newSurfaceId += "_consensus";
+        QString newSurfaceFile = consensusForm.surfaces[i].file.c_str();
+        if(firstConsensus) newSurfaceFile = newSurfaceFile.left( newSurfaceFile.lastIndexOf(".obj") )+ "_consensus.obj";
 
 		Surface* inSurface = new Surface;
 		inSurface->setVertices(pointInOutMat);
@@ -813,7 +829,7 @@ void TemplandNode::createConsensus()
 		warpedCurve.read_points(warpedPoints);
 
 		QString newCurveFile = consensusForm.curves[i].file.c_str();
-		newCurveFile = newCurveFile.left( newCurveFile.lastIndexOf(".obj") )+ "_consensus.obj";
+        if(firstConsensus) newCurveFile = newCurveFile.left( newCurveFile.lastIndexOf(".obj") )+ "_consensus.obj";
 
 		warpedCurve.write_file_txt(newCurveFile.toStdString().c_str());
 		consensusForm.curves[i].file = newCurveFile.toStdString();
@@ -821,26 +837,33 @@ void TemplandNode::createConsensus()
 
 	// Now save consensus form to disk
 	status("Saving consensus to disk...");
-	QString cfname = tlw->getTemplateFormFileName();
-	cfname = cfname.left( cfname.lastIndexOf(".frm") );
-	cfname += "_consensus.frm";
+    if(firstConsensus) cfname = cfname.left( cfname.lastIndexOf(".frm") ) + "_consensus.frm";
 	consensusForm.write_file(cfname.toStdString().c_str(),false);
 
 	tlw->replaceTemplateForm(cfname);
-	tlw->addTableau(0);
-	// Project all template landmarks and semi-landmarks to their embedding (just in case)
-	tlw->projectAll(true,0);
+    if(firstConsensus)
+    {
+        tlw->addTableau();
+        // Project all template landmarks and semi-landmarks to their embedding (just in case)
+        tlw->projectAll(true,0);
 
-	//4- Replace templates of all targets with the consensus
-	status("Replacing template with consensus...");
-	const std::vector<ew::Dig3Tableau>& tableauList = tlw->getTableauList();
-	for(size_t i=1; i<tableauList.size(); ++i)
-	{
-		ew::Dig3Tableau currentTbl = tableauList[i];
-		currentTbl.space[0].form_filename = cfname.toStdString();
-		tlw->setTableau(i, currentTbl);
-	}
-    status("done!", 2);
+        //4- Replace templates of all targets with the consensus
+        status("Replacing template with consensus...");
+        const std::vector<ew::Dig3Tableau>& tableauList = tlw->getTableauList();
+        for(size_t i=0; i<tableauList.size(); ++i)
+        {
+            ew::Dig3Tableau currentTbl = tableauList[i];
+            currentTbl.space[0].form_filename = cfname.toStdString();
+            tlw->setTableau(i, currentTbl);
+        }
+    }
+    saveTableau();
+
+    //5- Finally, slide all spcimens against consensus
+    status("Sliding all specimens against consensus...");
+    slideAll();
+    status("Consensus done!", 2);
+
 	QApplication::restoreOverrideCursor();
 }
 
@@ -850,23 +873,33 @@ void TemplandNode::slideAll()
     TableauLayout* tlw = dynamic_cast< TableauLayout* >( cwin->widget() );
     const std::vector<ew::Dig3Tableau>& tableauList = tlw->getTableauList();
 
-    status("Sliding tableau...");
-    QApplication::setOverrideCursor(Qt::WaitCursor);
-    //5- Now slide all targets against the consensus
-    QProgressDialog progress("Sliding all targets on template...", "Abort", 0, tableauList.size()-1, this);
-    progress.setMinimumDuration(0);
-    progress.setWindowModality(Qt::WindowModal);
-    progress.setAutoClose(false);
-    status("Sliding target semi-landmarks against current template...");
-    for(size_t i=0; i<tableauList.size(); ++i)
+    SlideDialog slideDialog(this, false);
+    slideDialog.setWindowTitle("Set slide all options");
+    if(slideDialog.exec())
     {
-        if (progress.wasCanceled())
-            break;
-        //tlw->moveToFrame(i+1);
-        tlw->slideAll(1,0);
-        tlw->moveTableauToNext();
-        progress.setValue(i);
+        status("Sliding tableau...");
+        QApplication::setOverrideCursor(Qt::WaitCursor);
+        //5- Now slide all targets against the consensus
+        QProgressDialog progress("Sliding all targets on template...", "Abort", 0, tableauList.size()-1, this);
+        progress.setMinimumDuration(0);
+        progress.setWindowModality(Qt::WindowModal);
+        progress.setModal(true);
+        progress.setAutoClose(false);
+        progress.setAutoReset(false);
+        progress.setCancelButton(0);
+        status("Sliding target semi-landmarks against current template...");
+        for(size_t i=0; i<tableauList.size(); ++i)
+        {
+            //tlw->moveToFrame(i+1);
+            tlw->slideAll(slideDialog.getIterations(),slideDialog.getEpsilon());
+            tlw->moveTableauToNext();
+            progress.setValue(i);
+        }
+        progress.setCancelButton(new QPushButton("Done"));
+        if(progress.exec() == 0)
+        {
+            status("Slide all done!");
+            QApplication::restoreOverrideCursor();
+        }
     }
-    status("done!", 2);
-    QApplication::restoreOverrideCursor();
 }

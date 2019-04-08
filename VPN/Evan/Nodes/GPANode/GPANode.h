@@ -40,7 +40,6 @@ private:
     double m_mintol;
     QString m_settings;
 
-    void CalculateGPA();
     void PrintOutput();
 
 protected:
@@ -77,6 +76,8 @@ public:
 	QString toString() const;
 	void fromString(const QString&);
 
+    GPA* getGPARef() {return &m_gpa;}
+    void CalculateGPA();
 
 public slots:
     void accept();
