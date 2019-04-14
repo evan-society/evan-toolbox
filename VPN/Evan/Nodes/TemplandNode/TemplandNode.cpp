@@ -681,8 +681,6 @@ void TemplandNode::createConsensus()
                                                     "and slide all specimens against the consensus.",
                                    QMessageBox::Ok|QMessageBox::Cancel) == QMessageBox::Cancel)
         return;
-    status("Creating Consensus...");
-	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	//1- Perform GPA
 	QMdiSubWindow * cwin = mdiArea->currentSubWindow();
@@ -713,9 +711,11 @@ void TemplandNode::createConsensus()
     if(!gpaNode.exec())
     {
         status("Consensus cancelled!");
-        QApplication::restoreOverrideCursor();
         return;
     }
+
+    status("Creating Consensus...");
+    QApplication::setOverrideCursor(Qt::WaitCursor);
     GPA* gpa = gpaNode.getGPARef();
     gpa->LoadData(&data, individuals, landmarks, dimensions);
     gpaNode.CalculateGPA();
@@ -875,12 +875,14 @@ void TemplandNode::slideAll()
 
     SlideDialog slideDialog(this, false);
     slideDialog.setWindowTitle("Set slide all options");
+    QApplication::restoreOverrideCursor();
     if(slideDialog.exec())
     {
         status("Sliding tableau...");
         QApplication::setOverrideCursor(Qt::WaitCursor);
         //5- Now slide all targets against the consensus
         QProgressDialog progress("Sliding all targets on template...", "Abort", 0, tableauList.size()-1, this);
+        progress.setWindowTitle("Sliding Targets");
         progress.setMinimumDuration(0);
         progress.setWindowModality(Qt::WindowModal);
         progress.setModal(true);
@@ -896,10 +898,8 @@ void TemplandNode::slideAll()
             progress.setValue(i);
         }
         progress.setCancelButton(new QPushButton("Done"));
+        QApplication::restoreOverrideCursor();
         if(progress.exec() == 0)
-        {
             status("Slide all done!");
-            QApplication::restoreOverrideCursor();
-        }
     }
 }
