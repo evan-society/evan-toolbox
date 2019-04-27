@@ -60,6 +60,12 @@ public:
     void selectPointsInViews( bool select ) { m_selectPointsInViews = select; }
     bool selectPointsInViews() { return m_selectPointsInViews; }
     void slideAll(int iterations, double eps, int pointsetIndex=-1);
+    void gotoFrame(int n)
+    {
+        m_frameSlider->setValue( n + 1 );
+        m_frameSBox->setValue( n + 1 );
+        filmstripFrameNumberChanged( n + 1 );
+    }
 #if TEMPLAND_TOOLKIT_BUILD
     MatrixD* getSplineTemplate() { return m_splineTemplateLmks; }
     MatrixD* getSplineTarget() { return m_splineTargetLmks; }
@@ -75,6 +81,8 @@ public slots:
     void loadForm(FormItem*, bool loaded=false, bool focus = true, bool resetLmkViewState = true );
     void saveFormAs(FormItem*);
     bool saveForm(FormItem*);
+    bool saveTargetForm()         {return saveForm(m_targetFormItem);}
+    bool saveTemplateForm()       {return saveForm(m_templateFormItem);}
     void newTableau();
     bool loadTableau(QString f="", bool loaded=false);
     void saveTableauAs();
@@ -224,7 +232,6 @@ signals:
 private slots:
     void formUpdated(FormItem*);
     void targetFormUpdated();
-    void filmstripFrameNumberChanged( float num );
     void mapLmk(FormItem* item, int index);
     void mapAllLmk(FormItem* item, int index);
     void matchLmk(FormItem* item, int index);
@@ -237,7 +244,7 @@ private slots:
     void stateLmk(FormItem* form, ViewTreeItem* item, int index, int newState );
     void landmarkMoved( const QString& id, int space );
     void showFilmstrip( bool tog );
-
+    void filmstripFrameNumberChanged( float num );
 private:
 
     FormItem* m_templateFormItem;

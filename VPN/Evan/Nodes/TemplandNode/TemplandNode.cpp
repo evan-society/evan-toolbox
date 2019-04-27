@@ -843,7 +843,7 @@ void TemplandNode::createConsensus()
 	tlw->replaceTemplateForm(cfname);
     if(firstConsensus)
     {
-        tlw->addTableau();
+        tlw->addTableau(0);
         // Project all template landmarks and semi-landmarks to their embedding (just in case)
         tlw->projectAll(true,0);
 
@@ -890,11 +890,13 @@ void TemplandNode::slideAll()
         progress.setAutoReset(false);
         progress.setCancelButton(0);
         status("Sliding target semi-landmarks against current template...");
+//        tlw->tblMoveToStart();
         for(size_t i=0; i<tableauList.size(); ++i)
         {
-            //tlw->moveToFrame(i+1);
+            tlw->gotoFrame(i);
             tlw->slideAll(slideDialog.getIterations(),slideDialog.getEpsilon());
-            tlw->moveTableauToNext();
+            tlw->saveTargetForm();
+//            tlw->moveTableauToNext();
             progress.setValue(i);
         }
         progress.setCancelButton(new QPushButton("Done"));
