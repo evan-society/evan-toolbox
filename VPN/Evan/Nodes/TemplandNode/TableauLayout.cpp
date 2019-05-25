@@ -576,8 +576,8 @@ bool TableauLayout::projectLmkOntoSurface( ViewTreeItem* item, int index, bool c
                     }
                     else if( form->pointsets[j].state == ew::Form3::STATE_PROJECTED )
                     {
-                        if( checksurface )
-                            QMessageBox::critical( this, "Error", "Landmark already projected." );
+//                        if( checksurface )
+//                            QMessageBox::critical( this, "Error", "Landmark already projected." );
 
                         QString msg; msg = s.c_str(); msg += " has already been projected.";
                         Logger::getInstance()->log( msg, Logger::WARNING );
@@ -642,8 +642,8 @@ bool TableauLayout::projectLmkOntoCurve( ViewTreeItem* item, int index, bool che
                     }
                     else if( form->pointsets[j].state == ew::Form3::STATE_PROJECTED )
                     {
-                        if( checksurface )
-                            QMessageBox::critical( this, "Error", "Landmark already projected." );
+//                        if( checksurface )
+//                            QMessageBox::critical( this, "Error", "Landmark already projected." );
 
                         QString msg; msg = s.c_str(); msg += " has already been projected.";
                         Logger::getInstance()->log( msg, Logger::WARNING );
@@ -1183,7 +1183,7 @@ void TableauLayout::slideAll(int iterations, double eps, int pointsetIndex)
 
 						ps.locations[i * 3    ] = points[index * 3    ];
 						ps.locations[i * 3 + 1] = points[index * 3 + 1];
-						ps.locations[i * 3 + 2] = points[index * 3 + 2];
+                        ps.locations[i * 3 + 2] = points[index * 3 + 2];
 					}
 
 					error/=it->second;
