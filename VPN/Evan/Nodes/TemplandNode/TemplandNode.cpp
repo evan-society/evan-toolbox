@@ -655,10 +655,8 @@ void TemplandNode::GetSpecimens(bool flipAxis)
 					}
 				}
 				m_specimens->addLandmarkSet(lmkset);
-
-				QString value;
-				value.setNum(i+1);
-				m_specimens->setLabelValue(i, "ID", value);
+                QString id = formFile.mid(formFile.lastIndexOf("/")+1);
+                m_specimens->setLabelValue(i, "ID", id.left(id.lastIndexOf(".")));
 			}
 		}
 
