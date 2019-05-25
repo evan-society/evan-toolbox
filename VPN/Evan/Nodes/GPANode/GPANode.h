@@ -76,7 +76,12 @@ public:
 	QString toString() const;
 	void fromString(const QString&);
 
-    GPA* getGPARef() {return &m_gpa;}
+    void disableOutputFile()
+    {
+        pushButton->setDisabled(true);
+        lineEdit_3->setDisabled(true);
+    }
+    GPA* getGPARef()        {return &m_gpa;}
     void CalculateGPA();
 
 public slots:

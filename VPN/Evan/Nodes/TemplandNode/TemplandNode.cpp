@@ -689,25 +689,26 @@ void TemplandNode::createConsensus()
     QString cfname = tlw->getTemplateFormFileName();
     bool firstConsensus = !cfname.endsWith("_consensus.frm");
 
-	int lmkCount=fillLandmarkSet(m_templateLmks,templateForm,false);
-	GetSpecimens(false);
+    int lmkCount=fillLandmarkSet(m_templateLmks,templateForm,false);
+    GetSpecimens(false);
 
     const int individuals = m_specimens->getSize() + 1;
-	const int landmarks = m_specimens->getLandmarkCount();
-	const int dimensions = m_specimens->getLandmarkDimensions(); //should always be 3
-	if (lmkCount != landmarks)
-		Logger::getInstance()->log("[Templand Node] Template and target(s) do not have the same number of landmarks!", Logger::WARNING);
-	Matrix<double> data(landmarks * individuals, dimensions);
+    const int landmarks = m_specimens->getLandmarkCount();
+    const int dimensions = m_specimens->getLandmarkDimensions(); //should always be 3
+    if (lmkCount != landmarks)
+        Logger::getInstance()->log("[Templand Node] Template and target(s) do not have the same number of landmarks!", Logger::WARNING);
+    Matrix<double> data(landmarks * individuals, dimensions);
 
-	for (int i=0;i<individuals;i++) //Fill target landmarks
-	{
+    for (int i=0;i<individuals;i++) //Fill target landmarks
+    {
         LandmarkSet *lands = i<(individuals-1)?m_specimens->getLandmarkSet(i):m_templateLmks;
-		for (int j=0;j<landmarks;j++)
-			for (int k=0;k<dimensions;k++)
-				data[i*landmarks+j][k] = (*lands)[j][k];
-	}
+        for (int j=0;j<landmarks;j++)
+            for (int k=0;k<dimensions;k++)
+                data[i*landmarks+j][k] = (*lands)[j][k];
+    }
 
     GPANode gpaNode(this);
+    gpaNode.disableOutputFile();
     if(!gpaNode.exec())
     {
         status("Consensus cancelled!");
