@@ -3,9 +3,9 @@
   <Node icon=":Images/Templand.png" type="TemplandNode" name="Templand" >
    <ports>
     <output description="Landmarks for Specimen" type="LandmarkSet" />
-    <output description="Surfaces for Specimen" type="SurfaceVector" />
+    <output description="Surface(s) for Specimen" type="SurfaceVector" />
     <output description="Landmarks for Template" type="LandmarkSet" />
-    <output description="Surfaces for Template" type="SurfaceVector" />
+    <output description="Surface(s) for Template" type="SurfaceVector" />
     <output description="Template landmarks for Spline" type="LandmarkSet" />
     <output description="Specimen landmarks for Spline" type="LandmarkSet" />
     <output description="All Specimens" type="Specimens" />
