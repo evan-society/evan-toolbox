@@ -80,6 +80,8 @@ public:
     {
         pushButton->setDisabled(true);
         lineEdit_3->setDisabled(true);
+        checkBox_8->setChecked(false);
+        checkBox_8->setDisabled(true);
     }
     GPA* getGPARef()        {return &m_gpa;}
     void CalculateGPA();
