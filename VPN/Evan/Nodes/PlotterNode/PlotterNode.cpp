@@ -87,6 +87,7 @@ PlotterNode::PlotterNode(QWidget* parent) : QMainWindow(parent),  INode(),
     //m_plotArea->setAutoReplot(true);
 
     m_groupsTree = new GroupTreeWidget(this);
+    m_groupsTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_groupsTree->headerItem()->setText(0, QApplication::translate("PlotterNode", "Name", 0, QApplication::UnicodeUTF8));
     m_groupsTree->headerItem()->setText(1, QApplication::translate("PlotterNode", "Size", 0, QApplication::UnicodeUTF8));
     m_groupsTree->headerItem()->setText(2, QApplication::translate("PlotterNode", "Plot Symbol", 0, QApplication::UnicodeUTF8));
@@ -735,7 +736,7 @@ void PlotterNode::markerInColor(QColor col)
         for (int i = 0; i<m_selectedMarkers.size(); ++i)
         {
             QwtSymbol oldSymbol = m_selectedMarkers[i]->symbol();
-            if(m_cachedColor == oldSymbol.brush().color())
+            //if(m_cachedColor == oldSymbol.brush().color())
             {
                 oldSymbol.setBrush(QBrush(result));
                 m_selectedMarkers[i]->setSymbol(oldSymbol);
@@ -750,7 +751,7 @@ void PlotterNode::setMarkersSymbol(int index)
     for (int i = 0; i<m_selectedMarkers.size(); ++i)
     {
         QwtSymbol oldSymbol = m_selectedMarkers[i]->symbol();
-        if(m_cachedSymbol == oldSymbol.style())
+        //if(m_cachedSymbol == oldSymbol.style())
         {
             oldSymbol.setStyle(getSymbolFromIndex(index));
             m_selectedMarkers[i]->setSymbol(oldSymbol);
@@ -764,7 +765,7 @@ void PlotterNode::setMarkersSize(float size)
     for (int i = 0; i<m_selectedMarkers.size(); ++i)
     {
         QwtSymbol oldSymbol = m_selectedMarkers[i]->symbol();
-        if(m_cachedSize == oldSymbol.size().width())
+        //if(m_cachedSize == oldSymbol.size().width())
         {
             oldSymbol.setSize((int)(size*2.5f));
             m_selectedMarkers[i]->setSymbol(oldSymbol);
@@ -795,23 +796,25 @@ void PlotterNode::selectMarkers()
     //Clear Highlighted markes
     clearSelectedMarkers();
 
-    QTreeWidgetItem* selected = m_groupsTree->selectedItems().front();
-    m_cachedSize = (int)(selected->text(1).toFloat()*2.5f);
-    m_cachedColor = selected->data(0, Qt::DecorationRole).value<QColor>();
-    m_cachedSymbol = getSymbolFromIndex( dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(selected,2) )->currentIndex() );
-
-    GroupTreeItem* groupItem = dynamic_cast<GroupTreeItem*>(selected);
-    MemberTreeItem* memberItem = dynamic_cast<MemberTreeItem*>(selected);
-    if(groupItem)
+    foreach( QTreeWidgetItem* selected, m_groupsTree->selectedItems() )
     {
-        for(int i=0; i<groupItem->childCount(); ++i)
+//        m_cachedSize = (int)(selected->text(1).toFloat()*2.5f);
+//        m_cachedColor = selected->data(0, Qt::DecorationRole).value<QColor>();
+//        m_cachedSymbol = getSymbolFromIndex( dynamic_cast< PlotSymbolCombo* >( m_groupsTree->itemWidget(selected,2) )->currentIndex() );
+
+        GroupTreeItem* groupItem = dynamic_cast<GroupTreeItem*>(selected);
+        MemberTreeItem* memberItem = dynamic_cast<MemberTreeItem*>(selected);
+        if(groupItem)
         {
-            MemberTreeItem* mItem = dynamic_cast< MemberTreeItem* >( groupItem->child(i) );
-            highlightMember(mItem);
+            for(int i=0; i<groupItem->childCount(); ++i)
+            {
+                MemberTreeItem* mItem = dynamic_cast< MemberTreeItem* >( groupItem->child(i) );
+                highlightMember(mItem);
+            }
         }
+        else if(memberItem)
+            highlightMember(memberItem);
     }
-    else if(memberItem)
-        highlightMember(memberItem);
     m_plotArea->replot();
 }
 
@@ -1481,25 +1484,20 @@ void PlotterNode::changeTitleColor()
     }
 }
 
-void PlotterNode::changeLabel(QTreeWidgetItem* item, int num)
+void PlotterNode::changeLabel(QTreeWidgetItem* item, int column)
 {
     MemberTreeItem* changedItem = dynamic_cast< MemberTreeItem* >( item );
 
-    if ( changedItem == NULL ) {
-        //typeid( *item ).name();
+    if ( changedItem == NULL || column>0 || m_selectedMarkers.size()==0)
         return;
-    }
 
-    if(m_selectedMarkers.count() > 0)
-    {
-        QwtPlotMarker* marker = m_selectedMarkers[0];
-        QwtText oldLabel = marker->label();
-        QwtText newLabel = QString("<b>"+changedItem->text(0)+"</b>");
-        QFont font = oldLabel.font();
-        newLabel.setFont(font);
-        marker->setLabel(newLabel);
-        m_plotArea->replot();
-    }
+    QwtPlotMarker* marker = m_markerItems.value(changedItem);// m_selectedMarkers.back();
+    QwtText oldLabel = marker->label();
+    QwtText newLabel = QString("<b>"+changedItem->text(0)+"</b>");
+    QFont font = oldLabel.font();
+    newLabel.setFont(font);
+    marker->setLabel(newLabel);
+    m_plotArea->replot();
 }
 
 void PlotterNode::changeXAxisColor()
