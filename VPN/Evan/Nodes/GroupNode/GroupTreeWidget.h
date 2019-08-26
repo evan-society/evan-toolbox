@@ -83,6 +83,7 @@ public:
 public slots:
     void addNewGroup();
     void changeGroupColor();
+    void changeGroupPSymbol();
     void changeGroupPSymbol(int,int,QTreeWidgetItem*);
     void changeGroupSize(QTreeWidgetItem* item=0, float oldSize=0.0f, float newSize=0.0f, bool menu=false );
     void checkItemSize(QTreeWidgetItem*, int);

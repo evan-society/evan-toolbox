@@ -99,9 +99,9 @@ private:
     bool m_showLabels;
     bool m_loadGroups;
 
-    int m_cachedSize;
-    QwtSymbol::Style m_cachedSymbol;
-    QColor m_cachedColor;
+//    int m_cachedSize;
+//    QwtSymbol::Style m_cachedSymbol;
+//    QColor m_cachedColor;
     QColor m_cachedBGColor;
 
     QList<GroupTreeItem*> m_loadedGroupItems;
