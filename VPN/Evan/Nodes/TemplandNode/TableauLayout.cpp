@@ -1227,6 +1227,7 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
     	SlideDialog* slideDialog = new SlideDialog(this);
     	if(slideDialog->exec())
     	{
+            QApplication::setOverrideCursor(Qt::WaitCursor);
 			// get the template landmark
 			int size = m_templateTopLandmarks->childCount();
 			for( int i = 0; i < size; ++i )
@@ -1244,11 +1245,13 @@ void TableauLayout::mapAllLmk(FormItem* item, int index)
 
 			if(slideDialog->performSliding())
 				slideAll(slideDialog->getIterations(),slideDialog->getEpsilon());
+            QApplication::restoreOverrideCursor();
     	}
 		delete slideDialog;
     }
     catch( ... )
     {
+        QApplication::restoreOverrideCursor();
     }
 }
 
