@@ -81,7 +81,7 @@ ew::View3Landmarks::View3Landmarks(ew::View3Widget *i_view, int i_type) :
  form(0),
  form_checked_version(0),
  symbol(SYMBOL_CROSS),
- size(0.2),
+ size(0.5),
  dlist(0),
  highlight_ps(-1),
  highlight_i(-1)
@@ -281,20 +281,49 @@ ew::View3Landmarks::prepare()
 //{
 //  glCallList(dlist);
 //}
-void drawLmk(const GLdouble *pos, int size, int symbol)
+
+void getUpRightVector(float *up, float *right)
 {
-  switch(symbol)
-  {
-    case 0:
-    glBegin(GL_LINES);
-      GLdouble d = (((double)size)*0.5);
-      glVertex3d(pos[0],pos[1],pos[2]-d);
-      glVertex3d(pos[0],pos[1],pos[2]+d);
-      glVertex3d(pos[0]-d,pos[1],pos[2]);
-      glVertex3d(pos[0]+d,pos[1],pos[2]);
-    glEnd();
+    float modelview[16];
+
+    glGetFloatv(GL_MODELVIEW_MATRIX, modelview);
+
+    right[0] = modelview[0];
+    right[1] = modelview[4];
+    right[2] = modelview[8];
+
+    up[0] = modelview[1];
+    up[1] = modelview[5];
+    up[2] = modelview[9];
+}
+
+void drawLmk(const GLdouble *pos, const float* up, const float* right, double size, int symbol)
+{
+    GLdouble d = (size*0.5);
+    switch(symbol)
+    {
+    case 0: //cross
+        glBegin(GL_LINES);
+          glVertex3d(pos[0]-right[0]*d,pos[1]-right[1]*d,pos[2]-right[2]*d);
+          glVertex3d(pos[0]+right[0]*d,pos[1]+right[1]*d,pos[2]+right[2]*d);
+          glVertex3d(pos[0]-up[0]*d,pos[1]-up[1]*d,pos[2]-up[2]*d);
+          glVertex3d(pos[0]+up[0]*d,pos[1]+up[1]*d,pos[2]+up[2]*d);
+        glEnd();
     break;
-  }
+    case 1: //square
+        glPointSize( 8.0f*size );
+        glBegin( GL_POINTS );
+         glVertex3dv(pos);
+        glEnd();
+    break;
+    case 2: //dot
+        glPointSize( 8.0f*size );
+        glEnable(GL_POINT_SMOOTH);
+        glBegin( GL_POINTS );
+         glVertex3dv(pos);
+        glEnd();
+    break;
+    }
 }
 
 void
@@ -313,6 +342,9 @@ ew::View3Landmarks::render()
     }
     glColor3fv(c);
     unsigned int u = 0;
+    float up[3];
+    float right[3];
+    getUpRightVector(up, right);
     for (int ps = 0; ps < VectorSize(data->pointsets); ps += 1) {
       const ew::Form3PointSet *fps = &data->pointsets[ps];
       if (fps->type == ew::Form3::TYPE_LANDMARK ||
@@ -329,9 +361,9 @@ ew::View3Landmarks::render()
           }
           glLoadName(u << 2);
           glRasterPos3dv(&fps->locations[i]);
-          glBitmap(MarkersN[sy], MarkersN[sy], MarkersO[sy], MarkersO[sy], 0.0,
-           0.0, MarkersD[sy]);
-          //drawLmk(&fps->locations[i],size,sy);
+//          glBitmap(MarkersN[sy], MarkersN[sy], MarkersO[sy], MarkersO[sy], 0.0,
+//           0.0, MarkersD[sy]);
+          drawLmk(&fps->locations[i],up,right,size,sy);
           u += 1;
           if (ps == highlight_ps && i == highlight_i) {
             glColor3fv(c);

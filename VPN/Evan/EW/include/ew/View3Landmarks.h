@@ -29,7 +29,7 @@ namespace ew {
     inline int get_highlight_i() const;
     enum symbol_t {
       SYMBOL_CROSS,
-      SYMBOL_CIRCLE,
+      SYMBOL_SQUARE,
       SYMBOL_DOT
     };
     static const int N_SYMBOLS = 3;

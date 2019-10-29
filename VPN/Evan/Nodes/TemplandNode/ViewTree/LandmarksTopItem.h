@@ -72,14 +72,14 @@ public:
         m_contextMenu->addAction(colorAction);
         connect(colorAction, SIGNAL(triggered()), this, SLOT(signalColorChange()));
 
-        /*QMenu* sizeMenu = new QMenu("Size");
+        QMenu* sizeMenu = new QMenu("Size");
         QAction* sizeIncAction = new QAction("Increase", sizeMenu);
         connect(sizeIncAction, SIGNAL(triggered()), this, SLOT(signalSizeInc()));
         sizeMenu->addAction(sizeIncAction);
         QAction* sizeDecAction = new QAction("Decrease", sizeMenu);
         connect(sizeDecAction, SIGNAL(triggered()), this, SLOT(signalSizeDec()));
         sizeMenu->addAction(sizeDecAction);
-        m_contextMenu->addMenu(sizeMenu);*/
+        m_contextMenu->addMenu(sizeMenu);
         
 //        QAction* labelsAction = new QAction("Labels", m_contextMenu);
 //        labelsAction->setCheckable(true);
@@ -98,9 +98,9 @@ public:
         connect(crossAction, SIGNAL(triggered()), this, SLOT(signalXSymbol()));
         symbolMenu->addAction(crossAction);
 
-        QAction* circleAction = new QAction("Circle", symbolMenu);
+        QAction* circleAction = new QAction("Square", symbolMenu);
         circleAction->setCheckable(true);
-        connect(circleAction, SIGNAL(triggered()), this, SLOT(signalCircleSymbol()));
+        connect(circleAction, SIGNAL(triggered()), this, SLOT(signalSquareSymbol()));
         symbolMenu->addAction(circleAction);
 
         QAction* dotAction = new QAction("Dot", symbolMenu);
@@ -207,7 +207,7 @@ public slots:
     void signalSizeInc() {emit lmkSizeChange(m_parentForm, true);}
     void signalSizeDec() {emit lmkSizeChange(m_parentForm, false);}
     void signalXSymbol() {emit lmkSymbolChanged(m_parentForm, ew::View3Landmarks::SYMBOL_CROSS);}
-    void signalCircleSymbol() {emit lmkSymbolChanged(m_parentForm, ew::View3Landmarks::SYMBOL_CIRCLE);}
+    void signalSquareSymbol() {emit lmkSymbolChanged(m_parentForm, ew::View3Landmarks::SYMBOL_SQUARE);}
     void signalDotSymbol() {emit lmkSymbolChanged(m_parentForm, ew::View3Landmarks::SYMBOL_DOT);}
     void signalColorChange() {emit lmkColorChanged(m_parentForm);}
     void mapAllLmk() {emit lmkMappedAll(m_parentForm, -1);}
