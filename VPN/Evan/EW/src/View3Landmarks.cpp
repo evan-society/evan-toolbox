@@ -312,6 +312,7 @@ void drawLmk(const GLdouble *pos, const float* up, const float* right, double si
     break;
     case 1: //square
         glPointSize( 8.0f*size );
+        glDisable(GL_POINT_SMOOTH);
         glBegin( GL_POINTS );
          glVertex3dv(pos);
         glEnd();
