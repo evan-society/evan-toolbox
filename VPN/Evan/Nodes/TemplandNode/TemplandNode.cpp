@@ -835,6 +835,7 @@ void TemplandNode::createConsensus()
 	}
 
 	// Now save consensus form to disk
+    const QString oldTemplateFormName = cfname;
 	status("Saving consensus to disk...");
     if(firstConsensus) cfname = cfname.left( cfname.lastIndexOf(".frm") ) + "_consensus.frm";
 	consensusForm.write_file(cfname.toStdString().c_str(),false);
@@ -842,13 +843,21 @@ void TemplandNode::createConsensus()
 	tlw->replaceTemplateForm(cfname);
     if(firstConsensus)
     {
-        tlw->addTableau(0);
+        bool templateFound = false;
+        const std::vector<ew::Dig3Tableau>& tableauList = tlw->getTableauList();
+        for(size_t i=0; i<tableauList.size(); ++i)
+            if(tableauList[i].space[1].form_filename.c_str() == oldTemplateFormName)
+            {
+                templateFound = true;
+                break;
+            }
+        if(!templateFound)
+            tlw->addTableau(0);
         // Project all template landmarks and semi-landmarks to their embedding (just in case)
         tlw->projectAll(true,0);
 
         //4- Replace templates of all targets with the consensus
         status("Replacing template with consensus...");
-        const std::vector<ew::Dig3Tableau>& tableauList = tlw->getTableauList();
         for(size_t i=0; i<tableauList.size(); ++i)
         {
             ew::Dig3Tableau currentTbl = tableauList[i];
