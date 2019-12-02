@@ -142,7 +142,7 @@ ew::View3Landmarks::get_bbox()
 void
 ew::View3Landmarks::change_size(bool up)
 {
-  size*= up?1.1:0.9;
+  size*= up?1.25:0.75;
   // printf("Size %f\n", size);
 
   //if(size<=1) size=1;    
