@@ -81,13 +81,15 @@ ew::View3Landmarks::View3Landmarks(ew::View3Widget *i_view, int i_type) :
  form(0),
  form_checked_version(0),
  symbol(SYMBOL_CROSS),
- size(0.5),
+ symbol_size(8),
+ cross_symbol_data(0),
  dlist(0),
  highlight_ps(-1),
  highlight_i(-1)
 {
   color[0] = color[2] = 0;
   color[1] = 255;
+  recreate_cross_symbol();
 }
 
 ew::View3Landmarks::~View3Landmarks()
@@ -99,6 +101,8 @@ ew::View3Landmarks::~View3Landmarks()
   if (dlist) {
     glDeleteLists(dlist, 1);
   }
+  if(cross_symbol_data != 0)
+      delete [] cross_symbol_data;
 }
 
 /// @param frm
@@ -142,10 +146,13 @@ ew::View3Landmarks::get_bbox()
 void
 ew::View3Landmarks::change_size(bool up)
 {
-  size*= up?1.25:0.75;
+  symbol_size += up?8:-8;
   // printf("Size %f\n", size);
 
-  //if(size<=1) size=1;    
+  if(symbol_size<=8) symbol_size=8;
+
+  recreate_cross_symbol();
+
   ew::View3Item::prepared = false;
   if (ew::View3Item::get_state()) {
     ew::View3Item::redraw_view_later();
@@ -281,8 +288,23 @@ ew::View3Landmarks::prepare()
 //{
 //  glCallList(dlist);
 //}
+void
+ew::View3Landmarks::recreate_cross_symbol()
+{
+    if(cross_symbol_data != 0)
+        delete [] cross_symbol_data;
+    int N = symbol_size+1;
+    int bytes = (N/8) + (N%8>0?1:0);
+    cross_symbol_data = new GLubyte[N*bytes];
+    for(int i=0; i<N; ++i) //for every row
+        for(int b=0; b<bytes; ++b)
+            cross_symbol_data[(i*bytes)+b] = (b == (bytes/2)-1)?((bytes%2)?0x1:0x08):0x00;
+    //mid line
+    for(int b=0; b<bytes; ++b)
+        cross_symbol_data[((symbol_size/2)*bytes)+b] = (b == bytes-1)?0x08:0xff;
+}
 
-void getUpRightVector(float *up, float *right)
+void getUpRightVector(float *up, float *right, float* mv_lastrow)
 {
     float modelview[16];
 
@@ -295,30 +317,40 @@ void getUpRightVector(float *up, float *right)
     up[0] = modelview[1];
     up[1] = modelview[5];
     up[2] = modelview[9];
+
+    mv_lastrow[0] = modelview[3];
+    mv_lastrow[1] = modelview[7];
+    mv_lastrow[2] = modelview[11];
+    mv_lastrow[3] = modelview[15];
 }
 
-void drawLmk(const GLdouble *pos, const float* up, const float* right, double size, int symbol)
+void drawLmk(const GLdouble *pos, const GLubyte* cross_data,
+             int size, int symbol)
 {
-    GLdouble d = (size*0.5);
     switch(symbol)
     {
     case 0: //cross
-        glBegin(GL_LINES);
-          glVertex3d(pos[0]-right[0]*d,pos[1]-right[1]*d,pos[2]-right[2]*d);
-          glVertex3d(pos[0]+right[0]*d,pos[1]+right[1]*d,pos[2]+right[2]*d);
-          glVertex3d(pos[0]-up[0]*d,pos[1]-up[1]*d,pos[2]-up[2]*d);
-          glVertex3d(pos[0]+up[0]*d,pos[1]+up[1]*d,pos[2]+up[2]*d);
-        glEnd();
+//        d /=  mv_lastrow[0]*pos[0] + mv_lastrow[1]*pos[1] +
+//              mv_lastrow[2]*pos[2] + mv_lastrow[3];
+//        glBegin(GL_LINES);
+//          glVertex3d(pos[0]-right[0]*d,pos[1]-right[1]*d,pos[2]-right[2]*d);
+//          glVertex3d(pos[0]+right[0]*d,pos[1]+right[1]*d,pos[2]+right[2]*d);
+//          glVertex3d(pos[0]-up[0]*d,pos[1]-up[1]*d,pos[2]-up[2]*d);
+//          glVertex3d(pos[0]+up[0]*d,pos[1]+up[1]*d,pos[2]+up[2]*d);
+//        glEnd();
+//        glPixelZoom(d,d);
+        glBitmap(size+1, size+1, ((GLfloat)size/2.), ((GLfloat)size/2.), 0.0,
+                   0.0, cross_data);
     break;
     case 1: //square
-        glPointSize( 8.0f*size );
+        glPointSize(size/2.);
         glDisable(GL_POINT_SMOOTH);
         glBegin( GL_POINTS );
          glVertex3dv(pos);
         glEnd();
     break;
     case 2: //dot
-        glPointSize( 8.0f*size );
+        glPointSize(size/2.);
         glEnable(GL_POINT_SMOOTH);
         glBegin( GL_POINTS );
          glVertex3dv(pos);
@@ -343,14 +375,14 @@ ew::View3Landmarks::render()
     }
     glColor3fv(c);
     unsigned int u = 0;
-    float up[3];
-    float right[3];
-    getUpRightVector(up, right);
-    for (int ps = 0; ps < VectorSize(data->pointsets); ps += 1) {
+    for (int ps = 0; ps < VectorSize(data->pointsets); ps += 1)
+    {
       const ew::Form3PointSet *fps = &data->pointsets[ps];
       if (fps->type == ew::Form3::TYPE_LANDMARK ||
-       fps->type == ew::Form3::TYPE_SEMI_LANDMARK) {
-        for (int i = 0; i < VectorSize(fps->locations); i += 3) {
+       fps->type == ew::Form3::TYPE_SEMI_LANDMARK)
+      {
+        for (int i = 0; i < VectorSize(fps->locations); i += 3)
+        {
           if (ps == highlight_ps && i == highlight_i) {
             const unsigned char *hc =
              ew::View3Item::view->get_highlight_color();
@@ -364,11 +396,10 @@ ew::View3Landmarks::render()
           glRasterPos3dv(&fps->locations[i]);
 //          glBitmap(MarkersN[sy], MarkersN[sy], MarkersO[sy], MarkersO[sy], 0.0,
 //           0.0, MarkersD[sy]);
-          drawLmk(&fps->locations[i],up,right,size,sy);
+          drawLmk(&fps->locations[i],cross_symbol_data,symbol_size,sy);
           u += 1;
-          if (ps == highlight_ps && i == highlight_i) {
+          if (ps == highlight_ps && i == highlight_i)
             glColor3fv(c);
-          }
         }
       }
     }
