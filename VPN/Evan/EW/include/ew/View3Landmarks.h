@@ -13,6 +13,7 @@
 #include "ew/DebugHelper.h"
 #include "ew/View3Item.h"
 #include "ew/View3Widget.h"
+#include <GL/gl.h>
 
 namespace ew {
   class View3Landmarks : public ew::View3Item {
@@ -52,10 +53,12 @@ namespace ew {
     virtual void clear_highlight();
     virtual void prepare();
     virtual void render();
+    virtual void recreate_cross_symbol();
     const ew::DataflowForm3 *form;
     unsigned long form_checked_version;
     int symbol;
-    float size;
+    int symbol_size; //pixels
+    GLubyte* cross_symbol_data;
     unsigned char color[3];
     unsigned int dlist;
     int highlight_ps;
