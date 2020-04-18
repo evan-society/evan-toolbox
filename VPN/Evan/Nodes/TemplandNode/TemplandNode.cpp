@@ -725,7 +725,7 @@ void TemplandNode::createConsensus()
 	MatrixD transMat;
     gpa->GetTransformationMatrix(individuals-1,&transMat); //Template is the last specimen
 	meanSpecimen.transform(!transMat);
-    if(firstConsensus) tlw->replaceTargetForm(tlw->getTemplateFormFileName());
+//    if(firstConsensus) tlw->replaceTargetForm(tlw->getTemplateFormFileName());
 
 	//Set mean shape as the new template
 	ew::Form3 consensusForm(*templateForm);
@@ -840,7 +840,7 @@ void TemplandNode::createConsensus()
     if(firstConsensus) cfname = cfname.left( cfname.lastIndexOf(".frm") ) + "_consensus.frm";
 	consensusForm.write_file(cfname.toStdString().c_str(),false);
 
-	tlw->replaceTemplateForm(cfname);
+    tlw->replaceTemplateForm(cfname);
     if(firstConsensus)
     {
         bool templateFound = false;
@@ -852,7 +852,10 @@ void TemplandNode::createConsensus()
                 break;
             }
         if(!templateFound)
+        {
+            tlw->replaceTargetForm(oldTemplateFormName);
             tlw->addTableau(0);
+        }
         // Project all template landmarks and semi-landmarks to their embedding (just in case)
         tlw->projectAll(true,0);
 
