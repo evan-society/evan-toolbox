@@ -16,7 +16,7 @@
     <output description="Imported Specimens" type="Specimens" />
     <output description="Imported Surface" type="Surface" />
     <output description="Imported Matrix" type="Variables" />
-    <output description="Imported Volume" type="Volume" />
+    <!-- <output description="Imported Volume" type="Volume" /> -->
    </ports>
   </Node>
   <Node tooltip="Export Data" icon=":Images/Export.png" type="ExportNode" name="Export" >
