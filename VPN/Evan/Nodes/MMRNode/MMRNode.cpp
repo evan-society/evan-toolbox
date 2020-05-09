@@ -1555,8 +1555,8 @@ void MMRNode::PrintOutput()
 
     double explained_var = (1.0 - SS_err/SS_tot)*100;
 
-    outfile<< "Total sum of sqauares "<<SS_tot<<endl;
-    outfile<< explained_var <<" %  of the variance accounted for by the selected independed variables is explained by this regression."<<endl;
+    outfile<< "Total sum of squares "<<SS_tot<<endl;
+    outfile<< explained_var <<" % of the total variance is accounted for by the selected independent variable(s)."<<endl;
 
 //    outfile<< "Total sample variance explained by this regression:\t" << bla <<" %"<<endl;
 
