@@ -44,7 +44,7 @@ protected:
 	void setOutputPort0(Specimens* p)   {setOutputData(0,p);}
 	void setOutputPort1(Surface* p)     {setOutputData(1,p);}
 	void setOutputPort2(Variables* p)   {setOutputData(2,p);}
-	void setOutputPort3(Volumes* p)     {setOutputData(3,p);}
+//	void setOutputPort3(Volumes* p)     {setOutputData(3,p);}
 
 public:
 	ImportNode(QWidget* parent=0);
