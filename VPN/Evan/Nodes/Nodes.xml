@@ -123,8 +123,8 @@
     <output description="Uniform Part" type="Specimens" />
     <output description="Transformed Surface" type="Surface" />
     <output description="Mean Surface" type="Surface" />
-    <output description="Shape vectors" type="Variables" />
-    <output description="Form vectors" type="Variables" />
+    <!-- <output description="Shape vectors" type="Variables" />
+    <output description="Form vectors" type="Variables" /> -->
     <input optional="0" description="Specimens" type="Specimens" />
     <input optional="1" description="Surface" type="Surface" />
    </ports>

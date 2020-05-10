@@ -532,8 +532,8 @@ void GPANode::process()
         m_formVectors->setColumnLabel(landmarks*dimensions,"Ln(CS)");
     }
 
-    setOutputPort9(m_shapeVectors);
-    setOutputPort10(m_formVectors);
+//    setOutputPort9(m_shapeVectors);
+//    setOutputPort10(m_formVectors);
 
     if(lineEdit_3->text() != "")
     {
