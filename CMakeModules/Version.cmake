@@ -1,8 +1,8 @@
 #
-# Make a version file that includes the FPL version and git revision
+# Make a version file that includes ET version and git revision
 #
 SET(ET_VERSION_MAJOR "1")
-SET(ET_VERSION_MINOR "72")
+SET(ET_VERSION_MINOR "75")
 SET(ET_VERSION_PATCH "0")
 
 SET(ET_VERSION "${ET_VERSION_MAJOR}.${ET_VERSION_MINOR}.${ET_VERSION_PATCH}")
