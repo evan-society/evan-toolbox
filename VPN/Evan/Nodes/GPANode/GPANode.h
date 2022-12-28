@@ -54,8 +54,8 @@ protected:
     void setOutputPort6(Specimens* p)           {setOutputData(6,p);}
     void setOutputPort7(Surface* p)             {setOutputData(7,p);}
     void setOutputPort8(Surface* p)             {setOutputData(8,p);}
-    void setOutputPort9(Variables* p)           {setOutputData(9,p);}
-    void setOutputPort10(Variables* p)          {setOutputData(10,p);}
+//    void setOutputPort9(Variables* p)           {setOutputData(9,p);}
+//    void setOutputPort10(Variables* p)          {setOutputData(10,p);}
 
 public:
     GPANode(QWidget* parent=0);

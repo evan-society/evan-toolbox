@@ -500,7 +500,7 @@ public:
 
         verticalLayout_7->addWidget(groupBox_3);
 
-        tabWidget->addTab(Volume, QString());
+        //tabWidget->addTab(Volume, QString());
 
         verticalLayout_3->addWidget(tabWidget);
 
