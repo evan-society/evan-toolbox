@@ -4,3 +4,29 @@ The EVAN Toolbox (ET) is a software package developed by the European Virtual An
 The idea behind the EVAN Toolbox is to make your life easier if your task is to analyse 3D shape and form of complexly shaped objects as we find them, for instance, in biology and medicine. ET is particularly focused on the advanced visualisation of shape and form comparisons. ET interacts with its users in the form of a programmable network in which the operator specifies the flow of information and control among various components, called nodes.
 
 The EVAN Toolbox is intended for research and education purposes. If you use ET for your work, please don’t forget to acknowledge the EVAN Toolbox in the appropriate section of your publication.
+
+## Dependencies
+ET requires the following libraries. It was tested with the versions listed below, but newer versions may also work if backward compatible.
+- CMake>=3.0.2
+- lapack==3.4.0
+- libiconv==1.14
+- libxml2==2.9.1
+- OpenSceneGraph==3.4.1
+- Qt==4.8.7
+- qwt==5.2.3
+- qwtplot3d==0.2.6
+- SDL==1.2.15
+
+## Building from source
+Cmake is used to configure the compilation and linking process for ET. It was previously built and tested on Windows (with `TDM-GCC-32`)  and Linux (with `gcc`) operating systems and should also work on MacOS systems if the dependencies are available and built correctly. Example build steps are the following (after installing/building dependencies):
+```
+git clone https://github.com/evan-society/evan-toolbox.git
+cd evan-toolbox
+mkdir build
+cd build && cmake-gui ..
+```
+After setting the dpendency paths in CMake GUI or the command line and generating a Makefile (or equivalent), a binary can be generated with
+```
+make install
+```
+If all goes well, A binary called `ET` will be created under the top directory, or under the specified `CMAKE_INSTALL_PREFIX`.
