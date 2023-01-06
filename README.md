@@ -30,3 +30,6 @@ After setting the dpendency paths in CMake GUI or the command line and generatin
 make install
 ```
 If all goes well, A binary called `ET` will be created under the top directory, or under the specified `CMAKE_INSTALL_PREFIX`.
+
+## Pre-built Binaries
+A pre-built installer for Windows is available from the official [Evan-Society webpage](https://www.evan-society.org/support/download-evan-toolbox/)
