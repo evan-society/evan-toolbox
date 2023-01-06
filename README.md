@@ -1,3 +1,5 @@
+![Logo](https://user-images.githubusercontent.com/696719/211114994-0b5d63f0-8d21-4661-ba32-e9208887fb57.png)
+
 # ET Open Space
 The EVAN Toolbox (ET) is a software package developed by the European Virtual Anthropology Network – EVAN (www.evan.at) and the EVAN-Society to facilitate form and shape analysis of objects featuring a complex geometry. It uses Geometric Morphometrics (GM) which includes methods such as General Procrustes Analysis, Principal Component Analysis, Thin-Plate Spline Warping or Partial Least Squares Analysis. The software supports data acquisition, i.e. to locate landmarks and semilandmarks on curves and surfaces.
 
@@ -33,3 +35,6 @@ If all goes well, A binary called `ET` will be created under the top directory, 
 
 ## Pre-built Binaries
 A pre-built installer for Windows is available from the official [Evan-Society webpage](https://www.evan-society.org/support/download-evan-toolbox/)
+
+## License
+The Evan Toolbox has MIT-style license, as found in the [LICENSE](LICENSE) file.
