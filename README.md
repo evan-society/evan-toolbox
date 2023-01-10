@@ -37,4 +37,4 @@ If all goes well, A binary called `ET` will be created under the top directory, 
 A pre-built installer for Windows is available from the official [Evan-Society webpage](https://www.evan-society.org/support/download-evan-toolbox/)
 
 ## License
-The Evan Toolbox has MIT-style license, as found in the [LICENSE](LICENSE) file.
+The Evan Toolbox has a GPL license, as found in the [LICENSE](LICENSE) file.
